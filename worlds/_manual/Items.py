@@ -1,21 +1,6 @@
-import json
-import os
-
 from BaseClasses import Item
-from .Game import filler_item_name
-
-######################
-# Load item tables from JSON
-######################
-
-item_table = {}
-with open(os.path.join(os.path.dirname(__file__), '_items.json'), 'r') as file:
-    item_table = json.loads(file.read())
-
-progressive_item_table = {}
-# with open(os.path.join(os.path.dirname(__file__), '_progressive_items.json'), 'r') as file:
-#     if file:        
-#         progressive_item_table = json.loads(file.read())
+from .Data import item_table, progressive_item_table
+from .Game import filler_item_name, starting_index
 
 ######################
 # Generate item lookups
@@ -26,7 +11,7 @@ item_name_to_item = {}
 advancement_item_names = set()
 lastItemId = -1
 
-count = 777000
+count = starting_index
 
 # add the filler item to the list of items for lookup
 item_table.append({

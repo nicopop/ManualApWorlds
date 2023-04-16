@@ -1,6 +1,7 @@
+from .Data import item_table, progressive_item_table, location_table
 from .Game import game_name, filler_item_name
-from .Locations import location_table, location_id_to_name, location_name_to_id
-from .Items import item_table, progressive_item_table, item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
+from .Locations import location_id_to_name, location_name_to_id
+from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
 
 from .Regions import create_regions
 from .Items import ManualItem

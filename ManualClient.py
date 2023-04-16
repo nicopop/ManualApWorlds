@@ -1,14 +1,7 @@
 from __future__ import annotations
-from worlds.manual.Items import item_name_to_id, item_id_to_name
-from worlds.manual.Locations import location_name_to_id, location_id_to_name
-from worlds.manual.Game import game_name, filler_item_name
-from NetUtils import NetworkItem
+from worlds import AutoWorldRegister
 
-import os
-import sys
 import asyncio
-import shutil
-import logging
 
 import ModuleUpdate
 ModuleUpdate.update()
@@ -32,9 +25,9 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
 
 class ManualContext(CommonContext):
     command_processor: int = ManualClientCommandProcessor
-    game = game_name # this gets overwritten below on server auth
+    game = "not set" # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
-    
+
     def __init__(self, server_address, password):
         super(ManualContext, self).__init__(server_address, password)
         self.send_index: int = 0
@@ -46,6 +39,8 @@ class ManualContext(CommonContext):
             await super(ManualContext, self).server_auth(password_requested)
         
         self.game = self.ui.game_bar_text.text
+
+        self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
 
         await self.get_username()
         await self.send_connect()
@@ -115,7 +110,7 @@ class ManualContext(CommonContext):
 
                 game_bar_label = Label(text="Manual Game ID", size=(150, 30), size_hint_y=None, size_hint_x=None)
                 self.manual_game_layout.add_widget(game_bar_label)
-                self.game_bar_text = TextInput(text=game_name or "Manual_{\"game\" from _game.json}_{\"player\" from _game.json}", 
+                self.game_bar_text = TextInput(text="Manual_{\"game\" from game.json}_{\"player\" from game.json}", 
                                                 size_hint_y=None, height=30, multiline=False, write_tab=False)          
                 self.manual_game_layout.add_widget(self.game_bar_text)
 
@@ -149,7 +144,7 @@ class ManualContext(CommonContext):
 
                 for network_item in self.ctx.items_received: 
                     if (network_item.item not in listed_items):
-                        item_text = Label(text=item_id_to_name[network_item.item], size_hint=(None, None), height=30, width=400)
+                        item_text = Label(text=self.ctx.item_names[network_item.item], size_hint=(None, None), height=30, width=400)
                         tracker_panel.add_widget(item_text)
 
                         listed_items.add(network_item.item)
@@ -163,12 +158,12 @@ class ManualContext(CommonContext):
                                 Label(text="Remaining Locations (%d)" % (locations_length), size_hint_y=None, height=50, outline_width=1))
                 
                 for location_id in self.ctx.missing_locations:
-                    location_button = Button(text=location_id_to_name[location_id], size_hint=(None, None), height=30, width=400)
+                    location_button = Button(text=self.ctx.location_names[location_id], size_hint=(None, None), height=30, width=400)
                     location_button.bind(on_press=self.location_button_callback)
                     locations_panel.add_widget(location_button)
 
                 # Add the Victory location to be marked at any point
-                location_button = Button(text="Victory! (seed finished)", size_hint=(None, None), height=30, width=400)
+                location_button = Button(text="VICTORY! (seed finished)", size_hint=(None, None), height=30, width=400)
                 location_button.bind(on_press=self.victory_button_callback)
                 locations_panel.add_widget(location_button)
                 
@@ -178,8 +173,9 @@ class ManualContext(CommonContext):
                 self.tracker_and_locations_panel.add_widget(locations_panel_scrollable)
                     
             def location_button_callback(self, button):
-                location_id = location_name_to_id[button.text]
-
+                # location_id = AutoWorldRegister.world_types[self.ctx.game].location_name_to_id[button.text];
+                location_id = self.ctx.location_names_to_id[button.text]
+                
                 if location_id:
                     self.ctx.locations_checked.append(location_id)
                     self.ctx.syncing = True

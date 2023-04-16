@@ -1,21 +1,12 @@
-import json
-import os
-
 from BaseClasses import Location
-
-######################
-# Load location tables from JSON
-######################
-
-location_table = {}
-with open(os.path.join(os.path.dirname(__file__), '_locations.json'), 'r') as file:
-    location_table = json.loads(file.read())
+from .Data import location_table
+from .Game import starting_index
 
 ######################
 # Generate location lookups
 ######################
 
-count = 787000
+count = starting_index + 500 # 500 each for items and locations
 
 # add sequential generated ids to the lists
 for key, _ in enumerate(location_table):
