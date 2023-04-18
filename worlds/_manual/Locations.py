@@ -7,9 +7,16 @@ from .Game import starting_index
 ######################
 
 count = starting_index + 500 # 500 each for items and locations
+custom_victory_location = {}
 
 # add sequential generated ids to the lists
 for key, _ in enumerate(location_table):
+    if "victory" in location_table[key] and location_table[key]["victory"]:
+        custom_victory_location = location_table[key]
+        location_table.pop(key) # remove the user-specified victory location and only use the default
+        
+        continue
+
     location_table[key]["id"] = count
     location_table[key]["region"] = "Manual" # all locations are in the same region for Manual
     count += 1
@@ -19,7 +26,7 @@ location_table.append({
     "id": count + 1,
     "name": "__Manual Game Complete__",
     "region": "Manual",
-    "requires": []
+    "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else []
 })
 
 location_id_to_name = {}

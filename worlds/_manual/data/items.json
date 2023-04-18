@@ -1,23 +1,31 @@
-[ 
-    { "name": "Spirit Box", "progression": true },
-    { "name": "Ghost Writing Book", "progression": true },
-    { "name": "EMF Reader", "progression": true },
-    { "name": "UV Flashlight", "progression": true },
-    { "name": "Weak Flashlight", "progression": true },
-    { "name": "Video Camera", "progression": true },
-    { "name": "D.O.T.S Projector", "progression": true },
-    { "name": "Thermometer", "progression": true },
-    { "name": "Strong Flashlight" },
-    { "name": "Photo Camera" },
-    { "name": "Candle" },
-    { "name": "Crucifix" },
-    { "name": "Glowstick" },
-    { "name": "Lighter" },
-    { "name": "Motion Sensor" },
-    { "name": "Parabolic Microphone" },
-    { "name": "Salt" },
-    { "name": "Sanity Pills" },
-    { "name": "Smudge Sticks" },
-    { "name": "Sound Sensor" },
-    { "name": "Tripod" }
+[  
+    { 
+        "name": "Level Key:6", 
+        "progression": true 
+    },
+    { 
+        "name": "A Wild Theo Appears", 
+        "progression": true 
+    },
+    { 
+        "name": "Cackling Grandma", 
+        "progression": true 
+    },
+    { 
+        "name": "Badeline Upgrade", 
+        "progression": true 
+    },
+    { 
+        "name": "Burrito at Flag 1", 
+        "progression": true 
+    },
+    { 
+        "name": "Burrito at Flag 9", 
+        "useful": true
+    },
+    { 
+        "name": "Partially Eaten Burrito", 
+        "progression": false,
+        "useful": false
+    }
 ]

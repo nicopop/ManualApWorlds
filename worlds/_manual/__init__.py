@@ -58,8 +58,14 @@ class ManualWorld(World):
     def generate_basic(self):
         # Generate item pool
         pool = []
-        for name in self.item_id_to_name.values():
+        configured_item_names = self.item_id_to_name.copy()
+
+        for name in configured_item_names.values():
             if name == "__Victory__":
+                continue
+
+            # If it's the filler item, skip it until we know if we need any extra items
+            if name == filler_item_name:
                 continue
 
             if (hasattr(self.multiworld, "progressive_items") and len(self.multiworld.progressive_items) > 0):
@@ -69,18 +75,42 @@ class ManualWorld(World):
                     name = self.progressive_item_table[name]            
 
             item = self.item_name_to_item[name]
+            classification = ItemClassification.filler
 
-            manual_item = ManualItem(name, ItemClassification.progression if item["progression"] else ItemClassification.filler,
-                        self.item_name_to_id[name], player=self.player)
+            if "useful" in item and item["useful"]:
+                classification = ItemClassification.useful
 
-            pool.append(manual_item)
+            if "progression" in item and item["progression"]:
+                classification = ItemClassification.progression
 
-        extras = len(location_table) - len(item_table) - 1 # Victory takes up 1 unaccounted-for slot
+            item_name_parts = name.split(":")
+            item_name = name
+            item_count = 1
+
+            if len(item_name_parts) > 1:
+                item_name = item_name_parts[0]
+                item_count = int(item_name_parts[1])
+
+            for i in range(item_count):
+                manual_item = ManualItem(item_name, classification,
+                            self.item_name_to_id[name], player=self.player)
+                
+                pool.append(manual_item)
+                
+            if len(item_name_parts) > 1:
+                # remove the item with a count from the lookups and replace them with the item without
+                self.item_name_to_item.pop(name)
+                self.item_name_to_item[item_name] = item
+                self.item_id_to_name[item["id"]] = item_name
+
+
+        extras = len(location_table) - len(pool) - 1 # subtracting 1 because of Victory; seems right
+
         if extras > 0:
             for i in range(0, extras):
                 manual_item = ManualItem(filler_item_name, ItemClassification.filler,
                     self.item_name_to_id[filler_item_name], player=self.player)
-                
+                                
                 pool.append(manual_item)
 
         self.multiworld.itempool += pool

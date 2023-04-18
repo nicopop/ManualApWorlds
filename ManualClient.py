@@ -42,6 +42,17 @@ class ManualContext(CommonContext):
 
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
 
+        # if the item name has a number after it, remove it
+        for item_id, name in enumerate(self.item_names):
+            if not isinstance(name, str):
+                continue
+
+            name_parts = name.split(":")
+
+            if len(name_parts) > 1:
+                self.item_names.pop(name)
+                self.item_names[name_parts[0]] = item_id
+
         await self.get_username()
         await self.send_connect()
 
@@ -144,25 +155,27 @@ class ManualContext(CommonContext):
 
                 for network_item in self.ctx.items_received: 
                     if (network_item.item not in listed_items):
-                        item_text = Label(text=self.ctx.item_names[network_item.item], size_hint=(None, None), height=30, width=400)
+                        item_name_parts = self.ctx.item_names[network_item.item].split(":")
+                        
+                        item_count = len(list(item for item in self.ctx.items_received if item.item == network_item.item))
+                        item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), size_hint=(None, None), height=30, width=400)
                         tracker_panel.add_widget(item_text)
 
                         listed_items.add(network_item.item)
-                pass
 
                 locations_length = len(self.ctx.missing_locations)
                 locations_panel_scrollable = LocationsLayoutScrollable()
                 locations_panel = LocationsLayout(cols = 1, size_hint = (None, None))
                 locations_panel.bind(minimum_height = locations_panel.setter('height'))
                 self.tracker_and_locations_panel.add_widget(
-                                Label(text="Remaining Locations (%d)" % (locations_length), size_hint_y=None, height=50, outline_width=1))
+                                Label(text="Remaining Locations (%d)" % (locations_length + 1), size_hint_y=None, height=50, outline_width=1))
                 
                 for location_id in self.ctx.missing_locations:
                     location_button = Button(text=self.ctx.location_names[location_id], size_hint=(None, None), height=30, width=400)
                     location_button.bind(on_press=self.location_button_callback)
                     locations_panel.add_widget(location_button)
 
-                # Add the Victory location to be marked at any point
+                # Add the Victory location to be marked at any point, which is why locations length has 1 added to it above
                 location_button = Button(text="VICTORY! (seed finished)", size_hint=(None, None), height=30, width=400)
                 location_button.bind(on_press=self.victory_button_callback)
                 locations_panel.add_widget(location_button)
