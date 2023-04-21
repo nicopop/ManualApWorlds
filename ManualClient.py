@@ -38,6 +38,9 @@ class ManualContext(CommonContext):
         if password_requested and not self.password:
             await super(ManualContext, self).server_auth(password_requested)
         
+        if "Manual_" not in self.ui.game_bar_text.text:
+            raise Exception("The Manual client can only be used for Manual games.")
+
         self.game = self.ui.game_bar_text.text
 
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
@@ -188,10 +191,11 @@ class ManualContext(CommonContext):
             def location_button_callback(self, button):
                 # location_id = AutoWorldRegister.world_types[self.ctx.game].location_name_to_id[button.text];
                 location_id = self.ctx.location_names_to_id[button.text]
-                
+
                 if location_id:
                     self.ctx.locations_checked.append(location_id)
                     self.ctx.syncing = True
+
                     # message = [{"cmd": 'LocationChecks', "locations": [location_id]}]
                     # self.ctx.send_msgs(message)
 
