@@ -29,7 +29,7 @@ def infix_to_postfix(expr):
     return postfix
 
 
-def evaluate_postfix(expr):
+def evaluate_postfix(expr, location):
     stack = []
     for c in expr:
         if c == "0":
@@ -47,6 +47,9 @@ def evaluate_postfix(expr):
         elif c == "!":
             op = stack.pop()
             stack.append(not op)
+
+    if len(stack) != 1:
+        raise KeyError("Invalid logic format for location {}.".format(location["name"]))
     return stack.pop()
 
 
@@ -60,15 +63,15 @@ def set_rules(base: World, world: MultiWorld, player: int):
 
                 def fullLocationCheckString(state, location=location):
                     # parse user written statement into list of each item
-                    # regex probaly misses some cases i have to relearn regex everytime i use it
-                    reqires_raw = re.split('(\&&|\|\||\)|\(| AND | OR )', location["requires"])
-                    reqires_stripped = [x.strip() for x in reqires_raw]
-                    requires_list = [x for x in reqires_stripped if x != '']
-                    
+                    reqires_raw = re.split('(\AND|\)|\(|OR|\|)', location["requires"])
+                    remove_spaces = [x.strip() for x in reqires_raw]
+                    remove_empty = [x for x in remove_spaces if x != '']
+                    requires_list = [x for x in remove_empty if x != '|']
+
                     for i, item in enumerate(requires_list):
-                        if item == "||" or item == "OR":
+                        if item.lower() == "or":
                             requires_list[i] = "|"
-                        elif item == "&&" or item == "AND":
+                        elif item.lower() == "and":
                             requires_list[i] = "&"
                         elif item == ")" or item == "(":
                             continue
@@ -87,7 +90,7 @@ def set_rules(base: World, world: MultiWorld, player: int):
                                 requires_list[i] = "0"
 
                     requires_string = infix_to_postfix("".join(requires_list))
-                    return (evaluate_postfix(requires_string))
+                    return (evaluate_postfix(requires_string, location))
 
                 set_rule(locFromWorld, fullLocationCheckString)
 
