@@ -64,12 +64,14 @@ def set_rules(base: World, world: MultiWorld, player: int):
                     reqires_raw = re.split('(\&&|\|\||\)|\(| AND | OR )', location["requires"])
                     reqires_stripped = [x.strip() for x in reqires_raw]
                     requires_list = [x for x in reqires_stripped if x != '']
-
+                    
                     for i, item in enumerate(requires_list):
                         if item == "||" or item == "OR":
                             requires_list[i] = "|"
                         elif item == "&&" or item == "AND":
                             requires_list[i] = "&"
+                        elif item == ")" or item == "(":
+                            continue
                         else:
                             item_parts = item.split(":")
                             item_name = item
