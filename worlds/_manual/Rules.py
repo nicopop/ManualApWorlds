@@ -100,10 +100,15 @@ def set_rules(base: World, world: MultiWorld, player: int):
                     canAccess = True
 
                     for item in location["requires"]:
-                        if isinstance(item, dict) and "or" in item and isinstance(item["or"], list):
+                        # if the require entry is an object with "or" or a list of items, treat it as a standalone require of its own
+                        if (isinstance(item, dict) and "or" in item and isinstance(item["or"], list)) or (isinstance(item, list)):
                             canAccessOr = True
+                            or_items = item
+                            
+                            if isinstance(item, dict):
+                                or_items = item["or"]
 
-                            for or_item in item["or"]:
+                            for or_item in or_items:
                                 or_item_parts = or_item.split(":")
                                 or_item_name = or_item
                                 or_item_count = 1
