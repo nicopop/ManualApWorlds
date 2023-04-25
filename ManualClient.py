@@ -189,6 +189,9 @@ class ManualContext(CommonContext):
                 self.tracker_and_locations_panel.add_widget(locations_panel_scrollable)
                     
             def location_button_callback(self, button):
+                if button.text not in self.ctx.location_names_to_id:
+                    raise Exception("Locations were not loaded correctly. Please reconnect your client.")
+
                 # location_id = AutoWorldRegister.world_types[self.ctx.game].location_name_to_id[button.text];
                 location_id = self.ctx.location_names_to_id[button.text]
 

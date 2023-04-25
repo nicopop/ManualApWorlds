@@ -1,0 +1,29 @@
+{
+    "Hitman 1 Campaign": {
+        "requires": [
+            "Silenced Pistol",
+            { "or": ["Silenced Sniper Rifle"]},
+            { "or": ["Non-silenced Sniper Rifle"]}
+        ],
+        "connected_to": [
+            "Hitman 2 Campaign",
+            "Hitman 3 Campaign"
+        ]
+    },
+
+    "Hitman 2 Campaign": {
+        "requires": ["Silenced Pistol"],
+        "connected_to": [
+            "Hitman 1 Campaign",
+            "Hitman 3 Campaign"
+        ]
+    },
+
+    "Hitman 3 Campaign": {
+        "requires": [],
+        "connected_to": [
+            "Hitman 1 Campaign",
+            "Hitman 2 Campaign"
+        ]
+    }
+}
