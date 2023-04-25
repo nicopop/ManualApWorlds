@@ -37,10 +37,10 @@ class ManualContext(CommonContext):
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
             await super(ManualContext, self).server_auth(password_requested)
-        
+
         if "Manual_" not in self.ui.game_bar_text.text:
             raise Exception("The Manual client can only be used for Manual games.")
-
+        
         self.game = self.ui.game_bar_text.text
 
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
@@ -73,8 +73,10 @@ class ManualContext(CommonContext):
         await super(ManualContext, self).shutdown()
 
     def on_package(self, cmd: str, args: dict):
-        if cmd in {"Connected", "ReceivedItems", "RoomUpdate"}:
-            self.ui.build_tracker_and_locations_table() # rebuild the item and location list after receiving an update to either
+        if cmd in {"Connected"}:
+            self.ui.build_tracker_and_locations_table()
+        elif cmd in {"ReceivedItems", "RoomUpdate"}:
+            self.ui.update_tracker_and_locations_table()
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
@@ -111,6 +113,7 @@ class ManualContext(CommonContext):
                 ("Manual", "Manual"),
             ]
             base_title = "Archipelago Manual Client"
+            listed_items = set()
 
             ctx: ManualContext
 
@@ -153,18 +156,16 @@ class ManualContext(CommonContext):
                 tracker_panel.bind(minimum_height = tracker_panel.setter('height'))
                 self.tracker_and_locations_panel.add_widget(
                                 Label(text="Items Received (%d)" % (items_length), size_hint_y=None, height=50, outline_width=1))
-                
-                listed_items = set()
 
                 for network_item in self.ctx.items_received: 
-                    if (network_item.item not in listed_items):
+                    if (network_item.item not in self.listed_items):
                         item_name_parts = self.ctx.item_names[network_item.item].split(":")
                         
                         item_count = len(list(item for item in self.ctx.items_received if item.item == network_item.item))
                         item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), size_hint=(None, None), height=30, width=400)
                         tracker_panel.add_widget(item_text)
 
-                        listed_items.add(network_item.item)
+                        self.listed_items.add(network_item.item)
 
                 locations_length = len(self.ctx.missing_locations)
                 locations_panel_scrollable = LocationsLayoutScrollable()
@@ -187,6 +188,27 @@ class ManualContext(CommonContext):
                 locations_panel_scrollable.add_widget(locations_panel)
                 self.tracker_and_locations_panel.add_widget(tracker_panel_scrollable)
                 self.tracker_and_locations_panel.add_widget(locations_panel_scrollable)
+
+            def update_tracker_and_locations_table(self):
+                for index, child in enumerate(self.tracker_and_locations_panel.children):
+                    if type(child) is TrackerLayoutScrollable:
+                        for network_item in self.ctx.items_received: 
+                            if (network_item.item not in self.listed_items):
+                                item_name_parts = self.ctx.item_names[network_item.item].split(":")
+                                item_count = len(list(item for item in self.ctx.items_received if item.item == network_item.item))
+                                item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), 
+                                                  size_hint=(None, None), height=30, width=400)
+
+                                self.tracker_and_locations_panel.children[index].children[0].add_widget(item_text)
+                                self.listed_items.add(network_item.item)
+
+                    elif type(child) is Label and "Items" in child.text:
+                        items_length = len(self.ctx.items_received)
+                        self.tracker_and_locations_panel.children[index].text = "Items Received (%d)" % (items_length)
+
+                    elif type(child) is Label and "Locations" in child.text:
+                        locations_length = len(self.ctx.missing_locations)
+                        self.tracker_and_locations_panel.children[2].text = "Remaining Locations (%d)" % (locations_length + 1)
                     
             def location_button_callback(self, button):
                 if button.text not in self.ctx.location_names_to_id:
@@ -194,11 +216,12 @@ class ManualContext(CommonContext):
 
                 # location_id = AutoWorldRegister.world_types[self.ctx.game].location_name_to_id[button.text];
                 location_id = self.ctx.location_names_to_id[button.text]
-
+                
                 if location_id:
                     self.ctx.locations_checked.append(location_id)
                     self.ctx.syncing = True
-
+                    self.tracker_and_locations_panel.children[0].children[0].remove_widget(button)
+                    
                     # message = [{"cmd": 'LocationChecks', "locations": [location_id]}]
                     # self.ctx.send_msgs(message)
 
