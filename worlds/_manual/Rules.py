@@ -131,6 +131,10 @@ def set_rules(base: World, world: MultiWorld, player: int):
 
     # handle any type of checking needed, then ferry the check off to a dedicated method for that check
     def fullLocationOrRegionCheck(state, area):
+        # if it's not a usable object of some sort, default to true
+        if not area:
+            return True
+        
         if isinstance(area["requires"], str):
             return checkRequireStringForArea(state, area)
         else:  # item access is in dict form
@@ -149,13 +153,21 @@ def set_rules(base: World, world: MultiWorld, player: int):
     for location in base.location_table:
         locFromWorld = world.get_location(location["name"], player)
 
-        if "requires" in location: # Location has requires, check them
-            def fullLocationCheck(state, location=location):
-                return fullLocationOrRegionCheck(state, location)
+        locationRegion = regionMap[location["region"]] if "region" in location else None
+        
+        if "requires" in location: # Location has requires, check them alongside the region requires
+            def checkBothLocationAndRegion(state, location=location, region=locationRegion):
+                locationCheck = fullLocationOrRegionCheck(state, location)
+                regionCheck = True # default to true unless there's a region with requires
+
+                if region:
+                    regionCheck = fullLocationOrRegionCheck(state, region)
+
+                return locationCheck and regionCheck
             
-            set_rule(locFromWorld, fullLocationCheck)
+            set_rule(locFromWorld, checkBothLocationAndRegion)
         elif "region" in location: # Only region access required, check the location's region's requires
-            def fullRegionCheck(state, region=regionMap[location["region"]]):
+            def fullRegionCheck(state, region=locationRegion):
                 return fullLocationOrRegionCheck(state, region)
             
             set_rule(locFromWorld, fullRegionCheck)

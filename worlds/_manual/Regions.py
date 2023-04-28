@@ -1,16 +1,30 @@
 from BaseClasses import Entrance, MultiWorld, Region
+from .Data import region_table
 from .Locations import ManualLocation
 from ..AutoWorld import World
 
-regionMap = {
-	"Manual": []
+if not region_table:
+    region_table = {}
+
+regionMap = { **region_table }
+regionMap["Manual"] = {
+    "requires": [],
+    "connects_to": region_table.keys() # the Manual region connects to all user-defined regions automatically
 }
 
 def create_regions(base: World, world: MultiWorld, player: int): 
     # Create regions and assign locations to each region
     for region in regionMap:
-        exit_array = regionMap[region]
-        if len(exit_array) == 0:
+        # if it's an empty or unusable region, skip it
+        if not regionMap[region]: 
+            continue
+
+        exit_array = None
+
+        if "connects_to" in regionMap[region]:
+            exit_array = regionMap[region]["connects_to"]
+
+        if not exit_array:
             exit_array = None
 
         new_region = create_region(base, world, player, region, [
@@ -25,9 +39,10 @@ def create_regions(base: World, world: MultiWorld, player: int):
 
     # Link regions together
     for region in regionMap:
-        for linkedRegion in regionMap[region]:
-            connection = world.get_entrance(getConnectionName(region, linkedRegion), player)
-            connection.connect(world.get_region(linkedRegion, player))
+        if "connects_to" in regionMap[region]:
+            for linkedRegion in regionMap[region]["connects_to"]:
+                connection = world.get_entrance(getConnectionName(region, linkedRegion), player)
+                connection.connect(world.get_region(linkedRegion, player))
 
 def create_region(base: World, world: MultiWorld, player: int, name: str, locations=None, exits=None):
     ret = Region(name, player, world)
@@ -44,5 +59,3 @@ def create_region(base: World, world: MultiWorld, player: int, name: str, locati
 
 def getConnectionName(entranceName: str, exitName: str):
     return entranceName + "To" + exitName
-
-

@@ -1,31 +1,42 @@
-[  
+[ 
     { 
-        "name": "Level Key:6", 
+        "name": "Non-silenced Pistol", 
+        "category": [
+            "Pistol"
+        ] 
+    },
+    { 
+        "name": "Silenced Pistol", 
+        "category": [
+            "Pistol", 
+            "Silenced"
+        ], 
         "progression": true 
     },
     { 
-        "name": "A Wild Theo Appears", 
+        "name": "Non-silenced Sniper Rifle", 
+        "category": ["Sniper Rifle"], 
         "progression": true 
     },
     { 
-        "name": "Cackling Grandma", 
+        "name": "Silenced Sniper Rifle", 
+        "category": [
+            "Sniper Rifle", 
+            "Silenced"
+        ], 
         "progression": true 
     },
-    { 
-        "name": "Badeline Upgrade", 
-        "progression": true 
-    },
-    { 
-        "name": "Burrito at Flag 1", 
-        "progression": true 
-    },
-    { 
-        "name": "Burrito at Flag 9", 
-        "useful": true
-    },
-    { 
-        "name": "Partially Eaten Burrito", 
-        "progression": false,
-        "useful": false
-    }
+    { "name": "Emetic Vial/Pills", "useful": true },
+    { "name": "Emetic Syringe", "useful": true },
+    { "name": "Lethal Vial/Pills", "useful": true },
+    { "name": "Lethal Syringe", "useful": true },
+    { "name": "Lockpick", "useful": true },
+    { "name": "Electronic Key Hacker" },
+    { "name": "ICA Taser" },
+    { "name": "Crowbar", "useful": true },
+    { "name": "Coin", "useful": true, "count": 2 },
+    { "name": "Fish", "trap": true },
+    { "name": "Explosive Baseball" },
+    { "name": "Remote Duck", "useful": true },
+    { "name": "Proximity Block", "useful": true }
 ]

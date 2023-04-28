@@ -19,7 +19,10 @@ for key, _ in enumerate(location_table):
         continue
 
     location_table[key]["id"] = count
-    location_table[key]["region"] = "Manual" # all locations are in the same region for Manual
+
+    if not "region" in location_table[key]:
+        location_table[key]["region"] = "Manual" # all locations are in the same region for Manual
+
     count += 1
 
 if victory_key:
@@ -29,13 +32,16 @@ if victory_key:
 location_table.append({
     "id": count + 1,
     "name": "__Manual Game Complete__",
-    "region": "Manual",
+    "region": custom_victory_location["region"] if "region" in custom_victory_location else "Manual",
     "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else []
 })
 
 location_id_to_name = {}
+location_name_to_location = {}
+
 for item in location_table:
     location_id_to_name[item["id"]] = item["name"]
+    location_name_to_location[item["name"]] = item
 
 # location_id_to_name[None] = "__Manual Game Complete__"
 location_name_to_id = {name: id for id, name in location_id_to_name.items()}
