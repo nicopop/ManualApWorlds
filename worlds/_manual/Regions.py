@@ -7,9 +7,14 @@ if not region_table:
     region_table = {}
 
 regionMap = { **region_table }
+starting_regions = [ name for name in regionMap if "starting" in regionMap[name].keys() and regionMap[name]["starting"] ]
+
+if len(starting_regions) == 0:
+    starting_regions = region_table.keys() # the Manual region connects to all user-defined regions automatically if you specify no starting regions
+
 regionMap["Manual"] = {
     "requires": [],
-    "connects_to": region_table.keys() # the Manual region connects to all user-defined regions automatically
+    "connects_to": starting_regions
 }
 
 def create_regions(base: World, world: MultiWorld, player: int): 
