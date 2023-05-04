@@ -6,7 +6,6 @@ import re
 
 
 def infix_to_postfix(expr, location):
-    print(expr)
     prec = {"&": 2, "|": 2, "!": 3}
 
     stack = []
