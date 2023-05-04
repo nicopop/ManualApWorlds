@@ -176,7 +176,7 @@ class ManualContext(CommonContext):
                 
                 for location_id in self.ctx.missing_locations:
                     location_button = Button(text=self.ctx.location_names[location_id], size_hint=(None, None), height=30, width=400)
-                    location_button.bind(on_press=self.location_button_callback)
+                    location_button.bind(on_press=lambda *args, loc_id=location_id: self.location_button_callback(loc_id, *args))
                     locations_panel.add_widget(location_button)
 
                 # Add the Victory location to be marked at any point, which is why locations length has 1 added to it above
@@ -210,12 +210,11 @@ class ManualContext(CommonContext):
                         locations_length = len(self.ctx.missing_locations)
                         self.tracker_and_locations_panel.children[2].text = "Remaining Locations (%d)" % (locations_length + 1)
                     
-            def location_button_callback(self, button):
+            def location_button_callback(self, location_id, button):
                 if button.text not in self.ctx.location_names_to_id:
                     raise Exception("Locations were not loaded correctly. Please reconnect your client.")
 
-                # location_id = AutoWorldRegister.world_types[self.ctx.game].location_name_to_id[button.text];
-                location_id = self.ctx.location_names_to_id[button.text]
+                # location_id = self.ctx.location_names_to_id[button.text]
                 
                 if location_id:
                     self.ctx.locations_checked.append(location_id)
