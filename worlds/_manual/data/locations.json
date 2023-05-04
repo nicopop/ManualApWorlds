@@ -3,7 +3,7 @@
         "name": "Paris (Suit Only)", 
         "region": "Hitman 1 Campaign",
         "category": ["Hitman 1"],
-        "requires": "|Coin| and (|Silenced Pistol| or |Silenced Sniper Rifle|)"
+        "requires": "(|Silenced Pistol| or |Silenced Sniper Rifle|)"
     }, 
     { 
         "name": "Sapienza (Suit Only)", 
