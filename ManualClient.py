@@ -1,7 +1,7 @@
 from __future__ import annotations
 from worlds import AutoWorldRegister
 
-import asyncio
+import asyncio, re
 
 import ModuleUpdate
 ModuleUpdate.update()
@@ -90,7 +90,9 @@ class ManualContext(CommonContext):
         from kivy.uix.scrollview import ScrollView
         from kivy.uix.textinput import TextInput
         from kivy.uix.tabbedpanel import TabbedPanelItem
+        from kivy.uix.treeview import TreeView, TreeViewNode, TreeViewLabel
         from kivy.clock import Clock
+        from kivy.core.window import Window
 
         class TrackerAndLocationsLayout(GridLayout):
             pass
@@ -98,13 +100,13 @@ class ManualContext(CommonContext):
         class TrackerLayoutScrollable(ScrollView):
             pass
 
-        class TrackerLayout(GridLayout):
-            pass
-
         class LocationsLayoutScrollable(ScrollView):
             pass
 
-        class LocationsLayout(GridLayout):
+        class TreeViewButton(Button, TreeViewNode):
+            pass
+
+        class TreeViewScrollView(ScrollView, TreeViewNode):
             pass
 
         class ManualManager(GameManager):
@@ -113,7 +115,13 @@ class ManualContext(CommonContext):
                 ("Manual", "Manual"),
             ]
             base_title = "Archipelago Manual Client"
-            listed_items = set()
+            listed_items = {"(no category)": []}
+            item_categories = ["(no category)"]
+            listed_locations = {"(no category)": []}
+            location_categories = ["(no category)"]
+
+            active_item_accordion = 0
+            active_location_accordion = 0
 
             ctx: ManualContext
 
@@ -142,6 +150,32 @@ class ManualContext(CommonContext):
 
                 return self.container
             
+            def clear_lists(self):
+                self.listed_items = {"(no category)": []}
+                self.item_categories = ["(no category)"]
+                self.listed_locations = {"(no category)": []}
+                self.location_categories = ["(no category)"]
+                
+            def set_active_item_accordion(self, instance):
+                index = 0
+
+                for widget in self.children:
+                    if widget == instance:
+                        self.active_item_accordion = index
+                        return
+                    
+                    index += 1
+                
+            def set_active_location_accordion(self, instance):
+                index = 0
+
+                for widget in self.children:
+                    if widget == instance:
+                        self.active_item_accordion = index
+                        return
+                    
+                    index += 1
+
             def build_tracker_and_locations_table(self):
                 self.tracker_and_locations_panel.clear_widgets()
 
@@ -150,65 +184,188 @@ class ManualContext(CommonContext):
                                 Label(text="Waiting for connection...", size_hint_y=None, height=50, outline_width=1))
                     return
 
+                self.clear_lists()
+
+                # seed all category names to start
+                for item in AutoWorldRegister.world_types[self.ctx.game].item_name_to_item.values():
+                    if "category" in item:
+                        for category in item["category"]:
+                            if category not in self.item_categories:
+                                self.item_categories.append(category)
+
+                            if category not in self.listed_items:
+                                self.listed_items[category] = []
+
+
+                # Items are not received on connect, so don't bother attempting to work with received items here
+                
+                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+                        raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
+                
+                for location_id in self.ctx.missing_locations:
+                    # holy nesting, wow
+                    location_name = self.ctx.location_names[location_id]
+                    location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location[location_name]
+
+                    if not location:
+                        continue
+                
+                    if "category" in location:
+                        for category in location["category"]:
+                            if category not in self.location_categories:
+                                self.location_categories.append(category)
+
+                            if category not in self.listed_locations:
+                                self.listed_locations[category] = []
+
+                            self.listed_locations[category].append(location_id)
+                    else: # leave it in the generic category
+                        self.listed_locations["(no category)"].append(location_id)
+
                 items_length = len(self.ctx.items_received)
                 tracker_panel_scrollable = TrackerLayoutScrollable()
-                tracker_panel = TrackerLayout(cols = 1, size_hint = (None, None))
-                tracker_panel.bind(minimum_height = tracker_panel.setter('height'))
-                self.tracker_and_locations_panel.add_widget(
-                                Label(text="Items Received (%d)" % (items_length), size_hint_y=None, height=50, outline_width=1))
+                tracker_panel = TreeView(root_options=dict(text="Items Received (%d)" % (items_length)))
+                
+                # Since items_received is not available on connect, don't bother building item labels here
+                for item_category in sorted(self.listed_items.keys()):
+                    category_tree = tracker_panel.add_node(
+                        TreeViewLabel(text = "%s (%s)" % (item_category, len(self.listed_items[item_category])))
+                    )
 
-                for network_item in self.ctx.items_received: 
-                    if (network_item.item not in self.listed_items):
-                        item_name_parts = self.ctx.item_names[network_item.item].split(":")
-                        
-                        item_count = len(list(item for item in self.ctx.items_received if item.item == network_item.item))
-                        item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), size_hint=(None, None), height=30, width=400)
-                        tracker_panel.add_widget(item_text)
-
-                        self.listed_items.add(network_item.item)
+                    category_scroll = tracker_panel.add_node(TreeViewScrollView(size_hint=(1, None), size=(Window.width / 2, 250)), category_tree)
+                    category_layout = GridLayout(cols=1, size_hint_y=None)
+                    category_layout.bind(minimum_height = category_layout.setter('height'))
+                    category_scroll.add_widget(category_layout)
 
                 locations_length = len(self.ctx.missing_locations)
                 locations_panel_scrollable = LocationsLayoutScrollable()
-                locations_panel = LocationsLayout(cols = 1, size_hint = (None, None))
-                locations_panel.bind(minimum_height = locations_panel.setter('height'))
-                self.tracker_and_locations_panel.add_widget(
-                                Label(text="Remaining Locations (%d)" % (locations_length + 1), size_hint_y=None, height=50, outline_width=1))
+                locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)))
                 
-                for location_id in self.ctx.missing_locations:
-                    location_button = Button(text=self.ctx.location_names[location_id], size_hint=(None, None), height=30, width=400)
-                    location_button.bind(on_press=lambda *args, loc_id=location_id: self.location_button_callback(loc_id, *args))
-                    locations_panel.add_widget(location_button)
+                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+                    raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
 
-                # Add the Victory location to be marked at any point, which is why locations length has 1 added to it above
-                location_button = Button(text="VICTORY! (seed finished)", size_hint=(None, None), height=30, width=400)
-                location_button.bind(on_press=self.victory_button_callback)
-                locations_panel.add_widget(location_button)
-                
+                for location_category in sorted(self.listed_locations.keys()):
+                    location_data = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location["__Manual Game Complete__"]
+                    locations_in_category = len(self.listed_locations[location_category])
+
+                    if ("category" in location_data and location_category in location_data["category"]) or \
+                        ("category" not in location_data and location_category == "(no category)"):
+                        locations_in_category += 1
+
+                    category_tree = locations_panel.add_node(
+                        TreeViewLabel(text = "%s (%s)" % (location_category, locations_in_category))
+                    )
+
+                    category_scroll = locations_panel.add_node(TreeViewScrollView(size_hint=(1, None), size=(Window.width / 2, 250)), category_tree)
+                    category_layout = GridLayout(cols=1, size_hint_y=None)
+                    category_layout.bind(minimum_height = category_layout.setter('height'))
+                    category_scroll.add_widget(category_layout)
+
+                    for location_id in self.listed_locations[location_category]:
+                        location_button = TreeViewButton(text=self.ctx.location_names[location_id], size_hint=(None, None), height=30, width=400)
+                        location_button.bind(on_press=lambda *args, loc_id=location_id: self.location_button_callback(loc_id, *args))
+                        category_layout.add_widget(location_button)
+
+                    # if this is the category that Victory is in, display the Victory button
+                    if ("category" in location_data and location_category in location_data["category"]) or \
+                        ("category" not in location_data and location_category == "(no category)"):
+
+                        # Add the Victory location to be marked at any point, which is why locations length has 1 added to it above
+                        location_button = TreeViewButton(text="VICTORY! (seed finished)", size_hint=(None, None), height=30, width=400)
+                        location_button.bind(on_press=self.victory_button_callback)
+                        category_layout.add_widget(location_button)
+                    
                 tracker_panel_scrollable.add_widget(tracker_panel)
                 locations_panel_scrollable.add_widget(locations_panel)
                 self.tracker_and_locations_panel.add_widget(tracker_panel_scrollable)
                 self.tracker_and_locations_panel.add_widget(locations_panel_scrollable)
 
             def update_tracker_and_locations_table(self):
-                for index, child in enumerate(self.tracker_and_locations_panel.children):
+                items_length = len(self.ctx.items_received)
+                locations_length = len(self.ctx.missing_locations)
+
+                for _, child in enumerate(self.tracker_and_locations_panel.children):
+                    #
+                    # Structure of items:
+                    # TrackerLayoutScrollable -> TreeView -> TreeViewLabel, TreeViewScrollView -> GridLayout -> Label
+                    #        item tracker     -> category -> category label, category scroll   -> label col  -> item    
+                    #
                     if type(child) is TrackerLayoutScrollable:
-                        for network_item in self.ctx.items_received: 
-                            if (network_item.item not in self.listed_items):
-                                item_name_parts = self.ctx.item_names[network_item.item].split(":")
-                                item_count = len(list(item for item in self.ctx.items_received if item.item == network_item.item))
-                                item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), 
-                                                  size_hint=(None, None), height=30, width=400)
+                        treeview = child.children[0] # TreeView
+                        treeview_nodes = treeview.iterate_all_nodes()
 
-                                self.tracker_and_locations_panel.children[index].children[0].add_widget(item_text)
-                                self.listed_items.add(network_item.item)
+                        items_received_label = next(treeview_nodes) # always the first node
+                        items_received_label.text = "Items Received (%s)" % (items_length)
 
-                    elif type(child) is Label and "Items" in child.text:
-                        items_length = len(self.ctx.items_received)
-                        self.tracker_and_locations_panel.children[index].text = "Items Received (%d)" % (items_length)
+                        # loop for each category in listed items and get the label + scrollview
+                        for x in range(0, len(self.item_categories)):
+                            category_label = next(treeview_nodes) # TreeViewLabel for category
+                            category_scrollview = next(treeview_nodes) # TreeViewScrollView for housing category's grid layout
 
-                    elif type(child) is Label and "Locations" in child.text:
-                        locations_length = len(self.ctx.missing_locations)
-                        self.tracker_and_locations_panel.children[2].text = "Remaining Locations (%d)" % (locations_length + 1)
+                            if type(category_label) is TreeViewLabel and type(category_scrollview) is TreeViewScrollView:
+                                category_grid = category_scrollview.children[0] # GridLayout
+
+                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
+                                category_count = 0
+            
+                                # Label (for existing item listings)
+                                for item in category_grid.children:
+                                     if type(item) is Label:
+                                        # Get the item name from the item Label, minus quantity, then do a lookup for count
+                                        item_name = re.sub("\s\(\d+\)$", "", item.text)
+                                        item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+                                        item_count = len(list(i for i in self.ctx.items_received if i.item == item_data["id"]))
+ 
+                                        # Update the label quantity
+                                        item.text="%s (%s)" % (item_name, item_count)
+
+                                        if item_count > 0:
+                                            category_count += item_count
+
+                                # Label (for new item listings)
+                                for network_item in self.ctx.items_received:
+                                    item_name = self.ctx.item_names[network_item.item]
+                                    item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+
+                                    if "category" not in item_data or not item_data["category"]:
+                                        item_data["category"] = ["(no category)"]
+
+                                    if category_name in item_data["category"] and network_item.item not in self.listed_items[category_name]:
+                                        item_name_parts = self.ctx.item_names[network_item.item].split(":")
+                                        item_count = len(list(i for i in self.ctx.items_received if i.item == network_item.item))
+                                        item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), 
+                                                    size_hint=(None, None), height=30, width=400)
+                                        
+                                        category_grid.add_widget(item_text)
+                                        self.listed_items[category_name].append(network_item.item)
+                                        
+                                        category_count += item_count
+                                    
+                            category_name = re.sub("\s\(\d+\)$", "", category_label.text)
+                            category_label.text = "%s (%s)" % (category_name, category_count)
+
+                    #    
+                    # Structure of locations:
+                    # LocationsLayoutScrollable -> TreeView -> TreeViewLabel, TreeViewScrollView -> GridLayout -> Button
+                    #      location tracker     -> category -> category label, category scroll   -> label col  -> location
+                    #
+                    if type(child) is LocationsLayoutScrollable:
+                        treeview = child.children[0] # TreeView
+                        treeview.title = "Remaining Locations (%d)" % (locations_length)
+
+                        # TreeViewLabel
+                        for category_index, category_label in enumerate(treeview.children):
+                            if type(category_label) is TreeViewLabel:
+                                category_scrollview = category_label.nodes[0] # TreeViewScrollView
+
+                                if type(category_scrollview) is not TreeViewScrollView:
+                                    break
+
+                                category_grid = category_scrollview.children[0] # GridLayout
+                                category_count = len(category_grid.children)
+
+                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
+                                category_label.text = "%s (%s)" % (category_name, category_count)
                     
             def location_button_callback(self, location_id, button):
                 if button.text not in self.ctx.location_names_to_id:
@@ -219,7 +376,7 @@ class ManualContext(CommonContext):
                 if location_id:
                     self.ctx.locations_checked.append(location_id)
                     self.ctx.syncing = True
-                    self.tracker_and_locations_panel.children[0].children[0].remove_widget(button)
+                    button.parent.remove_widget(button)
                     
                     # message = [{"cmd": 'LocationChecks', "locations": [location_id]}]
                     # self.ctx.send_msgs(message)
