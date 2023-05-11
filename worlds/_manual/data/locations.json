@@ -3,7 +3,8 @@
         "name": "Paris (Suit Only)", 
         "region": "Hitman 1 Campaign",
         "category": ["Hitman 1"],
-        "requires": "(|Silenced Pistol| or |Silenced Sniper Rifle|)"
+        "requires": "(|Silenced Pistol| or |Silenced Sniper Rifle|)",
+        "place_item": ["Coin", "Remote Duck"]
     }, 
     { 
         "name": "Sapienza (Suit Only)", 
@@ -23,7 +24,8 @@
         "requires": [
             "Non-silenced Sniper Rifle", 
             ["Silenced Sniper Rifle"] 
-        ] 
+        ],
+        "place_item": ["Crowbar"]
     }, 
     { "name": "Hokkaido (Suit Only)", "category": ["Hitman 1"], "region": "Hitman 1 Campaign" }, 
 
@@ -34,10 +36,20 @@
     { "name": "Whittleton Creek (Suit Only)", "category": ["Hitman 2"], "region": "Hitman 2 Campaign" }, 
     { "name": "Isle of Sgail (Suit Only)", "category": ["Hitman 2"], "region": "Hitman 2 Campaign" }, 
  
-    { "name": "Dubai (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" }, 
+    { 
+        "name": "Dubai (Suit Only)", 
+        "category": ["Hitman 3"], 
+        "region": "Hitman 3 Campaign",
+        "place_item_category": ["Sniper Rifle"]
+    }, 
     { "name": "Dartmoor (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" }, 
     { "name": "Berlin (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" }, 
-    { "name": "Chongqing (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" }, 
+    { 
+        "name": "Chongqing (Suit Only)", 
+        "category": ["Hitman 3"], 
+        "region": "Hitman 3 Campaign", 
+        "place_item_category": ["Sniper Rifle", "Silenced"] 
+    }, 
     { "name": "Mendoza (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" }, 
     { "name": "Carpathian Mountains (Suit Only)", "category": ["Hitman 3"], "region": "Hitman 3 Campaign" },
     {

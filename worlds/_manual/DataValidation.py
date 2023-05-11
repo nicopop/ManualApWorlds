@@ -2,6 +2,9 @@ import logging
 import re
 import json
 
+class ValidationError(Exception):
+    pass
+
 class DataValidation():
     game_table = {}
     item_table = []
@@ -42,7 +45,7 @@ class DataValidation():
                         item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == item_name]) > 0
 
                         if not item_exists:
-                            raise Exception("Item %s is required by location %s but is misspelled or does not exist." % (item_name, location["name"]))
+                            raise ValidationError("Item %s is required by location %s but is misspelled or does not exist." % (item_name, location["name"]))
                         
             else:  # item access is in dict form
                 for item in location["requires"]:
@@ -63,7 +66,7 @@ class DataValidation():
                             item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == or_item_name]) > 0
 
                             if not item_exists:
-                                raise Exception("Item %s is required by location %s but is misspelled or does not exist." % (or_item_name, location["name"]))
+                                raise ValidationError("Item %s is required by location %s but is misspelled or does not exist." % (or_item_name, location["name"]))
                     else:
                         item_parts = item.split(":")
                         item_name = item
@@ -74,7 +77,7 @@ class DataValidation():
                         item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == item_name]) > 0
 
                         if not item_exists:
-                            raise Exception("Item %s is required by location %s but is misspelled or does not exist." % (item_name, location["name"]))
+                            raise ValidationError("Item %s is required by location %s but is misspelled or does not exist." % (item_name, location["name"]))
 
     @staticmethod
     def checkItemNamesInRegionRequires():
@@ -104,7 +107,7 @@ class DataValidation():
                         item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == item_name]) > 0
 
                         if not item_exists:
-                            raise Exception("Item %s is required by region %s but is misspelled or does not exist." % (item_name, region_name))
+                            raise ValidationError("Item %s is required by region %s but is misspelled or does not exist." % (item_name, region_name))
                         
             else:  # item access is in dict form
                 for item in region["requires"]:
@@ -125,7 +128,7 @@ class DataValidation():
                             item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == or_item_name]) > 0
 
                             if not item_exists:
-                                raise Exception("Item %s is required by region %s but is misspelled or does not exist." % (or_item_name, region_name))
+                                raise ValidationError("Item %s is required by region %s but is misspelled or does not exist." % (or_item_name, region_name))
                     else:
                         item_parts = item.split(":")
                         item_name = item
@@ -136,7 +139,7 @@ class DataValidation():
                         item_exists = len([item["name"] for item in DataValidation.item_table if item["name"] == item_name]) > 0
 
                         if not item_exists:
-                            raise Exception("Item %s is required by region %s but is misspelled or does not exist." % (item_name, region_name))
+                            raise ValidationError("Item %s is required by region %s but is misspelled or does not exist." % (item_name, region_name))
 
     @staticmethod
     def checkRegionNamesInLocations():
@@ -147,7 +150,7 @@ class DataValidation():
             region_exists = len([name for name in DataValidation.region_table if name == location["region"]]) > 0
             
             if not region_exists:
-                raise Exception("Region %s is set for location %s, but the region is misspelled or does not exist." % (location["region"], location["name"]))
+                raise ValidationError("Region %s is set for location %s, but the region is misspelled or does not exist." % (location["region"], location["name"]))
 
     @staticmethod
     def checkItemsThatShouldBeRequired():
@@ -165,7 +168,7 @@ class DataValidation():
                 location_requires = json.dumps(location["requires"])
 
                 if item["name"] in location_requires:
-                    raise Exception("Item %s is required by location %s, but the item is not marked as progression." % (item["name"], location["name"]))
+                    raise ValidationError("Item %s is required by location %s, but the item is not marked as progression." % (item["name"], location["name"]))
 
             # check region requires for the presence of item name
             for region_name in DataValidation.region_table:
@@ -178,7 +181,7 @@ class DataValidation():
                 region_requires = json.dumps(region["requires"])
 
                 if item["name"] in region_requires:
-                    raise Exception("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], key))
+                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], key))
 
     @staticmethod
     def checkRegionsConnectingToOtherRegions():
@@ -192,11 +195,11 @@ class DataValidation():
                 region_exists = len([name for name in DataValidation.region_table if name == connecting_region]) > 0
 
                 if not region_exists:
-                    raise Exception("Region %s connects to a region %s, which is misspelled or does not exist." % (region_name, connecting_region))
+                    raise ValidationError("Region %s connects to a region %s, which is misspelled or does not exist." % (region_name, connecting_region))
 
     @staticmethod
     def checkForMultipleVictoryLocations():
         victory_count = len([location["name"] for location in DataValidation.location_table if "victory" in location and location["victory"]])
 
         if victory_count > 1:
-            raise Exception("There are %s victory locations defined, but there should only be 1." % (str(victory_count)))
+            raise ValidationError("There are %s victory locations defined, but there should only be 1." % (str(victory_count)))

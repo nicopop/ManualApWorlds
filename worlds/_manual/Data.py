@@ -3,7 +3,7 @@ import os
 import pkgutil
 import sys
 
-from .DataValidation import DataValidation
+from .DataValidation import DataValidation, ValidationError
 
 # blatantly copied from the minecraft ap world because why not
 def load_data_file(*args) -> dict:
@@ -45,8 +45,11 @@ try:
 
     # check that the apworld creator didn't specify multiple victory conditions
     DataValidation.checkForMultipleVictoryLocations()
-except Exception as e:
-    sys.exit("ValidationError: %s" % (e))
+except ValidationError as e:
+    print("\nValidationError: %s\n\n" % (e))
+    print("You can close this window.\n")
+    keeping_terminal_open = input("If you are running from a terminal, press Ctrl-C followed by ENTER to break execution.")
     
 # show the apworld creator what their game name and filename should be
-DataValidation.outputExpectedGameNames()
+# commenting this out for now because it mainly just causes confusion for users
+# DataValidation.outputExpectedGameNames()
