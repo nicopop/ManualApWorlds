@@ -112,7 +112,7 @@ class ManualWorld(World):
                 if len(location["place_item"]) == 0:
                     continue
 
-                eligible_items = [item for item in pool if item.name in location["place_item"]]
+                eligible_items = [item for item in self.multiworld.itempool if item.name in location["place_item"]]
                 
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match %s." % (location["name"], ", ".join(location["place_item"])))
@@ -122,7 +122,7 @@ class ManualWorld(World):
                     continue
 
                 eligible_item_names = [i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(location["place_item_category"])]
-                eligible_items = [item for item in pool if item.name in eligible_item_names]
+                eligible_items = [item for item in self.multiworld.itempool if item.name in eligible_item_names]
 
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match categories %s." % (location["name"], ", ".join(location["place_item_category"])))
