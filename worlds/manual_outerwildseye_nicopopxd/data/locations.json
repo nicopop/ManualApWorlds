@@ -453,6 +453,12 @@
 		"category": [ "DreamWorld" ]
 	},
 	{
+		"name": "Get in the Code Vault",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge|",
+		"category": [ "The Stranger" ]
+	},
+	{
 		"name": "Watch the Death Glitch Slide",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
@@ -480,5 +486,12 @@
 		"region": "DreamWorld",
 		"requires": "|EYE > Submerge Structure flame Access| and ((|Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
 		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Talk to the prisoner in the Subterranean Lake Dream",
+		"region": "DreamWorld",
+		"requires": "|EYE > Submerge Structure flame Access| and ((|Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
+		"category": [ "DreamWorld" ],
+		"place_item": ["Seen Prisoner"]
 	}
 ]

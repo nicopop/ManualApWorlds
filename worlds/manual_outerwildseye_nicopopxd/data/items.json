@@ -56,11 +56,13 @@
 
     {
         "name": "Meditation",
+        "count": 2,
         "useful": true,
         "category": [ "Bonus", "Not Trap" ]
     },
     {
         "name": "Landing Camera",
+        "count": 2,
         "useful": true,
         "category": [ "Bonus", "Tools", "Not Trap" ]
     },
@@ -124,13 +126,13 @@
 
     {
         "name": "forced Meditation",
-        "count": 2,
+        "count": 4,
         "category": [ "Trap" ],
         "trap": true
     },
     {
         "name": "Disabled Ship controles 'Till next loop/meditation",
-        "count": 2,
+        "count": 3,
         "category": [ "Trap" ],
         "trap": true
     },
@@ -155,6 +157,11 @@
     {
         "name": "Seen WarpDrive",
         "progression": true,
+        "category": [ "Visits", "Need For End" ]
+    },
+    {
+        "name": "Seen Prisoner",
+        "progression": false,
         "category": [ "Visits", "Need For End" ]
     },
 
