@@ -355,7 +355,7 @@
 		"name": "Get in the hidden Laboratory",
 		"region": "The Stranger",
 		"category": [ "The Stranger" ],
-		"requires": [ "Stranger > Secret entrance" ]
+		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
 		"name": "Watch the slide in the reservoir",
