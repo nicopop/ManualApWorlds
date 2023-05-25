@@ -23,6 +23,7 @@
     <Content Include="Manual.items.schema.json" />
     <Content Include="Manual.locations.schema.json" />
     <Content Include="Manual.schema.catalog.json" />
+    <Content Include="..\..\ManualClient.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
