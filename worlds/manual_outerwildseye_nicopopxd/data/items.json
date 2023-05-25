@@ -200,6 +200,21 @@
         "category": [ "EYE" ]
     },
     {
+        "name": "EYE > River Lowlands flame Access",
+        "progression": true,
+        "category": [ "EYE" ]
+    },
+    {
+        "name": "EYE > Cinder Isles flame Access",
+        "progression": true,
+        "category": [ "EYE" ]
+    },
+    {
+        "name": "EYE > Hidden Gorge flame Access",
+        "progression": true,
+        "category": [ "EYE" ]
+    },
+    {
         "name": "DreamWorld Knowledge",
         "progression": true,
         "category": [ "Knowledge", "EYE" ]

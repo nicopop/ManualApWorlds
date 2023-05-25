@@ -5,52 +5,57 @@ from BaseClasses import MultiWorld
 import re
 
 
-def infix_to_postfix(expr):
+def infix_to_postfix(expr, location):
     prec = {"&": 2, "|": 2, "!": 3}
 
     stack = []
     postfix = ""
 
-    for c in expr:
-        if c.isnumeric():
-            postfix += c
-        elif c in prec:
-            while stack and stack[-1] != "(" and prec[c] <= prec[stack[-1]]:
-                postfix += stack.pop()
-            stack.append(c)
-        elif c == "(":
-            stack.append(c)
-        elif c == ")":
-            while stack and stack[-1] != "(":
-                postfix += stack.pop()
-            stack.pop()
-    while stack:
-        postfix += stack.pop()
-
+    try:
+        for c in expr:
+            if c.isnumeric():
+                postfix += c
+            elif c in prec:
+                while stack and stack[-1] != "(" and prec[c] <= prec[stack[-1]]:
+                    postfix += stack.pop()
+                stack.append(c)
+            elif c == "(":
+                stack.append(c)
+            elif c == ")":
+                while stack and stack[-1] != "(":
+                    postfix += stack.pop()
+                stack.pop()
+        while stack:
+            postfix += stack.pop()
+    except Exception:
+        raise KeyError("Invalid logic format for location/region {}.".format(location)) 
     return postfix
 
 
 def evaluate_postfix(expr, location):
     stack = []
-    for c in expr:
-        if c == "0":
-            stack.append(False)
-        elif c == "1":
-            stack.append(True)
-        elif c == "&":
-            op2 = stack.pop()
-            op1 = stack.pop()
-            stack.append(op1 and op2)
-        elif c == "|":
-            op2 = stack.pop()
-            op1 = stack.pop()
-            stack.append(op1 or op2)
-        elif c == "!":
-            op = stack.pop()
-            stack.append(not op)
-
+    try:
+        for c in expr:
+            if c == "0":
+                stack.append(False)
+            elif c == "1":
+                stack.append(True)
+            elif c == "&":
+                op2 = stack.pop()
+                op1 = stack.pop()
+                stack.append(op1 and op2)
+            elif c == "|":
+                op2 = stack.pop()
+                op1 = stack.pop()
+                stack.append(op1 or op2)
+            elif c == "!":
+                op = stack.pop()
+                stack.append(not op)
+    except Exception:
+        raise KeyError("Invalid logic format for location/region {}.".format(location)) 
+    
     if len(stack) != 1:
-        raise KeyError("Invalid logic format for location {}.".format(location["name"]))
+        raise KeyError("Invalid logic format for location/region {}.".format(location))
     return stack.pop()
 
 
@@ -84,7 +89,7 @@ def set_rules(base: World, world: MultiWorld, player: int):
                 else:
                     requires_list[i] = "0"
 
-        requires_string = infix_to_postfix("".join(requires_list))
+        requires_string = infix_to_postfix("".join(requires_list), area)
         return (evaluate_postfix(requires_string, area))
 
     # this is only called when the area (think, location or region) has a "requires" field that is a dict

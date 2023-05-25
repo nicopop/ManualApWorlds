@@ -391,5 +391,20 @@
 		"region": "The Stranger",
 		"category": [ "The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
+	},
+	{
+		"name": "Example DreamWorld 1",
+		"region": "Shrouded Woodlands",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Example DreamWorld 2",
+		"region": "Starlit Cove",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Example DreamWorld 3",
+		"region": "Endless Canyon",
+		"category": [ "DreamWorld" ]
 	}
 ]
