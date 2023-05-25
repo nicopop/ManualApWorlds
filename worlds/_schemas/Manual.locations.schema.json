@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+    "items": {
+        "$ref": "#/definitions/Location"
+    },
+    "definitions": {
+        "ArrayItems": {
+            "type": "string"
+        },
+        "Category": {
+            "type": "string"
+        },
+        "Require": {
+            "type": "string"
+        },
+        "Place_item_category": {
+            "type": "string"
+        },
+        "Place_item": {
+            "type": "string"
+        },
+        "Location": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Category"
+                    }
+                },
+                "requires": {
+                    "type": [ "array", "string" ],
+                    "items": {
+                        "$ref": "#/definitions/Require"
+                    }
+                },
+                "place_item_category": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Place_item_category"
+                    }
+                },
+                "place_item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Place_item"
+                    }
+                },
+                "victory": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "game": {
+      "type": "string"
+    },
+    "player": {
+      "type": "string"
+    },
+    "filler_item_name": {
+      "type": "string"
+    }
+  }
+}
