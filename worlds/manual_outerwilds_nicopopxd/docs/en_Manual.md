@@ -1,7 +1,8 @@
-# Manual
+# Outer Wilds Manual Randomizer Guide
 
 ## What is a Manual game?
-A Manual game is a custom game that you've set an item list and location list for so that any game can be included in a multiworld game. You'll manually mark locations checked, and you'll manually restrict what items you use based on the items you've been sent. 
+A Manual game is a custom game that you've set an item list and location list for so that any game can be included in a multiworld game. You'll manually mark locations checked, and you'll manually restrict what items you use based on the items you've been sent.  
+In this case (OuterWilds) the list of items can be found in the game-troubleshooting section of the Setup guide.
 
 ## Where is the settings page?
 The player settings page for this game is located <a href="../player-settings">here</a>. It contains all the options

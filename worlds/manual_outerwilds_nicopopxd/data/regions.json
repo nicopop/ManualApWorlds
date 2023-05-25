@@ -1,7 +1,6 @@
 {
     "Space": {
-        "requires": [
-            "Launch Codes"],
+        "requires": ["Launch Codes"],
         "connects_to": []
     },
 

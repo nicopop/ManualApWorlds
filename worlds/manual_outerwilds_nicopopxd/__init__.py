@@ -1,3 +1,5 @@
+import random
+
 from .Data import item_table, progressive_item_table, location_table
 from .Game import game_name, filler_item_name
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
@@ -9,6 +11,7 @@ from .Rules import set_rules
 from .Options import get_option_value, manual_options
 
 from BaseClasses import ItemClassification, Tutorial, Item
+from Fill import fill_restrictive
 from ..AutoWorld import World, WebWorld
 
 
@@ -19,15 +22,14 @@ class ManualWeb(WebWorld):
         "English",
         "setup_en.md",
         "setup/en",
-        ["Fuzzy"]
+        ["Nicopopxd"]
     )]
 
 
 class ManualWorld(World):
     """
     Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
-    This allows any variety of game -- PC, console, board games, Microsoft Word memes... really anything -- to be part of a multiworld randomizer.
-    The key component to including these games is some level of manual restriction. Since the items are not actually withheld from the player, 
+    In this case the game from 2019: OuterWilds 
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
     """
     game: str = game_name
@@ -44,7 +46,7 @@ class ManualWorld(World):
     item_name_to_id = item_name_to_id
     item_name_to_item = item_name_to_item
     advancement_item_names = advancement_item_names
-    location_table = location_table
+    location_table = location_table # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
     location_id_to_name = location_id_to_name
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
@@ -69,11 +71,11 @@ class ManualWorld(World):
             if name == filler_item_name:
                 continue
 
-            if (hasattr(self.multiworld, "progressive_items") and len(self.multiworld.progressive_items) > 0):
-                shouldUseProgressive = (self.multiworld.progressive_items[self.player].value);
+            # if (hasattr(self.multiworld, "progressive_items") and len(self.multiworld.progressive_items) > 0):
+            #     shouldUseProgressive = (self.multiworld.progressive_items[self.player].value);
 
-                if shouldUseProgressive and name in self.progressive_item_table:
-                    name = self.progressive_item_table[name]            
+            #     if shouldUseProgressive and name in self.progressive_item_table:
+            #         name = self.progressive_item_table[name]
 
             item = self.item_name_to_item[name]
             item_count = 1
@@ -93,8 +95,50 @@ class ManualWorld(World):
                 extra_item = self.create_item(filler_item_name)
                 pool.append(extra_item)
 
+
+        # need to put all of the items in the pool so we can have a full state for placement
+        # then will remove specific item placements below from the overall pool
         self.multiworld.itempool += pool
 
+
+        # Handle specific item placements using fill_restrictive
+        locations_with_placements = [location for location in location_name_to_location.values() if "place_item" in location or "place_item_category" in location]
+
+        for location in locations_with_placements:
+            eligible_items = []
+
+            if "place_item" in location:
+                if len(location["place_item"]) == 0:
+                    continue
+
+                eligible_items = [item for item in self.multiworld.itempool if item.name in location["place_item"]]
+                
+                if len(eligible_items) == 0:
+                    raise Exception("Could not find a suitable item to place at %s. No items that match %s." % (location["name"], ", ".join(location["place_item"])))
+
+            if "place_item_category" in location:
+                if len(location["place_item_category"]) == 0:
+                    continue
+
+                eligible_item_names = [i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(location["place_item_category"])]
+                eligible_items = [item for item in self.multiworld.itempool if item.name in eligible_item_names]
+
+                if len(eligible_items) == 0:
+                    raise Exception("Could not find a suitable item to place at %s. No items that match categories %s." % (location["name"], ", ".join(location["place_item_category"])))
+
+            # if we made it here and items is empty, then we encountered an unknown issue... but also can't do anything to place, so error
+            if len(eligible_items) == 0:
+                raise Exception("Custom item placement at location %s failed." % (location["name"]))
+
+            item_to_place = random.choice(eligible_items)
+            location_to_place_list = list(filter(lambda l: l.name == location["name"], self.multiworld.get_unfilled_locations(player=self.player)))
+
+            fill_restrictive(self.multiworld, self.multiworld.get_all_state(False), location_to_place_list, [item_to_place], single_player_placement=True, lock=True)
+
+            # remove the item we're about to place from the pool so it isn't placed twice
+            self.multiworld.itempool.remove(item_to_place)
+                        
+        
     def create_item(self, name: str) -> Item:
         item = self.item_name_to_item[name]
         classification = ItemClassification.filler
