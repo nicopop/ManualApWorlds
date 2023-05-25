@@ -1,0 +1,28 @@
+[  
+    { "name": "Coords to the eye", "progression": true },
+    
+    { "name": "Tornado Knowledge", "progression": true },
+    { "name": "Jellyfish Knowledge", "progression": true },
+    { "name": "Teleporter Knowledge", "progression": true },
+    { "name": "Anglerfish Knowledge", "progression": true },
+    
+    { "name": "Warp drive", "progression": true },
+    { "name": "Scout", "progression": true},
+    { "name": "Scout Photos", "progression": true},
+    { "name": "Launch Codes", "progression": true},
+    
+    { "name": "Meditation", "useful": true },
+    { "name": "Landing Camera", "useful": true},
+    
+    { "name": "Signaloscope", "progression": true},
+    { "name": "Signal > OW Ventures", "progression": true },
+    { "name": "Signal > Quantum", "progression": true},
+    { "name": "Signal > Distress", "progression": true},
+    { "name": "Signal > DeepSpace", "progression": true},
+    
+    { "name": "Quantum Rule > imaging", "progression": true},
+    { "name": "Quantum Rule > entanglement", "progression": true},
+    { "name": "Quantum Rule > sixth location", "progression": true},
+    
+    { "name": "The kickstarter satelite", "useful": false}
+]
