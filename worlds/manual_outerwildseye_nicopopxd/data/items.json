@@ -1,0 +1,208 @@
+[
+    {
+        "$schema": "..\\..\\..\\Schemas\\Manual.items.schema.json",
+        "name": "Coords to the eye",
+        "progression": true,
+        "count": 2,
+        "category": [ "Need For End", "Not Trap" ]
+    },
+    {
+        "name": "Warp drive",
+        "progression": true,
+        "count": 2,
+        "category": [ "Need For End", "Not Trap" ]
+    },
+    {
+        "name": "1 beautiful campfire song",
+        "progression": true,
+        "category": [ "Need For End" ]
+    },
+
+    {
+        "name": "Tornado Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "Not Trap" ]
+    },
+    {
+        "name": "Jellyfish Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "Not Trap" ]
+    },
+    {
+        "name": "Teleporter Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "Not Trap" ]
+    },
+    {
+        "name": "Anglerfish Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "Not Trap", "Need For End" ]
+    },
+
+    {
+        "name": "Launch Codes",
+        "progression": true,
+        "category": [ "Tools", "Not Trap" ]
+    },
+    {
+        "name": "Scout",
+        "progression": true,
+        "category": [ "Tools", "Not Trap", "Need For End" ]
+    },
+    {
+        "name": "Scout Photos",
+        "progression": true,
+        "category": [ "Tools", "Not Trap" ]
+    },
+
+    {
+        "name": "Meditation",
+        "useful": true,
+        "category": [ "Bonus", "Not Trap" ]
+    },
+    {
+        "name": "Landing Camera",
+        "useful": true,
+        "category": [ "Bonus", "Tools", "Not Trap" ]
+    },
+
+    {
+        "name": "Signaloscope",
+        "progression": true,
+        "category": [ "Tools", "Signal", "Not Trap", "Need For End" ]
+    },
+    {
+        "name": "Signal > OW Ventures",
+        "progression": true,
+        "category": [ "Signal", "Not Trap" ]
+    },
+    {
+        "name": "Signal > Quantum",
+        "progression": true,
+        "category": [ "Signal", "Quantum", "Not Trap" ]
+    },
+    {
+        "name": "Signal > Distress",
+        "progression": true,
+        "category": [ "Signal", "Not Trap", "Need For End" ]
+    },
+    {
+        "name": "Signal > DeepSpace",
+        "progression": true,
+        "category": [ "Signal", "Not Trap" ]
+    },
+
+    {
+        "name": "Quantum Rule > imaging",
+        "progression": true,
+        "category": [ "Quantum", "Not Trap" ]
+    },
+    {
+        "name": "Quantum Rule > entanglement",
+        "progression": true,
+        "category": [ "Quantum", "Not Trap" ]
+    },
+    {
+        "name": "Quantum Rule > sixth location",
+        "progression": true,
+        "category": [ "Quantum", "Not Trap" ]
+    },
+    {
+        "name": "Musical Instrument",
+        "count": 6,
+        "category": [ "Bonus", "Not Trap" ]
+    },
+    {
+        "name": "Ticket for (1) free death",
+        "count": 3,
+        "category": [ "Bonus", "Not Trap" ]
+    },
+    {
+        "name": "Owlish feather",
+        "count": 3,
+        "category": [ "Bonus", "Not Trap" ]
+    },
+
+    {
+        "name": "forced Meditation",
+        "count": 2,
+        "category": [ "Trap" ],
+        "trap": true
+    },
+    {
+        "name": "Disabled Ship controles 'Till next loop/meditation",
+        "count": 2,
+        "category": [ "Trap" ],
+        "trap": true
+    },
+    {
+        "name": "Minor Damage to ship",
+        "count": 3,
+        "category": [ "Trap" ],
+        "trap": true
+    },
+    {
+        "name": "Major Damage to ship",
+        "count": 2,
+        "category": [ "Trap" ],
+        "trap": true
+    },
+
+    {
+        "name": "Seen Coords",
+        "progression": true,
+        "category": [ "Visits", "Need For End" ]
+    },
+    {
+        "name": "Seen WarpDrive",
+        "progression": true,
+        "category": [ "Visits", "Need For End" ]
+    },
+
+    {
+        "name": "Stranger Presence Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "EYE > Main entrance",
+        "progression": true,
+        "category": [ "EYE", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Dam entrance",
+        "progression": true,
+        "category": [ "EYE", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Back entrance",
+        "progression": true,
+        "category": [ "EYE", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Secret entrance",
+        "progression": true,
+        "category": [ "EYE", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Abandoned temple code",
+        "progression": true,
+        "category": [ "EYE", "code", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Broken Interface room code",
+        "progression": true,
+        "category": [ "EYE", "code", "Not Trap" ]
+    },
+    {
+        "name": "EYE > Progressive Slide burning room",
+        "count": 3,
+        "progression": true,
+        "category": [ "EYE" ]
+    },
+    {
+        "name": "DreamWorld Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    }
+]

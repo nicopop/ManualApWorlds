@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{784d2bc0-aa9f-4b55-9578-5905a866a120}</ProjectGuid>
+    <ProjectHome>manual_outerwildseye_nicopopxd\</ProjectHome>
+    <StartupFile>__init__.py</StartupFile>
+    <SearchPath>data\;docs\</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Data.py" />
+    <Compile Include="Game.py" />
+    <Compile Include="Items.py" />
+    <Compile Include="Locations.py" />
+    <Compile Include="Options.py" />
+    <Compile Include="Regions.py" />
+    <Compile Include="Rules.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Schemas\Manual.game.schema.json">
+      <Link>Manual.game.schema.json</Link>
+    </Content>
+    <Content Include="..\..\Schemas\Manual.items.schema.json">
+      <Link>Manual.items.schema.json</Link>
+    </Content>
+    <Content Include="..\..\Schemas\Manual.locations.schema.json">
+      <Link>Manual.locations.schema.json</Link>
+    </Content>
+    <Content Include="..\..\Schemas\Manual.regions.schema.json">
+      <Link>Manual.regions.schema.json</Link>
+    </Content>
+    <Content Include="data\game.json" />
+    <Content Include="data\items.json" />
+    <Content Include="data\locations.json" />
+    <Content Include="data\regions.json" />
+    <Content Include="docs\en_Manual.md" />
+    <Content Include="docs\setup_en.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data" />
+    <Folder Include="docs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

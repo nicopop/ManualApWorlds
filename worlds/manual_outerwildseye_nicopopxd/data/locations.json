@@ -1,0 +1,395 @@
+[
+	{
+		"name": "'Learn' the Launch Codes in the observatory",
+		"category": [ "Beginning" ]
+	},
+	{
+		"name": "Do the repairs in the Zero-G Cave",
+		"category": [ "Beginning" ]
+	},
+	{
+		"name": "Land the model Ship on the small landing pad target thingy",
+		"category": [ "Beginning" ]
+	},
+
+	{
+		"name": "Get in ship for the first time",
+		"category": [ "Beginning" ],
+		"requires": [ "Launch Codes" ],
+		"place_item_category": [ "Signal" ]
+	},
+	{
+		"name": "Visit the Crater with the Bramble seed",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ]
+	},
+
+	{
+		"name": "Moon > Visit Eye Signal Locator",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ]
+	},
+
+	{
+		"name": "Get in the High Energy Lab",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ]
+	},
+	{
+		"name": "Visit the Eye Shrine in the Sunless City",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ]
+	},
+	{
+		"name": "Visit the Quantum Moon Locator",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ]
+	},
+	{
+		"name": "Launch the gravity cannon's ship ET",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ]
+	},
+
+	{
+		"name": "Get in Ruptured Core of the Interlopper",
+		"region": "Space",
+		"requires": [ "Scout" ],
+		"category": [ "P - Interloper" ]
+	},
+	{
+		"name": "Get in Orbital Cannon",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ]
+	},
+	{
+		"name": "Read the log on the Bramble Island",
+		"region": "Space",
+		"requires": [ "Scout", "Scout Photos" ],
+		"category": [ "P - Giant's Deep" ]
+	},
+	{
+		"name": "Read any text wall in the Construction yard",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ]
+	},
+
+	{
+		"name": "Get in the Statue Island Workshop",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ]
+	},
+	{
+		"name": "Visit the Ocean Depths",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge" ]
+	},
+	{
+		"name": "Visit the Planet's Core",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
+	},
+	{
+		"name": "Get in Southern Observatory and witness the tornados",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Visit the Old Settlement",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Visit the Gravity Crystal Workshop",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Visit the Classroom in the School District",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Launch the gravity cannon's ship BH",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Moon > Get inside Hollow's lantern's volcanic testing site",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Visit the Nomai mines and read any Nomain wall",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ]
+	},
+
+	{
+		"name": "Play Hide and seek with the kids",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ],
+		"requires": [ "Signaloscope" ]
+	},
+
+	{
+		"name": "Talk to Chert",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+	{
+		"name": "Talk to Esker",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+	{
+		"name": "Talk to Riebeck",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+	{
+		"name": "Get the Meditation dialog from Gabbro",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+
+	{
+		"name": "Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Scout" ]
+	},
+	{
+		"name": "Shoot your Scout in the Bramble seed and see the dead Anglerfish",
+		"region": "Space",
+		"category": [ "P - Timber Hearth" ],
+		"requires": [ "Scout", "Scout Photos" ]
+	},
+
+	{
+		"name": "Visit > Get in the Ash Twin Project",
+		"region": "Space",
+		"category": [ "P - Ash Twin" ],
+		"requires": [ "Teleporter Knowledge" ],
+		"place_item": [ "Seen WarpDrive" ]
+	},
+	{
+		"name": "Item > Get in the Ash Twin Project",
+		"region": "Space",
+		"category": [ "P - Ash Twin" ],
+		"requires": [ "Teleporter Knowledge" ],
+		"place_item_category": [ "Not Trap" ]
+	},
+	{
+		"name": "Get to the sun station",
+		"region": "Space",
+		"category": [ "P - Ash Twin" ],
+		"requires": [ "Teleporter Knowledge" ]
+	},
+	{
+		"name": "Get in the Blackhole Forge",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ],
+		"requires": [ "Teleporter Knowledge" ]
+	},
+	{
+		"name": "Find Escape Pod 1",
+		"region": "Space",
+		"category": [ "P - Brittle Hollow" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
+		"name": "Find Escape Pod 2",
+		"region": "Space",
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
+		"name": "Land on the Quantum moon",
+		"region": "Quantum Trials",
+		"category": [ "P - Quantum Moon" ],
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+	},
+	{
+		"name": "Talk to Solanum",
+		"region": "Quantum Trials",
+		"category": [ "P - Quantum Moon" ],
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+	},
+	{
+		"name": "Find the Museum Shard",
+		"region": "Quantum Trials",
+		"category": [ "P - Timber Hearth" ]
+	},
+	{
+		"name": "Find the Grove Shard",
+		"region": "Quantum Trials",
+		"category": [ "P - Timber Hearth" ]
+	},
+	{
+		"name": "Find the Cave Shard",
+		"region": "Quantum Trials",
+		"category": [ "P - Ember Twin" ]
+	},
+	{
+		"name": "Find the Island Shard",
+		"region": "Quantum Trials",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+	},
+	{
+		"name": "Find the Tower Shard",
+		"region": "Quantum Trials",
+		"category": [ "P - Brittle Hollow" ]
+	},
+	{
+		"name": "Complete the Tower of Quantum Trials",
+		"region": "Quantum Trials",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+	},
+	{
+		"name": "Ride Cave Quantum shard and 'learn' the second rule of Quantum",
+		"region": "Quantum Trials",
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Quantum Rule > entanglement" ]
+	},
+	{
+		"name": "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
+		"region": "Quantum Trials",
+		"category": [ "P - Brittle Hollow" ],
+		"requires": "Signal > Quantum"
+	},
+
+	{
+		"name": "Visit > Get in the Probe Tracking Module and see the Coords to the eye",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+		"place_item": [ "Seen Coords" ]
+	},
+	{
+		"name": "Item > Get in the Probe Tracking Module and see the Coords to the eye",
+		"region": "Space",
+		"category": [ "P - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+		"place_item_category": [ "Not Trap" ]
+	},
+
+	{
+		"name": "Get the Jellyfish dialog from Feldspar",
+		"region": "Dark Bramble",
+		"category": [ "P - Dark Bramble" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures", "Scout" ]
+	},
+
+	{
+		"name": "Find Escape Pod 3",
+		"region": "Dark Bramble",
+		"category": [ "P - Dark Bramble" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+
+	{
+		"name": "Get lost in there and survive",
+		"region": "Dark Bramble",
+		"category": [ "P - Dark Bramble" ]
+	},
+
+
+	{
+		"name": "FINAL > Get the warp drive to the vessel and Warp to the Eye",
+		"region": "Dark Bramble",
+		"requires": [ "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", "Signaloscope", "Signal > Distress", "Scout" ],
+		"place_item": [ "1 beautiful campfire song" ]
+	},
+
+	{
+		"name": "victory",
+		"region": "Dark Bramble",
+		"requires": [ "1 beautiful campfire song" ],
+		"victory": true
+	},
+
+	{
+		"name": "Visit the Radio Station and get it's signal",
+		"region": "Space",
+		"category": [ "Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
+	},
+	{
+		"name": "Visit the Radio Station and check the photos",
+		"region": "Space",
+		"category": [ "Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace", "Stranger Presence Knowledge" ]
+	},
+	{
+		"name": "Visit the deepspace satelite",
+		"region": "Space",
+		"category": [ "Space" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
+	},
+
+	{
+		"name": "Watch a slide in River Lowlands",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ]
+	},
+	{
+		"name": "Watch a slide in Cinder Isles",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ]
+	},
+	{
+		"name": "Watch a slide in Hidden Gorge",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ]
+	},
+	{
+		"name": "Get in the hidden Laboratory",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "Stranger > Secret entrance" ]
+	},
+	{
+		"name": "Watch the slide in the reservoir",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ]
+	},
+	{
+		"name": "Get in Abandoned temple's secret basement",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "EYE > Abandoned temple code" ]
+	},
+	{
+		"name": "Get in the burned interface room in the reservoir area",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "EYE > broken Interface room code" ]
+	},
+	{
+		"name": "Get in the hidden Slide burning room in River Lowlands",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "EYE > Progressive Slide burning room:1" ]
+	},
+	{
+		"name": "Get in the hidden Slide burning room in Cinder Isles",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "EYE > Progressive Slide burning room:2" ]
+	},
+	{
+		"name": "Get in the hidden Slide burning room in Hidden Gorge",
+		"region": "The Stranger",
+		"category": [ "The Stranger" ],
+		"requires": [ "EYE > Progressive Slide burning room:3" ]
+	}
+]

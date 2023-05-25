@@ -1,0 +1,25 @@
+{
+    "$schema": "..\\..\\..\\Schemas\\Manual.regions.schema.json",
+    "Space": {
+        "requires": ["Launch Codes"],
+        "connects_to": []
+    },
+
+    "Quantum Trials": {
+        "requires": [ "Launch Codes", "Signal > Quantum", "Signaloscope" ],
+        "connects_to": [ "Space" ]
+    },
+
+    "Dark Bramble": {
+        "requires": [ "Launch Codes", "Anglerfish Knowledge" ],
+        "connects_to": [ "Space" ]
+    },
+    "The Stranger": {
+        "requires": "|Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|DLC > Main entrance| or |DLC > Back entrance| or |DLC > Secret entrance| or |DLC > Dam entrance|)",
+        "connects_to": [ "Space", "DreamWorld" ]
+    },
+    "DreamWorld": {
+        "requires": "|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|DLC > Main entrance| or |DLC > Back entrance| or |DLC > Secret entrance| or |DLC > Dam entrance|)",
+        "connects_to": [ "The Stranger" ]
+    }
+}
