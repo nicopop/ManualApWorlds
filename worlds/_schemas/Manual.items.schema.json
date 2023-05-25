@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Anonymous"
+  },
+  "definitions": {
+    "Category": {
+      "type": "string"
+    },
+    "Anonymous": {
+      "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "progression": {
+                "type": "boolean"
+            },
+            "count": {
+                "type": "integer",
+                "minimum": 1
+            },
+            "category": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Category"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            },
+            "useful": {
+                "type": "boolean"
+            },
+            "trap": {
+                "type": "boolean"
+            }
+        },
+        "required": ["name"]
+    }
+  }
+}
