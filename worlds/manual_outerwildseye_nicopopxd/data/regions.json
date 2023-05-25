@@ -1,5 +1,4 @@
 {
-    "$schema": "..\\..\\..\\Schemas\\Manual.regions.schema.json",
     "Space": {
         "requires": ["Launch Codes"],
         "connects_to": []

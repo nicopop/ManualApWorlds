@@ -1,6 +1,5 @@
 [
     {
-        "$schema": "..\\..\\..\\Schemas\\Manual.items.schema.json",
         "name": "Coords to the eye",
         "progression": true,
         "count": 2,

@@ -29,18 +29,6 @@
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Schemas\Manual.game.schema.json">
-      <Link>Manual.game.schema.json</Link>
-    </Content>
-    <Content Include="..\..\Schemas\Manual.items.schema.json">
-      <Link>Manual.items.schema.json</Link>
-    </Content>
-    <Content Include="..\..\Schemas\Manual.locations.schema.json">
-      <Link>Manual.locations.schema.json</Link>
-    </Content>
-    <Content Include="..\..\Schemas\Manual.regions.schema.json">
-      <Link>Manual.regions.schema.json</Link>
-    </Content>
     <Content Include="data\game.json" />
     <Content Include="data\items.json" />
     <Content Include="data\locations.json" />
