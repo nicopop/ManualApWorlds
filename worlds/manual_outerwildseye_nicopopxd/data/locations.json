@@ -33,12 +33,14 @@
 	{
 		"name": "Get in the High Energy Lab",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ]
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Visit the Eye Shrine in the Sunless City",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ]
+		"category": [ "P - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Visit the Quantum Moon Locator",
@@ -163,7 +165,7 @@
 		"name": "Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
 		"region": "Space",
 		"category": [ "P - Ember Twin" ],
-		"requires": [ "Scout" ]
+		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
 	},
 	{
 		"name": "Shoot your Scout in the Bramble seed and see the dead Anglerfish",
