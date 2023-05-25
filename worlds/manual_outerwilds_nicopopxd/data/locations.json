@@ -1,107 +1,203 @@
 [
-    { "name": "TH free > 'Learn' the Launch Codes in the observatory"},
-    { "name": "TH free > Do the repairs in the Zero-G Cave"},
-    { "name": "TH free > Land the model Ship on the small landing pad target thingy"},
-    { "name": "TH > Win Hide and seek with the childrens", "requires": "Signaloscope"},
-    { "name": "ET > Get in the High Energy Lab", "requires": "Launch Codes"},
-    { "name": "IN > Get in Ruptured Core of the Interlopper", "requires": "Launch Codes"},
-    { "name": "GD > Get in Orbital Cannon", "requires": "Launch Codes"},
-    { "name": "BH > Get in Southern Observatory and witness the tornados", "requires": "Launch Codes"},
-    { "name": "BH > Get inside Hollow's lantern's volcanic testing site", "requires": "Launch Codes"},
-    { "name": "TH > Visit the Nomai mines and read the already activated Nomain wall", "requires": "Launch Codes"},
-    { 
-        "name": "GD > Get in the Probe Tracking Module and see the Coords to the eye", 
-        "requires": ["Launch Codes", "Tornado Knowledge", "Jellyfish Knowledge"] 
-    }, 
+  {
+		"name": "TH > 'Learn' the Launch Codes in the observatory",
+    "category": ["P - Timber Hearth", "Beginning"]
+	},
+	{
+		"name": "TH > Do the repairs in the Zero-G Cave",
+    "category": ["P - Timber Hearth", "Beginning"]
+	},
+	{
+		"name": "TH > Land the model Ship on the small landing pad target thingy",
+    "category": ["P - Timber Hearth", "Beginning"]
+	},
+
+	{
+		"name": "ET > Get in the High Energy Lab",
+    "region": "Space",
+    "category": ["P - Ember Twin", "Early"]
+	},
+	{
+		"name": "IN > Get in Ruptured Core of the Interlopper",
+    "region": "Space",
+    "category": ["P - Interloper", "Early"]
+	},
+	{
+		"name": "GD > Get in Orbital Cannon",
+    "region": "Space",
+    "category": ["P - Giant's Deep", "Early"]
+	},
+	{
+		"name": "BH > Get in Southern Observatory and witness the tornados",
+    "region": "Space",
+    "category": ["P - Brittle Hollow", "Early"]
+	},
+	{
+		"name": "BH > Get inside Hollow's lantern's volcanic testing site",
+    "region": "Space",
+    "category": ["P - Brittle Hollow", "Early"]
+	},
+	{
+		"name": "TH > Visit the Nomai mines and read the already activated Nomain wall",
+    "region": "Space",
+    "category": ["P - Timber Hearth", "Early"]
+	},
  
-    { "name": "ET > Talk to Chert",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > OW Ventures"]
-    }, 
-    { "name": "TH > Talk to Esker",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > OW Ventures"]
-    }, 
-    { "name": "BH > Talk to Riebeck",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > OW Ventures"]
-    }, 
-    { "name": "GD > Get the Meditation dialog from Gabbro",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > OW Ventures"]
-    }, 
-    { "name": "DB > Get the Jellyfish dialog from Feldspar",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > OW Ventures", "Scout", "Anglerfish Knowledge"]
-    },
-    
-    { "name": "ET > Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
-      "requires": ["Launch Codes", "Scout"]
-    },
-    { 
-        "name": "AT > Get in the Ash Twin Project", 
-        "requires": ["Launch Codes", "Teleporter Knowledge"]
-    }, 
-    { 
-        "name": "AT > Get to the sun station", 
-        "requires": ["Launch Codes", "Teleporter Knowledge"]
-    }, 
-    { "name": "BH > Get in the Blackhole Forge",
-      "requires": ["Launch Codes", "Teleporter Knowledge"]
-    }, 
-    {
-      "name": "BH > Find Escape Pod 1",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Distress"]
-    },
-    {
-      "name": "ET > Find Escape Pod 2",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Distress"]
-    },
-    {
-      "name": "DB > Find Escape Pod 3",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Distress", "Anglerfish Knowledge"]
-    },
-    {
-      "name": "QM > Land on the Quantum moon",
-      "requires": ["Launch Codes", "Quantum Rule > imaging", "Scout Photos", "Signaloscope", "Signal > Quantum"]
-    },
-    {
-      "name": "QM > Talk to Solanum",
-      "requires": ["Launch Codes", "Quantum Rule > imaging", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location"]
-    },
-    {
-      "name": "TH > Find the Museum Shard",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Quantum"]
-    },
-    {
-      "name": "TH > Find the Grove Shard",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Quantum"]
-    },
-    {
-      "name": "ET > Find the Cave Shard",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Quantum"]
-    },
-    {
-      "name": "GD > Find the Island Shard",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Quantum", "Quantum Rule > imaging"]
-    },
-    {
-      "name": "BH > Find the Tower Shard",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > Quantum"]
-    },
-    {
-      "name": "Space > Visit the deepspace satelite",
-      "requires": ["Launch Codes", "Signaloscope", "Signal > DeepSpace"]
-    },
-    {
-      "name": "GD > Complete the Tower of Quantum Trials",
-      "requires": ["Launch Codes", "Quantum Rule > imaging", "Scout Photos", "Signal > Quantum"]
-    },
-    {
-      "name": "ET > Ride Cave Quantum shard and 'learn' the second rule of Quantum",
-      "requires": ["Launch Codes", "Quantum Rule > entanglement", "Signal > Quantum"]
-    },
-    { "name": "BH > Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
-      "requires": "Signal > Quantum"
-    },
-    {
-        "name": "Get the warp drive to the vessel and Warp to the Eye",
-        "requires": ["Launch Codes", "Coords to the eye", "Warp drive", "Teleporter Knowledge", "Signaloscope", "Signal > Distress", "Scout", "Anglerfish Knowledge"], 
-        "victory": true 
-    }
+	{
+		"name": "ET > Talk to Chert",
+    "region": "Space",
+    "category": ["P - Ember Twin", "Signaloscope", "People"],
+		"requires": ["Signaloscope", "Signal > OW Ventures"]
+	},
+	{
+		"name": "TH > Talk to Esker",
+    "region": "Space",
+    "category": ["P - Timber Hearth", "Signaloscope", "People"],
+		"requires": ["Signaloscope", "Signal > OW Ventures"]
+	},
+	{
+		"name": "BH > Talk to Riebeck",
+    "region": "Space",
+    "category": ["P - Brittle Hollow", "Signaloscope", "People"],
+		"requires": ["Signaloscope", "Signal > OW Ventures"]
+	},
+	{
+		"name": "GD > Get the Meditation dialog from Gabbro",
+    "region": "Space",
+    "category": ["P - Giant's Deep", "Signaloscope", "People"],
+		"requires": ["Signaloscope", "Signal > OW Ventures"]
+	},
+
+	{
+		"name": "ET > Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
+    "region": "Space",
+    "category": ["P - Ember Twin"],
+		"requires": ["Scout"]
+	},
+	{
+		"name": "AT > Get in the Ash Twin Project",
+    "region": "Space",
+    "category": ["P - Ash Twin", "Teleporter"],
+		"requires": ["Teleporter Knowledge"]
+	},
+	{
+		"name": "AT > Get to the sun station",
+    "region": "Space",
+    "category": ["P - Ash Twin", "Teleporter"],
+		"requires": ["Teleporter Knowledge"]
+	},
+	{
+		"name": "BH > Get in the Blackhole Forge",
+    "region": "Space",
+    "category": ["P - Brittle Hollow", "Teleporter"],
+		"requires": ["Teleporter Knowledge"]
+	},
+	{
+		"name": "BH > Find Escape Pod 1",
+    "region": "Space",
+    "category": ["P - Brittle Hollow", "Signaloscope"],
+		"requires": ["Signaloscope", "Signal > Distress"]
+	},
+	{
+		"name": "ET > Find Escape Pod 2",
+    "region": "Space",
+    "category": ["P - Ember Twin", "Signaloscope"],
+		"requires": ["Signaloscope", "Signal > Distress"]
+	},
+	{
+		"name": "QM > Land on the Quantum moon",
+    "region": "Quantum Trials",
+    "category": ["P - Quantum Moon"],
+		"requires": ["Quantum Rule > imaging", "Scout Photos"]
+	},
+	{
+		"name": "QM > Talk to Solanum",
+    "region": "Quantum Trials",
+    "category": ["P - Quantum Moon", "Quantum", "People"],
+		"requires": ["Quantum Rule > imaging", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location"]
+	},
+	{
+		"name": "TH > Find the Museum Shard",
+    "region": "Quantum Trials",
+    "category": ["P - Timber Hearth", "Quantum"]
+	},
+	{
+		"name": "TH > Find the Grove Shard",
+    "region": "Quantum Trials",
+    "category": ["P - Timber Hearth", "Quantum"]
+	},
+	{
+		"name": "ET > Find the Cave Shard",
+    "region": "Quantum Trials",
+    "category": ["P - Ember Twin", "Quantum"]
+	},
+	{
+		"name": "GD > Find the Island Shard",
+    "region": "Quantum Trials",
+    "category": ["P - Giant's Deep", "Quantum"],
+		"requires": ["Quantum Rule > imaging", "Scout Photos"]
+	},
+	{
+		"name": "BH > Find the Tower Shard",
+    "region": "Quantum Trials",
+    "category": ["P - Brittle Hollow", "Quantum"]
+	},
+	{
+		"name": "GD > Complete the Tower of Quantum Trials",
+    "region": "Quantum Trials",
+    "category": ["P - Giant's Deep", "Quantum"],
+		"requires": ["Quantum Rule > imaging", "Scout Photos"]
+	},
+	{
+		"name": "ET > Ride Cave Quantum shard and 'learn' the second rule of Quantum",
+    "region": "Quantum Trials",
+    "category": ["P - Ember Twin", "Quantum"],
+		"requires": ["Quantum Rule > entanglement"]
+	},
+	{
+		"name": "BH > Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
+    "region": "Quantum Trials",
+    "category": ["P - Brittle Hollow", "Quantum"],
+		"requires": "Signal > Quantum"
+	},
+  {
+		"name": "Space > Visit the deepspace satelite",
+    "region": "Space",
+    "category": ["Space"],
+		"requires": ["Signaloscope", "Signal > DeepSpace"]
+	},
+  {
+		"name": "TH > Visit the Radio Station and get it's signal",
+    "region": "Space",
+    "category": ["P - Timber Hearth", "Signaloscope"],
+		"requires": ["Signaloscope", "Signal > DeepSpace"]
+	},
+  
+  {
+		"name": "GD > Get in the Probe Tracking Module and see the Coords to the eye",
+    "region": "Space",
+    "category": ["P - Giant's Deep"],
+		"requires": ["Tornado Knowledge", "Jellyfish Knowledge"]
+	},
+  
+  {
+		"name": "DB > Get the Jellyfish dialog from Feldspar",
+    "region": "Dark Bramble",
+    "category": ["P - Dark Bramble", "Signaloscope", "People"],
+		"requires": ["Signaloscope", "Signal > OW Ventures", "Scout"]
+	},
+  
+  {
+		"name": "DB > Find Escape Pod 3",
+    "region": "Space",
+    "category": ["P - Dark Bramble", "Signaloscope"],
+		"requires": ["Signaloscope", "Signal > Distress"]
+	},
+	{
+		"name": "Get the warp drive to the vessel and Warp to the Eye",
+    "region": "Dark Bramble",
+    "category": ["P - Ash Twin", "P - Dark Bramble"],
+		"requires": ["Tornado Knowledge", "Jellyfish Knowledge", "Coords to the eye", "Warp drive", "Teleporter Knowledge", "Signaloscope", "Signal > Distress", "Scout"],
+		"victory": true
+	}
 ]

@@ -1,28 +1,28 @@
 [  
-    { "name": "Coords to the eye", "progression": true },
+    { "name": "Coords to the eye", "progression": true, "category": ["Need For End"] },
+    { "name": "Warp drive", "progression": true, "category": ["Need For End"] },
     
-    { "name": "Tornado Knowledge", "progression": true },
-    { "name": "Jellyfish Knowledge", "progression": true },
-    { "name": "Teleporter Knowledge", "progression": true },
-    { "name": "Anglerfish Knowledge", "progression": true },
+    { "name": "Tornado Knowledge", "progression": true, "category": ["Knowledge", "Need For End"] },
+    { "name": "Jellyfish Knowledge", "progression": true, "category": ["Knowledge", "Need For End"] },
+    { "name": "Teleporter Knowledge", "progression": true, "category": ["Knowledge", "Need For End"] },
+    { "name": "Anglerfish Knowledge", "progression": true, "category": ["Knowledge", "Need For End"] },
     
-    { "name": "Warp drive", "progression": true },
-    { "name": "Scout", "progression": true},
-    { "name": "Scout Photos", "progression": true},
-    { "name": "Launch Codes", "progression": true},
+    { "name": "Launch Codes", "progression": true, "category": ["Basics"]},
+    { "name": "Scout", "progression": true, "category": ["Basics", "Tools"]},
+    { "name": "Scout Photos", "progression": true, "category": ["Basics", "Tools"]},
+
+    { "name": "Meditation", "useful": true, "category": ["Bonus"] },
+    { "name": "Landing Camera", "useful": true, "category": ["Basics", "Bonus", "Tools"]},
     
-    { "name": "Meditation", "useful": true },
-    { "name": "Landing Camera", "useful": true},
+    { "name": "Signaloscope", "progression": true, "category": ["Basics", "Tools", "Signal"] },
+    { "name": "Signal > OW Ventures", "progression": true, "category": ["Signal"] },
+    { "name": "Signal > Quantum", "progression": true, "category": ["Signal", "Quantum"]},
+    { "name": "Signal > Distress", "progression": true, "category": ["Signal"]},
+    { "name": "Signal > DeepSpace", "progression": true, "category": ["Signal"]},
     
-    { "name": "Signaloscope", "progression": true},
-    { "name": "Signal > OW Ventures", "progression": true },
-    { "name": "Signal > Quantum", "progression": true},
-    { "name": "Signal > Distress", "progression": true},
-    { "name": "Signal > DeepSpace", "progression": true},
+    { "name": "Quantum Rule > imaging", "progression": true, "category": ["Quantum"] },
+    { "name": "Quantum Rule > entanglement", "progression": true, "category": ["Quantum"] },
+    { "name": "Quantum Rule > sixth location", "progression": true, "category": ["Quantum"] },
+    { "name": "Quantum Key", "count": 5}
     
-    { "name": "Quantum Rule > imaging", "progression": true},
-    { "name": "Quantum Rule > entanglement", "progression": true},
-    { "name": "Quantum Rule > sixth location", "progression": true},
-    
-    { "name": "The kickstarter satelite", "useful": false}
 ]

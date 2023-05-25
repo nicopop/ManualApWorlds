@@ -1,6 +1,6 @@
 from .Data import item_table, progressive_item_table, location_table
 from .Game import game_name, filler_item_name
-from .Locations import location_id_to_name, location_name_to_id
+from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
 
 from .Regions import create_regions
@@ -47,6 +47,7 @@ class ManualWorld(World):
     location_table = location_table
     location_id_to_name = location_id_to_name
     location_name_to_id = location_name_to_id
+    location_name_to_location = location_name_to_location
 
     def pre_fill(self):
         location_game_complete = self.multiworld.get_location("__Manual Game Complete__", self.player)
@@ -97,6 +98,9 @@ class ManualWorld(World):
     def create_item(self, name: str) -> Item:
         item = self.item_name_to_item[name]
         classification = ItemClassification.filler
+
+        if "trap" in item and item["trap"]:
+            classification = ItemClassification.trap
 
         if "useful" in item and item["useful"]:
             classification = ItemClassification.useful

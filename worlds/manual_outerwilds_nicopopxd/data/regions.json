@@ -1,0 +1,17 @@
+{
+    "Space": {
+        "requires": [
+            "Launch Codes"],
+        "connects_to": []
+    },
+
+    "Quantum Trials": {
+        "requires": ["Launch Codes", "Signal > Quantum", "Signaloscope"],
+        "connects_to": ["Space"]
+    },
+    
+    "Dark Bramble": {
+        "requires": ["Launch Codes", "Anglerfish Knowledge"],
+        "connects_to": ["Space"]
+    }
+}
