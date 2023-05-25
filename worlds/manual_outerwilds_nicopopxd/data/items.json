@@ -57,6 +57,7 @@
     {
         "name": "Meditation",
         "useful": true,
+        "count": 2,
         "category": [ "Bonus", "Not Trap" ]
     },
     {
