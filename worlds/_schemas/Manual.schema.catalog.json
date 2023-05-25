@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/schema-catalog.json",
+  "schemas": [
+    {
+        "name": "Manual Items.json",
+        "description": "item.json file for the manual Archipelago Apworld",
+        "fileMatch": [ "items.json" ],
+        "url": "https://github.com/nicopop/ManualOuterWildsArchipelago/raw/manual/worlds/_schemas/Manual.items.schema.json"
+    },
+    {
+        "name": "Manual game.json",
+        "description": "item.json file for the manual Archipelago Apworld",
+        "fileMatch": [ "game.json" ],
+        "url": "https://github.com/nicopop/ManualOuterWildsArchipelago/raw/manual/worlds/_schemas/Manual.game.schema.json"
+    },
+    {
+        "name": "Manual locations.json",
+        "description": "item.json file for the manual Archipelago Apworld",
+        "fileMatch": [ "locations.json" ],
+        "url": "https://github.com/nicopop/ManualOuterWildsArchipelago/raw/manual/worlds/_schemas/Manual.locations.schema.json"
+    }
+  ],
+  "version": 1
+}
