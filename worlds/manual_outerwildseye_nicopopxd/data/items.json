@@ -215,7 +215,43 @@
         "category": [ "EYE" ]
     },
     {
+        "name": "EYE > Submerge Structure flame Access",
+        "progression": true,
+        "category": [ "EYE" ]
+    },
+    {
         "name": "DreamWorld Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "DreamWorld Loading Glitch Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "DreamWorld Render Glitch Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "DreamWorld Death Glitch Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "DreamWorld Grabbing Hand Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "DreamWorld Door Candle Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE" ]
+    },
+    {
+        "name": "Progressive Sealed Vault Code",
+        "count": 3,
         "progression": true,
         "category": [ "Knowledge", "EYE" ]
     }

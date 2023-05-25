@@ -393,18 +393,92 @@
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
 	},
 	{
-		"name": "Example DreamWorld 1",
+		"name": "Enter the Shrouded Woodlands Dream",
 		"region": "Shrouded Woodlands",
 		"category": [ "DreamWorld" ]
 	},
 	{
-		"name": "Example DreamWorld 2",
+		"name": "Find where the Wandering Owlks come from",
+		"region": "Shrouded Woodlands",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Find where the Wandering Owlks come from",
+		"region": "Shrouded Woodlands",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Find where the Wandering Owlks are Going",
+		"region": "Shrouded Woodlands",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Get in the Forbidden Archive of the Shrouded Woodlands",
+		"region": "Shrouded Woodlands",
+		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Watch the Loading Glitch Slide",
+		"region": "Shrouded Woodlands",
+		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Discover the burned code SW",
+		"region": "Shrouded Woodlands",
+		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Enter the Starlit Cove Dream",
 		"region": "Starlit Cove",
 		"category": [ "DreamWorld" ]
 	},
 	{
-		"name": "Example DreamWorld 3",
+		"name": "Visit the Burned Eye Church in the dream",
+		"region": "Starlit Cove",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Get in the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Get to the top of the Tower in the Starlit Cove",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge|",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Watch the Death Glitch Slide",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Discover the burned code SC",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Enter the Endless Canyon Dream",
 		"region": "Endless Canyon",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Enter the Subterranean Lake Dream",
+		"region": "DreamWorld",
+		"requires": [ "EYE > Submerge Structure flame Access" ],
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Enter the Sealed Vault in the Subterranean Lake Dream",
+		"region": "DreamWorld",
+		"requires": "|EYE > Submerge Structure flame Access| and ((|Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
 		"category": [ "DreamWorld" ]
 	}
 ]
