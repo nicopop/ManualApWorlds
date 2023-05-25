@@ -372,7 +372,7 @@
 		"name": "Get in the burned interface room in the reservoir area",
 		"region": "The Stranger",
 		"category": [ "The Stranger" ],
-		"requires": [ "EYE > broken Interface room code" ]
+		"requires": [ "EYE > Broken Interface room code" ]
 	},
 	{
 		"name": "Get in the hidden Slide burning room in River Lowlands",
