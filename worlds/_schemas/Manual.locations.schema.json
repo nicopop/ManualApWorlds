@@ -24,7 +24,7 @@
             "type": "object",
             "properties": {
                 "name": {
-                    "description": "The unique name of the location",
+                    "description": "The unique name of the location.",
                     "type": "string"
                 },
                 "region": {
@@ -40,7 +40,7 @@
                     "uniqueItems": true
                 },
                 "requires": {
-                    "description": "(Optional) Either an array of items or a boolean logic string(check discord)",
+                    "description": "(Optional) Either an array of items or a boolean logic string(check discord).",
                     "type": [ "array", "string" ],
                     "items": {
                         "$ref": "#/definitions/Require"
@@ -55,7 +55,7 @@
                     }
                 },
                 "place_item": {
-                    "description": "(Optional) Specify the item that will be placed at this location. (Ignore Logic)",
+                    "description": "(Optional) Specify the list of item that can be placed at this location (will only randomly choose 1).",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Place_item"
