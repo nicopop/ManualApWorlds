@@ -16,7 +16,7 @@
     {
         "name": "Manual locations.json",
         "description": "locations.json schema file for the manual Archipelago Apworld",
-        "fileMatch": [ "locations.json" ],
+        "fileMatch": [ "**/data/locations.json" ],
         "url": "https://github.com/nicopop/ManualOuterWildsArchipelago/raw/manual/worlds/_schemas/Manual.locations.schema.json"
     }
   ],
