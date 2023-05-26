@@ -3,13 +3,16 @@
   "type": "object",
   "properties": {
     "game": {
-      "type": "string"
+        "description": "The name of your game, compatible with capital letters",
+        "type": "string"
     },
     "player": {
-      "type": "string"
+        "description": "Your Username",
+        "type": "string"
     },
     "filler_item_name": {
-      "type": "string"
+        "description": "Name of the filler item that get place when there's no more item to place",
+        "type": "string"
     }
   }
 }
