@@ -161,12 +161,12 @@
     },
     {
         "name": "Seen Prisoner",
-        "progression": false,
+        "progression": true,
         "category": [ "Visits", "Need For End" ]
     },
     {
         "name": "Seen Solanum",
-        "progression": false,
+        "progression": true,
         "category": [ "Visits", "Need For End" ]
     },
 

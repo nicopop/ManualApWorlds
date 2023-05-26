@@ -185,7 +185,7 @@
 		"name": "Item > Get in the Ash Twin Project",
 		"region": "Space",
 		"category": [ "P - Ash Twin" ],
-		"requires": [ "Teleporter Knowledge" ],
+		"requires": [ "Seen WarpDrive", "Teleporter Knowledge" ],
 		"place_item_category": [ "Not Trap" ]
 	},
 	{
@@ -222,14 +222,14 @@
 		"name": "Visit Solanum",
 		"region": "Quantum Trials",
 		"category": [ "P - Quantum Moon" ],
-		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
+		"place_item": [ "Seen Solanum" ]
 	},
 	{
 		"name": "Talk to Solanum",
 		"region": "Quantum Trials",
 		"category": [ "P - Quantum Moon" ],
-		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
-		"place_item": [ "Seen Solanum" ]
+		"requires": [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
 	},
 	{
 		"name": "Find the Museum Shard",
@@ -287,7 +287,7 @@
 		"name": "Item > Get in the Probe Tracking Module and see the Coords to the eye",
 		"region": "Space",
 		"category": [ "P - Giant's Deep" ],
-		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+		"requires": [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
 		"place_item_category": [ "Not Trap" ]
 	},
 
@@ -518,13 +518,13 @@
 		"name": "Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "DreamWorld",
 		"requires": "|EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
-		"category": [ "DreamWorld" ]
+		"category": [ "DreamWorld" ],
+		"place_item": [ "Seen Prisoner" ]
 	},
 	{
 		"name": "Talk to the prisoner in the Subterranean Lake Dream",
 		"region": "DreamWorld",
-		"requires": "|EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
-		"category": [ "DreamWorld" ],
-		"place_item": [ "Seen Prisoner" ]
+		"requires": "|Seen Prisoner| and |EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
+		"category": [ "DreamWorld" ]
 	}
 ]
