@@ -219,10 +219,17 @@
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
-		"name": "Talk to Solanum",
+		"name": "Visit Solanum",
 		"region": "Quantum Trials",
 		"category": [ "P - Quantum Moon" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+	},
+	{
+		"name": "Talk to Solanum",
+		"region": "Quantum Trials",
+		"category": [ "P - Quantum Moon" ],
+		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
+		"place_item": [ "Seen Solanum" ]
 	},
 	{
 		"name": "Find the Museum Shard",
@@ -412,19 +419,19 @@
 	{
 		"name": "Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "Shrouded Woodlands",
-		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
 		"category": [ "DreamWorld" ]
 	},
 	{
 		"name": "Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands",
-		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
 		"category": [ "DreamWorld" ]
 	},
 	{
 		"name": "Discover the burned code SW",
 		"region": "Shrouded Woodlands",
-		"requires": "|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
 		"category": [ "DreamWorld" ]
 	},
 	{
@@ -473,6 +480,35 @@
 		"category": [ "DreamWorld" ]
 	},
 	{
+		"name": "Find the Stage with 4 instruments",
+		"region": "Endless Canyon",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Get in the restaurant",
+		"region": "Endless Canyon",
+		"category": [ "DreamWorld" ],
+		"requires": "|DreamWorld Grabbing Hand Knowledge|"
+	},
+	{
+		"name": "Get in the Forbidden Archive of the Endless Canyon Dream",
+		"region": "Endless Canyon",
+		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Watch the Render Glitch Slide",
+		"region": "Endless Canyon",
+		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
+		"name": "Discover the burned code EC",
+		"region": "Endless Canyon",
+		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"category": [ "DreamWorld" ]
+	},
+	{
 		"name": "Enter the Subterranean Lake Dream",
 		"region": "DreamWorld",
 		"requires": [ "EYE > Submerge Structure flame Access" ],
@@ -481,14 +517,14 @@
 	{
 		"name": "Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "DreamWorld",
-		"requires": "|EYE > Submerge Structure flame Access| and ((|Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
+		"requires": "|EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
 		"category": [ "DreamWorld" ]
 	},
 	{
 		"name": "Talk to the prisoner in the Subterranean Lake Dream",
 		"region": "DreamWorld",
-		"requires": "|EYE > Submerge Structure flame Access| and ((|Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
+		"requires": "|EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
 		"category": [ "DreamWorld" ],
-		"place_item": ["Seen Prisoner"]
+		"place_item": [ "Seen Prisoner" ]
 	}
 ]

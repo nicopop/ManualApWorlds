@@ -23,14 +23,14 @@
     },
     "Shrouded Woodlands": {
         "requires": "|EYE > River Lowlands flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "DreamWorld"]
+        "connects_to": [ "The Stranger", "DreamWorld", "Starlit Cove", "Endless Canyon" ]
     },
     "Starlit Cove": {
         "requires": "|EYE > Cinder Isles flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "DreamWorld" ]
+        "connects_to": [ "The Stranger", "DreamWorld", "Shrouded Woodlands", "Endless Canyon" ]
     },
     "Endless Canyon": {
         "requires": "|EYE > Hidden Gorge flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "DreamWorld"]
+        "connects_to": [ "The Stranger", "DreamWorld", "Shrouded Woodlands", "Starlit Cove" ]
     }
 }
