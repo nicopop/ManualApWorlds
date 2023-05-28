@@ -3,7 +3,7 @@
         "name": "Coords to the eye",
         "progression": true,
         "count": 2,
-        "category": [ "Need For End", "Not Trap"]
+        "category": [ "Need For End", "Not Trap" ]
     },
     {
         "name": "Warp drive",
@@ -46,7 +46,7 @@
     {
         "name": "Scout",
         "progression": true,
-        "category": [ "Tools", "Not Trap", "Need For End"]
+        "category": [ "Tools", "Not Trap", "Need For End" ]
     },
     {
         "name": "Scout Photos",
@@ -56,12 +56,13 @@
 
     {
         "name": "Meditation",
-        "useful": true,
         "count": 2,
+        "useful": true,
         "category": [ "Bonus", "Not Trap" ]
     },
     {
         "name": "Landing Camera",
+        "count": 2,
         "useful": true,
         "category": [ "Bonus", "Tools", "Not Trap" ]
     },
@@ -84,7 +85,7 @@
     {
         "name": "Signal > Distress",
         "progression": true,
-        "category": [ "Signal", "Not Trap", "Need For End"]
+        "category": [ "Signal", "Not Trap", "Need For End" ]
     },
     {
         "name": "Signal > DeepSpace",
@@ -109,7 +110,7 @@
     },
     {
         "name": "Musical Instrument",
-        "count": 5,
+        "count": 6,
         "category": [ "Bonus", "Not Trap" ]
     },
     {
@@ -120,13 +121,13 @@
 
     {
         "name": "forced Meditation",
-        "count": 2,
+        "count": 4,
         "category": [ "Trap" ],
         "trap": true
     },
     {
         "name": "Disabled Ship controles 'Till next loop/meditation",
-        "count": 2,
+        "count": 3,
         "category": [ "Trap" ],
         "trap": true
     },
@@ -150,6 +151,11 @@
     },
     {
         "name": "Seen WarpDrive",
+        "progression": true,
+        "category": [ "Visits", "Need For End" ]
+    },
+    {
+        "name": "Seen Solanum",
         "progression": true,
         "category": [ "Visits", "Need For End" ]
     }
