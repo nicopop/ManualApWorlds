@@ -26,7 +26,7 @@
             },
             "category": {
                 "description": "(optional) The category(ies) this item fit in, used in both the client and place_item_category.",
-                "type": [ "array", "string" ],
+                "type": "array",
                 "items": {
                     "$ref": "#/definitions/Category"
                 },
