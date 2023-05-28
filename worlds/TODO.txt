@@ -1,1 +1,3 @@
 1 Verify whats needed to access boat in all dreams (to get loading glitch access to subterrean lake)
+2 Update setup guide with new info
+3 test in solo the Eye version
