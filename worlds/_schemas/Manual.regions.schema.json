@@ -17,7 +17,7 @@
                             "uniqueItems": true
                         },
                         "connects_to": {
-                            "description": "Array of other region the player can go from this region",
+                            "description": "Array of other regions the player can go from this region.",
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/Connects_to"
@@ -26,7 +26,7 @@
                             "uniqueItems": true
                         },
                         "starting": {
-                            "description": "(Optional) If you don't need to reach any other region before getting to it.",
+                            "description": "(Optional) Is this region the First Region?",
                             "type":"boolean"
                         }
                     },
