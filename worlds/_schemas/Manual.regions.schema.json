@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "patternProperties": {
+        "^.*$": {
+            "anyOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "requires": {
+                            "description": "Either an array of items or a boolean logic string(check discord).",
+                            "type": [ "array", "string" ],
+                            "items": {
+                                "$ref": "#/definitions/Require"
+                            },
+                            "minItems": 0,
+                            "uniqueItems": true
+                        },
+                        "connects_to": {
+                            "description": "Array of other region the player can go from this region",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Connects_to"
+                            },
+                            "minItems": 0,
+                            "uniqueItems": true
+                        },
+                        "starting": {
+                            "type":"boolean"
+                        }
+                    },
+                    "required":["requires", "connects_to"]
+                }
+            ]
+        }
+    },
+    "definitions": {
+        "Require": {
+            "type": "string"
+        },
+        "Connects_to": {
+            "type": "string"
+        }
+    }
+}

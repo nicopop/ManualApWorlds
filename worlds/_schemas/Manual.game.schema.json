@@ -14,5 +14,6 @@
         "description": "Name of the filler items that get placed when there's no more real items to place.",
         "type": "string"
     }
-  }
+  },
+  "required":["game", "player", "filler_item_name"]
 }
