@@ -445,19 +445,19 @@
 	{
 		"name": "Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "Shrouded Woodlands",
-		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands",
-		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Discover the burned code SW",
 		"region": "Shrouded Woodlands",
-		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
+		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
