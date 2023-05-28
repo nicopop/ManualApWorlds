@@ -26,6 +26,7 @@
                             "uniqueItems": true
                         },
                         "starting": {
+                            "description": "(Optional) If you don't need to reach any other region before getting to it.",
                             "type":"boolean"
                         }
                     },
