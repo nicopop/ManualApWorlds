@@ -18,7 +18,13 @@
         "description": "locations.json schema file for the manual Archipelago Apworld",
         "fileMatch": [ "**/manual_*/data/locations.json" ],
         "url": "https://raw.githubusercontent.com/nicopop/ManualOuterWildsArchipelago/manual/worlds/_schemas/Manual.locations.schema.json"
+    },
+    {
+        "name": "Manual regions.json",
+        "description": "regions.json schema file for the manual Archipelago Apworld",
+        "fileMatch": [ "**/manual_*/data/regions.json" ],
+        "url": "https://raw.githubusercontent.com/nicopop/ManualOuterWildsArchipelago/manual/worlds/_schemas/Manual.regions.schema.json"
     }
   ],
-  "version": 1.1
+  "version": 2
 }
