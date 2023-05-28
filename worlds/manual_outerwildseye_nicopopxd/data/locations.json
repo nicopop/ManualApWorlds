@@ -527,19 +527,19 @@
 	{
 		"name": "Disable the second lock on the vault",
 		"region": "Subterranean Lake",
-		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or |EYE > Progressive Sealed Vault Code:2|",
+		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or |EYE > Progressive Datamined Sealed Vault Code:2|",
 		"category": [ "9d - Subterranean Lake" ]
 	},
 	{
 		"name": "Disable the third lock on the vault",
 		"region": "Subterranean Lake",
-		"requires": "|DreamWorld Death Glitch Knowledge| or |EYE > Progressive Sealed Vault Code:3|",
+		"requires": "|DreamWorld Death Glitch Knowledge| or |EYE > Progressive Datamined Sealed Vault Code:3|",
 		"category": [ "9d - Subterranean Lake" ]
 	},
 	{
 		"name": "Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
-		"requires": "(|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|)",
+		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|)",
 		"category": [ "9d - Subterranean Lake" ],
 		"place_item": [ "Seen Prisoner" ]
 	},

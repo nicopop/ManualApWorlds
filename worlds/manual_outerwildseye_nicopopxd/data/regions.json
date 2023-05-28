@@ -15,22 +15,26 @@
     },
     "The Stranger": {
         "requires": "|Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "Space", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+        "connects_to": [ "Space", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
+    },
+    "DreamWorld General": {
+        "requires": "(|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|) and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
+        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "Shrouded Woodlands": {
         "requires": "|EYE > River Lowlands flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "Subterranean Lake", "Starlit Cove", "Endless Canyon" ]
+        "connects_to": [ "The Stranger", "Subterranean Lake", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
     },
     "Starlit Cove": {
         "requires": "|EYE > Cinder Isles flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon" ]
+        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon", "DreamWorld General" ]
     },
     "Endless Canyon": {
         "requires": "|EYE > Hidden Gorge flame Access| and (|DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge|) and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove" ]
+        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "DreamWorld General" ]
     },
     "Subterranean Lake": {
-        "requires": "(|EYE > Submerge Structure flame Access| or ((|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or |EYE > Hidden Gorge flame Access|))) and |DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
-        "connects_to": [ "The Stranger", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+        "requires": "(|EYE > Submerge Structure flame Access| or ((|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|) ))) and |DreamWorld Knowledge| and |Launch Codes| and |Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
+        "connects_to": [ "The Stranger", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
     }
 }

@@ -198,12 +198,12 @@
     {
         "name": "EYE > Abandoned temple code",
         "progression": true,
-        "category": [ "EYE", "code", "Not Trap" ]
+        "category": [ "EYE", "Code", "Not Trap" ]
     },
     {
         "name": "EYE > Broken Interface room code",
         "progression": true,
-        "category": [ "EYE", "code", "Not Trap" ]
+        "category": [ "EYE", "Code", "Not Trap" ]
     },
     {
         "name": "EYE > Progressive Slide burning room",
@@ -234,52 +234,52 @@
     {
         "name": "DreamWorld Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Loading Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Render Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Death Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Grabbing Hand Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Door Candle Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Fireplace Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Wall Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Hidden Hand Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE", "Not Trap" ]
+        "category": [ "DreamWorld", "EYE", "Not Trap" ]
     },
     {
-        "name": "EYE > Progressive Sealed Vault Code",
+        "name": "EYE > Progressive Datamined Sealed Vault Code",
         "count": 3,
         "progression": true,
-        "category": [ "code", "EYE", "Not Trap" ]
+        "category": [ "Code", "EYE", "Not Trap" ]
     }
 ]
