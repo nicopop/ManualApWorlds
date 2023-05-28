@@ -1,19 +1,23 @@
 [
 	{
 		"name": "'Learn' the Launch Codes in the observatory",
+		"region": "Tutorial",
 		"category": [ "0 - Beginning" ]
 	},
 	{
 		"name": "Do the repairs in the Zero-G Cave",
+		"region": "Tutorial",
 		"category": [ "0 - Beginning" ]
 	},
 	{
 		"name": "Land the model Ship on the small landing pad target thingy",
+		"region": "Tutorial",
 		"category": [ "0 - Beginning" ]
 	},
 
 	{
 		"name": "Get in ship for the first time",
+		"region": "Tutorial",
 		"category": [ "0 - Beginning" ],
 		"requires": [ "Launch Codes" ],
 		"place_item_category": [ "Signal" ]
@@ -405,6 +409,23 @@
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
+	},
+	{
+		"name": "Enter the DreamWorld",
+		"region": "DreamWorld General",
+		"category": [ "9 - DreamWorld General" ]
+	},
+	{
+		"name": "Get on the boat",
+		"region": "DreamWorld General",
+		"requires": "(|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
+	},
+	{
+		"name": "Watch the vision torch outside the submerge structure in the dream",
+		"region": "DreamWorld General",
+		"requires": "|DreamWorld Grabbing Hand Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
 	},
 	{
 		"name": "Enter the Shrouded Woodlands Dream",
