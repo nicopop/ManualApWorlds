@@ -1,292 +1,292 @@
 [
 	{
 		"name": "'Learn' the Launch Codes in the observatory",
-		"category": [ "Beginning" ]
+		"category": [ "0 - Beginning" ]
 	},
 	{
 		"name": "Do the repairs in the Zero-G Cave",
-		"category": [ "Beginning" ]
+		"category": [ "0 - Beginning" ]
 	},
 	{
 		"name": "Land the model Ship on the small landing pad target thingy",
-		"category": [ "Beginning" ]
+		"category": [ "0 - Beginning" ]
 	},
 
 	{
 		"name": "Get in ship for the first time",
-		"category": [ "Beginning" ],
+		"category": [ "0 - Beginning" ],
 		"requires": [ "Launch Codes" ],
 		"place_item_category": [ "Signal" ]
 	},
 	{
 		"name": "Visit the Crater with the Bramble seed",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth" ]
 	},
 
 	{
 		"name": "Moon > Visit Eye Signal Locator",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth" ]
 	},
 
 	{
 		"name": "Get in the High Energy Lab",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Visit the Eye Shrine in the Sunless City",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Visit the Quantum Moon Locator",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ]
+		"category": [ "1 - Ember Twin" ]
 	},
 	{
 		"name": "Launch the gravity cannon's ship ET",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ]
+		"category": [ "1 - Ember Twin" ]
 	},
 
 	{
 		"name": "Get in Ruptured Core of the Interlopper",
 		"region": "Space",
 		"requires": [ "Scout" ],
-		"category": [ "P - Interloper" ]
+		"category": [ "7 - Interloper" ]
 	},
 	{
 		"name": "Get in Orbital Cannon",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep" ]
 	},
 	{
 		"name": "Read the log on the Bramble Island",
 		"region": "Space",
 		"requires": [ "Scout", "Scout Photos" ],
-		"category": [ "P - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep" ]
 	},
 	{
 		"name": "Read any text wall in the Construction yard",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep" ]
 	},
 
 	{
 		"name": "Get in the Statue Island Workshop",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep" ]
 	},
 	{
 		"name": "Visit the Ocean Depths",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Tornado Knowledge" ]
 	},
 	{
 		"name": "Visit the Planet's Core",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
 	},
 	{
 		"name": "Get in Southern Observatory and witness the tornados",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Visit the Old Settlement",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Visit the Gravity Crystal Workshop",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Visit the Classroom in the School District",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Launch the gravity cannon's ship BH",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Moon > Get inside Hollow's lantern's volcanic testing site",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Visit the Nomai mines and read any Nomain wall",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth" ]
 	},
 
 	{
 		"name": "Play Hide and seek with the kids",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope" ]
 	},
 
 	{
 		"name": "Talk to Chert",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
 		"name": "Talk to Esker",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
 		"name": "Talk to Riebeck",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
 		"name": "Get the Meditation dialog from Gabbro",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 
 	{
 		"name": "Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
 	},
 	{
 		"name": "Shoot your Scout in the Bramble seed and see the dead Anglerfish",
 		"region": "Space",
-		"category": [ "P - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Scout", "Scout Photos" ]
 	},
 
 	{
 		"name": "Visit > Get in the Ash Twin Project",
 		"region": "Space",
-		"category": [ "P - Ash Twin" ],
+		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Teleporter Knowledge" ],
 		"place_item": [ "Seen WarpDrive" ]
 	},
 	{
 		"name": "Item > Get in the Ash Twin Project",
 		"region": "Space",
-		"category": [ "P - Ash Twin" ],
+		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Seen WarpDrive", "Teleporter Knowledge" ],
 		"place_item_category": [ "Not Trap" ]
 	},
 	{
 		"name": "Get to the sun station",
 		"region": "Space",
-		"category": [ "P - Ash Twin" ],
+		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Teleporter Knowledge" ]
 	},
 	{
 		"name": "Get in the Blackhole Forge",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow" ],
 		"requires": [ "Teleporter Knowledge" ]
 	},
 	{
 		"name": "Find Escape Pod 1",
 		"region": "Space",
-		"category": [ "P - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Find Escape Pod 2",
 		"region": "Space",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "Land on the Quantum moon",
 		"region": "Quantum Trials",
-		"category": [ "P - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "Visit Solanum",
 		"region": "Quantum Trials",
-		"category": [ "P - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
 		"place_item": [ "Seen Solanum" ]
 	},
 	{
 		"name": "Talk to Solanum",
 		"region": "Quantum Trials",
-		"category": [ "P - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
 	},
 	{
 		"name": "Find the Museum Shard",
 		"region": "Quantum Trials",
-		"category": [ "P - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth" ]
 	},
 	{
 		"name": "Find the Grove Shard",
 		"region": "Quantum Trials",
-		"category": [ "P - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth" ]
 	},
 	{
 		"name": "Find the Cave Shard",
 		"region": "Quantum Trials",
-		"category": [ "P - Ember Twin" ]
+		"category": [ "1 - Ember Twin" ]
 	},
 	{
 		"name": "Find the Island Shard",
 		"region": "Quantum Trials",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "Find the Tower Shard",
 		"region": "Quantum Trials",
-		"category": [ "P - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Complete the Tower of Quantum Trials",
 		"region": "Quantum Trials",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "Ride Cave Quantum shard and 'learn' the second rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "P - Ember Twin" ],
+		"category": [ "1 - Ember Twin" ],
 		"requires": [ "Quantum Rule > entanglement" ]
 	},
 	{
 		"name": "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "P - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow" ],
 		"requires": "Signal > Quantum"
 	},
 
 	{
 		"name": "Visit > Get in the Probe Tracking Module and see the Coords to the eye",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
 		"place_item": [ "Seen Coords" ]
 	},
 	{
 		"name": "Item > Get in the Probe Tracking Module and see the Coords to the eye",
 		"region": "Space",
-		"category": [ "P - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
 		"place_item_category": [ "Not Trap" ]
 	},
@@ -294,21 +294,21 @@
 	{
 		"name": "Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
-		"category": [ "P - Dark Bramble" ],
+		"category": [ "5 - Dark Bramble" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures", "Scout" ]
 	},
 
 	{
 		"name": "Find Escape Pod 3",
 		"region": "Dark Bramble",
-		"category": [ "P - Dark Bramble" ],
+		"category": [ "5 - Dark Bramble" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 
 	{
 		"name": "Get lost in there and survive",
 		"region": "Dark Bramble",
-		"category": [ "P - Dark Bramble" ]
+		"category": [ "5 - Dark Bramble" ]
 	},
 
 
@@ -329,13 +329,13 @@
 	{
 		"name": "Visit the Radio Station and get it's signal",
 		"region": "Space",
-		"category": [ "Timber Hearth" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 	{
 		"name": "Visit the Radio Station and check the photos",
 		"region": "Space",
-		"category": [ "Timber Hearth" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace", "Stranger Presence Knowledge" ]
 	},
 	{
@@ -346,185 +346,207 @@
 	},
 
 	{
+		"name": "Get in the stranger",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
 		"name": "Watch a slide in River Lowlands",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "Watch a slide in Cinder Isles",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "Watch a slide in Hidden Gorge",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "Get in the hidden Laboratory",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
 		"name": "Watch the slide in the reservoir",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "Get in Abandoned temple's secret basement",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Abandoned temple code" ]
 	},
 	{
 		"name": "Get in the burned interface room in the reservoir area",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Broken Interface room code" ]
 	},
 	{
 		"name": "Get in the hidden Slide burning room in River Lowlands",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:1" ]
 	},
 	{
 		"name": "Get in the hidden Slide burning room in Cinder Isles",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:2" ]
 	},
 	{
 		"name": "Get in the hidden Slide burning room in Hidden Gorge",
 		"region": "The Stranger",
-		"category": [ "The Stranger" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
 	},
 	{
 		"name": "Enter the Shrouded Woodlands Dream",
 		"region": "Shrouded Woodlands",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Find where the Wandering Owlks come from",
 		"region": "Shrouded Woodlands",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Find where the Wandering Owlks are Going",
 		"region": "Shrouded Woodlands",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "Shrouded Woodlands",
 		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands",
 		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Discover the burned code SW",
 		"region": "Shrouded Woodlands",
 		"requires": "|DreamWorld Fake Fireplace Knowledge| and |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|",
-		"category": [ "DreamWorld" ]
+		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Enter the Starlit Cove Dream",
 		"region": "Starlit Cove",
-		"category": [ "DreamWorld" ]
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Visit the Burned Eye Church in the dream",
 		"region": "Starlit Cove",
-		"category": [ "DreamWorld" ]
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Get in the Forbidden Archive of the Starlit Cove",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Get to the top of the Tower in the Starlit Cove",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
-		"category": [ "DreamWorld" ]
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Get in the Code Vault",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
-		"category": [ "The Stranger" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "Watch the Death Glitch Slide",
 		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Discover the burned code SC",
 		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Enter the Endless Canyon Dream",
 		"region": "Endless Canyon",
-		"category": [ "DreamWorld" ]
+		"category": [ "9c - Endless Canyon" ]
 	},
 	{
-		"name": "Find the Stage with 4 instruments",
+		"name": "Find the Stage with the 4 musical instruments",
 		"region": "Endless Canyon",
-		"category": [ "DreamWorld" ]
+		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Get in the restaurant",
 		"region": "Endless Canyon",
-		"category": [ "DreamWorld" ],
+		"category": [ "9c - Endless Canyon" ],
 		"requires": "|DreamWorld Grabbing Hand Knowledge|"
 	},
 	{
 		"name": "Get in the Forbidden Archive of the Endless Canyon Dream",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Watch the Render Glitch Slide",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Discover the burned code EC",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
-		"category": [ "DreamWorld" ]
+		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Enter the Subterranean Lake Dream",
-		"region": "DreamWorld",
-		"requires": [ "EYE > Submerge Structure flame Access" ],
-		"category": [ "DreamWorld" ]
+		"region": "Subterranean Lake",
+		"category": [ "9d - Subterranean Lake" ]
+	},
+	{
+		"name": "Disable the first lock on the vault",
+		"region": "Subterranean Lake",
+		"requires": "|DreamWorld Render Glitch Knowledge|",
+		"category": [ "9d - Subterranean Lake" ]
+	},
+	{
+		"name": "Disable the second lock on the vault",
+		"region": "Subterranean Lake",
+		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or |EYE > Progressive Sealed Vault Code:2|",
+		"category": [ "9d - Subterranean Lake" ]
+	},
+	{
+		"name": "Disable the third lock on the vault",
+		"region": "Subterranean Lake",
+		"requires": "|DreamWorld Death Glitch Knowledge| or |EYE > Progressive Sealed Vault Code:3|",
+		"category": [ "9d - Subterranean Lake" ]
 	},
 	{
 		"name": "Enter the Sealed Vault in the Subterranean Lake Dream",
-		"region": "DreamWorld",
-		"requires": "|EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
-		"category": [ "DreamWorld" ],
+		"region": "Subterranean Lake",
+		"requires": "(|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|)",
+		"category": [ "9d - Subterranean Lake" ],
 		"place_item": [ "Seen Prisoner" ]
 	},
 	{
 		"name": "Talk to the prisoner in the Subterranean Lake Dream",
-		"region": "DreamWorld",
-		"requires": "|Seen Prisoner| and |EYE > Submerge Structure flame Access| and ((|EYE > Progressive Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|))",
-		"category": [ "DreamWorld" ]
+		"region": "Subterranean Lake",
+		"requires": "|Seen Prisoner|",
+		"category": [ "9d - Subterranean Lake" ]
 	}
 ]

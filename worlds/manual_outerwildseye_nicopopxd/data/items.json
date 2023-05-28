@@ -173,7 +173,7 @@
     {
         "name": "Stranger Presence Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "EYE > Main entrance",
@@ -209,72 +209,77 @@
         "name": "EYE > Progressive Slide burning room",
         "count": 3,
         "progression": true,
-        "category": [ "EYE" ]
+        "category": [ "EYE", "Not Trap" ]
     },
     {
         "name": "EYE > River Lowlands flame Access",
         "progression": true,
-        "category": [ "EYE" ]
+        "category": [ "EYE", "flame", "Not Trap" ]
     },
     {
         "name": "EYE > Cinder Isles flame Access",
         "progression": true,
-        "category": [ "EYE" ]
+        "category": [ "EYE", "flame", "Not Trap" ]
     },
     {
         "name": "EYE > Hidden Gorge flame Access",
         "progression": true,
-        "category": [ "EYE" ]
+        "category": [ "EYE", "flame", "Not Trap" ]
     },
     {
         "name": "EYE > Submerge Structure flame Access",
         "progression": true,
-        "category": [ "EYE" ]
+        "category": [ "EYE", "flame", "Not Trap" ]
     },
     {
         "name": "DreamWorld Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Loading Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Render Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Death Glitch Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Grabbing Hand Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Door Candle Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Fireplace Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Wall Knowledge",
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
+    },
+    {
+        "name": "DreamWorld Hidden Hand Knowledge",
+        "progression": true,
+        "category": [ "Knowledge", "EYE", "Not Trap" ]
     },
     {
         "name": "EYE > Progressive Sealed Vault Code",
         "count": 3,
         "progression": true,
-        "category": [ "Knowledge", "EYE" ]
+        "category": [ "code", "EYE", "Not Trap" ]
     }
 ]
