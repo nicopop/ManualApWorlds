@@ -311,7 +311,7 @@
 		"name": "Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures", "Scout" ]
+		"requires": "(|Signaloscope| and |Signal > OW Ventures|) or |Scout|"
 	},
 
 	{
