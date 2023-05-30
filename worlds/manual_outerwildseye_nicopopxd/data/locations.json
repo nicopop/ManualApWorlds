@@ -299,7 +299,7 @@
 		"name": "Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures", "Scout" ]
+		"requires": "(|Signaloscope| and |Signal > OW Ventures|) or |Scout|"
 	},
 
 	{
@@ -310,7 +310,7 @@
 	},
 
 	{
-		"name": "Get lost in there and survive",
+		"name": "Get through at least 2 nodes and get out alive",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ]
 	},
