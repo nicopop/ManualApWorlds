@@ -41,6 +41,12 @@
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
+		"name": "Break space time in the lab",
+		"region": "Space",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
 		"name": "Visit the Eye Shrine in the Sunless City",
 		"region": "Space",
 		"category": [ "1 - Ember Twin" ],
@@ -59,6 +65,12 @@
 
 	{
 		"name": "Get in Ruptured Core of the Interlopper",
+		"region": "Space",
+		"requires": [ "Scout" ],
+		"category": [ "7 - Interloper" ]
+	},
+	{
+		"name": "Find the frozen shuttle's log on the Interlopper",
 		"region": "Space",
 		"requires": [ "Scout" ],
 		"category": [ "7 - Interloper" ]
@@ -322,7 +334,7 @@
 	},
 
 	{
-		"name": "Get lost in there and survive",
+		"name": "Get through at least 2 nodes and get out alive",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ]
 	},
