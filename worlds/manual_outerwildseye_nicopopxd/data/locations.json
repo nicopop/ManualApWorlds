@@ -405,6 +405,11 @@
 		"requires": [ "EYE > Broken Interface room code" ]
 	},
 	{
+		"name": "Find the stranger trajectory diagram in the reservoir area",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
 		"name": "Get in the hidden Slide burning room in River Lowlands",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
