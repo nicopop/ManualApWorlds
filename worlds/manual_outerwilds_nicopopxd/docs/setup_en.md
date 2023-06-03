@@ -1,5 +1,5 @@
 # Outer Wilds Manual Randomizer Setup Guide
-
+	[OuterWildsLogo](https://fr.wikipedia.org/wiki/Fichier:Outer_Wilds_Logo.png)
 ## Required Software
 
 - OuterWilds Game
@@ -25,6 +25,18 @@ Install those from the Mod Manager
 
 Make sure a copy of the Manual world is in the lib/world directory of your clientside installation.
 
+### Optional install:
+1. Open the link : [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)
+2. Press the 'Big Green Button' or the portable version link under it.
+3. Save the downloaded installer somewhere.  
+3.b If you downloaded the portable version save it somewhere easy to access and that you wont forget.
+4. Run the installer, the Mod Manager should start automatically.  
+4.b. If you downloaded the portable version launch the OuterWilds Mod Manager.
+5. First you have to install the OWML mod (should be the first in the list) by pressing the download icon (third button from the right)
+6. To install the mods you either find them in the list and press download icon  
+or you can search for them by name at the top of the Mod tab 
+7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods you installed
+and you only need to start from the launcher when you add/remove/update mods
 ## Joining a MultiWorld Game
 
 - Launch the client.  
@@ -111,7 +123,7 @@ In doubts look at the items :
 
 ### Locations
 In doubts here are the locations and their respective requirements: 
-#### Start
+#### The Tutorial
 (the Beginning category)(default region)
 - "'Learn' the Launch Codes in the observatory" 
 - "Do the repairs in the Zero-G Cave"
