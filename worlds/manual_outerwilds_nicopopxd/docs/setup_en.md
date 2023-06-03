@@ -1,5 +1,5 @@
 # Outer Wilds Manual Randomizer Setup Guide
-![OuterWildsLogo](https://fr.wikipedia.org/wiki/Fichier:Outer_Wilds_Logo.png)
+![OuterWildsLogo](https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250)
 ## Required Software
 
 - OuterWilds Game
