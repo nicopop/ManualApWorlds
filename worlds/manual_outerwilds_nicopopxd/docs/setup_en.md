@@ -5,6 +5,22 @@
 - OuterWilds Game
 - The latest Unstable ManualClient
 
+## Optional Software
+- [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)
+## ↑ Recommended* and Optional mods from manager↑
+Install those from the Mod Manager
+- [Clock](https://github.com/clubby789/OWClock#readme)*
+  - Shows a timer with the main event at the bottom right of the screen.
+- [Hiker's Mod](https://github.com/Owen013/Hikers-Mod#readme)*
+  - By default only add sprint but can also add walljumps(not in logic)
+- [Achievements+](https://github.com/xen-42/outer-wilds-achievement-tracker#readme)*
+  - Add popup when you would get an achievement on new save even if you allready have that steam achievement.
+- [Enable Meditation](https://github.com/xen-42/outer-wilds-meditation#readme)*
+  - Like the name might suggest you always have the "meditate until next loop button" in the pause menu.
+- [Suit Log](https://github.com/dgarroDC/SuitLog#readme)
+  - Allows you to open your ship log from anywhere. 
+- [Trajectory Prediction](https://github.com/SkutteOleg/TrajectoryPrediction#readme)
+  - Shows where your shipscout/player is going vs selected planet
 ## Installation Procedures
 
 Make sure a copy of the Manual world is in the lib/world directory of your clientside installation.
@@ -15,14 +31,26 @@ Make sure a copy of the Manual world is in the lib/world directory of your clien
 - At the top enter your server's ip with the port provided (by default archipellago.gg:38281).  
 - In Manual Game ID put "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.  
 - In the command field at the bottom enter the name of your slot you choosed in your Player.yaml then press enter.  
-## Multiplayer Manual
+## Manual Client
 
 In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.
 Since this is a manual game its built on trust™ you press the locations when you get to them, 
 hopefully in the futur only what you can access will be visible but at the moment you could press victory and it would accept it.
+## Main Game
 
-For now, everything in the "Beginning" category can be accessed from the start.  
-- all the categoies starting with "P - " contains everything locations of that planet
+- Launch the game
+- Either make a new Profile (maybe call it randomizer) or start a expedition(will wipe the save on the current profile)
+- Press new expedition 
+  - (or continue expedition if you are loading a save from the randomizer)
+# Logic
+## Main Game Logic
+For now, everything in the "0 - Beginning" category can be accessed from the start.  
+- You needs the "launch codes" item to get to the ship.
+- Everything that gives a signal need that signal item and the signaloscope item,
+- Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum)
+- Going to anything quantum needs the "Signal > Quantum" item (to help with progression)
+- all the categoies starting with "# - " then a planet name contains everything locations of that planet
+- For now no going into Sunless city from a shortcut unless you have "signal > distress"
 ## Game Troubleshooting
 ### Items
 In doubts look at the items :
@@ -34,41 +62,46 @@ In doubts look at the items :
 - "Signaloscope" in the "Tools" and "Signal" categories
 - "Scout" in the "Tools" category
 #### Knowledges  
-- "Tornado Knowledge", "progression": true
-- "Jellyfish Knowledge", "progression": true
-- "Teleporter Knowledge", "progression": true
-- "Anglerfish Knowledge", "progression": true
+- "Tornado Knowledge"
+- "Jellyfish Knowledge"
+- "Teleporter Knowledge"
+- "Anglerfish Knowledge"
 #### Tools   
-- "Launch Codes", "progression": true, "category": ["Basics"]
-- "Scout", "progression": true, "category": ["Basics", "Tools"]
-- "Scout Photos", "progression": true, "category": ["Basics", "Tools"]
+- "Launch Codes" in the "Tools" category
+- "Scout" in the "Tools" category
+- "Scout Photos" in the "Tools" category
+- "Signaloscope" in the "Tools" and "Signal" categories
 #### Bonus:
-- "Meditation", "useful": true, "category": ["Bonus"]
-- "Landing Camera", "useful": true, "category": ["Basics", "Bonus", "Tools"]
+- "Meditation"
+- "Landing Camera" in the "Tools" category
 #### Signals:   
-- "Signaloscope", "progression": true, "category": ["Basics", "Tools", "Signal"]
-- "Signal > OW Ventures", "progression": true, "category": ["Signal"]
-- "Signal > Quantum", "progression": true, "category": ["Signal", "Quantum"]
-- "Signal > Distress", "progression": true, "category": ["Signal"]
-- "Signal > DeepSpace", "progression": true, "category": ["Signal"]
+- "Signal > OW Ventures"
+- "Signal > Quantum"
+- "Signal > Distress"
+- "Signal > DeepSpace"
 #### Quantum:   
-- "Quantum Rule > imaging", "progression": true, "category": ["Quantum"]
-- "Quantum Rule > entanglement", "progression": true, "category": ["Quantum"]
-- "Quantum Rule > sixth location", "progression": true, "category": ["Quantum"]
-- "Quantum Moon key Fragment", "count": 5
-  (Currently filler items, Might make those needed for ending if run is too short)
+- "Quantum Rule > imaging"  
+  - You need the scout + scout photos to make use of this one.
+- "Quantum Rule > entanglement"
+- "Quantum Rule > sixth location"
+- "Musical Instrument", "count": 5
+  - (Currently filler items, Might make those needed for ending if run is too short)
 #### TRAPS:
-- "forced Meditation", "count": 3, "category": ["Trap"]
-- "Disabled Ship controles 'Till next loop/meditation", "count": 3, "category": ["Trap"]
-- "Minor Damage to ship", "count": 3, "category": ["Trap"],
-- "Major Damage to ship", "count": 2, "category": ["Trap"],
+- "forced Meditation", "count": 3
+  - Ignore if you don't have the "Meditation" item
+- "Disabled Ship controles 'Till next loop/meditation", "count": 3
+- "Minor Damage to ship", "count": 3
+  - You define by yourself what counts as minor/major damage
+- "Major Damage to ship", "count": 2
 #### Visits
-- "Seen Coords", "progression": true
-- "Seen WarpDrive", "progression": true
+- "Seen Coords"
+- "Seen WarpDrive"
+- "Seen Solanum"
 
 ### Regions
 (think of those has super category that have item requirements before you can do any location in them)
-- Default or no region  
+##### "Tutorial"
+  The one you start in.
 ##### "Space"
   requires: "Launch Codes"
 ##### "Quantum Trials": 
@@ -80,26 +113,61 @@ In doubts look at the items :
 In doubts here are the locations and their respective requirements: 
 #### Start
 (the Beginning category)(default region)
-- "TH > 'Learn' the Launch Codes in the observatory" 
-- "TH > Do the repairs in the Zero-G Cave"
-- "TH > Land the model Ship on the small landing pad target thingy"
-#### Early Game
-- "TH > Get in ship for the first time",
+- "'Learn' the Launch Codes in the observatory" 
+- "Do the repairs in the Zero-G Cave"
+- "Land the model Ship on the small landing pad target thingy"
+- "Get in ship for the first time"
+  - "place_item_category": [ "Signal" ] 
+#### Main Game
+(in the Space Region unless state otherwise)
+##### 1 - Ash Twin
+- "Visit > Get in the Ash Twin Project"
+  - requires: "Teleporter Knowledge" 
+  - Allways contain: "**Seen WarpDrive**"
+- "Item > Get in the Ash Twin Project"
+  - requires: "Teleporter Knowledge" 
+- "Get to the sun station"
+  - requires: "Teleporter Knowledge"
+##### 1 - Ember Twin
+- "Get in the High Energy Lab",
+  - requires: [ "Signaloscope", "Signal > Distress" ]
+- "Break space time in the lab"
+  - requires: [ "Signaloscope", "Signal > Distress" ]
+- "Visit the Eye Shrine in the Sunless City"
+  - requires: [ "Signaloscope", "Signal > Distress" ]
+- "Visit the Quantum Moon Locator"
+- "Launch the gravity cannon's ship ET"
+- "Talk to Chert"
+  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+- "Reach the Anglerfish Fossil and read the text left by the Nomai childrens"
+  - requires: [ "Signaloscope", "Signal > Distress", "Scout" ]
+- "Find Escape Pod 2"
+  - requires: [ "Signaloscope", "Signal > Distress" ]
+- "Find the Cave Shard"
+  - **region**: "Quantum Trials"
+- "Ride Cave Quantum shard and 'learn' the second rule of Quantum"
+  - **region**: "Quantum Trials"
+  - requires: "Quantum Rule > entanglement"
+##### 2 - Timber Hearth
+- "Visit the Crater with the Bramble seed",
   - **Region**: "Space",
-  - "place_item_category": [ "Signal" ]
-- "TH > Visit the Crater with the Bramble seed",
-  - **Region**: "Space",
-- "ET > Get in the High Energy Lab"
-  - **Region**: "Space"  
-- "ET > Visit the Eye Shrine in the Sunless City",
-  - **Region**: "Space",
-- "ET > Visit the Quantum Moon Locator",
-  - **Region**: "Space",
-- "ET > Launch the gravity cannon's ship",
-  - **Region**: "Space",
-- "ET > Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
-  - **Region**: "Space",
-  - "requires": "Scout"
+- "Moon > Visit Eye Signal Locator"
+- "Visit the Nomai mines and read any Nomain wall"
+- "Play Hide and seek with the kids"
+  - requires: "Signaloscope"
+- "Moon > Talk to Esker"
+  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+- "Shoot your Scout in the Bramble seed and see the dead Anglerfish"
+  - requires: [ "Scout", "Scout Photos" ]
+- "Find the Museum Shard"
+  - **Region**: "Quantum Trials"
+- "Find the Grove Shard"
+  - **Region**: "Quantum Trials"
+- "Visit the Radio Station and get it's signal"
+  - requires: [ "Signaloscope", "Signal > DeepSpace" ]
+
+### EVERYTHING UNDER THIS POINT WILL GET UPDATED SOON™
+
 - "IN > Get in Ruptured Core of the Interlopper",
   - **Region**: "Space"  
 - "GD > Get in Orbital Cannon",
@@ -120,51 +188,51 @@ In doubts here are the locations and their respective requirements:
   - **Region**: "Space"  
 - "TH > Play Hide and seek with the kids",
   - **Region**: "Space",
-  - "requires": [ "Signaloscope" ]
+  - requires: [ "Signaloscope" ]
 And more...
 #### Peoples    
 - "ET > Talk to Chert",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > OW Ventures"  
+  - requires: "Signaloscope", "Signal > OW Ventures"  
 - "TH > Talk to Esker",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > OW Ventures"  
+  - requires: "Signaloscope", "Signal > OW Ventures"  
 - "BH > Talk to Riebeck",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > OW Ventures"  
+  - requires: "Signaloscope", "Signal > OW Ventures"  
 - "GD > Get the Meditation dialog from Gabbro",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > OW Ventures"  
+  - requires: "Signaloscope", "Signal > OW Ventures"  
 - "DB > Get the Jellyfish dialog from Feldspar",  
   - **Region**: "Dark Bramble",  
-  - "requires": "Signaloscope", "Signal > OW Ventures", "Scout"  
+  - requires: "Signaloscope", "Signal > OW Ventures", "Scout"  
 - "QM > Talk to Solanum",  
   - **Region**: "Quantum Trials",  
-  - "requires": "Scout" , "Scout Photos", "Quantum Rule > imaging", "Quantum Rule > entanglement", "Quantum Rule > sixth location"
+  - requires: "Scout" , "Scout Photos", "Quantum Rule > imaging", "Quantum Rule > entanglement", "Quantum Rule > sixth location"
 #### Teleporters
 - "AT > Get in the Ash Twin Project",  
   - **Region**: "Space",  
-  - "requires": "Teleporter Knowledge"
+  - requires: "Teleporter Knowledge"
 - "AT > Get to the sun station",  
   - **Region**: "Space",  
-  - "requires": "Teleporter Knowledge"
+  - requires: "Teleporter Knowledge"
 - "BH > Get in the Blackhole Forge",  
   - **Region**: "Space",  
-  - "requires": "Teleporter Knowledge"
+  - requires: "Teleporter Knowledge"
 #### Escape Pods
 - "BH > Find Escape Pod 1",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > Distress"
+  - requires: "Signaloscope", "Signal > Distress"
 - "ET > Find Escape Pod 2",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > Distress"
+  - requires: "Signaloscope", "Signal > Distress"
 - "DB > Find Escape Pod 3",  
   - **Region**: "Dark Bramble",  
-  - "requires": "Signaloscope", "Signal > Distress"
+  - requires: "Signaloscope", "Signal > Distress"
 #### Quantum Trials
 - "QM > Land on the Quantum moon",  
   - **Region**: "Quantum Trials",  
-  - "requires": "Quantum Rule > imaging", "Scout" , "Scout Photos"
+  - requires: "Quantum Rule > imaging", "Scout" , "Scout Photos"
 - "TH > Find the Museum Shard",  
   - **Region**: "Quantum Trials",  
 - "TH > Find the Grove Shard",  
@@ -173,46 +241,46 @@ And more...
   - **Region**: "Quantum Trials",
 - "GD > Find the Island Shard",  
   - **Region**: "Quantum Trials",  
-  - "requires": "Quantum Rule > imaging", "Scout", "Scout Photos"
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "BH > Find the Tower Shard",  
   - **Region**: "Quantum Trials",  
 - "GD > Complete the Tower of Quantum Trials",  
   - **Region**: "Quantum Trials",  
-  - "requires": "Quantum Rule > imaging", "Scout", "Scout Photos"  
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"  
 - "ET > Ride Cave Quantum shard and 'learn' the second rule of Quantum",  
   - **Region**: "Quantum Trials",  
-  - "requires": "Quantum Rule > entanglement"  
+  - requires: "Quantum Rule > entanglement"  
 - "BH > Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",  
   - **Region**: "Quantum Trials",  
 #### DeepSpace signal 
 (In the DLC edittion this is renamed and reused for the stranger)
 - "Space > Visit the deepspace satelite",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > DeepSpace"  
+  - requires: "Signaloscope", "Signal > DeepSpace"  
 - "TH > Visit the Radio Station and get it's signal",  
   - **Region**: "Space",  
-  - "requires": "Signaloscope", "Signal > DeepSpace"  
+  - requires: "Signaloscope", "Signal > DeepSpace"  
 #### End Game
 - "Visit > Get in the Probe Tracking Module and see the Coords to the eye",
   - **Region**: "Space",
-  - "requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ],
   - "place_item": [ "Seen Coords" ]
 - "Item > Get in the Probe Tracking Module and see the Coords to the eye",
   - **Region**: "Space",
-  - "requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
+  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ]
 - "Visit > Get in the Ash Twin Project",
   - **Region**: "Space",
-  - "requires": [ "Teleporter Knowledge" ],
+  - requires: [ "Teleporter Knowledge" ],
   - "place_item": [ "Seen WarpDrive" ]
 - "Item > Get in the Ash Twin Project",
   - **Region**: "Space",
   - "category": [ "P - Ash Twin"],
-  - "requires": [ "Teleporter Knowledge" ]
+  - requires: [ "Teleporter Knowledge" ]
 - "FINAL > Get the warp drive to the vessel and Warp to the Eye",
   - **Region**: "Dark Bramble",
-  -	"requires": "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", "Signaloscope", "Signal > Distress", "Scout"
+  -	requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", "Signaloscope", "Signal > Distress", "Scout"
   - "place_item": "1 beautiful campfire song"
 - "VICTORY! (seed finished)",
   - **Region**:  "Dark Bramble",
-  -	"requires": "1 beautiful campfire song",
+  -	requires: "1 beautiful campfire song",
   -	"victory": true

@@ -159,7 +159,7 @@
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
-		"name": "Talk to Esker",
+		"name": "Moon > Talk to Esker",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
