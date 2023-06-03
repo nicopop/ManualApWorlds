@@ -39,11 +39,11 @@ Make sure a copy of the Manual world is in the lib/world directory of your clien
     1. If you downloaded the portable version save it somewhere easy to access and that you wont forget.
 4. Run the installer, the Mod Manager should start automatically.
     1. If you downloaded the portable version launch the OuterWilds Mod Manager.
-5. First you have to install the OWML mod (should be the first in the list) \
+5. First you have to install the OWML mod (should be the first in the list)  
 by pressing the download icon (third button from the right)
-6. To install the mods you either find them in the list and press download icon \
+6. To install the mods you either find them in the list and press download icon  
 or you can search for them by name at the top of the Mod tab 
-7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods \
+7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods  
 you installed and after that you'll only need to start from the Mod Manager when you add/remove/update mods
 
 ## Joining a MultiWorld Game
@@ -55,9 +55,9 @@ you installed and after that you'll only need to start from the Mod Manager when
 
 ## Manual Client
 
-In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer. \
-Since this is a manual game its built on trust™ you press the locations when you get to them, \
-hopefully in the futur only what you can access will be visible but at the moment \
+In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.  
+Since this is a manual game its built on trust™ you press the locations when you get to them,  
+hopefully in the futur only what you can access will be visible but at the moment  
 you could press victory and it would accept it.
 
 ## Main Game
@@ -293,11 +293,11 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 - "Land on the Quantum moon"
     - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "Visit Solanum"
-    - requires: "Quantum Rule > imaging", "Scout", "Scout Photos", \
+    - requires: "Quantum Rule > imaging", "Scout", "Scout Photos",  
     "Quantum Rule > entanglement", "Quantum Rule > sixth location"
     - Always Contains "[Seen Solanum](#visits)"
 - "Communicate with Solanum"
-    - requires: "Seen Solanum", "Quantum Rule > imaging", "Scout", \
+    - requires: "Seen Solanum", "Quantum Rule > imaging", "Scout",  
     "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location"
   
 ##### 7 - Interloper
@@ -310,7 +310,7 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 
 - "FINAL > Get the warp drive to the vessel and Warp to the Eye",
     - **Region**: [Dark Bramble](#dark-bramble),
-    - requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", \
+    - requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive",  
     "Signaloscope", "Signal > Distress", "Scout"
     - Always contain: "1 beautiful campfire song"
 - "VICTORY! (seed finished)",
