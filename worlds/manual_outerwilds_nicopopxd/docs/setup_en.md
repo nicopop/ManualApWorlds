@@ -26,8 +26,8 @@ Install those from the Mod Manager
 Make sure a copy of the Manual world is in the lib/world directory of your clientside installation.
 
 ### Optional install:
-1. Open the link : [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)
-2. Press the 'Big Green Button' or the portable version link under it.
+1. Open the link in [Optional Software](#optional-software) or [here](https://outerwildsmods.com/mod-manager/)
+2. Press the 'Big Green Download Button' or the portable version link under it.
 3. Save the downloaded installer somewhere.  
 3.b If you downloaded the portable version save it somewhere easy to access and that you wont forget.
 4. Run the installer, the Mod Manager should start automatically.  
@@ -73,6 +73,7 @@ In doubts look at the items :
 - "Seen WarpDrive" in the "Visits" category
 - "Signaloscope" in the "Tools" and "Signal" categories
 - "Scout" in the "Tools" category
+- All the [Knowledges](#knowledges)
 #### Knowledges  
 - "Tornado Knowledge"
 - "Jellyfish Knowledge"
@@ -112,30 +113,30 @@ In doubts look at the items :
 
 ### Regions
 (think of those has super category that have item requirements before you can do any location in them)
-##### "Tutorial"
+#### "Tutorial"
   The one you start in.
-##### "Space"
+#### "Space"
   requires: "Launch Codes"
-##### "Quantum Trials": 
-  requires: "Launch Codes", "Signal > Quantum", "Signaloscope"
-##### "Dark Bramble": 
-  requires": "Launch Codes", "Anglerfish Knowledge"
+#### "Quantum Trials": 
+  requires: "Signal > Quantum", "Signaloscope"
+#### "Dark Bramble": 
+  requires": "Anglerfish Knowledge"
 
 ### Locations
 In doubts here are the locations and their respective requirements: 
-#### The Tutorial
+##### 0 - Beginning
 (the Beginning category)(default region)
 - "'Learn' the Launch Codes in the observatory" 
 - "Do the repairs in the Zero-G Cave"
 - "Land the model Ship on the small landing pad target thingy"
 - "Get in ship for the first time"
-  - "place_item_category": [ "Signal" ] 
+  - Always contains a item from the "Signal" category. 
 #### Main Game
-(in the Space Region unless state otherwise)
+(Every location below is in the Space Region unless state otherwise)
 ##### 1 - Ash Twin
 - "Visit > Get in the Ash Twin Project"
   - requires: "Teleporter Knowledge" 
-  - Allways contain: "**Seen WarpDrive**"
+  - Always contain: "**Seen WarpDrive**"
 - "Item > Get in the Ash Twin Project"
   - requires: "Teleporter Knowledge" 
 - "Get to the sun station"
@@ -177,8 +178,68 @@ In doubts here are the locations and their respective requirements:
   - **Region**: "Quantum Trials"
 - "Visit the Radio Station and get it's signal"
   - requires: [ "Signaloscope", "Signal > DeepSpace" ]
-
-### EVERYTHING UNDER THIS POINT WILL GET UPDATED SOON™
+##### 3 - Brittle Hollow
+- "Get in Southern Observatory and witness the tornados"
+- "Visit the Old Settlement"
+- "Visit the Gravity Crystal Workshop"
+- "Visit the Classroom in the School District"
+- "Launch the gravity cannon's ship BH"
+- "Moon > Get inside Hollow's lantern's volcanic testing site"
+- "Talk to Riebeck"
+  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+- "Get in the Blackhole Forge"
+  - requires: "Teleporter Knowledge"
+- "Find Escape Pod 1"
+  - requires: [ "Signaloscope", "Signal > Distress" ]  
+- "Find the Tower Shard"
+  - **Region**: "Quantum Trials" 
+- "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum"
+  - **Region**: "Quantum Trials" 
+##### 4 - Giant's Deep
+- "Get in Orbital Cannon"
+- "Read the log on the Bramble Island"
+  - requires: [ "Scout", "Scout Photos" ] 
+- "Read any text wall in the Construction yard"
+- "Get in the Statue Island Workshop"
+- "Visit the Ocean Depths"
+  - requires: [ "Tornado Knowledge" ]
+- "Visit the Planet's Core"
+  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ]
+- "Get the Meditation dialog from Gabbro"
+  - requires: [ "Signaloscope", "Signal > OW Ventures" ] 
+- "Find the Island Shard"
+  - **Region**": "Quantum Trials",
+  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+- "Complete the Tower of Quantum Trials"
+  - **Region**": "Quantum Trials",
+  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+- "Visit > Get in the Probe Tracking Module and see the Coords to the eye"
+  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+  - Always contain: "**Seen Coords**"
+- "Item > Get in the Probe Tracking Module and see the Coords to the eye"
+  - requires: [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
+  - Never Contains a trap.
+##### 5 - Dark Bramble
+Every location in this category is part of the "Dark Bramble" region
+- "Get through at least 2 nodes and get out alive"
+- "Get the Jellyfish dialog from Feldspar"
+  - requires: (Signaloscope and Signal > OW Ventures) or Scout 
+- "Find Escape Pod 3"
+  - requires: [ "Signaloscope", "Signal > Distress" ]
+##### 6 - Quantum Moon
+Every location in this category is part of the "Quantum Trials" region
+- "Land on the Quantum moon"
+  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+- "Visit Solanum"
+  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ] 
+  - Always Contains "Seen Solanum"
+- "Communicate with Solanum"
+  - requires: [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+##### 7 - Interloper
+- "Get in Ruptured Core of the Interlopper"
+  - requires: [ "Scout", "Scout Photos" ], 
+- "Find the frozen shuttle's log on the Interlopper"
+## EVERYTHING UNDER THIS POINT WILL GET UPDATED SOON™
 
 - "IN > Get in Ruptured Core of the Interlopper",
   - **Region**: "Space"  

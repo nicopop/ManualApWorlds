@@ -66,13 +66,12 @@
 	{
 		"name": "Get in Ruptured Core of the Interlopper",
 		"region": "Space",
-		"requires": [ "Scout" ],
+		"requires": [ "Scout", "Scout Photos" ],
 		"category": [ "7 - Interloper" ]
 	},
 	{
 		"name": "Find the frozen shuttle's log on the Interlopper",
 		"region": "Space",
-		"requires": [ "Scout" ],
 		"category": [ "7 - Interloper" ]
 	},
 	{
@@ -242,7 +241,7 @@
 		"place_item": [ "Seen Solanum" ]
 	},
 	{
-		"name": "Talk to Solanum",
+		"name": "Communicate with Solanum",
 		"region": "Quantum Trials",
 		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
@@ -288,8 +287,7 @@
 	{
 		"name": "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "3 - Brittle Hollow" ],
-		"requires": "Signal > Quantum"
+		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
 		"name": "Visit the deepspace satelite",
