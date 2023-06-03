@@ -64,13 +64,13 @@
 	},
 
 	{
-		"name": "Get in Ruptured Core of the Interlopper",
+		"name": "Get in Ruptured Core of the Interloper",
 		"region": "Space",
 		"requires": [ "Scout", "Scout Photos" ],
 		"category": [ "7 - Interloper" ]
 	},
 	{
-		"name": "Find the frozen shuttle's log on the Interlopper",
+		"name": "Find the frozen shuttle's log on the Interloper",
 		"region": "Space",
 		"category": [ "7 - Interloper" ]
 	},
