@@ -84,22 +84,22 @@ In doubts look at the items :
 - "Scout" in the "Tools" category
 - "Scout Photos" in the "Tools" category
 - "Signaloscope" in the "Tools" and "Signal" categories
-#### Bonus:
+#### Bonus
 - "Meditation"
 - "Landing Camera" in the "Tools" category
-#### Signals:   
+#### Signals   
 - "Signal > OW Ventures"
 - "Signal > Quantum"
 - "Signal > Distress"
 - "Signal > DeepSpace"
-#### Quantum:   
+#### Quantum   
 - "Quantum Rule > imaging"  
   - You need the scout + scout photos to make use of this one.
 - "Quantum Rule > entanglement"
 - "Quantum Rule > sixth location"
 - "Musical Instrument", "count": 5
   - (Currently filler items, Might make those needed for ending if run is too short)
-#### TRAPS:
+#### TRAPS
 - "forced Meditation", "count": 3
   - Ignore if you don't have the "Meditation" item
 - "Disabled Ship controls 'Till next loop/meditation", "count": 3
@@ -113,13 +113,13 @@ In doubts look at the items :
 
 ### Regions
 (think of those has super category that have item requirements before you can do any location in them)
-#### "Tutorial"
+#### Tutorial
   The one you start in.
-#### "Space"
+#### Space
   requires: "Launch Codes"
-#### "Quantum Trials" 
+#### Quantum Trials
   requires: "Signal > Quantum", "Signaloscope"
-#### "Dark Bramble" 
+#### Dark Bramble 
   requires": "Anglerfish Knowledge"
 
 ### Locations
@@ -143,19 +143,19 @@ In doubts here are the locations and their respective requirements:
   - requires: "Teleporter Knowledge"
 ##### 1 - Ember Twin
 - "Get in the High Energy Lab",
-  - requires: [ "Signaloscope", "Signal > Distress" ]
+  - requires: "Signaloscope", "Signal > Distress"
 - "Break space time in the lab"
-  - requires: [ "Signaloscope", "Signal > Distress" ]
+  - requires: "Signaloscope", "Signal > Distress"
 - "Visit the Eye Shrine in the Sunless City"
-  - requires: [ "Signaloscope", "Signal > Distress" ]
+  - requires: "Signaloscope", "Signal > Distress"
 - "Visit the Quantum Moon Locator"
 - "Launch the gravity cannon's ship ET"
 - "Talk to Chert"
-  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+  - requires: "Signaloscope", "Signal > OW Ventures"
 - "Reach the Anglerfish Fossil and read the text left by the Nomai children"
-  - requires: [ "Signaloscope", "Signal > Distress", "Scout" ]
+  - requires: "Signaloscope", "Signal > Distress", "Scout"
 - "Find Escape Pod 2"
-  - requires: [ "Signaloscope", "Signal > Distress" ]
+  - requires: "Signaloscope", "Signal > Distress"
 - "Find the Cave Shard"
   - **region**: [Quantum Trials](#quantum-trials)
 - "Ride Cave Quantum shard and 'learn' the second rule of Quantum"
@@ -169,15 +169,15 @@ In doubts here are the locations and their respective requirements:
 - "Play Hide and seek with the kids"
   - requires: "Signaloscope"
 - "Moon > Talk to Esker"
-  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+  - requires: "Signaloscope", "Signal > OW Ventures"
 - "Shoot your Scout in the Bramble seed and see the dead Anglerfish"
-  - requires: [ "Scout", "Scout Photos" ]
+  - requires: "Scout", "Scout Photos"
 - "Find the Museum Shard"
   - **Region**: [Quantum Trials](#quantum-trials)
 - "Find the Grove Shard"
   - **Region**: [Quantum Trials](#quantum-trials)
 - "Visit the Radio Station and get it's signal"
-  - requires: [ "Signaloscope", "Signal > DeepSpace" ]
+  - requires: "Signaloscope", "Signal > DeepSpace"
 ##### 3 - Brittle Hollow
 - "Get in Southern Observatory and witness the tornados"
 - "Visit the Old Settlement"
@@ -186,11 +186,11 @@ In doubts here are the locations and their respective requirements:
 - "Launch the gravity cannon's ship BH"
 - "Moon > Get inside Hollow's lantern's volcanic testing site"
 - "Talk to Riebeck"
-  - requires: [ "Signaloscope", "Signal > OW Ventures" ]
+  - requires: "Signaloscope", "Signal > OW Ventures"
 - "Get in the Blackhole Forge"
   - requires: "Teleporter Knowledge"
 - "Find Escape Pod 1"
-  - requires: [ "Signaloscope", "Signal > Distress" ]  
+  - requires: "Signaloscope", "Signal > Distress"  
 - "Find the Tower Shard"
   - **Region**: [Quantum Trials](#quantum-trials)
 - "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum"
@@ -198,26 +198,26 @@ In doubts here are the locations and their respective requirements:
 ##### 4 - Giant's Deep
 - "Get in Orbital Cannon"
 - "Read the log on the Bramble Island"
-  - requires: [ "Scout", "Scout Photos" ] 
+  - requires: "Scout", "Scout Photos"
 - "Read any text wall in the Construction yard"
 - "Get in the Statue Island Workshop"
 - "Visit the Ocean Depths"
-  - requires: [ "Tornado Knowledge" ]
+  - requires: "Tornado Knowledge"
 - "Visit the Planet's Core"
-  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ]
+  - requires: "Tornado Knowledge", "Jellyfish Knowledge"
 - "Get the Meditation dialog from Gabbro"
-  - requires: [ "Signaloscope", "Signal > OW Ventures" ] 
+  - requires: "Signaloscope", "Signal > OW Ventures" 
 - "Find the Island Shard"
   - **Region**": [Quantum Trials](#quantum-trials),
-  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "Complete the Tower of Quantum Trials"
   - **Region**": [Quantum Trials](#quantum-trials),
-  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "Visit > Get in the Probe Tracking Module and see the Coords to the eye"
-  - requires: [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+  - requires: "Tornado Knowledge", "Jellyfish Knowledge"
   - Always contain: "**[Seen Coords](#visits)**"
 - "Item > Get in the Probe Tracking Module and see the Coords to the eye"
-  - requires: [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
+  - requires: "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge"
   - Never Contains a trap.
 ##### 5 - Dark Bramble
 Every location in this category is part of the "[Dark Bramble](#dark-bramble)" region
@@ -225,25 +225,25 @@ Every location in this category is part of the "[Dark Bramble](#dark-bramble)" r
 - "Get the Jellyfish dialog from Feldspar"
   - requires: (Signaloscope and Signal > OW Ventures) or Scout 
 - "Find Escape Pod 3"
-  - requires: [ "Signaloscope", "Signal > Distress" ]
+  - requires: "Signaloscope", "Signal > Distress"
 ##### 6 - Quantum Moon
 Every location in this category is part of the "[Quantum Trials](#quantum-trials)" region
 - "Land on the Quantum moon"
-  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "Visit Solanum"
-  - requires: [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ] 
+  - requires: "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location"
   - Always Contains "[Seen Solanum](#visits)"
 - "Communicate with Solanum"
-  - requires: [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+  - requires: "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location"
 ##### 7 - Interloper
 - "Get in Ruptured Core of the Interloper"
-  - requires: [ "Scout", "Scout Photos" ], 
+  - requires: "Scout", "Scout Photos" 
 - "Find the frozen shuttle's log on the Interloper"
 #### End Game
 - "FINAL > Get the warp drive to the vessel and Warp to the Eye",
   - **Region**: [Dark Bramble](#dark-bramble),
   -	requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", "Signaloscope", "Signal > Distress", "Scout"
-  - "place_item": "1 beautiful campfire song"
+  - Always contain: "1 beautiful campfire song"
 - "VICTORY! (seed finished)",
   - **Region**: [Dark Bramble](#dark-bramble),
   -	requires: "1 beautiful campfire song",
