@@ -23,7 +23,7 @@ Install those from the Mod Manager
   - Shows where your shipscout/player is going vs selected planet
 ## Installation Procedures
 
-Make sure a copy of the Manual world is in the lib/world directory of your clientside installation.
+Make sure a copy of the Manual world is in the lib/world directory of your client-side installation.
 
 ### Optional install:
 1. Open the link in [Optional Software](#optional-software) or [here](https://outerwildsmods.com/mod-manager/)
@@ -40,9 +40,9 @@ and you only need to start from the launcher when you add/remove/update mods
 ## Joining a MultiWorld Game
 
 - Launch the client.  
-- At the top enter your server's ip with the port provided (by default archipellago.gg:38281).  
+- At the top enter your server's ip with the port provided (by default archipelago.gg:38281).  
 - In Manual Game ID put "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.  
-- In the command field at the bottom enter the name of your slot you choosed in your Player.yaml then press enter.  
+- In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.  
 ## Manual Client
 
 In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.
@@ -61,7 +61,7 @@ For now, everything in the "0 - Beginning" category can be accessed from the sta
 - Everything that gives a signal need that signal item and the signaloscope item,
 - Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum)
 - Going to anything quantum needs the "Signal > Quantum" item (to help with progression)
-- all the categoies starting with "# - " then a planet name contains everything locations of that planet
+- all the categories starting with "# - " then a planet name contains everything locations of that planet
 - For now no going into Sunless city from a shortcut unless you have "signal > distress"
 ## Game Troubleshooting
 ### Items
@@ -102,7 +102,7 @@ In doubts look at the items :
 #### TRAPS:
 - "forced Meditation", "count": 3
   - Ignore if you don't have the "Meditation" item
-- "Disabled Ship controles 'Till next loop/meditation", "count": 3
+- "Disabled Ship controls 'Till next loop/meditation", "count": 3
 - "Minor Damage to ship", "count": 3
   - You define by yourself what counts as minor/major damage
 - "Major Damage to ship", "count": 2
@@ -152,7 +152,7 @@ In doubts here are the locations and their respective requirements:
 - "Launch the gravity cannon's ship ET"
 - "Talk to Chert"
   - requires: [ "Signaloscope", "Signal > OW Ventures" ]
-- "Reach the Anglerfish Fossil and read the text left by the Nomai childrens"
+- "Reach the Anglerfish Fossil and read the text left by the Nomai children"
   - requires: [ "Signaloscope", "Signal > Distress", "Scout" ]
 - "Find Escape Pod 2"
   - requires: [ "Signaloscope", "Signal > Distress" ]
@@ -236,9 +236,9 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 - "Communicate with Solanum"
   - requires: [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
 ##### 7 - Interloper
-- "Get in Ruptured Core of the Interlopper"
+- "Get in Ruptured Core of the Interloper"
   - requires: [ "Scout", "Scout Photos" ], 
-- "Find the frozen shuttle's log on the Interlopper"
+- "Find the frozen shuttle's log on the Interloper"
 #### End Game
 - "FINAL > Get the warp drive to the vessel and Warp to the Eye",
   - **Region**: [Dark Bramble](#dark-bramble),
