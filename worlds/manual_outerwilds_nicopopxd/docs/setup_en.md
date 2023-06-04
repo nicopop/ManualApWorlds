@@ -1,6 +1,12 @@
 # Outer Wilds Manual Randomizer Setup Guide
 
-![OuterWildsLogo](https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250)
+<p align="center">
+    <img alt="OuterWilds Logo"
+     src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
+    >
+    <h1 align="center">Base Game Randomizer Edition</h1>
+    <h3 align="center">v3.1.0</h3>
+</p>
 
 ## Required Software
 
