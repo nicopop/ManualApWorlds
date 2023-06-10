@@ -28,6 +28,10 @@
                         "starting": {
                             "description": "(Optional) Is this region accessible from the start? Defaults to false if not included.",
                             "type":"boolean"
+                        },
+                        "_info": {
+                            "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
+                            "type":"string"
                         }
                     },
                     "required":["requires", "connects_to"]
