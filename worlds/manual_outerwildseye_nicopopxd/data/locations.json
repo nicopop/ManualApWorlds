@@ -20,7 +20,7 @@
 		"region": "Tutorial",
 		"category": [ "0 - Beginning" ],
 		"requires": [ "Launch Codes" ],
-		"place_item_category": [ "Signal" ]
+		"place_item_category": [ "4 Signal" ]
 	},
 	{
 		"name": "Visit the Crater with the Bramble seed",
@@ -202,7 +202,7 @@
 		"region": "Space",
 		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Seen WarpDrive", "Teleporter Knowledge" ],
-		"place_item_category": [ "Not Trap" ]
+		"place_item_category": [ "2a Not Trap" ]
 	},
 	{
 		"name": "Get to the sun station",
@@ -304,14 +304,14 @@
 		"region": "Space",
 		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
-		"place_item_category": [ "Not Trap" ]
+		"place_item_category": [ "2a Not Trap" ]
 	},
 
 	{
 		"name": "Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ],
-		"requires": "(|Signaloscope| and |Signal > OW Ventures|) or |Scout|"
+		"requires": "(|Signaloscope| and |Signal > OW Ventures|)"
 	},
 
 	{
