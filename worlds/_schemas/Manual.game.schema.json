@@ -31,18 +31,14 @@
                     "description": "(Optional) List of item to pick from.",
                     "type":"array",
                     "items":{
-                        "type":"string",
-                        "title": "Item",
-                        "description": "One of your items"
+                        "type":"string"
                     }
                 },
                 "item_categories": {
                     "description": "(Optional) List of category of items to pick from.",
                     "type":"array",
                     "items":{
-                        "type":"string",
-                        "title": "Item category",
-                        "description": "One of your item category"
+                        "type":"string"
                     } 
                 },
                 "random": {

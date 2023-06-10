@@ -37,6 +37,10 @@
                 "description": "(Optional) Is this item usefull to have? Used for items that are not progression but you still want the rando to really use.",
                 "type": "boolean"
             },
+            "progression_skip_balancing": {
+                "description": "(Optional) Should this item not get included in progression balance swaps. For more info check the discord",
+                "type": "boolean"
+            },
             "trap": {
                 "description": "(Optional) Is this item a trap? Something the player doesnt want to get.",
                 "type": "boolean"
