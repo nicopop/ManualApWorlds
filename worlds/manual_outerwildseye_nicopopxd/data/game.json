@@ -2,5 +2,6 @@
     "game": "OuterWildsEye",
     "player": "Nicopopxd",
 
-    "filler_item_name": "Quantum dust"
+    "filler_item_name": "Quantum dust",
+    "version": "1.0.0pre2"
 }
