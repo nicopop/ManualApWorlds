@@ -388,6 +388,12 @@
 		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
+		"name": "Watch the hidden lab's slide",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ],
+		"requires": [ "EYE > Secret entrance" ]
+	},
+	{
 		"name": "Watch the slide in the reservoir",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
@@ -396,7 +402,7 @@
 		"name": "Get in Abandoned temple's secret basement",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > Abandoned temple code" ]
+		"requires": [ "EYE > Abandoned temple code", "Visited CodeVault" ]
 	},
 	{
 		"name": "Get in the burned interface room in the reservoir area",
@@ -406,6 +412,11 @@
 	},
 	{
 		"name": "Find the stranger trajectory diagram in the reservoir area",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "Find the Submerged structure diagram in the reservoir area",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
 	},
@@ -463,18 +474,19 @@
 		"name": "Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "Shrouded Woodlands",
 		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"place_item": [ "Visited Shrouded Woodlands Archive" ],
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands",
-		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
 		"name": "Discover the burned code SW",
 		"region": "Shrouded Woodlands",
-		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "9a - Shrouded Woodlands" ]
 	},
 	{
@@ -488,12 +500,6 @@
 		"category": [ "9b - Starlit Cove" ]
 	},
 	{
-		"name": "Get in the Forbidden Archive of the Starlit Cove",
-		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)",
-		"category": [ "9b - Starlit Cove" ]
-	},
-	{
 		"name": "Get to the top of the Tower in the Starlit Cove",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
@@ -503,18 +509,32 @@
 		"name": "Get in the Code Vault",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
+		"place_item": [ "Visited CodeVault" ],
 		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "See the codes in the Code Vault",
+		"region": "Starlit Cove",
+		"requires": "|Visited CodeVault|",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "Get in the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove",
+		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
+		"place_item": [ "Visited Starlit Cove Archive" ],
+		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Watch the Death Glitch Slide",
 		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
+		"requires": "|Visited Starlit Cove Archive|",
 		"category": [ "9b - Starlit Cove" ]
 	},
 	{
 		"name": "Discover the burned code SC",
 		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
+		"requires": "|Visited Starlit Cove Archive|",
 		"category": [ "9b - Starlit Cove" ]
 	},
 	{
@@ -536,19 +556,20 @@
 	{
 		"name": "Get in the Forbidden Archive of the Endless Canyon Dream",
 		"region": "Endless Canyon",
-		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"requires": "|DreamWorld Render Glitch Knowledge| or (|DreamWorld Fake Wall Knowledge| and ( |DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|))",
+		"place_item": [ "Visited Endless Canyon Archive" ],
 		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Watch the Render Glitch Slide",
 		"region": "Endless Canyon",
-		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"requires": "|Visited Endless Canyon Archive|",
 		"category": [ "9c - Endless Canyon" ]
 	},
 	{
 		"name": "Discover the burned code EC",
 		"region": "Endless Canyon",
-		"requires": "|DreamWorld Fake Wall Knowledge| and (|DreamWorld Grabbing Hand Knowledge| or |DreamWorld Render Glitch Knowledge|)",
+		"requires": "|Visited Endless Canyon Archive|",
 		"category": [ "9c - Endless Canyon" ]
 	},
 	{

@@ -214,22 +214,22 @@
     {
         "name": "EYE > River Lowlands flame Access",
         "progression": true,
-        "category": [ "EYE", "flame", "Not Trap" ]
+        "category": [ "EYE", "Flame", "Not Trap" ]
     },
     {
         "name": "EYE > Cinder Isles flame Access",
         "progression": true,
-        "category": [ "EYE", "flame", "Not Trap" ]
+        "category": [ "EYE", "Flame", "Not Trap" ]
     },
     {
         "name": "EYE > Hidden Gorge flame Access",
         "progression": true,
-        "category": [ "EYE", "flame", "Not Trap" ]
+        "category": [ "EYE", "Flame", "Not Trap" ]
     },
     {
         "name": "EYE > Submerge Structure flame Access",
         "progression": true,
-        "category": [ "EYE", "flame", "Not Trap" ]
+        "category": [ "EYE", "Flame", "Not Trap" ]
     },
     {
         "name": "DreamWorld Knowledge",
@@ -281,5 +281,25 @@
         "count": 3,
         "progression": true,
         "category": [ "Code", "EYE", "Not Trap" ]
+    },
+    {
+        "name": "Visited CodeVault",
+        "progression": true,
+        "category": [ "Visits", "EYE" ]
+    },
+    {
+        "name": "Visited Shrouded Woodlands Archive",
+        "progression": true,
+        "category": [ "Visits", "EYE" ]
+    },
+    {
+        "name": "Visited Starlit Cove Archive",
+        "progression": true,
+        "category": [ "Visits", "EYE" ]
+    },
+    {
+        "name": "Visited Endless Canyon Archive",
+        "progression": true,
+        "category": [ "Visits", "EYE" ]
     }
 ]
