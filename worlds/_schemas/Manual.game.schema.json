@@ -1,19 +1,55 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "game": {
-        "description": "The name of your game, compatible with capital letters.",
-        "type": "string"
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "game": {
+            "description": "The name of your game, compatible with capital letters.",
+            "type": "string"
+        },
+        "player": {
+            "description": "Your Username.",
+            "type": "string"
+        },
+        "filler_item_name": {
+            "description": "Name of the filler items that get placed when there's no more real items to place.",
+            "type": "string"
+        },
+        "starting_items": {
+            "description": "(Optional) Starting inventory",
+            "type":"array",
+            "items":{
+                "$ref": "#/definitions/Sitems"
+            }
+        }
     },
-    "player": {
-        "description": "Your Username.",
-        "type": "string"
-    },
-    "filler_item_name": {
-        "description": "Name of the filler items that get placed when there's no more real items to place.",
-        "type": "string"
+    "required":["game", "player", "filler_item_name"],
+    "definitions": {
+        "Sitems": {
+            "type":"object",
+            "properties": {
+                "items": {
+                    "description": "(Optional) List of item to pick from.",
+                    "type":"array",
+                    "items":{
+                        "type":"string",
+                        "title": "Item",
+                        "description": "One of your items"
+                    }
+                },
+                "item_categories": {
+                    "description": "(Optional) List of category of items to pick from.",
+                    "type":"array",
+                    "items":{
+                        "type":"string",
+                        "title": "Item category",
+                        "description": "One of your item category"
+                    } 
+                },
+                "random": {
+                    "description": "(Optional) how many of this selection to add to inventory",
+                    "type":"integer"
+                }
+            }
+        }
     }
-  },
-  "required":["game", "player", "filler_item_name"]
 }
