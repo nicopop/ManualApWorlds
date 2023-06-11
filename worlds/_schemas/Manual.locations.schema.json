@@ -64,7 +64,7 @@
                 "victory": {
                     "type": "boolean"
                 },
-                "_info": {
+                "_comment": {
                     "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
                     "type":"string"
                 }

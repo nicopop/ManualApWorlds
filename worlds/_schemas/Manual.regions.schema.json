@@ -8,7 +8,7 @@
                     "type": "object",
                     "properties": {
                         "requires": {
-                            "description": "Either an array of items or a boolean logic string(check discord).",
+                            "description": "(Optional) Either an array of items or a boolean logic string(check discord).",
                             "type": [ "array", "string" ],
                             "items": {
                                 "$ref": "#/definitions/Require"
@@ -29,12 +29,12 @@
                             "description": "(Optional) Is this region accessible from the start? Defaults to false if not included.",
                             "type":"boolean"
                         },
-                        "_info": {
+                        "_comment": {
                             "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
                             "type":"string"
                         }
                     },
-                    "required":["requires", "connects_to"]
+                    "required":["connects_to"]
                 }
             ]
         }

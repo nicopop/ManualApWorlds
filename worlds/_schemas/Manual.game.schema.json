@@ -20,6 +20,10 @@
             "items":{
                 "$ref": "#/definitions/Sitems"
             }
+        },
+        "_comment": {
+            "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
+            "type":"string"
         }
     },
     "required":["game", "player", "filler_item_name"],
