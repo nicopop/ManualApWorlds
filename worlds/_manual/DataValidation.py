@@ -181,7 +181,7 @@ class DataValidation():
                 region_requires = json.dumps(region["requires"])
 
                 if item["name"] in region_requires:
-                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], key))
+                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], region_name))
 
     @staticmethod
     def checkRegionsConnectingToOtherRegions():
