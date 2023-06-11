@@ -303,17 +303,17 @@
 	},
 
 	{
-		"name": "Visit > Get in the Probe Tracking Module and see the Coords to the eye",
+		"name": "Get in the Probe Tracking Module",
 		"region": "Space",
 		"category": [ "4 - Giant's Deep" ],
 		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
 		"place_item": [ "Seen Coords" ]
 	},
 	{
-		"name": "Item > Get in the Probe Tracking Module and see the Coords to the eye",
+		"name": "See the Coords to the eye",
 		"region": "Space",
 		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge" ],
+		"requires": [ "Seen Coords"],
 		"place_item_category": [ "2a Not Trap" ]
 	},
 
