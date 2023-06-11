@@ -222,21 +222,12 @@ class DataValidation():
 
     @staticmethod
     def checkForDuplicateRegionNames():
-<<<<<<< HEAD
-        for region_name in DataValidation.region_table:
-            region = DataValidation.region_table[region_name]
-            name_count = len([r for r in DataValidation.region_table if DataValidation.region_table[r]["name"] == region["name"]])
-
-            if name_count > 1:
-                raise ValidationError("Region %s is defined more than once." % (region["name"]))
-=======
         # this currently does nothing because the region name is a dict key, which will never be non-unique / limited to 1
         for region_name in DataValidation.region_table:
             name_count = len([r for r in DataValidation.region_table if r == region_name])
 
             if name_count > 1:
                 raise ValidationError("Region %s is defined more than once." % (region_name))
->>>>>>> remotes/FuzzyGamesOn/manual
             
     @staticmethod
     def checkStartingItemsForValidItemsAndCategories():

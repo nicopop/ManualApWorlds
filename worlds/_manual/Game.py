@@ -1,13 +1,8 @@
 from .Data import game_table
 
 game_name = "Manual_%s_%s" % (game_table["game"], game_table["player"])
-<<<<<<< HEAD
-filler_item_name = game_table["filler_item_name"] or None
-starting_items = game_table["starting_items"] or None
-=======
 filler_item_name = game_table["filler_item_name"] if "filler_item_name" in game_table else "Filler"
 starting_items = game_table["starting_items"] if "starting_items" in game_table else None
->>>>>>> remotes/FuzzyGamesOn/manual
 
 # Programmatically generate starting indexes for items and locations based upon the game name and player name to aim for non-colliding indexes
 # Additionally, make this use as many characters of the game name as possible to avoid accidental id pool collisions
