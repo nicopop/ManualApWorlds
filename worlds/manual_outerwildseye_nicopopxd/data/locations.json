@@ -64,15 +64,14 @@
 	},
 
 	{
-		"name": "Get in Ruptured Core of the Interlopper",
+		"name": "Get in Ruptured Core of the Interloper",
 		"region": "Space",
-		"requires": [ "Scout" ],
+		"requires": [ "Scout", "Scout Photos" ],
 		"category": [ "7 - Interloper" ]
 	},
 	{
-		"name": "Find the frozen shuttle's log on the Interlopper",
+		"name": "Find the frozen shuttle's log on the Interloper",
 		"region": "Space",
-		"requires": [ "Scout" ],
 		"category": [ "7 - Interloper" ]
 	},
 	{
@@ -159,7 +158,7 @@
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
-		"name": "Talk to Esker",
+		"name": "Moon > Talk to Esker",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
@@ -242,10 +241,10 @@
 		"place_item": [ "Seen Solanum" ]
 	},
 	{
-		"name": "Talk to Solanum",
+		"name": "Communicate with Solanum",
 		"region": "Quantum Trials",
 		"category": [ "6 - Quantum Moon" ],
-		"requires": [ "Seen Solanum", "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ]
+		"requires": [ "Seen Solanum" ]
 	},
 	{
 		"name": "Find the Museum Shard",
@@ -288,8 +287,19 @@
 	{
 		"name": "Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "3 - Brittle Hollow" ],
-		"requires": "Signal > Quantum"
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "Visit the deepspace satelite",
+		"region": "Space",
+		"category": [ "Space" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
+	},
+	{
+		"name": "Visit the Radio Station and get it's signal",
+		"region": "Space",
+		"category": [ "2 - Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 
 	{
@@ -311,7 +321,7 @@
 		"name": "Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ],
-		"requires": "(|Signaloscope| and |Signal > OW Ventures|)"
+		"requires": "|Signaloscope| and |Signal > OW Ventures|"
 	},
 
 	{
@@ -326,7 +336,6 @@
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble" ]
 	},
-
 
 	{
 		"name": "FINAL > Get the warp drive to the vessel and Warp to the Eye",
@@ -343,22 +352,10 @@
 	},
 
 	{
-		"name": "Visit the Radio Station and get it's signal",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
-	},
-	{
 		"name": "Visit the Radio Station and check the photos",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace", "Stranger Presence Knowledge" ]
-	},
-	{
-		"name": "Visit the deepspace satelite",
-		"region": "Space",
-		"category": [ "Space" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 
 	{

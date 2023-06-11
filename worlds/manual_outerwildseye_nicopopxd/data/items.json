@@ -20,17 +20,17 @@
     {
         "name": "Tornado Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap" ]
+        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
     },
     {
         "name": "Jellyfish Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap" ]
+        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
     },
     {
         "name": "Teleporter Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap" ]
+        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
     },
     {
         "name": "Anglerfish Knowledge",

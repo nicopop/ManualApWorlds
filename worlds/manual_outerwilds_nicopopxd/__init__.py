@@ -30,7 +30,7 @@ class ManualWeb(WebWorld):
 class ManualWorld(World):
     """
     Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
-    In this case a game from 2019: OuterWilds 
+    In this case a game from 2019: OuterWilds
     the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
     """
     game: str = game_name
@@ -87,7 +87,7 @@ class ManualWorld(World):
             for i in range(item_count):
                 new_item = self.create_item(name)
                 pool.append(new_item)
-                
+
 
         extras = len(location_table) - len(pool) - 1 # subtracting 1 because of Victory; seems right
 
@@ -113,7 +113,7 @@ class ManualWorld(World):
                     continue
 
                 eligible_items = [item for item in self.multiworld.itempool if item.name in location["place_item"]]
-                
+
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match %s." % (location["name"], ", ".join(location["place_item"])))
 
@@ -138,8 +138,8 @@ class ManualWorld(World):
 
             # remove the item we're about to place from the pool so it isn't placed twice
             self.multiworld.itempool.remove(item_to_place)
-                        
-        
+
+
     def create_item(self, name: str) -> Item:
         item = self.item_name_to_item[name]
         classification = ItemClassification.filler
@@ -161,10 +161,10 @@ class ManualWorld(World):
 
     def create_regions(self):
         create_regions(self, self.multiworld, self.player)
-    
+
     def get_pre_fill_items(self):
         return []
-    
+
     def fill_slot_data(self):
         # return {
         #     "DeathLink": bool(self.multiworld.death_link[self.player].value)

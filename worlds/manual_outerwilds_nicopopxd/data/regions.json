@@ -1,20 +1,24 @@
 {
     "Tutorial": {
+        "_comment": "Contains the 4 starting locations",
         "requires": [],
         "connects_to": [ "Space" ],
         "starting": true
     },
     "Space": {
+        "_comment": "For now contains all the Main locations",
         "requires": [ "Launch Codes" ],
-        "connects_to": [ "Quantum Trials", "Dark Bramble"]
+        "connects_to": [ "Quantum Trials", "Dark Bramble" ]
     },
 
     "Quantum Trials": {
+        "_comment": "Contains everything Quantum related",
         "requires": [ "Signal > Quantum", "Signaloscope" ],
         "connects_to": [ "Space" ]
     },
 
     "Dark Bramble": {
+        "_comment": "Contains every location in the Dark Bramble planet",
         "requires": [ "Anglerfish Knowledge" ],
         "connects_to": [ "Space" ]
     }

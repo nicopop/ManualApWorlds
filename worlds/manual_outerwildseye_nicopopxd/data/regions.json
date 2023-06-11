@@ -1,34 +1,34 @@
 {
     "Tutorial": {
-        "_info":  "Contains the 4 starting locations",
+        "_comment":  "Contains the 4 starting locations",
         "requires": [],
         "connects_to": [ "Space" ],
         "starting": true
     },
     "Space": {
-        "_info": "For now contains all the Main locations",
+        "_comment": "For now contains all the Main locations",
         "requires": [ "Launch Codes" ],
         "connects_to": [ "Quantum Trials", "Dark Bramble", "The Stranger" ]
     },
 
     "Quantum Trials": {
-        "_info":  "Contains everything Quantum related",
+        "_comment":  "Contains everything Quantum related",
         "requires": [ "Signal > Quantum", "Signaloscope" ],
         "connects_to": [ "Space" ]
     },
 
     "Dark Bramble": {
-        "_info": "Contains every location in the Dark Bramble planet",
+        "_comment": "Contains every location in the Dark Bramble planet",
         "requires": [ "Anglerfish Knowledge" ],
         "connects_to": [ "Space" ]
     },
     "The Stranger": {
-        "_info": "Base Region for the DLC",
+        "_comment": "Base Region for the DLC",
         "requires": "|Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
         "connects_to": [ "Space", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "DreamWorld General": {
-        "_info": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
+        "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
         "requires": "|DreamWorld Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)",
         "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
