@@ -48,8 +48,13 @@
                 "random": {
                     "description": "(Optional) how many of this selection to add to inventory",
                     "type":"integer"
+                },
+                "_comment": {
+                    "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
+                    "type":"string"
                 }
-            }
+            },
+            "minProperties": 1
         }
     }
 }
