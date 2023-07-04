@@ -5,17 +5,22 @@
      src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
     >
     <h1 align="center">Base Game Randomizer Edition</h1>
-    <h3 align="center">v3.1.0</h3>
+    <p align="center">v3.1.1</p>
 </p>
 
 ## Required Software
 
-- OuterWilds Game
-- The latest Unstable ManualClient
+- OuterWilds Game ([Steam](https://store.steampowered.com/app/753640/Outer_Wilds/)
+ / [Epic Games](https://launcher.store.epicgames.com/en-US/p/outerwilds)
+ / [Xbox](https://www.xbox.com/en-CA/games/store/outer-wilds/C596FKDKMQN7)
+ / [PS4/5](https://store.playstation.com/en-us/product/UP2470-PPSA08101_00-OUTERWILDSSIEA00)
+ / [Switch](https://www.nintendo.com/en-ca/store/products/outer-wilds-switch/))
+- The latest stable [ManualClient](https://discord.gg/T5bcsVHByx)
 
 ## Optional Software
 
-- [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)
+- [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)*
+    + PC versions only (Steam or Epic Games)
 
 ## ↑ Recommended* and Optional mods from manager↑
 
