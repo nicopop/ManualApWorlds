@@ -25,18 +25,19 @@
 ## ↑ Recommended* and Optional mods from manager↑
 
 Install those from the Mod Manager
-- [Clock](https://github.com/clubby789/OWClock#readme)*
+- [Clock](https://outerwildsmods.com/mods/clock/)*
     - Shows a timer with the main event at the bottom right of the screen.
-- [Hiker's Mod](https://github.com/Owen013/Hikers-Mod#readme)*
+- [Hiker's Mod](https://outerwildsmods.com/mods/hikersmod/)*
     - By default only add sprint but can also add walljumps(not in logic)
-- [Achievements+](https://github.com/xen-42/outer-wilds-achievement-tracker#readme)*
+- [Achievements+](https://outerwildsmods.com/mods/achievements/)*
     - Add popup when you would get an achievement on new save even if you allready have that steam achievement.
-- [Enable Meditation](https://github.com/xen-42/outer-wilds-meditation#readme)*
+- [Enable Meditation](https://outerwildsmods.com/mods/enablemeditation/)*
     - Like the name might suggest you always have the "meditate until next loop button" in the pause menu.
-- [Suit Log](https://github.com/dgarroDC/SuitLog#readme)
+- [Suit Log](https://outerwildsmods.com/mods/suitlog/)
     - Allows you to open your ship log from anywhere. 
-- [Trajectory Prediction](https://github.com/SkutteOleg/TrajectoryPrediction#readme)
+- [Trajectory Prediction](https://outerwildsmods.com/mods/trajectoryprediction/)
     - Shows where your shipscout/player is going vs selected planet
+    - Require you enabling "Use Incremental GC" in the modmanager settings
 
 ## Installation Procedures
 
