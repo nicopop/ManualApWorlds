@@ -294,8 +294,6 @@ class ManualContext(CommonContext):
                 self.tracker_and_locations_panel.add_widget(locations_panel_scrollable)
 
             def update_tracker_and_locations_table(self, update_highlights=False):
-                return 
-            
                 items_length = len(self.ctx.items_received)
                 locations_length = len(self.ctx.missing_locations)
 
