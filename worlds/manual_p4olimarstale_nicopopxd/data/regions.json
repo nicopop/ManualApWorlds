@@ -1,21 +1,19 @@
 {
-	"Sun-Speckled Terrace": 
+	"Sun-Speckled Terrace":
 	{
 		"starting": true,
-		"connects_to": [],
-		"requires": []
+		"connects_to": [ "Blossoming Arcadia", "Serene Shores"]
 	},
-	"Blossoming Arcadia": 
+	"Blossoming Arcadia": {
+		"connects_to": [ "Sun-Speckled Terrace", "Serene Shores" ],
+		"requires": "|Treasure:2|"
+	},
+	"Serene Shores":
 	{
-		"connects_to": [],
+		"connects_to": [ "Sun-Speckled Terrace", "Blossoming Arcadia", "Hero's Hideaway" ],
 		"requires": []
 	},
-	"Serene Shores": 
-	{
-		"connects_to": [],
-		"requires": []
-	},
-	"Hero's Hideaway": 
+	"Hero's Hideaway":
 	{
 		"connects_to": [],
 		"requires": "|Treasure:23|"

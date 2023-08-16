@@ -1,0 +1,25 @@
+max pikmin: 20
+Item:
+Charging Horn usage
+locations: 
+SST-NorthSac10rocks
+SST-EastHill10rocks
+SST-SouthEast10rocks
+#SST-NorthEast10rocks
+SST-WestLake10rocks
+SST-WestPot10rocks
+
+SST-NorthFlarlic
+
+SST-YellowOnion
+
+SST-SouthEastRepair-Type Bolt
+SST-SouthWestPotTreasure : Moss Charge Pot
+SST-NorthEastTreasure
+SST-NorthWestSpiderTreasure
+
+SST-EastBridgeBuilt : 11 rocks
+SST-WestBridgeBuilt : 34 rocks
+SST-WestRampBuilt : 
+
+SST-ElectricWallDestroyed : YellowPikmins
