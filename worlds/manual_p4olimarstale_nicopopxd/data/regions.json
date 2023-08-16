@@ -1,0 +1,23 @@
+{
+	"Sun-Speckled Terrace": 
+	{
+		"starting": true,
+		"connects_to": [],
+		"requires": []
+	},
+	"Blossoming Arcadia": 
+	{
+		"connects_to": [],
+		"requires": []
+	},
+	"Serene Shores": 
+	{
+		"connects_to": [],
+		"requires": []
+	},
+	"Hero's Hideaway": 
+	{
+		"connects_to": [],
+		"requires": "|Treasure:23|"
+}
+}

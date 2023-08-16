@@ -1,0 +1,20 @@
+[
+	{
+		"count": "30",
+		"name": "Treasure",
+		"category": [],
+		"progression_skip_balancing": true
+	},
+	{
+		"count":1,
+		"name": "Credits",
+		"category": [],
+		"progression": true
+	},
+	{
+		"count":1,
+		"name": "Moss",
+		"category": [],
+		"progression": true
+	}
+]

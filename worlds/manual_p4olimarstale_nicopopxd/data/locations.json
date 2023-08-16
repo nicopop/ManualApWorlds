@@ -1,0 +1,33 @@
+[
+	{
+		"name": "Treasure 5",
+		"category": ["Treasures"],
+		"requires": "|Treasure:5|"
+	},
+	{
+		"name": "Treasure 10",
+		"category": ["Treasures"],
+		"requires": "|Treasure:10|"
+	},
+	{
+		"name": "Treasure 15",
+		"category": ["Treasures"],
+		"requires": "|Treasure:15|"
+	},
+	{
+		"name": "Treasure 20",
+		"category": ["Treasures"],
+		"requires": "|Treasure:20|"
+	},
+	{
+		"name": "Treasure 25",
+		"category": ["Treasures"],
+		"requires": "|Treasure:25|"
+	},
+	{
+		"name": "Treasure 30",
+		"category": ["Treasures"],
+		"requires": "|Treasure:30|",
+		"place_item": ["Credits"]
+	}
+]
