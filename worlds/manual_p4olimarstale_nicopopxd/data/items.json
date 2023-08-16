@@ -1,20 +1,59 @@
 [
 	{
-		"count": "30",
+		"count": 30,
 		"name": "Treasure",
-		"category": [],
+		"category": [ "All", "Collectibles" ],
 		"progression_skip_balancing": true
 	},
 	{
-		"count":1,
-		"name": "Credits",
-		"category": [],
+		"name": "Flarlic",
+		"count": 8,
+		"progression": true,
+		"category": [ "All", "Collectibles" ]
+	},
+	{
+		"name": "SST - Yellow Onion",
+		"progression": true,
+		"category": [ "Onion", "All" ]
+	},
+	{
+		"name": "Yellow Pikmins",
+		"progression": true,
+		"category": [ "Pikmins", "All" ]
+	},
+	{
+		"name": "Blue Pikmins",
+		"progression": true,
+		"category": [ "Pikmins", "All" ]
+	},
+	{
+		"name": "Moss",
+		"category": ["Moss", "All"],
 		"progression": true
 	},
 	{
-		"count":1,
-		"name": "Moss",
-		"category": [],
-		"progression": true
+		"name": "Moss Charge Pots",
+		"progression": true,
+		"category": [ "Moss", "All" ]
+	},
+	{
+		"name": "Moss Charge Monsters",
+		"useful": true,
+		"category": [ "Moss", "All" ]
+	},
+	{
+		"name": "Boost Potion",
+		"progression": true,
+		"category": [ "All", "Equipment" ]
+	},
+	{
+		"name": "Survey Drone",
+		"useful": true,
+		"category": [ "All", "Equipment" ]
+	},
+	{
+		"name": "1 Crash Landing",
+		"progression": true,
+		"category": [ "All" ]
 	}
 ]

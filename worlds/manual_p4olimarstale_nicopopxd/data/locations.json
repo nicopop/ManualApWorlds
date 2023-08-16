@@ -1,33 +1,161 @@
 [
 	{
+		"name": "SST Yellow Onion",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "SST - Yellow Onion" ]
+	},
+	{
+		"name": "SST East Flarlic",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "Flarlic" ]
+	},
+	{
+		"name": "SST West Flarlic",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": "|Flarlic:2| or |Boost Potion|",
+		"place_item": [ "Flarlic" ]
+	},
+
+	{
+		"name": "SST EastBridgeBuilt",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": []
+	},
+	{
+		"name": "SST WestBridgeBuilt",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": []
+	},
+	{
+		"name": "SST WestRampBuilt",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": []
+	},
+
+	{
+		"name": "SST Sac Crushed",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": "|Flarlic:1|"
+	},
+	{
+		"name": "SST SandCastle Wall Destroyed",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": []
+	},
+
+	{
+		"name": "SST Electric Wall Destroyed",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": "(|SST - Yellow Onion|) and |Yellow Pikmins|"
+	},
+
+	{
+		"name": "SST South-East Repair-Type Bolt",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "SST South-West Pot Treasure",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": "|Moss| and |Moss Charge Pots|",
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "SST North-East Extraordinary Bolt",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "SST North-West Spider Automatic Gear",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "SST North Stick Whimsical Radar",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "SST South-East Spider Treasure",
+		"region": "Sun-Speckled Terrace",
+		"category": [ "Sun-Speckled Terrace" ],
+		"requires": "((|SST - Yellow Onion|) and |Yellow Pikmins|) and |Moss| and |Moss Charge Pots| and |Flarlic:1|",
+		"place_item": [ "Treasure" ]
+	},
+
+
+	{
+		"name": "BA Met Moss",
+		"category": [ "Blossoming Arcadia" ],
+		"place_item": [ "Moss" ],
+		"region": "Blossoming Arcadia"
+	},
+	{
+		"name": "BA Met Moss",
+		"category": [ "Blossoming Arcadia" ],
+		"place_item": [ "Moss" ],
+		"region": "Blossoming Arcadia"
+	},
+
+
+	{
 		"name": "Treasure 5",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
 		"requires": "|Treasure:5|"
 	},
 	{
 		"name": "Treasure 10",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
 		"requires": "|Treasure:10|"
 	},
 	{
 		"name": "Treasure 15",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
 		"requires": "|Treasure:15|"
 	},
 	{
 		"name": "Treasure 20",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
 		"requires": "|Treasure:20|"
 	},
 	{
 		"name": "Treasure 25",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
+		"region": "Hero's Hideaway",
 		"requires": "|Treasure:25|"
 	},
 	{
 		"name": "Treasure 30",
-		"category": ["Treasures"],
+		"category": [ "Treasures" ],
+		"region": "Hero's Hideaway",
 		"requires": "|Treasure:30|",
-		"place_item": ["Credits"]
+		"place_item": [ "1 Crash Landing" ]
+	},
+	{
+		"name": "The End",
+		"requires": "|1 Crash Landing|",
+		"region": "Hero's Hideaway",
+		"victory": true
+
 	}
 ]

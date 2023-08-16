@@ -5,21 +5,27 @@ locations:
 SST-NorthSac10rocks
 SST-EastHill10rocks
 SST-SouthEast10rocks
-#SST-NorthEast10rocks
+SST-NorthEast12rocks
 SST-WestLake10rocks
 SST-WestPot10rocks
 
-SST-NorthFlarlic
+SST-EastFlarlic
+SST-NorthFlarlic : 2 farlic or boost potion 
 
 SST-YellowOnion
 
-SST-SouthEastRepair-Type Bolt
-SST-SouthWestPotTreasure : Moss Charge Pot
-SST-NorthEastTreasure
-SST-NorthWestSpiderTreasure
+SST-SouthEast Repair-Type Bolt
+SST-SouthWestPotTreasure : Moss Charge Pots
+SST-NorthEast Extraordinary Bolt
+SST NorthStick Whimsical Radar
+SST-NorthWestSpiderTreasure Automatic Gear
+SST-SouthEastSpiderTreasure laser : flarlic, yellow onion, yellow pikmin, moss charge pots
 
 SST-EastBridgeBuilt : 11 rocks
 SST-WestBridgeBuilt : 34 rocks
-SST-WestRampBuilt : 
+SST-WestRampBuilt : 20
 
-SST-ElectricWallDestroyed : YellowPikmins
+SST-NorthSacCrushed : 25 pikmin (1 flarlic)
+
+SST-SandCastleWallDestroyed
+SST-ElectricWallDestroyed : Yellow Pikmins

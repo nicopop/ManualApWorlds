@@ -8,14 +8,13 @@
 		"connects_to": [ "Sun-Speckled Terrace", "Serene Shores" ],
 		"requires": "|Treasure:2|"
 	},
-	"Serene Shores":
-	{
+	"Serene Shores": {
 		"connects_to": [ "Sun-Speckled Terrace", "Blossoming Arcadia", "Hero's Hideaway" ],
-		"requires": []
+		"requires": "|Treasure:16|"
 	},
 	"Hero's Hideaway":
 	{
 		"connects_to": [],
 		"requires": "|Treasure:23|"
-}
+	}
 }
