@@ -4,7 +4,7 @@
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
 		"requires": [],
-		"place_item": [ "SST - Yellow Onion" ]
+		"place_item": [ "Yellow Onion" ]
 	},
 	{
 		"name": "SST East Flarlic",
@@ -22,19 +22,19 @@
 	},
 
 	{
-		"name": "SST EastBridgeBuilt",
+		"name": "SST East Bridge Built",
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
 		"requires": []
 	},
 	{
-		"name": "SST WestBridgeBuilt",
+		"name": "SST West Bridge Built",
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
 		"requires": []
 	},
 	{
-		"name": "SST WestRampBuilt",
+		"name": "SST West Ramp Built",
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
 		"requires": []
@@ -57,7 +57,7 @@
 		"name": "SST Electric Wall Destroyed",
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
-		"requires": "(|SST - Yellow Onion|) and |Yellow Pikmins|"
+		"requires": "|Yellow Onion| and |Yellow Pikmins|"
 	},
 
 	{
@@ -99,10 +99,74 @@
 		"name": "SST South-East Spider Treasure",
 		"region": "Sun-Speckled Terrace",
 		"category": [ "Sun-Speckled Terrace" ],
-		"requires": "((|SST - Yellow Onion|) and |Yellow Pikmins|) and |Moss| and |Moss Charge Pots| and |Flarlic:1|",
+		"requires": "(|Yellow Onion| and |Yellow Pikmins|) and |Moss| and |Moss Charge Pots| and |Flarlic:1|",
 		"place_item": [ "Treasure" ]
 	},
 
+	{
+		"name": "BA Yellow Onion",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"_comment": "Will probably add requirements later to restrict which onion you can get",
+		"requires": [],
+		"place_item": [ "Yellow Onion" ]
+	},
+	{
+		"name": "BA Blue Onion",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Blue Onion" ]
+	},
+	{
+		"name": "BA North Flarlic",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Flarlic" ]
+	},
+	{
+		"name": "BA South Flarlic",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Flarlic" ]
+	},
+
+	{
+		"name": "BA Burn Both Wheat Walls in Starting Area",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia"
+	},
+	{
+		"name": "BA Light All The Fires",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia"
+	},
+	{
+		"name": "BA Burn All The Wheat Walls",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia"
+	},
+	{
+		"name": "BA Electric Wall Destroyed",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia",
+		"requires": "|Yellow Onion| and |Yellow Pikmins|"
+	},
+	{
+		"name": "BA Reinforced Wall Destroyed",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia",
+		"requires": "Bombs"
+	},
+
+	{
+		"name": "BA Reinforced Wall Destroyed",
+		"category": [ "Blossoming Arcadia" ],
+		"region": "Blossoming Arcadia",
+		"requires": "Bombs"
+	},
 
 	{
 		"name": "BA Met Moss",
@@ -111,12 +175,78 @@
 		"region": "Blossoming Arcadia"
 	},
 	{
-		"name": "BA Met Moss",
+		"name": "BA Kill BigBird",
 		"category": [ "Blossoming Arcadia" ],
-		"place_item": [ "Moss" ],
+		"_comment": "adding requirement so the rando doenst make you fight this with just the starting 20 pikmins",
+		"requires": "|Flarlic:2| or |Boost Potion|",
+		"region": "Blossoming Arcadia"
+	},
+	{
+		"name": "BA Kill The Walker",
+		"category": [ "Blossoming Arcadia" ],
+		"_comment": "adding requirement so the rando doenst make you fight this with just the starting 20 pikmins",
+		"requires": "|Flarlic:2| or |Boost Potion|",
 		"region": "Blossoming Arcadia"
 	},
 
+	{
+		"name": "BA ClimbingWall Built",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ]
+	},
+	{
+		"name": "BA Bridge Built",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ]
+	},
+	{
+		"name": "BA Ramp Built",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ]
+	},
+
+	{
+		"name": "BA West Base Hill Extraordinary Bolt",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "BA North Sprinkler Extraordinary Bolt",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": "|Blue Onion| and |Blue Pikmins|",
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "BA Center Toy Automatic Gear",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "BA East Flower-Frog Repair-Type Bolt",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "BA Center Base Hill Pot Omega Stabilizer",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": "|Bombs| and ((|Yellow Onion| and |Yellow Pikmins|) or (|Moss| and |Moss Charge Walls|))",
+		"place_item": [ "Treasure" ]
+	},
+	{
+		"name": "BA Close To Walker Boss treasure",
+		"region": "Blossoming Arcadia",
+		"category": [ "Blossoming Arcadia" ],
+		"requires": [],
+		"place_item": [ "Treasure" ]
+	},
 
 	{
 		"name": "Treasure 5",

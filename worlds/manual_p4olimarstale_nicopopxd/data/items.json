@@ -12,10 +12,18 @@
 		"category": [ "All", "Collectibles" ]
 	},
 	{
-		"name": "SST - Yellow Onion",
+		"name": "Yellow Onion",
+		"count": 2,
 		"progression": true,
 		"category": [ "Onion", "All" ]
 	},
+	{
+		"name": "Blue Onion",
+		"count": 2,
+		"progression": true,
+		"category": [ "Onion", "All" ]
+	},
+
 	{
 		"name": "Yellow Pikmins",
 		"progression": true,
@@ -26,6 +34,7 @@
 		"progression": true,
 		"category": [ "Pikmins", "All" ]
 	},
+
 	{
 		"name": "Moss",
 		"category": ["Moss", "All"],
@@ -37,10 +46,16 @@
 		"category": [ "Moss", "All" ]
 	},
 	{
+		"name": "Moss Charge Walls",
+		"progression": true,
+		"category": [ "Moss", "All" ]
+	},
+	{
 		"name": "Moss Charge Monsters",
 		"useful": true,
 		"category": [ "Moss", "All" ]
 	},
+
 	{
 		"name": "Boost Potion",
 		"progression": true,
@@ -51,6 +66,12 @@
 		"useful": true,
 		"category": [ "All", "Equipment" ]
 	},
+	{
+		"name": "Bombs",
+		"progression": true,
+		"category": [ "All", "Equipment" ]
+	},
+
 	{
 		"name": "1 Crash Landing",
 		"progression": true,

@@ -48,6 +48,7 @@ BA-NorthSprinklerTreasure screw : blue pikmin, blue onion
 BA-CenterToyTreasure gear (Automatic Gear)
 BA-SouthEastFlowerFrogTreasure Bolt (Repair-Type Bolt)
 BA-CenterBaseHillPot Wing (Omega Stabilizer) : Bomb Usage, yellow pikmin or moss charge object
+BA-WalkerTresure
 
 BA-BigBirdKilled
 BA-WalkerKilled
