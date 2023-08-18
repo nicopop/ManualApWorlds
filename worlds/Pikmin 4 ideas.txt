@@ -1,4 +1,4 @@
-max pikmin: 20
+Initial max pikmin: 20
 Item:
 Charging Horn usage
 locations: 
@@ -29,3 +29,37 @@ SST-NorthSacCrushed : 25 pikmin (1 flarlic)
 
 SST-SandCastleWallDestroyed
 SST-ElectricWallDestroyed : Yellow Pikmins
+
+Blossoming Arcadia:
+
+BA-WestBaseHill10Rocks
+BA-NorthSprinkler12rocks : blue pikmin, blue onion
+BA-NorthMud6rocks
+BA-NorthFlower10Rocks
+
+BA-NorthWestSandFarlic
+BA-SouthFarlic
+
+BA-YellowOnion
+BA-BlueOnion
+
+BA-WestBaseHillTreasure screw (Extraordinary Bolt)
+BA-NorthSprinklerTreasure screw : blue pikmin, blue onion
+BA-CenterToyTreasure gear (Automatic Gear)
+BA-SouthEastFlowerFrogTreasure Bolt (Repair-Type Bolt)
+BA-CenterBaseHillPot Wing (Omega Stabilizer) : Bomb Usage, yellow pikmin or moss charge object
+
+BA-BigBirdKilled
+BA-WalkerKilled
+
+BA-BuildNorthClimbingWall : 7 rocks
+BA-BuildWestBridge : 21 rocks
+BA-BuildSouthRamp : 24 rocks
+
+BA-BurnBothStartingAreaWheatWalls
+BA-MeetMoss
+BA-LightAllFire
+BA-BurnAllWheatWalls
+BA-ElectricWallDestroyed
+BA-ReinforcedWallDestroyed
+
