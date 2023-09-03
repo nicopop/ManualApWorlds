@@ -4,5 +4,9 @@
 			"path": "../../Arch-Manual-Schemas/worlds/_schemas"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"json.schemas": [
+			
+		]
+	}
 }

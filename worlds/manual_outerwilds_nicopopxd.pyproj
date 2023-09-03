@@ -22,6 +22,13 @@
     <Compile Include="Data.py" />
     <Compile Include="DataValidation.py" />
     <Compile Include="Game.py" />
+    <Compile Include="hooks\Data.py" />
+    <Compile Include="hooks\Items.py" />
+    <Compile Include="hooks\Locations.py" />
+    <Compile Include="hooks\Options.py" />
+    <Compile Include="hooks\Regions.py" />
+    <Compile Include="hooks\World.py" />
+    <Compile Include="hooks\__init__.py" />
     <Compile Include="Items.py" />
     <Compile Include="Locations.py" />
     <Compile Include="Options.py" />
@@ -38,11 +45,20 @@
     <Content Include="data\regions.json" />
     <Content Include="docs\en_Manual.md" />
     <Content Include="docs\setup_en.md" />
+    <Content Include="hooks\__pycache__\Data.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\Items.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\Locations.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\Options.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\Regions.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\World.cpython-310.pyc" />
+    <Content Include="hooks\__pycache__\__init__.cpython-310.pyc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs" />
     <Folder Include="data" />
     <Folder Include="docs" />
+    <Folder Include="hooks\" />
+    <Folder Include="hooks\__pycache__\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
