@@ -11,13 +11,6 @@ class DataValidation():
     location_table = []
     region_table = {}
 
-    @staticmethod
-    def outputExpectedGameNames():
-        logging.warning("With the information in your game.json, ")
-        logging.warning("  - The expected game name in your YAML is: Manual_%s_%s" % (DataValidation.game_table["game"], DataValidation.game_table["player"]))
-        logging.warning("  - The expected apworld filename and directory is: manual_%s_%s" % (DataValidation.game_table["game"].lower(), DataValidation.game_table["player"].lower()))
-        logging.warning("")
-        logging.warning("")
 
     @staticmethod
     def checkItemNamesInLocationRequires():
@@ -36,6 +29,10 @@ class DataValidation():
                     if item.lower() == "or" or item.lower() == "and" or item == ")" or item == "(":
                         continue
                     else:
+                        # it's just a category, so ignore it
+                        if '@' in item:
+                            continue
+
                         item_parts = item.split(":")
                         item_name = item
 
@@ -98,6 +95,10 @@ class DataValidation():
                     if item.lower() == "or" or item.lower() == "and" or item == ")" or item == "(":
                         continue
                     else:
+                        # it's just a category, so ignore it
+                        if '@' in item:
+                            continue
+
                         item_parts = item.split(":")
                         item_name = item
 
@@ -159,6 +160,10 @@ class DataValidation():
             if "progression" in item and item["progression"]:
                 continue
 
+            # progression_skip_balancing is also progression, so no check needed
+            if "progression_skip_balancing" in item and item["progression_skip_balancing"]:
+                continue
+
             # check location requires for the presence of item name
             for location in DataValidation.location_table:
                 if "requires" not in location:
@@ -180,8 +185,13 @@ class DataValidation():
                 # convert to json so we don't have to guess the data type
                 region_requires = json.dumps(region["requires"])
 
-                if item["name"] in region_requires:
-                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], region_name))
+                # if boolean, else legacy
+                if isinstance(region_requires, str):
+                    if '|{}|'.format(item["name"]) in region_requires:
+                        raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], region_name))
+                else:
+                    if item["name"] in region_requires:
+                        raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], region_name))
 
     @staticmethod
     def checkRegionsConnectingToOtherRegions():
@@ -249,3 +259,42 @@ class DataValidation():
                 for category_name in starting_block["item_categories"]:
                     if len([item for item in DataValidation.item_table if "category" in item and category_name in item["category"]]) == 0:
                         raise ValidationError("Item category %s is set as a starting item category, but is misspelled or is not defined on any items." % (category_name))
+
+    @staticmethod
+    def checkForGameBeingInvalidJSON():
+        if len(DataValidation.game_table) == 0:
+            raise ValidationError("No settings were found in your game.json. This likely indicates that your JSON is incorrectly formatted. Use https://jsonlint.com/ to validate your JSON files.")
+
+    @staticmethod
+    def checkForItemsBeingInvalidJSON():
+        if len(DataValidation.item_table) == 0:
+            raise ValidationError("No items were found in your items.json. This likely indicates that your JSON is incorrectly formatted. Use https://jsonlint.com/ to validate your JSON files.")
+        
+    @staticmethod
+    def checkForLocationsBeingInvalidJSON():
+        if len(DataValidation.location_table) == 0:
+            raise ValidationError("No locations were found in your locations.json. This likely indicates that your JSON is incorrectly formatted. Use https://jsonlint.com/ to validate your JSON files.")
+        
+    @staticmethod
+    def checkForGameFillerMatchingAnItemName():
+        filler_item = DataValidation.game_table["filler_item_name"] or "Filler"
+        items_matching = [item for item in DataValidation.item_table if item["name"] == filler_item]
+
+        if len(items_matching) > 0:
+            raise ValidationError("Your game's filler item name ('%s') matches an item you defined in your items.json. Item names must be unique, including the default filler item." % (filler_item))
+        
+    @staticmethod
+    def checkForNonStartingRegionsThatAreUnreachable():
+        using_starting_regions = len([region for region in DataValidation.region_table if "starting" in DataValidation.region_table[region] and not DataValidation.region_table[region]["starting"]]) > 0
+
+        if not using_starting_regions:
+            return
+        
+        nonstarting_regions = [region for region in DataValidation.region_table if "starting" in DataValidation.region_table[region] and not DataValidation.region_table[region]["starting"]]
+
+        for nonstarter in nonstarting_regions:
+            regions_that_connect_to = [region for region in DataValidation.region_table if "connects_to" in DataValidation.region_table[region] and nonstarter in DataValidation.region_table[region]["connects_to"]]
+
+            if len(regions_that_connect_to) == 0:
+                raise ValidationError("The region '%s' is set as a non-starting region, but has no regions that connect to it. It will be inaccessible." % nonstarter)
+

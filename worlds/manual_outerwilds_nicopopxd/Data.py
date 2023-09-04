@@ -39,36 +39,70 @@ DataValidation.item_table = item_table
 DataValidation.location_table = location_table
 DataValidation.region_table = region_table
 
-try:
-    # check that requires have correct item names in locations and regions
-    DataValidation.checkItemNamesInLocationRequires()
-    DataValidation.checkItemNamesInRegionRequires()
+validation_errors = []
 
-    # check that region names are correct in locations
-    DataValidation.checkRegionNamesInLocations()
+# check that json files are not just invalid json
+try: DataValidation.checkForGameBeingInvalidJSON()
+except ValidationError as e: validation_errors.append(e)
 
-    # check that items that are required by locations and regions are also marked required
-    DataValidation.checkItemsThatShouldBeRequired()
+try: DataValidation.checkForItemsBeingInvalidJSON()
+except ValidationError as e: validation_errors.append(e)
 
-    # check that regions that are connected to are correct
-    DataValidation.checkRegionsConnectingToOtherRegions()
+try: DataValidation.checkForLocationsBeingInvalidJSON()
+except ValidationError as e: validation_errors.append(e)
 
-    # check that the apworld creator didn't specify multiple victory conditions
-    DataValidation.checkForMultipleVictoryLocations()
+# check that requires have correct item names in locations and regions
+try: DataValidation.checkItemNamesInLocationRequires()
+except ValidationError as e: validation_errors.append(e)
 
-    # check for duplicate names in items, locations, and regions
-    DataValidation.checkForDuplicateItemNames()
-    DataValidation.checkForDuplicateLocationNames()
-    DataValidation.checkForDuplicateRegionNames()
+try: DataValidation.checkItemNamesInRegionRequires()
+except ValidationError as e: validation_errors.append(e)
 
-    # check that starting items and starting item categories actually exist in the items json
-    DataValidation.checkStartingItemsForValidItemsAndCategories()
+# check that region names are correct in locations
+try: DataValidation.checkRegionNamesInLocations()
+except ValidationError as e: validation_errors.append(e)
 
-except ValidationError as e:
-    print("\nValidationError: %s\n\n" % (e))
-    print("You can close this window.\n")
+# check that items that are required by locations and regions are also marked required
+try: DataValidation.checkItemsThatShouldBeRequired()
+except ValidationError as e: validation_errors.append(e)
+
+# check that regions that are connected to are correct
+try: DataValidation.checkRegionsConnectingToOtherRegions()
+except ValidationError as e: validation_errors.append(e)
+
+# check that the apworld creator didn't specify multiple victory conditions
+try: DataValidation.checkForMultipleVictoryLocations()
+except ValidationError as e: validation_errors.append(e)
+
+# check for duplicate names in items, locations, and regions
+try: DataValidation.checkForDuplicateItemNames()
+except ValidationError as e: validation_errors.append(e)
+
+try: DataValidation.checkForDuplicateLocationNames()
+except ValidationError as e: validation_errors.append(e)
+
+try: DataValidation.checkForDuplicateRegionNames()
+except ValidationError as e: validation_errors.append(e)
+
+# check that starting items and starting item categories actually exist in the items json
+try: DataValidation.checkStartingItemsForValidItemsAndCategories()
+except ValidationError as e: validation_errors.append(e)
+
+# check that the game's default filler item name doesn't match an item name that they defined in their items
+try: DataValidation.checkForGameFillerMatchingAnItemName()
+except ValidationError as e: validation_errors.append(e)
+
+# check for regions that are set as non-starting regions and have no connectors to them (so are unreachable)
+try: DataValidation.checkForNonStartingRegionsThatAreUnreachable()
+except ValidationError as e: validation_errors.append(e)
+
+
+
+############
+# If there are any validation errors, display all of them at once
+############
+
+if len(validation_errors) > 0:
+    print("\nValidationError(s): \n\n%s\n\n" % ("\n".join([' - ' + str(validation_error) for validation_error in validation_errors])))
+    print("\n\nYou can close this window.\n")
     keeping_terminal_open = input("If you are running from a terminal, press Ctrl-C followed by ENTER to break execution.")
-    
-# show the apworld creator what their game name and filename should be
-# commenting this out for now because it mainly just causes confusion for users
-# DataValidation.outputExpectedGameNames()

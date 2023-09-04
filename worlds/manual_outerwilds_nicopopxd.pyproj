@@ -43,7 +43,7 @@
     <Content Include="data\items.json" />
     <Content Include="data\locations.json" />
     <Content Include="data\regions.json" />
-    <Content Include="docs\en_Manual.md" />
+    <Content Include="docs\en_Manual_OuterWilds_Nicopopxd.md" />
     <Content Include="docs\setup_en.md" />
     <Content Include="hooks\__pycache__\Data.cpython-310.pyc" />
     <Content Include="hooks\__pycache__\Items.cpython-310.pyc" />
