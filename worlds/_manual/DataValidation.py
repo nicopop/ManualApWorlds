@@ -181,7 +181,7 @@ class DataValidation():
                 region_requires = json.dumps(region["requires"])
 
                 if item["name"] in region_requires:
-                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], key))
+                    raise ValidationError("Item %s is required by region %s, but the item is not marked as progression." % (item["name"], region_name))
 
     @staticmethod
     def checkRegionsConnectingToOtherRegions():
@@ -222,12 +222,12 @@ class DataValidation():
 
     @staticmethod
     def checkForDuplicateRegionNames():
+        # this currently does nothing because the region name is a dict key, which will never be non-unique / limited to 1
         for region_name in DataValidation.region_table:
-            region = DataValidation.region_table[region_name]
-            name_count = len([r for r in DataValidation.region_table if DataValidation.region_table[r]["name"] == region["name"]])
+            name_count = len([r for r in DataValidation.region_table if r == region_name])
 
             if name_count > 1:
-                raise ValidationError("Region %s is defined more than once." % (region["name"]))
+                raise ValidationError("Region %s is defined more than once." % (region_name))
             
     @staticmethod
     def checkStartingItemsForValidItemsAndCategories():
