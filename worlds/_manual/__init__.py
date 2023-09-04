@@ -13,7 +13,7 @@ from .Helpers import is_option_enabled, get_option_value
 
 from BaseClasses import ItemClassification, Tutorial, Item
 from Fill import fill_restrictive
-from ..AutoWorld import World, WebWorld
+from worlds.AutoWorld import World, WebWorld
 
 from .hooks.World import \
     before_pre_fill, after_pre_fill, \
@@ -100,8 +100,18 @@ class ManualWorld(World):
                 new_item = self.create_item(name)
                 pool.append(new_item)
                 
+        items_started = []
+
         if starting_items:
             for starting_item_block in starting_items:
+                # if there's a condition on having a previous item, check for any of them
+                # if not found in items started, this starting item rule shouldn't execute, and check the next one
+                if "if_previous_item" in starting_item_block:
+                    matching_items = [item for item in items_started if item.name in starting_item_block["if_previous_item"]]
+
+                    if len(matching_items) == 0:
+                        continue
+
                 # start with the full pool of items
                 items = pool
 
@@ -121,6 +131,7 @@ class ManualWorld(World):
                     items = items[0:starting_item_block["random"]]
 
                 for starting_item in items:
+                    items_started.append(starting_item)
                     self.multiworld.push_precollected(starting_item)
                     pool.remove(starting_item)
 
