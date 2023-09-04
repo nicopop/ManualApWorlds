@@ -12,7 +12,18 @@
             "type": "string"
         },
         "Require": {
-            "type": "string"
+            "type": ["string","array","object"],
+            "items": {"type": ["string","array","object"]},
+            "properties": {
+                "or": {
+                    "description": "alternate to previous property",
+                    "type": "array",
+                    "items": {
+                        "type":"string",
+                        "description": "Alternate item"
+                    }
+                }
+            }
         },
         "Place_item_category": {
             "type": "string"

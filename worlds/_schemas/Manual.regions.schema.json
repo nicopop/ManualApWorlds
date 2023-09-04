@@ -33,15 +33,14 @@
                             "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
                             "type":"string"
                         }
-                    },
-                    "required":["connects_to"]
+                    }
                 }
             ]
         }
     },
     "definitions": {
         "Require": {
-            "type": "string"
+            "type": ["object", "string", "array"]
         },
         "Connects_to": {
             "type": "string"
