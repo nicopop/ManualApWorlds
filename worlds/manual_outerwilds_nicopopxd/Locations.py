@@ -18,7 +18,7 @@ for key, _ in enumerate(location_table):
     if "victory" in location_table[key] and location_table[key]["victory"]:
         custom_victory_location = location_table[key]
         victory_key = key # store the victory location to be removed later
-        
+
         continue
 
     location_table[key]["id"] = count
@@ -36,8 +36,8 @@ location_table.append({
     "id": count + 1,
     "name": "__Manual Game Complete__",
     "region": custom_victory_location["region"] if "region" in custom_victory_location else "Manual",
-    "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else []
-    # "category": custom_victory_location["category"] if "category" in custom_victory_location else []
+    "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else [],
+    "category": custom_victory_location["category"] if "category" in custom_victory_location else ["(no category)"]
 })
 
 location_id_to_name = {}

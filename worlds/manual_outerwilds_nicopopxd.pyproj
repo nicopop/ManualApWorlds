@@ -22,6 +22,7 @@
     <Compile Include="Data.py" />
     <Compile Include="DataValidation.py" />
     <Compile Include="Game.py" />
+    <Compile Include="Helpers.py" />
     <Compile Include="hooks\Data.py" />
     <Compile Include="hooks\Items.py" />
     <Compile Include="hooks\Locations.py" />
