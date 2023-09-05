@@ -17,7 +17,7 @@ For now, everything in the "0 - Beginning" category can be accessed from the sta
 - Everything that gives a signal need that signal item and the signaloscope item,
 - Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum)
 - Going to anything quantum needs the "Signal > Quantum" item (to help with progression)
-- all the categories starting with "# - " then a planet name contains everything locations of that planet
+- all the categories starting with "# - " then a planet name contains every locations of that planet
 - For now no going into Sunless city from a shortcut unless you have "signal > distress"
 
 ## What is the goal of a Manual game when randomized?
@@ -48,6 +48,7 @@ In doubts look at the items :
 - "Seen WarpDrive" in the "Visits" category
 - "Signaloscope" in the "Tools" and "Signal" categories
 - "Scout" in the "Tools" category
+- "Signal > Distress" in the "Signal" category
 - All the [Knowledges](#knowledges)
 
 #### Knowledges  
@@ -67,6 +68,10 @@ In doubts look at the items :
 #### Bonus
 
 - "Meditation"
+- "Musical Instrument", "count": 5
+    - (Currently filler items, Might make those needed for ending if run is too short)
+- "Ticket for (1) free death" 
+  - filler Item but you can use it as a "only die by sun or with this ticket" if you want.
 - "Landing Camera" in the "Tools" category
 
 #### Signals 
@@ -82,8 +87,6 @@ In doubts look at the items :
     - You need the scout + scout photos to make use of this one.
 - "Quantum Rule > entanglement"
 - "Quantum Rule > sixth location"
-- "Musical Instrument", "count": 5
-    - (Currently filler items, Might make those needed for ending if run is too short)
 
 #### TRAPS
 

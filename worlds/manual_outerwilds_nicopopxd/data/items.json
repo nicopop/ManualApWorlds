@@ -20,22 +20,22 @@
     {
         "name": "Tornado Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4 Knowledge", "2a Not Trap"]
     },
     {
         "name": "Jellyfish Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4 Knowledge", "2a Not Trap"]
     },
     {
         "name": "Teleporter Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4 Knowledge", "2a Not Trap"]
     },
     {
         "name": "Anglerfish Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4 Knowledge", "2a Not Trap"]
     },
 
     {
@@ -115,7 +115,7 @@
     },
     {
         "name": "Ticket for (1) free death",
-        "count": 3,
+        "count": 10,
         "category": [ "Bonus", "2a Not Trap" ]
     },
 
@@ -157,6 +157,6 @@
     {
         "name": "Seen Solanum",
         "progression": true,
-        "category": [ "Visits", "1 Need For End" ]
+        "category": [ "Visits"]
     }
 ]
