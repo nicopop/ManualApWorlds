@@ -98,7 +98,7 @@ components: List[Component] = [
     # Kingdom Hearts 2
     Component('KH2 Client', "KH2Client"),
     # Manual games in Arch
-    Component('Manual Client', 'ManualClient'),
+    Component('Manual Client', 'ManualClient', file_identifier=SuffixIdentifier('.apmanual')),
 ]
 
 
