@@ -1,4 +1,7 @@
+from base64 import b64encode
+import os
 import random
+import json
 
 from .Data import item_table, progressive_item_table, location_table
 from .Game import game_name, filler_item_name, starting_items
@@ -238,3 +241,16 @@ class ManualWorld(World):
         slot_data = after_fill_slot_data(slot_data, self, self.multiworld, self.player)
 
         return slot_data
+
+    def client_data(self):
+        return {
+            "game": self.game,
+            'player_name': self.multiworld.get_player_name(self.player),
+            'player_id': self.player,
+        }
+
+    def generate_output(self, output_directory: str):
+        data = self.client_data()
+        filename = f"{self.multiworld.get_out_file_name_base(self.player)}.apmanual"
+        with open(os.path.join(output_directory, filename), 'wb') as f:
+            f.write(b64encode(bytes(json.dumps(data), 'utf-8')))
