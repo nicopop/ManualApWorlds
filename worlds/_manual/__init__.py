@@ -254,3 +254,4 @@ class ManualWorld(World):
         filename = f"{self.multiworld.get_out_file_name_base(self.player)}.apmanual"
         with open(os.path.join(output_directory, filename), 'wb') as f:
             f.write(b64encode(bytes(json.dumps(data), 'utf-8')))
+
