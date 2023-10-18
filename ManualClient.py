@@ -46,6 +46,9 @@ class ManualContext(CommonContext):
         
         self.game = self.ui.game_bar_text.text
 
+        if AutoWorldRegister.world_types.get(self.game) is None:
+            raise Exception(f"Cannot load {self.game}, please add the apworld to lib/worlds/")
+
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
 
         # if the item name has a number after it, remove it
