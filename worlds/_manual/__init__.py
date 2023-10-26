@@ -237,6 +237,10 @@ class ManualWorld(World):
         slot_data = before_fill_slot_data({}, self, self.multiworld, self.player)
 
         # slot_data["DeathLink"] = bool(self.multiworld.death_link[self.player].value)
+        
+        # I considered storing these in slot data instead of the generation file, but I'm not sure if it's desired or a good idea
+        # slot_data["Locations"] = self.location_name_to_location
+        # slot_data["Items"] = self.item_name_to_item
 
         slot_data = after_fill_slot_data(slot_data, self, self.multiworld, self.player)
 
@@ -247,6 +251,8 @@ class ManualWorld(World):
             "game": self.game,
             'player_name': self.multiworld.get_player_name(self.player),
             'player_id': self.player,
+            'items': self.item_name_to_item,
+            'locations': self.location_name_to_location,
         }
 
     def generate_output(self, output_directory: str):
