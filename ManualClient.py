@@ -30,6 +30,7 @@ class ManualContext(CommonContext):
     items_handling = 0b111  # full remote
     location_table = {}
     item_table = {}
+    region_table = {}
 
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
@@ -563,6 +564,7 @@ if __name__ == '__main__':
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
         ctx.item_table = config_file.get("items")
         ctx.location_table = config_file.get("locations")
+        ctx.region_table = config_file.get("regions")
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
