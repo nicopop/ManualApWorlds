@@ -25,7 +25,7 @@ from Utils import local_path, user_path, int16_as_bytes, int32_as_bytes, snes_to
 
 from .Shops import ShopType, ShopPriceType
 from .Dungeons import dungeon_music_addresses
-from .Regions import old_location_address_to_new_location_address
+from .Regions import old_location_address_to_new_location_address, key_drop_data
 from .Text import MultiByteTextMapper, text_addresses, Credits, TextTable
 from .Text import Uncle_texts, Ganon1_texts, TavernMan_texts, Sahasrahla2_texts, Triforce_texts, \
     Blind_texts, \
@@ -428,6 +428,18 @@ def patch_enemizer(world, rom: LocalRom, enemizercli, output_directory):
         rom.write_byte(0x04DE81, 6)
         rom.write_byte(0x1B0101, 0)  # Do not close boss room door on entry.
 
+    # Moblins attached to "key drop" locations crash the game when dropping their item when Key Drop Shuffle is on.
+    # Replace them with a Slime enemy if they are placed.
+    if multiworld.key_drop_shuffle[player]:
+        key_drop_enemies = {
+            0x4DA20, 0x4DA5C, 0x4DB7F, 0x4DD73, 0x4DDC3, 0x4DE07, 0x4E201,
+            0x4E20A, 0x4E326, 0x4E4F7, 0x4E686, 0x4E70C, 0x4E7C8, 0x4E7FA
+        }
+        for enemy in key_drop_enemies:
+            if rom.read_byte(enemy) == 0x12:
+                logging.debug(f"Moblin found and replaced at {enemy} in world {player}")
+                rom.write_byte(enemy, 0x8F)
+
     for used in (randopatch_path, options_path):
         try:
             os.remove(used)
@@ -762,7 +774,9 @@ bonk_addresses = [0x4CF6C, 0x4CFBA, 0x4CFE0, 0x4CFFB, 0x4D018, 0x4D01B, 0x4D028,
                   0x4D504, 0x4D507, 0x4D55E, 0x4D56A]
 
 
-def get_nonnative_item_sprite(item: str) -> int:
+def get_nonnative_item_sprite(code: int) -> int:
+    if 84173 >= code >= 84007:  # LttP item in SMZ3
+        return code - 84000
     return 0x6B  # set all non-native sprites to Power Star as per 13 to 2 vote at
     # https://discord.com/channels/731205301247803413/827141303330406408/852102450822905886
 
@@ -785,7 +799,7 @@ def patch_rom(world: MultiWorld, rom: LocalRom, player: int, enemized: bool):
                     if location.item.trap:
                         itemid = 0x5A  # Nothing, which disguises
                     else:
-                        itemid = get_nonnative_item_sprite(location.item.name)
+                        itemid = get_nonnative_item_sprite(location.item.code)
                 # Keys in their native dungeon should use the orignal item code for keys
                 elif location.parent_region.dungeon:
                     if location.parent_region.dungeon.is_dungeon_item(location.item):
@@ -895,6 +909,29 @@ def patch_rom(world: MultiWorld, rom: LocalRom, player: int, enemized: bool):
         credits_total += 30 if 'w' in world.shop_shuffle[player] else 27
 
     rom.write_byte(0x187010, credits_total)  # dynamic credits
+
+    if world.key_drop_shuffle[player]:
+        rom.write_byte(0x140000, 1)  # enable key drop shuffle
+        credits_total += len(key_drop_data)
+        # update dungeon counters
+        rom.write_byte(0x187001, 12)  # Hyrule Castle
+        rom.write_byte(0x187002, 8)  # Eastern Palace
+        rom.write_byte(0x187003, 9)  # Desert Palace
+        rom.write_byte(0x187004, 4)  # Agahnims Tower
+        rom.write_byte(0x187005, 15)  # Swamp Palace
+        rom.write_byte(0x187007, 11)  # Misery Mire
+        rom.write_byte(0x187008, 10)  # Skull Woods
+        rom.write_byte(0x187009, 12)  # Ice Palace
+        rom.write_byte(0x18700B, 10)  # Thieves Town
+        rom.write_byte(0x18700C, 14)  # Turtle Rock
+        rom.write_byte(0x18700D, 31)  # Ganons Tower
+        # update credits GT Big Key counter
+        gt_bigkey_top, gt_bigkey_bottom = credits_digit(5)
+        rom.write_byte(0x118B6A, gt_bigkey_top)
+        rom.write_byte(0x118B88, gt_bigkey_bottom)
+
+
+
     # collection rate address: 238C37
     first_top, first_bot = credits_digit((credits_total / 100) % 10)
     mid_top, mid_bot = credits_digit((credits_total / 10) % 10)
@@ -1739,7 +1776,7 @@ def write_custom_shops(rom, world, player):
             replacement_price_data = get_price_data(item['replacement_price'], item['replacement_price_type'])
             slot = 0 if shop.type == ShopType.TakeAny else index
             if item['player'] and world.game[item['player']] != "A Link to the Past":  # item not native to ALTTP
-                item_code = get_nonnative_item_sprite(item['item'])
+                item_code = get_nonnative_item_sprite(world.worlds[item['player']].item_name_to_id[item['item']])
             else:
                 item_code = ItemFactory(item['item'], player).code
                 if item['item'] == 'Single Arrow' and item['player'] == 0 and world.retro_bow[player]:
@@ -1822,10 +1859,10 @@ def apply_oof_sfx(rom, oof: str):
     # (We need to insert the second sigil at the end)
     rom.write_bytes(0x12803A, oof_bytes)
     rom.write_bytes(0x12803A + len(oof_bytes), [0xEB, 0xEB])
-	
+
 	#Enemizer patch: prevent Enemizer from overwriting $3188 in SPC memory with an unused sound effect ("WHAT")
     rom.write_bytes(0x13000D, [0x00, 0x00, 0x00, 0x08])
-	
+
 
 def apply_rom_settings(rom, beep, color, quickswap, menuspeed, music: bool, sprite: str, oof: str, palettes_options,
                        world=None, player=1, allow_random_on_event=False, reduceflashing=False,
