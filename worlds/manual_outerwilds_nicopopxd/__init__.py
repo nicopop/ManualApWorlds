@@ -1,7 +1,7 @@
 import random
 
 from .Data import item_table, progressive_item_table, location_table
-from .Game import game_name, filler_item_name, starting_items
+from .Game import game_name, filler_item_name, starting_items, apworldversion
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
 
@@ -68,7 +68,7 @@ class ManualWorld(World):
 
         location_game_complete.place_locked_item(
             ManualItem("__Victory__", ItemClassification.progression, None, player=self.player))
-        
+
         after_pre_fill(self, self.multiworld, self.player)
 
     def generate_basic(self):
@@ -99,7 +99,7 @@ class ManualWorld(World):
             for i in range(item_count):
                 new_item = self.create_item(name)
                 pool.append(new_item)
-                
+
         items_started = []
 
         if starting_items:
@@ -159,7 +159,7 @@ class ManualWorld(World):
                     continue
 
                 eligible_items = [item for item in self.multiworld.itempool if item.name in location["place_item"] and item.player == self.player]
-                
+
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match %s." % (location["name"], ", ".join(location["place_item"])))
 
@@ -190,7 +190,7 @@ class ManualWorld(World):
             self.multiworld.itempool.remove(item_to_place)
 
         after_generate_basic(self, self.multiworld, self.player)
-                        
+
     def create_item(self, name: str) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)
 
@@ -211,7 +211,7 @@ class ManualWorld(World):
 
         item_object = ManualItem(name, classification,
                         self.item_name_to_id[name], player=self.player)
-        
+
         item_object = after_create_item(item_object, self, self.multiworld, self.player)
 
         return item_object
@@ -224,12 +224,14 @@ class ManualWorld(World):
         after_set_rules(self, self.multiworld, self.player)
 
     def create_regions(self):
+        if game_name != "":
+            print(f"Includes {game_name} version: {apworldversion}")
         before_create_regions(self, self.multiworld, self.player)
 
         create_regions(self, self.multiworld, self.player)
 
         after_create_regions(self, self.multiworld, self.player)
-        
+
     def fill_slot_data(self):
         slot_data = before_fill_slot_data({}, self, self.multiworld, self.player)
 
