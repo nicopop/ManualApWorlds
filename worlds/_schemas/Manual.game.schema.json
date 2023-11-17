@@ -8,7 +8,8 @@
         },
         "player": {
             "description": "Deprecated use 'creator' instead",
-            "type": "string"
+            "type": "string",
+            "deprecated": true
         },
         "creator": {
             "description": "Your Username.",
@@ -30,7 +31,11 @@
             "type":"string"
         }
     },
-    "required":["game", "player", "filler_item_name"],
+    "required":["game", "filler_item_name"],
+    "oneOf":[
+        {"required":["creator"]},
+        {"required":["player"]}
+    ],
     "definitions": {
         "Sitems": {
             "type":"object",
