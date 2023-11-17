@@ -4,7 +4,7 @@
      src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
     >
     <h1 align="center">Base Game Archipelago Manual Randomizer Edition</h1>
-    <p align="center">v3.1.1</p>
+    <p align="center">v3.2.1</p>
 </p>
 
 ## Where is the settings page?
