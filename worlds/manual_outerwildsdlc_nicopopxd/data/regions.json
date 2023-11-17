@@ -30,7 +30,7 @@
     "DreamWorld General": {
         "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
         "requires": "|DreamWorld Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)",
-        "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+        "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "Shrouded Woodlands": {
         "requires": "|EYE > River Lowlands flame Access| and |DreamWorld Knowledge|",

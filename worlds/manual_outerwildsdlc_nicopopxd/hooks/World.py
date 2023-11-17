@@ -47,7 +47,8 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     if solanum: TotalToAdd += 1
     if owlguy: TotalToAdd += 1
     victory_location = next(loc for loc in world.location_table if loc["name"] == "FINAL > Get the warp drive to the vessel and Warp to the Eye")
-    victory_location["requires"] = f"|@1 Need For End:{TotalToAdd}| and |@4 Knowledge:4|"
+    victory_location["requires"] = f"|@1 Need For End:{TotalToAdd}| and |@4a Knowledge:4|"
+    print(f'OW: Changed the rules to |@1 Need For End:{TotalToAdd}| and |@4a Knowledge:4|')
     # THX Axxroy
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.

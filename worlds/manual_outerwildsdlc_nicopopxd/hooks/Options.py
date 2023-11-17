@@ -38,8 +38,8 @@ class RequireSolanum(Toggle):
     display_name = "Require Talking to Solanum"
 
 class RequirePrisoner(Toggle):
-    """Do you want to require Talking to Solanum before you can win?"""
-    display_name = "Require Talking to Solanum"
+    """Do you want to require Talking to the Prisoner before you can win?"""
+    display_name = "Require Talking to the Prisoner"
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
