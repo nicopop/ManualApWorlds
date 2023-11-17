@@ -39,21 +39,23 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
-    pass
+    solanum = get_option_value(multiworld, player, "require_solanum") or False
+    if not solanum:
+        return
+    victory_location = next(loc for loc in world.location_table if loc["name"] == "FINAL > Get the warp drive to the vessel and Warp to the Eye")
+    victory_location["requires"] = "|@1 Need For End:8| and |@4 Knowledge:4|"
+
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     pass
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
-def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
-    ## import random
-#
+def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
     solanum = get_option_value(multiworld, player, "require_solanum") or False
-    victory_location = multiworld.get_location("__Manual Game Complete__", player)
-    #TODO: find way to get original victory_locations items
-    #if solanum :
-    #    victory_location.access_rule #TODO: Then add to the items 
+    if not solanum:
+        return item_pool
+    world.item_name_to_item["Seen Solanum"]["category"].append("1 Need For End")
 #
     ## if total_characters < 10 or total_characters > 50:
     ##     total_characters = 50
