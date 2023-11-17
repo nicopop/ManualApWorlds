@@ -340,15 +340,15 @@
 	{
 		"name": "FINAL > Get the warp drive to the vessel and Warp to the Eye",
 		"region": "Dark Bramble",
-		"requires": [ "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive", "Signaloscope", "Signal > Distress", "Scout" ],
+		"requires": "|@1 Need For End:7| and |@4a Knowledge:4|",
 		"place_item": [ "1 beautiful campfire song" ]
 	},
 
 	{
-		"name": "victory",
+		"name": "Credits",
+		"victory": true,
 		"region": "Dark Bramble",
-		"requires": [ "1 beautiful campfire song" ],
-		"victory": true
+		"requires": [ "1 beautiful campfire song" ]
 	},
 
 	{

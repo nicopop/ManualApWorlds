@@ -2,13 +2,13 @@
     {
         "name": "Coords to the eye",
         "progression": true,
-        "count": 2,
+        "count": 1,
         "category": [ "1 Need For End", "2a Not Trap" ]
     },
     {
         "name": "Warp drive",
         "progression": true,
-        "count": 2,
+        "count": 1,
         "category": [ "1 Need For End", "2a Not Trap" ]
     },
     {
@@ -20,22 +20,22 @@
     {
         "name": "Tornado Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4a Knowledge", "2a Not Trap"]
     },
     {
         "name": "Jellyfish Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4a Knowledge", "2a Not Trap"]
     },
     {
         "name": "Teleporter Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4a Knowledge", "2a Not Trap"]
     },
     {
         "name": "Anglerfish Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "2a Not Trap", "1 Need For End" ]
+        "category": [ "4a Knowledge", "2a Not Trap"]
     },
 
     {
@@ -115,7 +115,7 @@
     },
     {
         "name": "Ticket for (1) free death",
-        "count": 3,
+        "count": 15,
         "category": [ "Bonus", "2a Not Trap" ]
     },
     {
@@ -162,18 +162,18 @@
     {
         "name": "Seen Prisoner",
         "progression": true,
-        "category": [ "Visits", "1 Need For End" ]
+        "category": [ "Visits"]
     },
     {
         "name": "Seen Solanum",
         "progression": true,
-        "category": [ "Visits", "1 Need For End" ]
+        "category": [ "Visits"]
     },
 
     {
         "name": "Stranger Presence Knowledge",
         "progression": true,
-        "category": [ "4 Knowledge", "3a Echoes of the Eye", "2a Not Trap" ]
+        "category": [ "4b DLC Knowledge", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "EYE > Main entrance",
@@ -234,47 +234,47 @@
     {
         "name": "DreamWorld Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Loading Glitch Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Render Glitch Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Death Glitch Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Grabbing Hand Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Door Candle Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Fireplace Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Fake Wall Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "DreamWorld Hidden Hand Knowledge",
         "progression": true,
-        "category": [ "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4b DLC Knowledge", "3b DreamWorld", "3a Echoes of the Eye", "2a Not Trap" ]
     },
     {
         "name": "EYE > Progressive Datamined Sealed Vault Code",

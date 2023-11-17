@@ -1,89 +1,38 @@
-# Outer Wilds Manual Randomizer Setup Guide
-
+# Outer Wilds Manual Randomizer Guide
 <p align="center">
     <img alt="OuterWilds Logo"
      src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
     >
-    <h1 align="center">Base Game Randomizer Edition</h1>
-    <h3 align="center">v3.1.0</h3>
+    <h1 align="center">Base Game Archipelago Manual Randomizer Edition</h1>
+    <p align="center">v3.2.1</p>
 </p>
 
-## Required Software
+## Where is the settings page?
+The player settings page for this game is located <a href="../player-settings">here</a>. It contains all the options
+you need to configure and export a config file.
 
-- OuterWilds Game
-- The latest Unstable ManualClient
-
-## Optional Software
-
-- [OuterWilds Mod Manager](https://outerwildsmods.com/mod-manager/)
-
-## ↑ Recommended* and Optional mods from manager↑
-
-Install those from the Mod Manager
-- [Clock](https://github.com/clubby789/OWClock#readme)*
-    - Shows a timer with the main event at the bottom right of the screen.
-- [Hiker's Mod](https://github.com/Owen013/Hikers-Mod#readme)*
-    - By default only add sprint but can also add walljumps(not in logic)
-- [Achievements+](https://github.com/xen-42/outer-wilds-achievement-tracker#readme)*
-    - Add popup when you would get an achievement on new save even if you allready have that steam achievement.
-- [Enable Meditation](https://github.com/xen-42/outer-wilds-meditation#readme)*
-    - Like the name might suggest you always have the "meditate until next loop button" in the pause menu.
-- [Suit Log](https://github.com/dgarroDC/SuitLog#readme)
-    - Allows you to open your ship log from anywhere. 
-- [Trajectory Prediction](https://github.com/SkutteOleg/TrajectoryPrediction#readme)
-    - Shows where your shipscout/player is going vs selected planet
-
-## Installation Procedures
-
-Make sure a copy of the Manual world is in the lib/world directory of your client-side installation.
-
-### Optional install:
-
-1. Open the link in [Optional Software](#optional-software) or using this [direct link](https://outerwildsmods.com/mod-manager/)
-2. Press the 'Big Green Download Button' or the portable version link under it.
-3. Save the downloaded installer somewhere.
-    1. If you downloaded the portable version save it somewhere easy to access and that you wont forget.
-4. Run the installer, the Mod Manager should start automatically.
-    1. If you downloaded the portable version launch the OuterWilds Mod Manager.
-5. First you have to install the OWML mod (should be the first in the list)  
-by pressing the download icon (third button from the right)
-6. To install the mods you either find them in the list and press download icon  
-or you can search for them by name at the top of the Mod tab 
-7. Once you have all the mods you want press the Start Game button at the top, it will enable all the mods  
-you installed and after that you'll only need to start from the Mod Manager when you add/remove/update mods
-
-## Joining a MultiWorld Game
-
-- Launch the client.  
-- At the top enter your server's ip with the port provided (by default archipelago.gg:38281).  
-- In Manual Game ID put "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.  
-- In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.  
-
-## Manual Client
-
-In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.  
-Since this is a manual game its built on trust™ you press the locations when you get to them,  
-hopefully in the futur only what you can access will be visible but at the moment  
-you could press victory and it would accept it.
-
-## Main Game
-
-- Launch the game
-- Either make a new Profile (maybe call it randomizer) or start a expedition(will wipe the save on the current profile)
-- Press new expedition 
-    - (or continue expedition if you are loading a save from the randomizer)
-
-# Logic
-
-## Main Game Logic
-
+## What does randomization do to this game?
 For now, everything in the "0 - Beginning" category can be accessed from the start.  
 - You needs the "launch codes" item to get to the ship.
 - Everything that gives a signal need that signal item and the signaloscope item,
 - Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum)
 - Going to anything quantum needs the "Signal > Quantum" item (to help with progression)
-- all the categories starting with "# - " then a planet name contains everything locations of that planet
+- all the categories starting with "# - " then a planet name contains every locations of that planet
 - For now no going into Sunless city from a shortcut unless you have "signal > distress"
+
+## What is the goal of a Manual game when randomized?
+At minimum you need to have both seen and received the warpdrive and Coords for the eye and every [Knowledges](#knowledges)  
+And then Grab the warpdrive in game get to the Vessel and Warp to the eye.  
+For a more detailed requirement check [Here](#needed-for-go-mode).
+
+## Which items can be in another player's world?
+Most item can be in another player'S world except for all the "Seen X" items and 3 random local item that are not traps.
+
+## What if I have items, unlocks, or locations that I'd like to not have randomized?
+It's all manual. Just exclude them from either the item or location list. 
+
+## How do I install the mod for a Manual game?
+There is no mandatory mods for this game. For more info look at the <a href="../../../tutorial/Manual_OuterWilds_Nicopopxd/setup/en"> setup guide</a>.
 
 ## Game Troubleshooting
 
@@ -99,6 +48,7 @@ In doubts look at the items :
 - "Seen WarpDrive" in the "Visits" category
 - "Signaloscope" in the "Tools" and "Signal" categories
 - "Scout" in the "Tools" category
+- "Signal > Distress" in the "Signal" category
 - All the [Knowledges](#knowledges)
 
 #### Knowledges  
@@ -118,6 +68,10 @@ In doubts look at the items :
 #### Bonus
 
 - "Meditation"
+- "Musical Instrument", "count": 5
+    - (Currently filler items, Might make those needed for ending if run is too short)
+- "Ticket for (1) free death" 
+  - filler Item but you can use it as a "only die by sun or with this ticket" if you want.
 - "Landing Camera" in the "Tools" category
 
 #### Signals 
@@ -133,8 +87,6 @@ In doubts look at the items :
     - You need the scout + scout photos to make use of this one.
 - "Quantum Rule > entanglement"
 - "Quantum Rule > sixth location"
-- "Musical Instrument", "count": 5
-    - (Currently filler items, Might make those needed for ending if run is too short)
 
 #### TRAPS
 

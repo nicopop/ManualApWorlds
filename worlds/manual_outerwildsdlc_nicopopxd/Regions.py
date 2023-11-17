@@ -1,7 +1,8 @@
 from BaseClasses import Entrance, MultiWorld, Region
 from .Data import region_table
 from .Locations import ManualLocation
-from ..AutoWorld import World
+from worlds.AutoWorld import World
+from .hooks.Regions import before_region_table_processed
 
 if not region_table:
     region_table = {}
@@ -17,23 +18,22 @@ regionMap["Manual"] = {
     "connects_to": starting_regions
 }
 
+regionMap = before_region_table_processed(regionMap)
+
 def create_regions(base: World, world: MultiWorld, player: int): 
     # Create regions and assign locations to each region
-    for region in regionMap:
-        # if it's an empty or unusable region, skip it
-        if not regionMap[region]: 
-            continue
+    for region in regionMap:  
+        if "connects_to" not in regionMap[region]:
+            exit_array = None
+        else:
+            exit_array = regionMap[region]["connects_to"] or None
 
-        exit_array = None
-
-        if "connects_to" in regionMap[region]:
-            exit_array = regionMap[region]["connects_to"]
-
+        # safeguard for bad value at the end
         if not exit_array:
             exit_array = None
 
         new_region = create_region(base, world, player, region, [
-            location["name"] for location in base.location_table if location["region"] == region
+            location["name"] for location in base.location_table if "region" in location and location["region"] == region
         ], exit_array)
         world.regions += [new_region]
 
@@ -44,7 +44,7 @@ def create_regions(base: World, world: MultiWorld, player: int):
 
     # Link regions together
     for region in regionMap:
-        if "connects_to" in regionMap[region]:
+        if "connects_to" in regionMap[region] and regionMap[region]["connects_to"]:
             for linkedRegion in regionMap[region]["connects_to"]:
                 connection = world.get_entrance(getConnectionName(region, linkedRegion), player)
                 connection.connect(world.get_region(linkedRegion, player))

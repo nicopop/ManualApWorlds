@@ -1,6 +1,6 @@
-from ..generic.Rules import set_rule
+from worlds.generic.Rules import set_rule
 from .Regions import regionMap
-from ..AutoWorld import World
+from worlds.AutoWorld import World
 from BaseClasses import MultiWorld
 import re
 
@@ -62,32 +62,47 @@ def evaluate_postfix(expr, location):
 def set_rules(base: World, world: MultiWorld, player: int):
     # this is only called when the area (think, location or region) has a "requires" field that is a string
     def checkRequireStringForArea(state, area):
+        requires_list = area["requires"]
+
         # parse user written statement into list of each item
-        reqires_raw = re.split('(\AND|\)|\(|OR|\|)', area["requires"])
-        remove_spaces = [x.strip() for x in reqires_raw]
-        remove_empty = [x for x in remove_spaces if x != '']
-        requires_list = [x for x in remove_empty if x != '|']
+        for item in re.findall(r'\|[^|]+\|', area["requires"]):
+            require_type = 'item'
 
-        for i, item in enumerate(requires_list):
-            if item.lower() == "or":
-                requires_list[i] = "|"
-            elif item.lower() == "and":
-                requires_list[i] = "&"
-            elif item == ")" or item == "(":
-                continue
-            else:
-                item_parts = item.split(":")
-                item_name = item
-                item_count = 1
+            if '|@' in item:
+                require_type = 'category'
 
-                if len(item_parts) > 1:
-                    item_name = item_parts[0]
-                    item_count = int(item_parts[1])
+            item_base = item
+            item = item.replace('|', '').replace('@', '')
 
-                if state.has(item_name, player, item_count):
-                    requires_list[i] = "1"
-                else:
-                    requires_list[i] = "0"
+            item_parts = item.split(":")
+            item_name = item
+            item_count = 1
+
+            if len(item_parts) > 1:
+                item_name = item_parts[0]
+                item_count = int(item_parts[1])
+
+            total = 0
+
+            if require_type == 'category':
+                category_items = [item["name"] for item in base.item_name_to_item.values() if "category" in item and item_name in item["category"]]
+
+                for category_item in category_items:
+                    total += state.item_count(category_item, player)
+
+                    if total >= item_count:
+                        requires_list = requires_list.replace(item_base, "1")
+            elif require_type == 'item':
+                total = state.item_count(item_name, player)
+
+                if total >= item_count:
+                    requires_list = requires_list.replace(item_base, "1")
+
+            if total <= item_count:
+                requires_list = requires_list.replace(item_base, "0")
+
+        requires_list = re.sub(r'\s?\bAND\b\s?', '&', requires_list, 0, re.IGNORECASE)
+        requires_list = re.sub(r'\s?\bOR\b\s?', '|', requires_list, 0, re.IGNORECASE)
 
         requires_string = infix_to_postfix("".join(requires_list), area)
         return (evaluate_postfix(requires_string, area))
@@ -138,6 +153,10 @@ def set_rules(base: World, world: MultiWorld, player: int):
     def fullLocationOrRegionCheck(state, area):
         # if it's not a usable object of some sort, default to true
         if not area:
+            return True
+        
+        # don't require the "requires" key for locations and regions if they don't need to use it
+        if "requires" not in area.keys():
             return True
         
         if isinstance(area["requires"], str):

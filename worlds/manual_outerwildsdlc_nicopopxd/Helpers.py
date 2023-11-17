@@ -1,8 +1,6 @@
-from Options import FreeText
 from BaseClasses import MultiWorld
-from typing import Union
 
-manual_options = {}
+from typing import Union
 
 def is_option_enabled(world: MultiWorld, player: int, name: str) -> bool:
     return get_option_value(world, player, name) > 0
