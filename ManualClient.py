@@ -1,5 +1,6 @@
 from __future__ import annotations
 from worlds import AutoWorldRegister
+import json
 
 import asyncio, re
 
@@ -28,11 +29,13 @@ class ManualContext(CommonContext):
     game = "not set" # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
 
-    def __init__(self, server_address, password):
+    def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
+        self.game = game
+        self.username = player_name
         
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -137,7 +140,7 @@ class ManualContext(CommonContext):
 
                 game_bar_label = Label(text="Manual Game ID", size=(150, 30), size_hint_y=None, size_hint_x=None)
                 self.manual_game_layout.add_widget(game_bar_label)
-                self.game_bar_text = TextInput(text="Manual_{\"game\" from game.json}_{\"player\" from game.json}", 
+                self.game_bar_text = TextInput(text=self.ctx.game or "Manual_{\"game\" from game.json}_{\"player\" from game.json}",
                                                 size_hint_y=None, height=30, multiline=False, write_tab=False)          
                 self.manual_game_layout.add_widget(self.game_bar_text)
 
@@ -526,9 +529,19 @@ async def game_watcher(ctx: ManualContext):
         await asyncio.sleep(0.1)
 
 
+def read_apmanual_file(apmanual_file):
+    from base64 import b64decode
+
+    with open(apmanual_file, 'r') as f:
+        return json.loads(b64decode(f.read()))
+
+
 if __name__ == '__main__':
     async def main(args):
-        ctx = ManualContext(args.connect, args.password)
+        config_file = {}
+        if args.apmanual_file:
+            config_file = read_apmanual_file(args.apmanual_file)
+        ctx = ManualContext(args.connect, args.password, config_file.get("game"), config_file.get("player_name"))
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
         if gui_enabled:
             ctx.run_gui()
@@ -546,6 +559,8 @@ if __name__ == '__main__':
     import colorama
 
     parser = get_base_parser(description="Manual Client, for operating a Manual game in Archipelago.")
+    parser.add_argument('apmanual_file', default="", type=str, nargs="?",
+                        help='Path to an APMANUAL file')
 
     args, rest = parser.parse_known_args()
     colorama.init()
