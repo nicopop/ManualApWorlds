@@ -24,12 +24,12 @@
     },
     "The Stranger": {
         "_comment": "Base Region for the DLC",
-        "requires": "|Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and (|EYE > Main entrance| or |EYE > Back entrance| or |EYE > Secret entrance| or |EYE > Dam entrance|)",
+        "requires": "|Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and |@3b DLC entrance:1|",
         "connects_to": [ "Space", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "DreamWorld General": {
         "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
-        "requires": "|DreamWorld Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)",
+        "requires": "|DreamWorld Knowledge| and |@DLC Flame:1|",
         "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "Shrouded Woodlands": {
@@ -46,6 +46,6 @@
     },
     "Subterranean Lake": {
         "requires": "|DreamWorld Knowledge| and (|EYE > Submerge Structure flame Access| or ((|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))) )",
-        "connects_to": [ "The Stranger", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
+        "connects_to": []
     }
 }
