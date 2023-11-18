@@ -40,6 +40,19 @@ class RequireSolanum(Toggle):
 class RequirePrisoner(Toggle):
     """Do you want to require Talking to the Prisoner before you can win?"""
     display_name = "Require Talking to the Prisoner"
+
+class RandomContent(Choice):
+    """What part of the game do you want to play,
+    Base Game Only: disable the dlc and set require_prisoner to false
+    DLC Only: disable every optionnal location but allows require_solanum
+    Base Game + DLC: everything's allowed
+    """
+    display_name = "Randomized content look at description for details"
+    option_both = 0
+    option_base_game = 1
+    option_dlc = 2
+    default = 0
+
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
@@ -50,6 +63,7 @@ def before_options_defined(options: dict) -> dict:
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     options["game_version"] = ApWorldVersion
+    options["randomized_content"] = RandomContent
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options

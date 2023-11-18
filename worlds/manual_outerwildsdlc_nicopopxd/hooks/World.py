@@ -1,4 +1,5 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
+import random
 from worlds.AutoWorld import World
 from BaseClasses import MultiWorld
 
@@ -11,6 +12,7 @@ from ..Locations import ManualLocation
 #
 from ..Data import game_table, item_table, location_table, region_table
 from ..Game import game_name
+from .Options import RandomContent
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
 
@@ -43,9 +45,13 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
+    randomContent = get_option_value(multiworld, player, "randomized_content") or 0
+    if randomContent == RandomContent.option_base_game:
+        multiworld.require_prisoner[player].value = False
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
-    if not (solanum or owlguy):
+
+    if not (solanum or owlguy or randomContent != RandomContent.option_both):
         return
     TotalToAdd = 7
     if solanum: TotalToAdd += 1
@@ -63,10 +69,20 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
+    randomContent = get_option_value(multiworld, player, "randomized_content") or 0
+
     if not (solanum or owlguy):
         return item_pool
     if solanum: world.item_name_to_item["Seen Solanum"]["category"].append("1 Need For End")
     if owlguy: world.item_name_to_item["Seen Prisoner"]["category"].append("1 Need For End")
+
+    if randomContent != RandomContent.option_both:
+        if randomContent == RandomContent.option_base_game:
+            print("Only base game")
+            #Do stuff
+        if randomContent == RandomContent.option_dlc:
+            print("Only DLC")
+            #Do stuff
 #
     ## if total_characters < 10 or total_characters > 50:
     ##     total_characters = 50
