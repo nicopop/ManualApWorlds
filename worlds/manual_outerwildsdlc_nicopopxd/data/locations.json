@@ -346,7 +346,7 @@
 	{
 		"name": "Credits",
 		"victory": true,
-		"region": "Dark Bramble",
+		"region": "Tutorial",
 		"requires": [ "1 beautiful campfire song" ]
 	},
 

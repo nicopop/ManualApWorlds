@@ -2,6 +2,9 @@
 import random
 from worlds.AutoWorld import World
 from BaseClasses import MultiWorld
+import json
+import os
+import pkgutil
 
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
@@ -46,10 +49,12 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     randomContent = get_option_value(multiworld, player, "randomized_content") or 0
-    if randomContent == RandomContent.option_base_game:
-        multiworld.require_prisoner[player].value = False
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
+    if randomContent == RandomContent.option_base_game:
+        owlguy = False
+    elif randomContent == RandomContent.option_dlc:
+        solanum = False
 
     if not (solanum or owlguy or randomContent != RandomContent.option_both):
         return
@@ -71,18 +76,39 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
     randomContent = get_option_value(multiworld, player, "randomized_content") or 0
 
+    if randomContent != RandomContent.option_both:
+        fname = os.path.join("..", "data", "dlc.json")
+        dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
+        if randomContent == RandomContent.option_base_game:
+            owlguy = False
+            print("Only base game")
+            items_to_remove = []
+            for item in item_pool:
+                if item.name in dlc_data["echoes"]["items"]:
+                    items_to_remove.append(item)
+            for item in items_to_remove:
+                item_pool.remove(item)
+                
+            for region in multiworld.regions:
+                if region.player != player:
+                    continue
+                for location in list(region.locations):
+                    world.location_name_to_location[location.name].pop("place_item", "")
+                    world.location_name_to_location[location.name].pop("place_item_category", "")
+                    if location.name in dlc_data["echoes"]["locations"]:
+                        region.locations.remove(location)
+            #Do stuff
+        if randomContent == RandomContent.option_dlc:
+            solanum = False
+            print("Only DLC")
+            #Do stuff
+
     if not (solanum or owlguy):
         return item_pool
     if solanum: world.item_name_to_item["Seen Solanum"]["category"].append("1 Need For End")
     if owlguy: world.item_name_to_item["Seen Prisoner"]["category"].append("1 Need For End")
-
-    if randomContent != RandomContent.option_both:
-        if randomContent == RandomContent.option_base_game:
-            print("Only base game")
-            #Do stuff
-        if randomContent == RandomContent.option_dlc:
-            print("Only DLC")
-            #Do stuff
+    
+    multiworld.clear_location_cache()
 #
     ## if total_characters < 10 or total_characters > 50:
     ##     total_characters = 50
