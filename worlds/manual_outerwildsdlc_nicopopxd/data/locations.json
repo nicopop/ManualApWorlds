@@ -355,200 +355,200 @@
 	{
 		"name": "2 - Visit the Radio Station and check the photos",
 		"region": "Space",
-		"category": [ "2 - Timber Hearth", "Echoes of the Eye" ],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace", "Stranger Presence Knowledge" ]
 	},
 
 	{
 		"name": "8 - Get in the stranger",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Watch a slide in River Lowlands",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Watch a slide in Cinder Isles",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Watch a slide in Hidden Gorge",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Get in the hidden Laboratory",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
 		"name": "8 - Watch the hidden lab's slide",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
 		"name": "8 - Watch the slide in the reservoir",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Get in Abandoned temple's secret basement",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Abandoned temple code", "Visited CodeVault" ]
 	},
 	{
 		"name": "8 - Get in the burned interface room in the reservoir area",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Broken Interface room code" ]
 	},
 	{
 		"name": "8 - Find the stranger trajectory diagram in the reservoir area",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Find the Submerged structure diagram in the reservoir area",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Get in the hidden Slide burning room in River Lowlands",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:1" ]
 	},
 	{
 		"name": "8 - Get in the hidden Slide burning room in Cinder Isles",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:2" ]
 	},
 	{
 		"name": "8 - Get in the hidden Slide burning room in Hidden Gorge",
 		"region": "The Stranger",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ],
+		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
 	},
 	{
 		"name": "9 - Enter the DreamWorld",
 		"region": "DreamWorld General",
-		"category": [ "9 - DreamWorld General", "Echoes of the Eye" ]
+		"category": [ "9 - DreamWorld General" ]
 	},
 	{
 		"name": "9 - Get on the boat",
 		"region": "DreamWorld General",
-		"requires": "(|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
-		"category": [ "9 - DreamWorld General", "Echoes of the Eye" ]
+		"requires": "(|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
 	},
 	{
 		"name": "9 - Watch the vision torch outside the submerge structure in the dream",
 		"region": "DreamWorld General",
-		"requires": "|DreamWorld Grabbing Hand Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
-		"category": [ "9 - DreamWorld General", "Echoes of the Eye" ]
+		"requires": "|DreamWorld Grabbing Hand Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
 	},
 	{
 		"name": "91 - Enter the Shrouded Woodlands Dream",
 		"region": "Shrouded Woodlands",
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "91 - Find where the Wandering Owlks come from",
 		"region": "Shrouded Woodlands",
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "91 - Find where the Wandering Owlks are Going",
 		"region": "Shrouded Woodlands",
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "Shrouded Woodlands",
-		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame access| or |EYE > Hidden Gorge flame access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
 		"place_item": [ "Visited Shrouded Woodlands Archive" ],
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "91 - Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands",
 		"requires": "|Visited Shrouded Woodlands Archive|",
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "91 - Discover the burned code",
 		"region": "Shrouded Woodlands",
 		"requires": "|Visited Shrouded Woodlands Archive|",
-		"category": [ "91 - Shrouded Woodlands", "Echoes of the Eye" ]
+		"category": [ "91 - Shrouded Woodlands" ]
 	},
 	{
 		"name": "92 - Enter the Starlit Cove Dream",
 		"region": "Starlit Cove",
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "92 - Visit the Burned Eye Church in the dream",
 		"region": "Starlit Cove",
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "92 - Get to the top of the Tower in the Starlit Cove",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "8 - Get in the Code Vault",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge|",
 		"place_item": [ "Visited CodeVault" ],
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - See the codes in the Code Vault",
 		"region": "Starlit Cove",
 		"requires": "|Visited CodeVault|",
-		"category": [ "8 - The Stranger", "Echoes of the Eye" ]
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "92 - Get in the Forbidden Archive of the Starlit Cove",
 		"region": "Starlit Cove",
 		"requires": "|DreamWorld Door Candle Knowledge| and (|DreamWorld Death Glitch Knowledge| or (|DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|))",
 		"place_item": [ "Visited Starlit Cove Archive" ],
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "92 - Watch the Death Glitch Slide",
 		"region": "Starlit Cove",
 		"requires": "|Visited Starlit Cove Archive|",
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "92 - Discover the burned code",
 		"region": "Starlit Cove",
 		"requires": "|Visited Starlit Cove Archive|",
-		"category": [ "92 - Starlit Cove", "Echoes of the Eye" ]
+		"category": [ "92 - Starlit Cove" ]
 	},
 	{
 		"name": "93 - Enter the Endless Canyon Dream",
 		"region": "Endless Canyon",
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ]
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "93 - Find the Stage with the 4 musical instruments",
 		"region": "Endless Canyon",
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ]
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "93 - Get in the restaurant",
 		"region": "Endless Canyon",
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ],
+		"category": [ "93 - Endless Canyon" ],
 		"requires": "|DreamWorld Grabbing Hand Knowledge|"
 	},
 	{
@@ -556,54 +556,54 @@
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Render Glitch Knowledge| or (|DreamWorld Fake Wall Knowledge| and ( |DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|))",
 		"place_item": [ "Visited Endless Canyon Archive" ],
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ]
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "93 - Watch the Render Glitch Slide",
 		"region": "Endless Canyon",
 		"requires": "|Visited Endless Canyon Archive|",
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ]
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "93 - Discover the burned code",
 		"region": "Endless Canyon",
 		"requires": "|Visited Endless Canyon Archive|",
-		"category": [ "93 - Endless Canyon", "Echoes of the Eye" ]
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "94 - Enter the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ]
+		"category": [ "94 - Subterranean Lake" ]
 	},
 	{
 		"name": "94 - Disable the first lock on the vault",
 		"region": "Subterranean Lake",
 		"requires": "|DreamWorld Render Glitch Knowledge|",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ]
+		"category": [ "94 - Subterranean Lake" ]
 	},
 	{
 		"name": "94 - Disable the second lock on the vault",
 		"region": "Subterranean Lake",
-		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or |EYE > Cinder Isles flame Access| or |EYE > Hidden Gorge flame Access|)) or |EYE > Progressive Datamined Sealed Vault Code:2|",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ]
+		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or |EYE > Cinder Isles flame access| or |EYE > Hidden Gorge flame access|)) or |EYE > Progressive Datamined Sealed Vault Code:2|",
+		"category": [ "94 - Subterranean Lake" ]
 	},
 	{
 		"name": "94 - Disable the third lock on the vault",
 		"region": "Subterranean Lake",
 		"requires": "|DreamWorld Death Glitch Knowledge| or |EYE > Progressive Datamined Sealed Vault Code:3|",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ]
+		"category": [ "94 - Subterranean Lake" ]
 	},
 	{
 		"name": "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
 		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge| and |DreamWorld Death Glitch Knowledge|)",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ],
+		"category": [ "94 - Subterranean Lake" ],
 		"place_item": [ "Seen Prisoner" ]
 	},
 	{
 		"name": "94 - Communicate with the prisoner in the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
 		"requires": "|Seen Prisoner|",
-		"category": [ "94 - Subterranean Lake", "Echoes of the Eye" ]
+		"category": [ "94 - Subterranean Lake" ]
 	}
 ]

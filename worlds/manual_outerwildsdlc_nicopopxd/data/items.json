@@ -213,23 +213,23 @@
         "category": [ "3 Echoes of the Eye", "2c Progressive", "2a Not Trap" ]
     },
     {
-        "name": "EYE > River Lowlands flame Access",
+        "name": "EYE > River Lowlands flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ],
         "_comment": "if we had logic only category the 'DLC Flame' would be one"
     },
     {
-        "name": "EYE > Cinder Isles flame Access",
+        "name": "EYE > Cinder Isles flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },
     {
-        "name": "EYE > Hidden Gorge flame Access",
+        "name": "EYE > Hidden Gorge flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },
     {
-        "name": "EYE > Submerge Structure flame Access",
+        "name": "EYE > Submerge Structure flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },
