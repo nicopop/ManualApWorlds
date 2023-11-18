@@ -1,10 +1,7 @@
 from .Data import game_table
 
-apworldversion = ""
 if 'creator' in game_table:
     game_table['player'] = game_table['creator']
-if 'version' in game_table:
-    apworldversion = game_table['version']
 
 game_name = "Manual_%s_%s" % (game_table["game"], game_table["player"])
 filler_item_name = game_table["filler_item_name"] if "filler_item_name" in game_table else "Filler"

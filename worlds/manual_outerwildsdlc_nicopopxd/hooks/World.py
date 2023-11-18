@@ -10,7 +10,7 @@ from ..Locations import ManualLocation
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-
+from ..Game import game_name
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
 
@@ -31,6 +31,10 @@ from ..Helpers import is_option_enabled, get_option_value
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
+    if 'version' in game_table:
+        apworldversion = game_table['version']
+    if apworldversion != "":
+            print(f"Includes {game_name} version: {apworldversion}")
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information.
@@ -48,7 +52,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     if owlguy: TotalToAdd += 1
     victory_location = next(loc for loc in world.location_table if loc["name"] == "FINAL > Get the warp drive to the vessel and Warp to the Eye")
     victory_location["requires"] = f"|@1 Need For End:{TotalToAdd}| and |@4a Knowledge:4|"
-    print(f'OW: Changed the rules to |@1 Need For End:{TotalToAdd}| and |@4a Knowledge:4|')
+    print(f'Changed the player {game_name}:{player} Victory rules to "|@1 Need For End:{TotalToAdd}| and |@4a Knowledge:4|"')
     # THX Axxroy
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
@@ -125,4 +129,13 @@ def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld,
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
+    if 'version' in game_table:
+        version = game_table["version"]
+        if version != "":
+            multiworld.game_version[player].value = version
+        else:
+            multiworld.game_version[player].value = "Unknown"
+    else:
+        multiworld.game_version[player].value = "Unknown"
+    print(f"Game version set to: {multiworld.game_version[player].value}")
     return slot_data
