@@ -82,33 +82,46 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         if randomContent == RandomContent.option_base_game:
             owlguy = False
             print("Only base game")
-            items_to_remove = []
-            for item in item_pool:
+            for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
-                    items_to_remove.append(item)
-            for item in items_to_remove:
-                item_pool.remove(item)
+                    item_pool.remove(item)
                 
             for region in multiworld.regions:
                 if region.player != player:
                     continue
                 for location in list(region.locations):
-                    world.location_name_to_location[location.name].pop("place_item", "")
-                    world.location_name_to_location[location.name].pop("place_item_category", "")
                     if location.name in dlc_data["echoes"]["locations"]:
+                        world.location_name_to_location[location.name].pop("place_item", "")
+                        world.location_name_to_location[location.name].pop("place_item_category", "")
                         region.locations.remove(location)
+            multiworld.clear_location_cache()
             #Do stuff
         if randomContent == RandomContent.option_dlc:
             solanum = False
+            world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]['place_item'] = ["Victory"]
             print("Only DLC")
-            #Do stuff
+            valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
+            valid_locations = dlc_data["echoes"]["locations"] + dlc_data["both"]["locations"]
+            for item in list(item_pool):
+                if item.name not in valid_items:
+                    item_pool.remove(item)
+            
+            for region in multiworld.regions:
+                if region.player != player:
+                    continue
+                for location in list(region.locations):
+                    if location.name not in valid_locations:
+                        world.location_name_to_location[location.name].pop("place_item", "")
+                        world.location_name_to_location[location.name].pop("place_item_category", "")
+                        region.locations.remove(location)
+            multiworld.clear_location_cache()
+            
 
     if not (solanum or owlguy):
         return item_pool
     if solanum: world.item_name_to_item["Seen Solanum"]["category"].append("1 Need For End")
     if owlguy: world.item_name_to_item["Seen Prisoner"]["category"].append("1 Need For End")
     
-    multiworld.clear_location_cache()
 #
     ## if total_characters < 10 or total_characters > 50:
     ##     total_characters = 50
