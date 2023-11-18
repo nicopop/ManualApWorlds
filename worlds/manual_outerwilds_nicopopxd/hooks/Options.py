@@ -37,10 +37,15 @@ class RequireSolanum(Toggle):
     """Do you want to require Talking to Solanum before you can win?"""
     display_name = "Require Talking to Solanum"
 
+class ApWorldVersion(FreeText):
+    """Do not change this, it will get set to the apworld version"""
+    display_name = "Game Version (Detected)"
+
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
 #    options["total_characters_to_win_with"] = TotalCharactersToWinWith
     options["require_solanum"] = RequireSolanum
+    options["game_version"] = ApWorldVersion
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options

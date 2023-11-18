@@ -1,7 +1,7 @@
 import random
 
 from .Data import item_table, progressive_item_table, location_table
-from .Game import game_name, filler_item_name, starting_items, apworldversion
+from .Game import game_name, filler_item_name, starting_items
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
 
@@ -224,8 +224,6 @@ class ManualWorld(World):
         after_set_rules(self, self.multiworld, self.player)
 
     def create_regions(self):
-        if game_name != "":
-            print(f"Includes {game_name} version: {apworldversion}")
         before_create_regions(self, self.multiworld, self.player)
 
         create_regions(self, self.multiworld, self.player)
