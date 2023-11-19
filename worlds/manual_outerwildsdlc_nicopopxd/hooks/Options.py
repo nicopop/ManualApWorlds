@@ -58,6 +58,7 @@ class Goal(Choice):
     Standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
     Eye: Will require going to the eye.
     Prisoner: Will end after talking to the prisonner
+    visit_all_archive: Will End by visiting all the archive in a single loop without being caught
     ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.
     high_energy_lab_break_spacetime: Require going to the high energy lab and break spacetime there.
     """
@@ -65,8 +66,9 @@ class Goal(Choice):
     option_standard = 0
     option_eye = 1
     option_prisoner = 2
-    option_ash_twin_project_break_spacetime = 3
-    option_high_energy_lab_break_spacetime = 4
+    option_visit_all_archive = 3
+    option_ash_twin_project_break_spacetime = 4
+    option_high_energy_lab_break_spacetime = 5
     default = 0
 
 class ApWorldVersion(FreeText):

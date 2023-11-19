@@ -53,39 +53,36 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
     goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
+    if not (solanum or owlguy) and randomContent == RandomContent.option_both and goal == Goal.option_standard:
+        return
+
     if randomContent == RandomContent.option_base_game:
         owlguy = False
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
-    # elif randomContent == RandomContent.option_dlc:
-    #     solanum = False
-
-    # if not (solanum or owlguy):
-    #     return
+        elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
 
     VictoryItemsToAdd = ""
     if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
     if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-        victory_location = next(loc for loc in world.location_table if loc["name"] == "FINAL > Get the warp drive to the vessel and Warp to the Eye")
-        victory_location["requires"] = f"|@1 Need For End:7| and |@4a Knowledge:4|{VictoryItemsToAdd}"
-        print(f'Changed the player {game_name}:{player} Victory rules to "|@1 Need For End:7| and |@4a Knowledge:4|{VictoryItemsToAdd}"')
-    else:
-        old_victory = next(loc for loc in world.location_table if loc["name"] == "FINAL > Get the warp drive to the vessel and Warp to the Eye")
-        # WIP maybe remove the location because its a 1 way to credits
-        old_victory["place_item"] = "Quantum dust"
-        if goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
-            world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]['place_item'] = ["Victory"]
-            world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]['requires'] += VictoryItemsToAdd
-            print(f'Changed the player {game_name}:{player} Victory rules to Prisoner: "{world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]["requires"]}"')
-        elif goal == Goal.option_ash_twin_project_break_spacetime:
-            world.location_name_to_location["1 - Break Space-Time in the Ash Twin Project"]['place_item'] = ["Victory"]
-            world.location_name_to_location["1 - Break Space-Time in the Ash Twin Project"]['requires'] += VictoryItemsToAdd
-            print(f'Changed the player {game_name}:{player} Victory rules to AshTwinProject: "{world.location_name_to_location["1 - Break Space-Time in the Ash Twin Project"]["requires"]}"')
-        elif goal == Goal.option_high_energy_lab_break_spacetime:
-            world.location_name_to_location["1 - Break space time in the lab"]['place_item'] = ["Victory"]
-            world.location_name_to_location["1 - Break space time in the lab"]['requires'] += VictoryItemsToAdd
-            print(f'Changed the player {game_name}:{player} Victory rules to HighEnergyLab: "{world.location_name_to_location["1 - Break space time in the lab"]["requires"]}"')
+        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the vessel and Warp to the Eye"]
+        victory_name = "Eye"
+    elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
+        victory_location = world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]
+        victory_name = "Prisoner"
+    elif goal == Goal.option_visit_all_archive:
+        victory_location = world.location_name_to_location["9 - In a loop visit all 3 archive without getting caught"]
+        victory_name = "Visit all archive"
+    elif goal == Goal.option_ash_twin_project_break_spacetime:
+        victory_location = world.location_name_to_location["1 - Break Space-Time in the Ash Twin Project"]
+        victory_name = "Ash Twin Project"
+    elif goal == Goal.option_high_energy_lab_break_spacetime:
+        victory_location = world.location_name_to_location["1 - Break space time in the lab"]
+        victory_name = "HighEnergyLab"
+    victory_location['place_item'] = ["Victory"]
+    victory_location['requires'] += VictoryItemsToAdd
+    print(f'Set the player {game_name}:{player} Victory rules to {victory_name}: "{victory_location["requires"]}"')
     # THX Axxroy
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
@@ -103,8 +100,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         fname = os.path.join("..", "data", "dlc.json")
         dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
         if randomContent == RandomContent.option_base_game:
-            owlguy = False
             if goal == Goal.option_prisoner: goal = Goal.default #imposible option
+            elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
             print("Using only base game")
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
@@ -115,6 +112,10 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     continue
                 for location in list(region.locations):
                     if location.name in dlc_data["echoes"]["locations"]:
+                        world.location_name_to_location[location.name].pop("place_item", "")
+                        world.location_name_to_location[location.name].pop("place_item_category", "")
+                        region.locations.remove(location)
+                    if (goal != Goal.option_eye and goal != Goal.option_standard ) and location.name == "FINAL > Get the warp drive to the vessel and Warp to the Eye":
                         world.location_name_to_location[location.name].pop("place_item", "")
                         world.location_name_to_location[location.name].pop("place_item_category", "")
                         region.locations.remove(location)
@@ -146,8 +147,6 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 if item.name not in valid_items:
                     item_pool.remove(item)
 
-            world.item_name_to_item["Meditation"]["count"] = 1
-            world.item_name_to_item["Landing Camera"]["count"] = 1
             for region in multiworld.regions:
                 if region.player != player:
                     continue
@@ -157,12 +156,18 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                         world.location_name_to_location[location.name].pop("place_item_category", "")
                         region.locations.remove(location)
             multiworld.clear_location_cache()
+    else:
+        if goal != Goal.option_eye and goal != Goal.option_standard:
+            for region in multiworld.regions:
+                if region.player != player:
+                    continue
+                location = world.location_name_to_location["FINAL > Get the warp drive to the vessel and Warp to the Eye"]
+                if location in list(region.locations):
+                    location.pop("place_item", "")
+                    location.pop("place_item_category", "")
+                    region.locations.remove(location)
+            multiworld.clear_location_cache()
 
-
-    if not (solanum or owlguy):
-        return item_pool
-    if solanum: world.item_name_to_item["Seen Solanum"]["category"].append("1 Need For End")
-    if owlguy: world.item_name_to_item["Seen Prisoner"]["category"].append("1 Need For End")
 
 #
     ## if total_characters < 10 or total_characters > 50:
