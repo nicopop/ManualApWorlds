@@ -28,6 +28,16 @@
 		"place_item_category": [ "4 Signal" ]
 	},
 	{
+		"name": "01 - Die within 60 seconds of a new loop",
+		"region": "Space",
+		"category": [ "01 - Space" ]
+	},
+	{
+		"name": "01 - Use your suit's oxygen as jetpack fuel",
+		"region": "Space",
+		"category": [ "01 - Space" ]
+	},
+	{
 		"name": "2 - Visit the Crater with the Bramble seed",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ]
@@ -300,15 +310,22 @@
 		"category": [ "3 - Brittle Hollow" ]
 	},
 	{
-		"name": "1 - Visit the deepspace satelite",
+		"name": "01 - Visit the deepspace satelite",
 		"region": "Space",
 		"category": [ "01 - Space" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 	{
+		"name": "01 - Knock the deepspace satelite out of orbit",
+		"region": "Space",
+		"category": [ "01 - Space" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
+	},
+
+	{
 		"name": "2 - Visit the Radio Station and get it's signal",
 		"region": "Space",
-		"category": [ "2 - Timber Hearth"],
+		"category": [ "2 - Timber Hearth" ],
 		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 
@@ -381,12 +398,27 @@
 		"category": [ "8 - The Stranger" ]
 	},
 	{
+		"name": "8 - Bring an artifact back to the museum",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "8 - Attempt to use the artifact at a normal campfire",
+		"region": "The Stranger",
+		"category": "|8 - The Stranger| and |DreamWorld Knowledge|"
+	},
+	{
 		"name": "8 - Ride the wave for more than 5 seconds",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Do a full loop on the boat in less than 2 minutes",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "8 - Burn a slide",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
 	},
@@ -407,6 +439,12 @@
 	},
 	{
 		"name": "8 - Get in the hidden Laboratory",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ],
+		"requires": [ "EYE > Secret entrance" ]
+	},
+	{
+		"name": "8 - Use the prototype artifact with explosive result",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Secret entrance" ]
@@ -476,13 +514,19 @@
 	{
 		"name": "9 - Get your spine adjusted by an Owlks",
 		"region": "DreamWorld General",
-		"requires": "(|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Fake Wall Knowledge|)) )",
+		"requires": "|DreamWorld Render Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|) or (|EYE > Hidden Gorge flame access| and |DreamWorld Fake Wall Knowledge|) )",
 		"category": [ "9 - DreamWorld General" ]
 	},
 	{
 		"name": "9 - Watch the vision torch outside the submerge structure in the dream",
 		"region": "DreamWorld General",
 		"requires": "|DreamWorld Grabbing Hand Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
+	},
+	{
+		"name": "9 - In a loop visit all 3 archive without getting caught",
+		"region": "DreamWorld General",
+		"requires": "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|",
 		"category": [ "9 - DreamWorld General" ]
 	},
 	{
@@ -502,8 +546,8 @@
 	},
 	{
 		"name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
-		"region": "Shrouded Woodlands",
-		"requires": "(|DreamWorld Fake Fireplace Knowledge| and (|EYE > Cinder Isles flame access| or |EYE > Hidden Gorge flame access|)) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"region": "DreamWorld General",
+		"requires": "(|EYE > River Lowlands flame access| and |DreamWorld Fake Fireplace Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
 		"place_item": [ "Visited Shrouded Woodlands Archive" ],
 		"category": [ "91 - Shrouded Woodlands" ]
 	},
