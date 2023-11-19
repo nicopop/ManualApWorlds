@@ -56,7 +56,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     elif randomContent == RandomContent.option_dlc:
         solanum = False
 
-    if not (solanum or owlguy or randomContent != RandomContent.option_both):
+    if not (solanum or owlguy):
         return
     TotalToAdd = 7
     if solanum: TotalToAdd += 1
