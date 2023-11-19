@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{784d2bc0-aa9f-4b55-9578-5905a866a120}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Generate.py</StartupFile>
+    <SearchPath>worlds\manual_outerwildsdlc_nicopopxd\data\;worlds\manual_outerwildsdlc_nicopopxd\docs\;worlds\manual_outerwildsdlc_nicopopxd\hooks;..\Arch-Manual-OuterWildsDLC</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>MSBuild|Manual OuterWilds apworld|$(MSBuildProjectFullPath)</InterpreterId>
+    <Name>manual_outerwildsdlc_nicopopxd</Name>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <TestFramework>Pytest</TestFramework>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <PublishUrl>output</PublishUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BaseClasses.py" />
+    <Compile Include="CommonClient.py" />
+    <Compile Include="Fill.py" />
+    <Compile Include="Generate.py" />
+    <Compile Include="kvui.py" />
+    <Compile Include="Launcher.py" />
+    <Compile Include="Main.py" />
+    <Compile Include="ManualClient.py" />
+    <Compile Include="ModuleUpdate.py" />
+    <Compile Include="MultiServer.py" />
+    <Compile Include="NetUtils.py" />
+    <Compile Include="Options.py" />
+    <Compile Include="Patch.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="test\general\TestFill.py" />
+    <Compile Include="test\general\TestHelpers.py" />
+    <Compile Include="test\general\TestHostYAML.py" />
+    <Compile Include="test\general\TestIDs.py" />
+    <Compile Include="test\general\TestImplemented.py" />
+    <Compile Include="test\general\TestItems.py" />
+    <Compile Include="test\general\TestLocations.py" />
+    <Compile Include="test\general\TestNames.py" />
+    <Compile Include="test\general\TestOptions.py" />
+    <Compile Include="test\general\TestReachability.py" />
+    <Compile Include="test\general\__init__.py" />
+    <Compile Include="test\programs\TestGenerate.py" />
+    <Compile Include="test\programs\TestMultiServer.py" />
+    <Compile Include="test\programs\__init__.py" />
+    <Compile Include="test\TestBase.py" />
+    <Compile Include="test\utils\TestSIPrefix.py" />
+    <Compile Include="test\utils\__init__.py" />
+    <Compile Include="test\webhost\TestAPIGenerate.py" />
+    <Compile Include="test\webhost\TestDocs.py" />
+    <Compile Include="test\webhost\TestFileGeneration.py" />
+    <Compile Include="test\webhost\__init__.py" />
+    <Compile Include="test\worlds\__init__.py" />
+    <Compile Include="test\__init__.py" />
+    <Compile Include="Utils.py" />
+    <Compile Include="WebHost.py" />
+    <Compile Include="worlds\AutoWorld.py" />
+    <Compile Include="worlds\Files.py" />
+    <Compile Include="worlds\LauncherComponents.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Data.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Game.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\Data.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\Items.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\Locations.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\Options.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\Regions.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\World.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__init__.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Items.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Locations.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Options.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Regions.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\Rules.py" />
+    <Compile Include="worlds\manual_outerwildsdlc_nicopopxd\__init__.py" />
+    <Compile Include="worlds\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Players\off\Factorio.yaml" />
+    <Content Include="Players\off\OuterWilds.yaml" />
+    <Content Include="Players\off\OuterWildsMP.yaml" />
+    <Content Include="Players\off\player.yaml" />
+    <Content Include="Players\off\playerEye.yaml" />
+    <Content Include="Players\off\playerLong.yaml" />
+    <Content Include="Players\OuterWildsEye.yaml" />
+    <Content Include="Players\Templates\A Link to the Past.yaml" />
+    <Content Include="Players\Templates\Adventure.yaml" />
+    <Content Include="Players\Templates\ArchipIDLE.yaml" />
+    <Content Include="Players\Templates\Blasphemous.yaml" />
+    <Content Include="Players\Templates\Bumper Stickers.yaml" />
+    <Content Include="Players\Templates\ChecksFinder.yaml" />
+    <Content Include="Players\Templates\Clique.yaml" />
+    <Content Include="Players\Templates\Dark Souls III.yaml" />
+    <Content Include="Players\Templates\DLCQuest.yaml" />
+    <Content Include="Players\Templates\Donkey Kong Country 3.yaml" />
+    <Content Include="Players\Templates\DOOM 1993.yaml" />
+    <Content Include="Players\Templates\Factorio.yaml" />
+    <Content Include="Players\Templates\Final Fantasy.yaml" />
+    <Content Include="Players\Templates\Hollow Knight.yaml" />
+    <Content Include="Players\Templates\Hylics 2.yaml" />
+    <Content Include="Players\Templates\Kingdom Hearts 2.yaml" />
+    <Content Include="Players\Templates\Links Awakening DX.yaml" />
+    <Content Include="Players\Templates\Lufia II Ancient Cave.yaml" />
+    <Content Include="Players\Templates\MegaMan Battle Network 3.yaml" />
+    <Content Include="Players\Templates\Meritous.yaml" />
+    <Content Include="Players\Templates\meta.yaml" />
+    <Content Include="Players\Templates\Minecraft.yaml" />
+    <Content Include="Players\Templates\Muse Dash.yaml" />
+    <Content Include="Players\Templates\Noita.yaml" />
+    <Content Include="Players\Templates\Ocarina of Time.yaml" />
+    <Content Include="Players\Templates\Overcooked! 2.yaml" />
+    <Content Include="Players\Templates\Pokemon Red and Blue.yaml" />
+    <Content Include="Players\Templates\Raft.yaml" />
+    <Content Include="Players\Templates\Risk of Rain 2.yaml" />
+    <Content Include="Players\Templates\Rogue Legacy.yaml" />
+    <Content Include="Players\Templates\Secret of Evermore.yaml" />
+    <Content Include="Players\Templates\Slay the Spire.yaml" />
+    <Content Include="Players\Templates\SMZ3.yaml" />
+    <Content Include="Players\Templates\Sonic Adventure 2 Battle.yaml" />
+    <Content Include="Players\Templates\Starcraft 2 Wings of Liberty.yaml" />
+    <Content Include="Players\Templates\Stardew Valley.yaml" />
+    <Content Include="Players\Templates\Stardew.Valley.yaml" />
+    <Content Include="Players\Templates\Subnautica.yaml" />
+    <Content Include="Players\Templates\Sudoku.yaml" />
+    <Content Include="Players\Templates\Super Mario 64.yaml" />
+    <Content Include="Players\Templates\Super Mario World.yaml" />
+    <Content Include="Players\Templates\Super Metroid.yaml" />
+    <Content Include="Players\Templates\Terraria.yaml" />
+    <Content Include="Players\Templates\The Legend of Zelda.yaml" />
+    <Content Include="Players\Templates\The Messenger.yaml" />
+    <Content Include="Players\Templates\The Witness.yaml" />
+    <Content Include="Players\Templates\Timespinner.yaml" />
+    <Content Include="Players\Templates\Undertale.yaml" />
+    <Content Include="Players\Templates\VVVVVV.yaml" />
+    <Content Include="Players\Templates\Wargroove.yaml" />
+    <Content Include="Players\Templates\Zillion.yaml" />
+    <Content Include="test\programs\data\OnePlayer\test.yaml" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\data\dlc.json" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\data\game.json" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\data\items.json" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\data\locations.json" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\data\regions.json" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\docs\en_Manual_OuterWildsDLC_Nicopopxd.md" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\docs\setup_en.md" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Data.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Data.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Items.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Items.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Locations.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Locations.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Options.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Options.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Regions.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\Regions.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\World.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\World.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\__init__.cpython-311.pyc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Players\" />
+    <Folder Include="Players\off\" />
+    <Folder Include="Players\Templates\" />
+    <Folder Include="test\" />
+    <Folder Include="test\general\" />
+    <Folder Include="test\programs\" />
+    <Folder Include="test\programs\data\" />
+    <Folder Include="test\programs\data\OnePlayer\" />
+    <Folder Include="test\utils\" />
+    <Folder Include="test\webhost\" />
+    <Folder Include="test\worlds\" />
+    <Folder Include="worlds\" />
+    <Folder Include="worlds\manual_outerwildsdlc_nicopopxd\" />
+    <Folder Include="worlds\manual_outerwildsdlc_nicopopxd\data" />
+    <Folder Include="worlds\manual_outerwildsdlc_nicopopxd\docs" />
+    <Folder Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\" />
+    <Folder Include="worlds\manual_outerwildsdlc_nicopopxd\hooks\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>Manual OuterWilds apworld</Id>
+      <Version>3.10</Version>
+      <Description>Manual OuterWilds apworld (Python 3.10 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
