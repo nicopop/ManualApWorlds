@@ -111,7 +111,7 @@
 		"name": "4 - Visit the Planet's Core",
 		"region": "Space",
 		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Tornado Knowledge" ]
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
 	},
 	{
 		"name": "3 - Get in Southern Observatory and witness the tornados",
