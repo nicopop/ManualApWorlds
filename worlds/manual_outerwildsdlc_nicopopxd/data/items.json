@@ -56,13 +56,13 @@
 
     {
         "name": "Meditation",
-        "count": 2,
+        "count": 1,
         "useful": true,
         "category": [ "Bonus", "2a Not Trap" ]
     },
     {
         "name": "Landing Camera",
-        "count": 2,
+        "count": 1,
         "useful": true,
         "category": [ "Bonus", "Tools", "2a Not Trap" ]
     },

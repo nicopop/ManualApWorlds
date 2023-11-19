@@ -137,11 +137,11 @@ class ManualWorld(World):
                     pool.remove(starting_item)
 
         pool = before_generate_basic(pool, self, self.multiworld, self.player)
-        
+
         personal_locations = sum([len(r.locations) for r in self.multiworld.regions if r.player == self.player])
 
         extras = personal_locations - len(pool) - 1 # subtracting 1 because of Victory; seems right
-        print(extras)
+        print(f"Extras: {extras}")
 
         if extras > 0:
             for i in range(0, extras):

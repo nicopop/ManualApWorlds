@@ -49,7 +49,7 @@
 		"name": "1 - Break space time in the lab",
 		"region": "Space",
 		"category": [ "1 - Ember Twin" ],
-		"requires": [ "Signaloscope", "Signal > Distress" ]
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
 	},
 	{
 		"name": "1 - Visit the Eye Shrine in the Sunless City",
@@ -204,8 +204,14 @@
 		"name": "1 - Item > Get in the Ash Twin Project",
 		"region": "Space",
 		"category": [ "1 - Ash Twin" ],
-		"requires": [ "Seen WarpDrive", "Teleporter Knowledge" ],
+		"requires": [ "Seen WarpDrive" ],
 		"place_item_category": [ "2a Not Trap" ]
+	},
+	{
+		"name": "1 - Break Space-Time in the Ash Twin Project",
+		"region": "Space",
+		"category": [ "1 - Ash Twin" ],
+		"requires": "|Seen WarpDrive| and |Warp drive|"
 	},
 	{
 		"name": "1 - Get to the sun station",
@@ -370,6 +376,21 @@
 		"category": [ "8 - The Stranger" ]
 	},
 	{
+		"name": "8 - Get crushed by a chain elevator",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "8 - Ride the wave for more than 5 seconds",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "8 - Do a full loop on the boat in less than 2 minutes",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
 		"name": "8 - Watch a slide in River Lowlands",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
@@ -450,6 +471,12 @@
 		"name": "9 - Get on the boat",
 		"region": "DreamWorld General",
 		"requires": "(|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )",
+		"category": [ "9 - DreamWorld General" ]
+	},
+	{
+		"name": "9 - Get your spine adjusted by an Owlks",
+		"region": "DreamWorld General",
+		"requires": "(|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Grabbing Hand Knowledge| and |DreamWorld Hidden Hand Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Fake Wall Knowledge|)) )",
 		"category": [ "9 - DreamWorld General" ]
 	},
 	{
@@ -555,6 +582,12 @@
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon" ],
 		"requires": "|DreamWorld Grabbing Hand Knowledge|"
+	},
+	{
+		"name": "93 - Get the 1 / 900 achivement",
+		"region": "Endless Canyon",
+		"requires": "|DreamWorld Render Glitch Knowledge| or (|DreamWorld Fake Wall Knowledge| and ( |DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|))",
+		"category": [ "93 - Endless Canyon" ]
 	},
 	{
 		"name": "93 - Get in the Forbidden Archive of the Endless Canyon Dream",

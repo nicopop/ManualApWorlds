@@ -37,6 +37,7 @@
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\dlc.json" />
     <Content Include="data\game.json" />
     <Content Include="data\items.json" />
     <Content Include="data\locations.json" />
