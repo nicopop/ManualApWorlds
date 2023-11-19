@@ -12,7 +12,7 @@
         "category": [ "1 Need For End", "2a Not Trap" ]
     },
     {
-        "name": "1 beautiful campfire song",
+        "name": "Victory",
         "progression": true,
         "category": [ "1 Need For End" ]
     },
@@ -115,12 +115,12 @@
     },
     {
         "name": "Ticket for (1) free death",
-        "count": 15,
+        "count": 14,
         "category": [ "Bonus", "2a Not Trap" ]
     },
     {
         "name": "Owlish feather",
-        "count": 3,
+        "count": 2,
         "category": [ "Bonus", "2a Not Trap" ]
     },
 
@@ -213,23 +213,23 @@
         "category": [ "3 Echoes of the Eye", "2c Progressive", "2a Not Trap" ]
     },
     {
-        "name": "EYE > River Lowlands flame Access",
+        "name": "EYE > River Lowlands flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ],
         "_comment": "if we had logic only category the 'DLC Flame' would be one"
     },
     {
-        "name": "EYE > Cinder Isles flame Access",
+        "name": "EYE > Cinder Isles flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },
     {
-        "name": "EYE > Hidden Gorge flame Access",
+        "name": "EYE > Hidden Gorge flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },
     {
-        "name": "EYE > Submerge Structure flame Access",
+        "name": "EYE > Submerge Structure flame access",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
     },

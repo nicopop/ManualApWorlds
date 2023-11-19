@@ -33,19 +33,19 @@
         "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
     },
     "Shrouded Woodlands": {
-        "requires": "|EYE > River Lowlands flame Access| and |DreamWorld Knowledge|",
+        "requires": "|EYE > River Lowlands flame access| and |DreamWorld Knowledge|",
         "connects_to": [ "The Stranger", "Subterranean Lake", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
     },
     "Starlit Cove": {
-        "requires": "|EYE > Cinder Isles flame Access| and |DreamWorld Knowledge|",
+        "requires": "|EYE > Cinder Isles flame access| and |DreamWorld Knowledge|",
         "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon", "DreamWorld General" ]
     },
     "Endless Canyon": {
-        "requires": "|EYE > Hidden Gorge flame Access| and |DreamWorld Knowledge|",
+        "requires": "|EYE > Hidden Gorge flame access| and |DreamWorld Knowledge|",
         "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "DreamWorld General" ]
     },
     "Subterranean Lake": {
-        "requires": "|DreamWorld Knowledge| and (|EYE > Submerge Structure flame Access| or ((|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame Access| or (|EYE > Cinder Isles flame Access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame Access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))) )",
+        "requires": "|DreamWorld Knowledge| and (|EYE > Submerge Structure flame access| or ((|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))) )",
         "connects_to": []
     }
 }

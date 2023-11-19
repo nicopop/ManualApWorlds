@@ -14,6 +14,7 @@ from .Helpers import is_option_enabled, get_option_value
 from BaseClasses import ItemClassification, Tutorial, Item
 from Fill import fill_restrictive
 from worlds.AutoWorld import World, WebWorld
+from copy import copy
 
 from .hooks.World import \
     before_pre_fill, after_pre_fill, \
@@ -49,13 +50,13 @@ class ManualWorld(World):
     required_client_version = (0, 3, 4)
 
     # These properties are set from the imports of the same name above.
-    item_table = item_table
-    progressive_item_table = progressive_item_table
+    item_table = copy(item_table)
+    progressive_item_table = copy(progressive_item_table)
     item_id_to_name = item_id_to_name
     item_name_to_id = item_name_to_id
     item_name_to_item = item_name_to_item
     advancement_item_names = advancement_item_names
-    location_table = location_table # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
+    location_table = copy(location_table) # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
     location_id_to_name = location_id_to_name
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
@@ -135,14 +136,17 @@ class ManualWorld(World):
                     self.multiworld.push_precollected(starting_item)
                     pool.remove(starting_item)
 
-        extras = len(location_table) - len(pool) - 1 # subtracting 1 because of Victory; seems right
+        pool = before_generate_basic(pool, self, self.multiworld, self.player)
+        
+        personal_locations = sum([len(r.locations) for r in self.multiworld.regions if r.player == self.player])
+
+        extras = personal_locations - len(pool) - 1 # subtracting 1 because of Victory; seems right
+        print(extras)
 
         if extras > 0:
             for i in range(0, extras):
                 extra_item = self.create_item(filler_item_name)
                 pool.append(extra_item)
-
-        pool = before_generate_basic(pool, self, self.multiworld, self.player)
 
         # need to put all of the items in the pool so we can have a full state for placement
         # then will remove specific item placements below from the overall pool
