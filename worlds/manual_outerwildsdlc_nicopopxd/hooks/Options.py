@@ -41,8 +41,11 @@ class RequirePrisoner(Toggle):
     """Do you want to require Talking to the Prisoner before you can win?"""
     display_name = "Require Talking to the Prisoner"
 class ReducedSpooks(Toggle):
-    """Do you want to remove the Spookier locations?"""
+    """Do you want to remove the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
+class NoLocalItems(Toggle):
+    """Do you want to remove the forced local placement of items"""#todo find a better way to phrase this
+    display_name = "No Predetermined Local Items"
 
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
@@ -85,6 +88,7 @@ def before_options_defined(options: dict) -> dict:
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     options["reduced_spooks"] = ReducedSpooks
+    options["no_place_item_category"] = NoLocalItems
     options["randomized_content"] = RandomContent
     options["goal"] = Goal
     return options

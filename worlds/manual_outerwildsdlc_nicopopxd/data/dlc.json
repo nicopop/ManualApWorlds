@@ -175,5 +175,13 @@
       "6 - Visit Solanum",
       "6 - Communicate with Solanum"
     ]
+  },
+  "no_place_item_category": {
+    "items": [],
+    "locations": [
+      "Get in ship for the first time",
+      "1 - Item > Get in the Ash Twin Project",
+      "4 - See the Coords to the eye"
+    ]
   }
 }

@@ -405,7 +405,8 @@
 	{
 		"name": "8 - Attempt to use the artifact at a normal campfire",
 		"region": "The Stranger",
-		"category": "|8 - The Stranger| and |DreamWorld Knowledge|"
+		"requires": "|DreamWorld Knowledge|",
+		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Ride the wave for more than 5 seconds",
