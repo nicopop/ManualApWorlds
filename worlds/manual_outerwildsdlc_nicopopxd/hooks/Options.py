@@ -40,6 +40,9 @@ class RequireSolanum(Toggle):
 class RequirePrisoner(Toggle):
     """Do you want to require Talking to the Prisoner before you can win?"""
     display_name = "Require Talking to the Prisoner"
+class ReducedSpooks(Toggle):
+    """Do you want to remove the Spookier locations?"""
+    display_name = "ReduceSpooks"
 
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
@@ -78,9 +81,10 @@ class ApWorldVersion(FreeText):
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
 #    options["total_characters_to_win_with"] = TotalCharactersToWinWith
+    options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    options["game_version"] = ApWorldVersion
+    options["reduced_spooks"] = ReducedSpooks
     options["randomized_content"] = RandomContent
     options["goal"] = Goal
     return options

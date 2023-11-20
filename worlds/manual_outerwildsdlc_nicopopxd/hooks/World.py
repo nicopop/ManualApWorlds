@@ -93,37 +93,30 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
+    reducedSpooks = get_option_value(multiworld, player, "reduced_spooks") or False
     randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
+    removelocations = []
+
+    # if (goal == Goal.option_eye or goal == Goal.option_standard) and randomContent == RandomContent.option_both:
+    #         return item_pool
+
     if randomContent != RandomContent.option_both:
+
         fname = os.path.join("..", "data", "dlc.json")
         dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
         if randomContent == RandomContent.option_base_game:
             if goal == Goal.option_prisoner: goal = Goal.default #imposible option
             elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
+            reducedSpooks = False
             print("Using only base game")
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
                     item_pool.remove(item)
-
-            for region in multiworld.regions:
-                if region.player != player:
-                    continue
-                for location in list(region.locations):
-                    if location.name in dlc_data["echoes"]["locations"]:
-                        world.location_name_to_location[location.name].pop("place_item", "")
-                        world.location_name_to_location[location.name].pop("place_item_category", "")
-                        region.locations.remove(location)
-                    if (goal != Goal.option_eye and goal != Goal.option_standard ) and location.name == "FINAL > Get the warp drive to the vessel and Warp to the Eye":
-                        world.location_name_to_location[location.name].pop("place_item", "")
-                        world.location_name_to_location[location.name].pop("place_item_category", "")
-                        region.locations.remove(location)
-            multiworld.clear_location_cache()
-            #Do stuff
+            removelocations += dlc_data["echoes"]["locations"]
         if randomContent == RandomContent.option_dlc:
             message = "Using only DLC"
-            #Add victory location here
             valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
             valid_locations = dlc_data["echoes"]["locations"] + dlc_data["both"]["locations"]
             if goal == Goal.option_eye:
@@ -156,17 +149,27 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                         world.location_name_to_location[location.name].pop("place_item_category", "")
                         region.locations.remove(location)
             multiworld.clear_location_cache()
-    else:
-        if goal != Goal.option_eye and goal != Goal.option_standard:
-            for region in multiworld.regions:
-                if region.player != player:
-                    continue
-                location = world.location_name_to_location["FINAL > Get the warp drive to the vessel and Warp to the Eye"]
-                if location in list(region.locations):
-                    location.pop("place_item", "")
-                    location.pop("place_item_category", "")
+
+    if reducedSpooks:
+        removelocations += dlc_data["reduce_spooks"]["locations"]
+        #do stuff to reduce spook like change requires of some locations
+
+
+    if ((goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)):
+        removelocations += "FINAL > Get the warp drive to the vessel and Warp to the Eye"
+
+
+
+    if len(removelocations) > 0:
+        for region in multiworld.regions:
+            if region.player != player:
+                continue
+            for location in list(region.locations):
+                if location.name in removelocations:
+                    world.location_name_to_location[location.name].pop("place_item", "")
+                    world.location_name_to_location[location.name].pop("place_item_category", "")
                     region.locations.remove(location)
-            multiworld.clear_location_cache()
+        multiworld.clear_location_cache()
 
 
 #
