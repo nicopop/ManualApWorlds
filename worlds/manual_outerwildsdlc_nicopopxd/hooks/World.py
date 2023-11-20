@@ -60,6 +60,8 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
         owlguy = False
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
+        elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
+        elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
 
     VictoryItemsToAdd = ""
     if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
@@ -79,7 +81,16 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
         victory_name = "Ash Twin Project"
     elif goal == Goal.option_high_energy_lab_break_spacetime:
         victory_location = world.location_name_to_location["1 - Break space time in the lab"]
-        victory_name = "HighEnergyLab"
+        victory_name = "High Energy Lab"
+    elif goal == Goal.option_stuck_with_solanum:
+        victory_location = world.location_name_to_location["FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon"]
+        victory_name = "Stuck with Solanum"
+    elif goal == Goal.option_stuck_in_stranger:
+        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the Stranger and wait until Credits"]
+        victory_name = "Stuck in Stranger"
+    elif goal == Goal.option_stuck_in_dream:
+        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the Stranger and die to get in the dreamworld"]
+        victory_name = "Stuck in Dreamworld"
     victory_location['place_item'] = ["Victory"]
     victory_location['requires'] += VictoryItemsToAdd
     print(f'Set the player {game_name}:{player} Victory rules to {victory_name}: "{victory_location["requires"]}"')
@@ -112,7 +123,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     if location in world.location_name_to_location:
                         world.location_name_to_location[location].pop("place_item_category", "")
         multiworld.clear_location_cache()
-
+    #if goal != Goal
     # if (goal == Goal.option_eye or goal == Goal.option_standard) and randomContent == RandomContent.option_both:
     #         return item_pool
 
@@ -120,6 +131,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         if randomContent == RandomContent.option_base_game:
             if goal == Goal.option_prisoner: goal = Goal.default #imposible option
             elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
+            elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
+            elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
             reducedSpooks = False
             print("Using only base game")
             for item in list(item_pool):
@@ -142,6 +155,15 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 valid_items += dlc_data["victory_high_energy_lab_break_spacetime"]["items"]
                 valid_locations += dlc_data["victory_high_energy_lab_break_spacetime"]["locations"]
                 message += " plus High Energy Lab"
+            elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
+                valid_items +=  dlc_data["need_warpdrive"]["items"]
+                valid_locations += dlc_data["need_warpdrive"]["items"]
+                message += " plus Warp Drive"
+            elif goal == Goal.option_stuck_with_solanum:
+                valid_items +=  dlc_data["need_warpdrive"]["items"]
+                valid_locations += dlc_data["need_warpdrive"]["items"]
+                message += " plus Warp Drive"
+                solanum = True # so it doesnt add the items a second time
             if solanum:
                 valid_items += dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["require_solanum"]["locations"]
@@ -161,15 +183,19 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                         region.locations.remove(location)
             multiworld.clear_location_cache()
 
+    if goal != Goal.option_stuck_with_solanum:
+        removelocations.append("FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon")
+    if goal != Goal.option_stuck_in_stranger:
+        removelocations.append("FINAL > Get the warp drive to the Stranger and wait until Credits")
+    if goal != Goal.option_stuck_in_dream:
+        removelocations.append("FINAL > Get the warp drive to the Stranger and die to get in the dreamworld")
+
     if reducedSpooks:
         removelocations += dlc_data["reduce_spooks"]["locations"]
         #do stuff to reduce spook like change requires of some locations
 
-
     if ((goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)):
-        removelocations += "FINAL > Get the warp drive to the vessel and Warp to the Eye"
-
-
+        removelocations.append("FINAL > Get the warp drive to the vessel and Warp to the Eye")
 
     if len(removelocations) > 0:
         for region in multiworld.regions:

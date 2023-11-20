@@ -135,6 +135,17 @@
       "1 - Item > Get in the Ash Twin Project"
     ]
   },
+  "need_warpdrive": {
+    "items": [
+      "Warp drive",
+      "Seen WarpDrive",
+      "Teleporter Knowledge"
+    ],
+    "locations": [
+      "1 - Visit > Get in the Ash Twin Project",
+      "1 - Item > Get in the Ash Twin Project"
+    ]
+  },
   "victory_ash_twin_project_break_spacetime": {
     "items": [
       "Warp drive",
