@@ -16,6 +16,7 @@ from ..Locations import ManualLocation
 from ..Data import game_table, item_table, location_table, region_table
 from ..Game import game_name
 from .Options import RandomContent, Goal
+
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
 
@@ -39,7 +40,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     if 'version' in game_table:
         apworldversion = game_table['version']
     if apworldversion != "":
-            print(f"Includes {game_name} version: {apworldversion}")
+        print(f"Includes {game_name} version: {apworldversion}")
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information.
