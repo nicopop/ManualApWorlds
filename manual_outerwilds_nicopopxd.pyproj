@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{784d2bc0-aa9f-4b55-9578-5905a866a120}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Generate.py</StartupFile>
+    <SearchPath>worlds\manual_outerwilds_nicopopxd\data\;worlds\manual_outerwilds_nicopopxd\docs\;worlds\manual_outerwilds_nicopopxd\hooks;..\Arch-Manual-OuterWildsDLC</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>MSBuild|Manual OuterWilds apworld|$(MSBuildProjectFullPath)</InterpreterId>
+    <Name>manual_outerwilds_nicopopxd</Name>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <TestFramework>Pytest</TestFramework>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <PublishUrl>output</PublishUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BaseClasses.py" />
+    <Compile Include="CommonClient.py" />
+    <Compile Include="Fill.py" />
+    <Compile Include="Generate.py" />
+    <Compile Include="kvui.py" />
+    <Compile Include="Launcher.py" />
+    <Compile Include="Main.py" />
+    <Compile Include="ManualClient.py" />
+    <Compile Include="ModuleUpdate.py" />
+    <Compile Include="MultiServer.py" />
+    <Compile Include="NetUtils.py" />
+    <Compile Include="Options.py" />
+    <Compile Include="Patch.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="test\general\TestFill.py" />
+    <Compile Include="test\general\TestHelpers.py" />
+    <Compile Include="test\general\TestHostYAML.py" />
+    <Compile Include="test\general\TestIDs.py" />
+    <Compile Include="test\general\TestImplemented.py" />
+    <Compile Include="test\general\TestItems.py" />
+    <Compile Include="test\general\TestLocations.py" />
+    <Compile Include="test\general\TestNames.py" />
+    <Compile Include="test\general\TestOptions.py" />
+    <Compile Include="test\general\TestReachability.py" />
+    <Compile Include="test\general\__init__.py" />
+    <Compile Include="test\programs\TestGenerate.py" />
+    <Compile Include="test\programs\TestMultiServer.py" />
+    <Compile Include="test\programs\__init__.py" />
+    <Compile Include="test\TestBase.py" />
+    <Compile Include="test\utils\TestSIPrefix.py" />
+    <Compile Include="test\utils\__init__.py" />
+    <Compile Include="test\webhost\TestAPIGenerate.py" />
+    <Compile Include="test\webhost\TestDocs.py" />
+    <Compile Include="test\webhost\TestFileGeneration.py" />
+    <Compile Include="test\webhost\__init__.py" />
+    <Compile Include="test\worlds\__init__.py" />
+    <Compile Include="test\__init__.py" />
+    <Compile Include="Utils.py" />
+    <Compile Include="WebHost.py" />
+    <Compile Include="worlds\AutoWorld.py" />
+    <Compile Include="worlds\Files.py" />
+    <Compile Include="worlds\LauncherComponents.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Data.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Game.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\Data.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\Items.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\Locations.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\Options.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\Regions.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\World.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\hooks\__init__.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Items.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Locations.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Options.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Regions.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\Rules.py" />
+    <Compile Include="worlds\manual_outerwilds_nicopopxd\__init__.py" />
+    <Compile Include="worlds\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Players\OuterWildsEye.yaml" />
+    <Content Include="test\programs\data\OnePlayer\test.yaml" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\dlc.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\game.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\items.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\locations.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\regions.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\docs\en_manual_outerwilds_nicopopxd.md" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\docs\setup_en.md" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Data.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Data.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Items.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Items.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Locations.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Locations.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Options.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Options.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Regions.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\Regions.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\World.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\World.cpython-311.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\__init__.cpython-311.pyc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Players\" />
+    <Folder Include="test\" />
+    <Folder Include="test\general\" />
+    <Folder Include="test\programs\" />
+    <Folder Include="test\programs\data\" />
+    <Folder Include="test\programs\data\OnePlayer\" />
+    <Folder Include="test\utils\" />
+    <Folder Include="test\webhost\" />
+    <Folder Include="test\worlds\" />
+    <Folder Include="worlds\" />
+    <Folder Include="worlds\manual_outerwilds_nicopopxd\" />
+    <Folder Include="worlds\manual_outerwilds_nicopopxd\data" />
+    <Folder Include="worlds\manual_outerwilds_nicopopxd\docs" />
+    <Folder Include="worlds\manual_outerwilds_nicopopxd\hooks\" />
+    <Folder Include="worlds\manual_outerwilds_nicopopxd\hooks\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>Manual OuterWilds apworld</Id>
+      <Version>3.10</Version>
+      <Description>Manual OuterWilds apworld (Python 3.10 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

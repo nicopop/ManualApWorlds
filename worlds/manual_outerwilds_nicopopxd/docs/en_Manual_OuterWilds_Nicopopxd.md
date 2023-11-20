@@ -1,10 +1,10 @@
-# Outer Wilds Manual Randomizer Guide
+# Outer Wilds Archipelago Manual Randomizer Guide
 <p align="center">
     <img alt="OuterWilds Logo"
      src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
     >
-    <h1 align="center">Base Game Archipelago Manual Randomizer Edition</h1>
-    <p align="center">v3.2.1</p>
+    <h1 align="center">Base Game + DLC Customizable Edition</h1>
+    <p align="center">v4.0.0</p>
 </p>
 
 ## Where is the settings page?
@@ -12,27 +12,43 @@ The player settings page for this game is located <a href="../player-settings">h
 you need to configure and export a config file.
 
 ## What does randomization do to this game?
+Depend on what content you randomized; base game, dlc or both.  
 For now, everything in the "0 - Beginning" category can be accessed from the start.  
 - You needs the "launch codes" item to get to the ship.
 - Everything that gives a signal need that signal item and the signaloscope item,
-- Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum)
+- Most "talk to" location require the "Signal > OW Ventures" signal (except for Solanum & Prisoner)
 - Going to anything quantum needs the "Signal > Quantum" item (to help with progression)
 - all the categories starting with "# - " then a planet name contains every locations of that planet
 - For now no going into Sunless city from a shortcut unless you have "signal > distress"
 
 ## What is the goal of a Manual game when randomized?
-At minimum you need to have both seen and received the warpdrive and Coords for the eye and every [Knowledges](#knowledges)  
+Depend on what you choose:
+### Standard(Base Game and both) or Eye
+At minimum you need to have both seen and received the warpdrive and Coords for the eye and every [Knowledges](#knowledges)    
 And then Grab the warpdrive in game get to the Vessel and Warp to the eye.  
 For a more detailed requirement check [Here](#needed-for-go-mode).
+### Standard(DLC) or Prisoner(DLC required)
+You need to get to the Prisoner, your victory is when you join the prisoner in the river.  
+to get there you'll need a combo of [DLC Knowledges](#dlcknowledges) and some way to get to the Subterranean Lake
+### Ash Twin Project Break Spacetime
+At minimum you need to have both seen and received the warpdrive and Teleport [Knowledges](#knowledges)  
+then get in the Ash Twin Project and break SpaceTime thats all there is to it
+### High Energy Lab Break Spacetime
+At minimum you need to have "Signal > distress", the scout and Signaloscope  
+then get in the High Energy Lab and break SpaceTime thats all there is to it
+### Visit All Archive(DLC required)
+Basically to win this one you need access to all the Stranger's Forbbiden Archives and then  
+do the Ghosts in the Machine achivement aka Reach all 3 Forbidden Archives in a single loop without getting caught.
 
 ## Which items can be in another player's world?
-Most item can be in another player'S world except for all the "Seen X" items and 3 random local item that are not traps.
+Most item can be in another player's world except for all the "Seen X" items or the "Visited Y" items  
+3 random local item that are not traps are set but they can be disabled using the no local compatible option.
 
 ## What if I have items, unlocks, or locations that I'd like to not have randomized?
 It's all manual. Just exclude them from either the item or location list. 
 
 ## How do I install the mod for a Manual game?
-There is no mandatory mods for this game. For more info look at the <a href="../../../tutorial/Manual_OuterWilds_Nicopopxd/setup/en"> setup guide</a>.
+There is no mandatory mods for this game. For more info look at the <a href="../../../tutorial/Manual_OuterWildsDLC_Nicopopxd/setup/en">setup guide</a>.
 
 ## Game Troubleshooting
 
@@ -42,6 +58,7 @@ In doubts look at the items :
 
 #### Needed for GO mode
 
+#### Base game and Eye goal items:
 - "Coords to the eye" in the "Need For End" category 
 - "Warp drive" in the "Need For End" category
 - "Seen Coords" in the "Visits" category
@@ -50,6 +67,14 @@ In doubts look at the items :
 - "Scout" in the "Tools" category
 - "Signal > Distress" in the "Signal" category
 - All the [Knowledges](#knowledges)
+#### DLC items:
+- "Stranger Presence Knowledge"
+- "DreamWorld Knowledge"
+-  "DreamWorld Render Glitch Knowledge" + "DreamWorld Death Glitch Knowledge" + "DreamWorld Loading Glitch Knowledge"
+   - but the last 2 can be replaced by "EYE > Progressive Datamined Sealed Vault Code" 2 and 3
+- and one of the mutiple way to get to the Subterranean Lake:
+  - "EYE > Submerge Structure flame access"
+  - or any other flame + any item required to get to their boat access + "DreamWorld Loading Glitch Knowledge"
 
 #### Knowledges  
 
@@ -57,7 +82,20 @@ In doubts look at the items :
 - "Jellyfish Knowledge"
 - "Teleporter Knowledge"
 - "Anglerfish Knowledge"
- 
+
+#### DLCknowledges
+
+- "Stranger Presence Knowledge"
+- "DreamWorld Knowledge"
+- "DreamWorld Loading Glitch Knowledge"
+- "DreamWorld Render Glitch Knowledge"
+- "DreamWorld Death Glitch Knowledge"
+- "DreamWorld Grabbing Hand Knowledge"
+- "DreamWorld Door Candle Knowledge"
+- "DreamWorld Fake Fireplace Knowledge"
+- "DreamWorld Fake Wall Knowledge"
+- "DreamWorld Hidden Hand Knowledge"
+
 #### Tools   
 
 - "Launch Codes" in the "Tools" category
@@ -265,13 +303,43 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 - "Find the frozen shuttle's log on the Interloper"
 
 #### End Game
+***Depend on the goal you choose***  
 
-- "FINAL > Get the warp drive to the vessel and Warp to the Eye",
-    - **Region**: [Dark Bramble](#dark-bramble),
-    - requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive",  
+**[Standard(Base Game) or Eye](#standard\(base-game-and-both\)-or-eye)**
+- "FINAL > Get the warp drive to the vessel and Warp to the Eye"
+    - **Region**: [Dark Bramble](#dark-bramble)
+    - requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive"
     "Signaloscope", "Signal > Distress", "Scout"
-    - Always contain: "1 beautiful campfire song"
-- "VICTORY! (seed finished)",
-    - **Region**: [Dark Bramble](#dark-bramble),
-    - requires: "1 beautiful campfire song",
+    - Always contain: "Victory"  
+
+**[Standard(DLC) or Prisoner](#standard\(dlc\)-or-prisoner\(dlc-required\))**
+- "94 - Communicate with the prisoner in the Subterranean Lake Dream"
+    - **Region**: Subterranean Lake,
+    - requires: Seen Prisoner
+    - AKA (|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|)  
+      or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge|  
+      and |DreamWorld Death Glitch Knowledge|)
+
+**[Visit all Archives](#visit-all-archive(dlc-required))**
+- "9 - In a loop visit all 3 archive without getting caught"
+    - **Region**: DreamWorld General
+    - requires: "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|"
+    - category: "9 - DreamWorld General"
+
+**[Ash Twin Project Break Spacetime](#ash-twin-project-break-spacetime)**
+- "1 - Break Space-Time in the Ash Twin Project"
+    - **Region**: [Space](#space)
+    - category: "1 - Ash Twin"
+    - requires: "|Seen WarpDrive| and |Warp drive|"
+    - Seen WarpDrive requires "Teleport Knownledge"
+    
+**[High Energy Lab Break Spacetime](#high-energy-lab-break-spacetime)**
+- "1 - Break space time in the lab",
+    - **Region**: [Space](#space)
+    - category: "1 - Ember Twin"
+    - requires: "|Signaloscope| and |Signal > Distress| and |Scout|"
+    
+- "VICTORY! (seed finished)"
+    - **Region**: [Space](#space)
+    - requires: "Victory"
     - "victory": true
