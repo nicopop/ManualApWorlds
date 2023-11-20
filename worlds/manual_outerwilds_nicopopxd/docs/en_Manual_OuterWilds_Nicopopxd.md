@@ -1,4 +1,4 @@
-# Outer Wilds Archipelago Manual Randomizer Guide
+﻿# Outer Wilds Archipelago Manual Randomizer Guide
 <p align="center">
     <img alt="OuterWilds Logo"
      src="https://upload.wikimedia.org/wikipedia/fr/thumb/d/dc/Outer_Wilds_Logo.png/800px-Outer_Wilds_Logo.png?20190112131250"
@@ -45,10 +45,11 @@ Most item can be in another player's world except for all the "Seen X" items or 
 3 random local item that are not traps are set but they can be disabled using the no local compatible option.
 
 ## What if I have items, unlocks, or locations that I'd like to not have randomized?
-It's all manual. Just exclude them from either the item or location list. 
+It's all manual. Just exclude them from either the item or location list. Just make sure not to exclude items
+that starts with either "seen X" or "Visited X" and do not exclude the location that give those
 
 ## How do I install the mod for a Manual game?
-There is no mandatory mods for this game. For more info look at the <a href="../../../tutorial/Manual_OuterWildsDLC_Nicopopxd/setup/en">setup guide</a>.
+There is no mandatory mods for this game. For more info look at the <a href="../../../tutorial/Manual_OuterWilds_Nicopopxd/setup/en#base-game-mods">setup guide</a>.
 
 ## Game Troubleshooting
 
@@ -58,7 +59,7 @@ In doubts look at the items :
 
 #### Needed for GO mode
 
-#### Base game and Eye goal items:
+##### Base game and Eye goal items:
 - "Coords to the eye" in the "Need For End" category 
 - "Warp drive" in the "Need For End" category
 - "Seen Coords" in the "Visits" category
@@ -67,7 +68,7 @@ In doubts look at the items :
 - "Scout" in the "Tools" category
 - "Signal > Distress" in the "Signal" category
 - All the [Knowledges](#knowledges)
-#### DLC items:
+##### DLC goal items:
 - "Stranger Presence Knowledge"
 - "DreamWorld Knowledge"
 -  "DreamWorld Render Glitch Knowledge" + "DreamWorld Death Glitch Knowledge" + "DreamWorld Loading Glitch Knowledge"
@@ -137,10 +138,16 @@ In doubts look at the items :
 
 #### Visits
 
+#### Base game Visits
 - "Seen Coords"
 - "Seen WarpDrive"
 - "Seen Solanum"
-
+#### DLC Visits
+- "Seen Prisoner"
+- "Visited CodeVault"
+- "Visited Shrouded Woodlands Archive
+- "Visited Starlit Cove Archive"
+- "Visited Endless Canyon Archive"
 ### Regions
 
 (think of those like super category that have item requirements before you can do any location in them)
