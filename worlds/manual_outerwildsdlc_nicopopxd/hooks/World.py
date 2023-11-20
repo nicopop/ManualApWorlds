@@ -100,7 +100,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     removelocations = []
 
-    if randomContent != RandomContent.option_both or reducedSpooks:
+    if randomContent != RandomContent.option_both or reducedSpooks or no_place_item_category :
         fname = os.path.join("..", "data", "dlc.json")
         dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
 

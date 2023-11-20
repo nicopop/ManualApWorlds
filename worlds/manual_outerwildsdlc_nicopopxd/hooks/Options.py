@@ -87,7 +87,7 @@ def before_options_defined(options: dict) -> dict:
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    options["reduced_spooks"] = ReducedSpooks
+    #options["reduced_spooks"] = ReducedSpooks
     options["no_place_item_category"] = NoLocalItems
     options["randomized_content"] = RandomContent
     options["goal"] = Goal
