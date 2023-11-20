@@ -170,11 +170,7 @@
   },
   "reduce_spooks": {
     "items": [],
-    "locations": [
-      "6 - Land on the Quantum moon",
-      "6 - Visit Solanum",
-      "6 - Communicate with Solanum"
-    ]
+    "locations": []
   },
   "no_place_item_category": {
     "items": [],
