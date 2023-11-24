@@ -61,9 +61,9 @@ class RandomContent(Choice):
 
 class Goal(Choice):
     """Where do you want to end,
-    Standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
-    Eye: Will require going to the eye.
-    Prisoner: Will end after talking to the prisonner
+    standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
+    eye: Will require going to the eye.
+    prisoner: Will end after talking to the prisonner
     visit_all_archive: Will End by visiting all the archive in a single loop without being caught
     ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.
     high_energy_lab_break_spacetime: Require going to the high energy lab and break spacetime there.

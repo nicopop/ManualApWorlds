@@ -10,7 +10,8 @@
       "Meditation",
       "Landing Camera",
       "forced Meditation",
-      "Musical Instrument"
+      "Musical Instrument",
+      "Ticket for (1) free death"
     ],
     "locations": [
       "'Learn' the Launch Codes in the observatory",
@@ -24,6 +25,8 @@
       "01 - Knock the deepspace satelite out of orbit",
       "2 - Visit the Radio Station and get it's signal",
       "2 - Play Hide and seek with the kids",
+      "FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon",
+      "FINAL > Get the warp drive to the vessel and Warp to the Eye",
       "Credits",
       "__Manual Game Complete__"
     ]
@@ -112,7 +115,9 @@
       "94 - Disable the second lock on the vault",
       "94 - Disable the third lock on the vault",
       "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
-      "94 - Communicate with the prisoner in the Subterranean Lake Dream"
+      "94 - Communicate with the prisoner in the Subterranean Lake Dream",
+      "FINAL > Get the warp drive to the Stranger and wait until Credits",
+      "FINAL > Get the warp drive to the Stranger and die to get in the dreamworld"
     ]
   },
   "victory_eye": {

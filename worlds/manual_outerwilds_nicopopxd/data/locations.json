@@ -373,17 +373,17 @@
 	{
 		"name": "FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon",
 		"region": "Quantum Trials",
-		"requires": "|Warp drive| and |Teleporter Knowledge| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|"
+		"requires": "|Warp drive| and |Seen WarpDrive| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|"
 	},
 	{
 		"name": "FINAL > Get the warp drive to the Stranger and wait until Credits",
 		"region": "The Stranger",
-		"requires": "|Warp drive| and |Teleporter Knowledge|"
+		"requires": "|Warp drive| and |Seen WarpDrive|"
 	},
 	{
 		"name": "FINAL > Get the warp drive to the Stranger and die to get in the dreamworld",
 		"region": "DreamWorld General",
-		"requires": "|Warp drive| and |Teleporter Knowledge|"
+		"requires": "|Warp drive| and |Seen WarpDrive|"
 	},
 
 	{

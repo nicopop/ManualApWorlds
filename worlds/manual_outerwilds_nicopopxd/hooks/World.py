@@ -1,5 +1,4 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
-import random
 from worlds.AutoWorld import World
 from BaseClasses import MultiWorld
 import json
@@ -59,11 +58,20 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
     if randomContent == RandomContent.option_base_game:
         owlguy = False
+        world.item_name_to_item["forced Meditation"]["count"] = 2
+        world.item_name_to_item["Musical Instrument"]["count"] = 5
+        world.item_name_to_item["Ticket for (1) free death"]["count"] = 8
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
-
+    elif randomContent == RandomContent.option_dlc:
+        world.item_name_to_item["forced Meditation"]["count"] = 3
+        world.item_name_to_item["Ticket for (1) free death"]["count"] = 7
+    if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
+        #if either only base game or only dlc
+        #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
+        multiworld.clear_location_cache()
     VictoryItemsToAdd = ""
     if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
     if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
@@ -158,13 +166,13 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 message += " plus High Energy Lab"
             elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
                 valid_items +=  dlc_data["need_warpdrive"]["items"]
-                valid_locations += dlc_data["need_warpdrive"]["items"]
+                valid_locations += dlc_data["need_warpdrive"]["locations"]
                 message += " plus Warp Drive"
             elif goal == Goal.option_stuck_with_solanum:
                 valid_items +=  dlc_data["need_warpdrive"]["items"]
-                valid_locations += dlc_data["need_warpdrive"]["items"]
+                valid_locations += dlc_data["need_warpdrive"]["locations"]
                 message += " plus Warp Drive"
-                solanum = True # so it doesnt add the items a second time
+                solanum = True
             if solanum:
                 valid_items += dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["require_solanum"]["locations"]
