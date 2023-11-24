@@ -64,27 +64,7 @@ from Cython.Build import cythonize
 # On  Python < 3.10 LogicMixin is not currently supported.
 non_apworlds: set = {
     "A Link to the Past",
-    "Adventure",
-    "ArchipIDLE",
-    "Archipelago",
-    "ChecksFinder",
-    "Clique",
-    "DLCQuest",
-    "Final Fantasy",
-    "Hylics 2",
-    "Kingdom Hearts 2",
-    "Lufia II Ancient Cave",
-    "Meritous",
-    "Ocarina of Time",
-    "Overcooked! 2",
-    "Raft",
-    "Secret of Evermore",
-    "Slay the Spire",
-    "Sudoku",
-    "Super Mario 64",
-    "VVVVVV",
-    "Wargroove",
-    "Zillion",
+    "Archipelago"
 }
 
 # LogicMixin is broken before 3.10 import revamp
