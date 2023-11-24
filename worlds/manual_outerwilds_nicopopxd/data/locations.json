@@ -208,20 +208,20 @@
 		"name": "1 - Visit > Get in the Ash Twin Project",
 		"region": "Space",
 		"requires": [ "Teleporter Knowledge" ],
-		"place_item": [ "Seen WarpDrive" ]
+		"place_item": [ "Seen Adv. warp core" ]
 	},
 	{
 		"name": "1 - Item > Get in the Ash Twin Project",
 		"region": "Space",
 		"category": [ "1 - Ash Twin" ],
-		"requires": [ "Seen WarpDrive" ],
+		"requires": [ "Seen Adv. warp core" ],
 		"place_item_category": [ "2a Not Trap" ]
 	},
 	{
 		"name": "1 - Break Space-Time in the Ash Twin Project",
 		"region": "Space",
 		"category": [ "1 - Ash Twin" ],
-		"requires": "|Seen WarpDrive| and |Warp drive|"
+		"requires": "|Seen Adv. warp core| and |Adv. warp core|"
 	},
 	{
 		"name": "1 - Get to the sun station",
@@ -365,25 +365,25 @@
 	},
 
 	{
-		"name": "FINAL > Get the warp drive to the vessel and Warp to the Eye",
+		"name": "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
 		"region": "Dark Bramble",
 		"requires": "|@1 Need For End:7| and |@4a Knowledge:4|",
 		"place_item": [ "Victory" ]
 	},
 	{
-		"name": "FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon",
+		"name": "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
 		"region": "Quantum Trials",
-		"requires": "|Warp drive| and |Seen WarpDrive| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|"
 	},
 	{
-		"name": "FINAL > Get the warp drive to the Stranger and wait until Credits",
+		"name": "FINAL > Get the Adv. warp core to the Stranger and wait until Credits",
 		"region": "The Stranger",
-		"requires": "|Warp drive| and |Seen WarpDrive|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core|"
 	},
 	{
-		"name": "FINAL > Get the warp drive to the Stranger and die to get in the dreamworld",
+		"name": "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld",
 		"region": "DreamWorld General",
-		"requires": "|Warp drive| and |Seen WarpDrive|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core|"
 	},
 
 	{

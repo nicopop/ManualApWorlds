@@ -6,7 +6,7 @@
         "category": [ "1 Need For End", "2a Not Trap" ]
     },
     {
-        "name": "Warp drive",
+        "name": "Adv. warp core",
         "progression": true,
         "count": 1,
         "category": [ "1 Need For End", "2a Not Trap" ]
@@ -155,7 +155,7 @@
         "category": [ "Visits", "1 Need For End" ]
     },
     {
-        "name": "Seen WarpDrive",
+        "name": "Seen Adv. warp core",
         "progression": true,
         "category": [ "Visits", "1 Need For End" ]
     },

@@ -25,8 +25,8 @@
       "01 - Knock the deepspace satelite out of orbit",
       "2 - Visit the Radio Station and get it's signal",
       "2 - Play Hide and seek with the kids",
-      "FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon",
-      "FINAL > Get the warp drive to the vessel and Warp to the Eye",
+      "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
+      "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
       "Credits",
       "__Manual Game Complete__"
     ]
@@ -116,16 +116,16 @@
       "94 - Disable the third lock on the vault",
       "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
       "94 - Communicate with the prisoner in the Subterranean Lake Dream",
-      "FINAL > Get the warp drive to the Stranger and wait until Credits",
-      "FINAL > Get the warp drive to the Stranger and die to get in the dreamworld"
+      "FINAL > Get the Adv. warp core to the Stranger and wait until Credits",
+      "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
     ]
   },
   "victory_eye": {
     "items": [
       "Coords to the eye",
       "Seen Coords",
-      "Warp drive",
-      "Seen WarpDrive",
+      "Adv. warp core",
+      "Seen Adv. warp core",
       "Signal > Distress",
       "Tornado Knowledge",
       "Jellyfish Knowledge",
@@ -133,7 +133,7 @@
       "Teleporter Knowledge"
     ],
     "locations": [
-      "FINAL > Get the warp drive to the vessel and Warp to the Eye",
+      "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
       "4 - Get in the Probe Tracking Module",
       "4 - See the Coords to the eye",
       "1 - Visit > Get in the Ash Twin Project",
@@ -142,8 +142,8 @@
   },
   "need_warpdrive": {
     "items": [
-      "Warp drive",
-      "Seen WarpDrive",
+      "Adv. warp core",
+      "Seen Adv. warp core",
       "Teleporter Knowledge"
     ],
     "locations": [
@@ -153,8 +153,8 @@
   },
   "victory_ash_twin_project_break_spacetime": {
     "items": [
-      "Warp drive",
-      "Seen WarpDrive",
+      "Adv. warp core",
+      "Seen Adv. warp core",
       "Teleporter Knowledge"
     ],
     "locations": [

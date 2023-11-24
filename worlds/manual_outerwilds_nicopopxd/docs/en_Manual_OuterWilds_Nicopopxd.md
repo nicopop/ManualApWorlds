@@ -24,14 +24,14 @@ For now, everything in the "0 - Beginning" category can be accessed from the sta
 ## What is the goal of a Manual game when randomized?
 Depend on what you choose:
 ### Standard(Base Game and both) or Eye
-At minimum you need to have both seen and received the warpdrive and Coords for the eye and every [Knowledges](#knowledges)    
-And then Grab the warpdrive in game get to the Vessel and Warp to the eye.  
+At minimum you need to have both seen and received the Adv. Warp Core and Coords for the eye and every [Knowledges](#knowledges)    
+And then Grab the Adv. Warp Core in game get to the Vessel and Warp to the eye.  
 For a more detailed requirement check [Here](#needed-for-go-mode).
 ### Standard(DLC) or Prisoner(DLC required)
 You need to get to the Prisoner, your victory is when you join the prisoner in the river.  
 to get there you'll need a combo of [DLC Knowledges](#dlcknowledges) and some way to get to the Subterranean Lake
 ### Ash Twin Project Break Spacetime
-At minimum you need to have both seen and received the warpdrive and Teleport [Knowledges](#knowledges)  
+At minimum you need to have both seen and received the Adv. Warp Core and Teleport [Knowledges](#knowledges)  
 then get in the Ash Twin Project and break SpaceTime thats all there is to it
 ### High Energy Lab Break Spacetime
 At minimum you need to have "Signal > distress", the scout and Signaloscope  
@@ -61,9 +61,9 @@ In doubts look at the items :
 
 ##### Base game and Eye goal items:
 - "Coords to the eye" in the "Need For End" category 
-- "Warp drive" in the "Need For End" category
+- "Adv. warp core" in the "Need For End" category
 - "Seen Coords" in the "Visits" category
-- "Seen WarpDrive" in the "Visits" category
+- "Seen Adv. warp core" in the "Visits" category
 - "Signaloscope" in the "Tools" and "Signal" categories
 - "Scout" in the "Tools" category
 - "Signal > Distress" in the "Signal" category
@@ -140,7 +140,7 @@ In doubts look at the items :
 
 #### Base game Visits
 - "Seen Coords"
-- "Seen WarpDrive"
+- "Seen Adv. warp core"
 - "Seen Solanum"
 #### DLC Visits
 - "Seen Prisoner"
@@ -189,7 +189,7 @@ In doubts here are the locations and their respective requirements:
 
 - "Visit > Get in the Ash Twin Project"
     - requires: "Teleporter Knowledge" 
-    - Always contain: "**[Seen WarpDrive](#visits)**"
+    - Always contain: "**[Seen Adv. warp core](#visits)**"
 - "Item > Get in the Ash Twin Project"
     - requires: "Teleporter Knowledge" 
 - "Get to the sun station"
@@ -313,9 +313,9 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 ***Depend on the goal you choose***  
 
 **[Standard(Base Game) or Eye](#standard\(base-game-and-both\)-or-eye)**
-- "FINAL > Get the warp drive to the vessel and Warp to the Eye"
+- "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
     - **Region**: [Dark Bramble](#dark-bramble)
-    - requires: "Coords to the eye", "Seen Coords", "Warp drive", "Seen WarpDrive"
+    - requires: "Coords to the eye", "Seen Coords", "Adv. warp core", "Seen Adv. warp core"
     "Signaloscope", "Signal > Distress", "Scout"
     - Always contain: "Victory"  
 
@@ -337,8 +337,8 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 - "1 - Break Space-Time in the Ash Twin Project"
     - **Region**: [Space](#space)
     - category: "1 - Ash Twin"
-    - requires: "|Seen WarpDrive| and |Warp drive|"
-    - Seen WarpDrive requires "Teleport Knownledge"
+    - requires: "|Seen Adv. warp core| and |Adv. warp core|"
+    - Seen Adv. warp core requires "Teleport Knownledge"
     
 **[High Energy Lab Break Spacetime](#high-energy-lab-break-spacetime)**
 - "1 - Break space time in the lab",

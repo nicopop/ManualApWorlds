@@ -67,9 +67,9 @@ class Goal(Choice):
     visit_all_archive: Will End by visiting all the archive in a single loop without being caught
     ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.
     high_energy_lab_break_spacetime: Require going to the high energy lab and break spacetime there.
-    stuck_with_solanum: Get the warpdrive to Solanum and wait for Credits.
-    stuck_in_stranger: Get the warpdrive to the Stranger and wait for Credits.
-    stuck_in_dream: Get the warpdrive to the Stranger and die to get to the Dreamworld.
+    stuck_with_solanum: Get the Adv. warp core to Solanum and wait for Credits.
+    stuck_in_stranger: Get the Adv. warp core to the Stranger and wait for Credits.
+    stuck_in_dream: Get the Adv. warp core to the Stranger and die to get to the Dreamworld.
     """
     display_name = "Goal"
     option_standard = 0
