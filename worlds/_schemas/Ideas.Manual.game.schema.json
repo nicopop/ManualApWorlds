@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "game": {
+            "description": "The name of your game, compatible with capital letters.",
+            "type": "string"
+        },
+        "player": {
+            "description": "Your Username.",
+            "type": "string"
+        },
+        "filler_item_name": {
+            "description": "Name of the filler items that get placed when there's no more real items to place.",
+            "type": "string"
+        },
+        "WIP Tutorials": {
+            "description": "(Optional) list of guides for your apworld",
+            "type": "array",
+            "items":
+            {
+              "$ref": "#/definitions/Tutorial"
+            }
+        },
+        "WIP TutorialReplaceDefault":{
+            "type": "boolean",
+            "description": "(Optional) Do you want to replace the default guides from Manual"
+        },
+        "WIP TutorialsTheme":{
+            "description": "(Optional) Change the background on the webhost.",
+            "type":"string",
+            "enum": ["dirt", "grass", "grassFlowers", "ice", "jungle", "ocean", "partyTime", "stone"]
+        }
+    },
+    "required":["game", "player", "filler_item_name"],
+    "definitions": {
+        "Tutorial": {
+            "type": "object",
+            "properties": 
+            {
+                "Title":{
+                    "description": "The name of your Tutorial, compatible with capital letters.",
+                    "type":"string"
+                },
+                "Description": {
+                    "description": "A description of your Tutorial.",
+                    "type":"string"
+                },
+                "LanguageFull": {
+                    "description": "In what language is your tutorial?",
+                    "type":"string"
+                },
+                "FileName": {
+                    "description": "the File name of your tutorial, Extention included (example.md)",
+                    "type":"string"
+                },
+                "FilePath": {
+                    "description": "the Web path to your tutorial, usually 'setup/en' where en is the letters representing your language",
+                    "type": "string"
+                },
+                "Authors": {
+                    "description": "List of People that worked on this tutorial",
+                    "type":"array",
+                    "items":{
+                      "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
