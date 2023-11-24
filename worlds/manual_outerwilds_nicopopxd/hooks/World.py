@@ -77,7 +77,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
     if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the vessel and Warp to the Eye"]
+        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"]
         victory_name = "Eye"
     elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
         victory_location = world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]
@@ -92,13 +92,13 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
         victory_location = world.location_name_to_location["1 - Break space time in the lab"]
         victory_name = "High Energy Lab"
     elif goal == Goal.option_stuck_with_solanum:
-        victory_location = world.location_name_to_location["FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon"]
+        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"]
         victory_name = "Stuck with Solanum"
     elif goal == Goal.option_stuck_in_stranger:
-        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the Stranger and wait until Credits"]
+        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the Stranger and wait until Credits"]
         victory_name = "Stuck in Stranger"
     elif goal == Goal.option_stuck_in_dream:
-        victory_location = world.location_name_to_location["FINAL > Get the warp drive to the Stranger and die to get in the dreamworld"]
+        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"]
         victory_name = "Stuck in Dreamworld"
     victory_location['place_item'] = ["Victory"]
     victory_location['requires'] += VictoryItemsToAdd
@@ -167,11 +167,11 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
                 valid_items +=  dlc_data["need_warpdrive"]["items"]
                 valid_locations += dlc_data["need_warpdrive"]["locations"]
-                message += " plus Warp Drive"
+                message += " plus Adv. warp core"
             elif goal == Goal.option_stuck_with_solanum:
                 valid_items +=  dlc_data["need_warpdrive"]["items"]
                 valid_locations += dlc_data["need_warpdrive"]["locations"]
-                message += " plus Warp Drive"
+                message += " plus Adv. warp core"
                 solanum = True
             if solanum:
                 valid_items += dlc_data["require_solanum"]["items"]
@@ -193,18 +193,18 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             multiworld.clear_location_cache()
 
     if goal != Goal.option_stuck_with_solanum:
-        removelocations.append("FINAL > Get the warp drive and get stuck with Solanum on the Quantum Moon")
+        removelocations.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
     if goal != Goal.option_stuck_in_stranger:
-        removelocations.append("FINAL > Get the warp drive to the Stranger and wait until Credits")
+        removelocations.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
     if goal != Goal.option_stuck_in_dream:
-        removelocations.append("FINAL > Get the warp drive to the Stranger and die to get in the dreamworld")
+        removelocations.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
 
     if reducedSpooks:
         removelocations += dlc_data["reduce_spooks"]["locations"]
         #do stuff to reduce spook like change requires of some locations
 
     if ((goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)):
-        removelocations.append("FINAL > Get the warp drive to the vessel and Warp to the Eye")
+        removelocations.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
 
     if len(removelocations) > 0:
         for region in multiworld.regions:

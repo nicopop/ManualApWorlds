@@ -84,7 +84,7 @@
     <Compile Include="worlds\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Players\OuterWildsEye.yaml" />
+    <Content Include="Players\OuterWilds.yaml" />
     <Content Include="requirements.txt" />
     <Content Include="test\programs\data\OnePlayer\test.yaml" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\dlc.json" />
