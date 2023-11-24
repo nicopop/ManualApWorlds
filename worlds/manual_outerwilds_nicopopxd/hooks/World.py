@@ -114,17 +114,17 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
     reducedSpooks = get_option_value(multiworld, player, "reduced_spooks") or False
-    no_place_item_category = get_option_value(multiworld, player, "no_place_item_category") or False
+    do_place_item_category = get_option_value(multiworld, player, "do_place_item_category") or True
     randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
     removelocations = []
 
-    if randomContent != RandomContent.option_both or reducedSpooks or no_place_item_category :
+    if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
         fname = os.path.join("..", "data", "dlc.json")
         dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
 
-    if no_place_item_category:
+    if not do_place_item_category:
         for region in multiworld.regions:
                 if region.player != player:
                     continue
