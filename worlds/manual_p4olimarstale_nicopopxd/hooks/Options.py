@@ -7,7 +7,7 @@ from ..Helpers import is_option_enabled, get_option_value
 
 
 ####################################################################
-# NOTE: At the time that options are created, Manual has no concept of the multiworld or its own world. 
+# NOTE: At the time that options are created, Manual has no concept of the multiworld or its own world.
 #       Options are defined before the world is even created.
 #
 # Example of creating your own option:
@@ -22,18 +22,13 @@ from ..Helpers import is_option_enabled, get_option_value
 # Then, to see if the option is set, you can call is_option_enabled or get_option_value.
 #####################################################################
 
-
-class TotalCharactersToWinWith(Range):
-    """Instead of having to beat the game with all characters, you can limit locations to a subset of character victory locations."""
-    display_name = "Number of characters to beat the game with before victory"
-    range_start = 10
-    range_end = 50
-    default = 50
-
+class ApWorldVersion(FreeText):
+    """Do not change this, it will get set to the apworld version"""
+    display_name = "Game Version (Detected)"
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
-    options["total_characters_to_win_with"] = TotalCharactersToWinWith
+    options["game_version"] = ApWorldVersion
 
     return options
 

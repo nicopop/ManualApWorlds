@@ -10,7 +10,7 @@ from ..Locations import ManualLocation
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-
+from ..Game import game_name
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
 
@@ -31,6 +31,15 @@ from ..Helpers import is_option_enabled, get_option_value
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
+    if 'version' in game_table:
+        apworldversion = game_table['version']
+        if apworldversion != "":
+            print(f"Includes {game_name} version: {apworldversion}")
+            multiworld.game_version[player].value = apworldversion
+        else:
+            multiworld.game_version[player].value = "Unknown"
+    else:
+        multiworld.game_version[player].value = "Unknown"
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information.
@@ -61,7 +70,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     # # remove any items that have been added that don't have those item names
     # item_pool = [item for item in item_pool if item.name in character_names]
-    
+
     # # remove any locations that have been added that aren't for those items
     # world.location_id_to_name = {id: name for (id, name) in world.location_id_to_name.items() if name.replace("Beat the Game - ", "") in character_names}
     # world.location_name_to_id = {name: id for (id, name) in world.location_id_to_name.items()}
@@ -69,7 +78,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     # # remove the locations above from the multiworld as well
     # multiworld.clear_location_cache()
-    
+
     # for region in multiworld.regions:
     #     locations_to_remove_from_region = []
 
@@ -78,8 +87,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     #             locations_to_remove_from_region.append(location)
 
     #     for location in locations_to_remove_from_region:
-    #         region.locations.remove(location)
-                
+    # #        region.locations.remove(location)
+
     # # modify the victory requirements to only include items that are in the item names list
     # victory_location = multiworld.get_location("__Manual Game Complete__", player)
     # victory_location.access_rule = lambda state, items=character_names, p=player: state.has_all(items, p)

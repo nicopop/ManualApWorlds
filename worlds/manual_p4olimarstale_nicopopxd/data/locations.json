@@ -162,7 +162,7 @@
 	},
 
 	{
-		"name": "BA Reinforced Wall Destroyed",
+		"name": "BA Reinforced Wall Destroyed 2",
 		"category": [ "Blossoming Arcadia" ],
 		"region": "Blossoming Arcadia",
 		"requires": "Bombs"
@@ -246,6 +246,94 @@
 		"category": [ "Blossoming Arcadia" ],
 		"requires": [],
 		"place_item": [ "Treasure" ]
+	},
+
+
+	{
+		"name": "SS tmp 1",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 2",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 3",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 4",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 5",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 6",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "SS tmp 7",
+		"region": "Serene Shores",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+
+
+	{
+		"name": "HH tmp 1",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 2",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 3",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 4",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 5",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 6",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
+	},
+	{
+		"name": "HH tmp 7",
+		"region": "Hero's Hideaway",
+		"category": [ "Serene Shores" ],
+		"requires": []
 	},
 
 	{
