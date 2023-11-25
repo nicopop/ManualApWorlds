@@ -38,8 +38,13 @@ from ..Helpers import is_option_enabled, get_option_value
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     if 'version' in game_table:
         apworldversion = game_table['version']
-    if apworldversion != "":
-        print(f"Includes {game_name} version: {apworldversion}")
+        if apworldversion != "":
+            print(f"Includes {game_name} version: {apworldversion}")
+            multiworld.game_version[player].value = apworldversion
+        else:
+            multiworld.game_version[player].value = "Unknown"
+    else:
+        multiworld.game_version[player].value = "Unknown"
     pass
 
 # Called after regions and locations are created, in case you want to see or modify that information.
@@ -280,12 +285,4 @@ def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld,
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
-    if 'version' in game_table:
-        version = game_table["version"]
-        if version != "":
-            multiworld.game_version[player].value = version
-        else:
-            multiworld.game_version[player].value = "Unknown"
-    else:
-        multiworld.game_version[player].value = "Unknown"
     return slot_data
