@@ -6,7 +6,7 @@
     <ProjectGuid>{cfbcb35e-b64b-43ad-a436-f340cfdc0dde}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>Generate.py</StartupFile>
-    <SearchPath>worlds\manual_p4olimarstale_nicopopxd</SearchPath>
+    <SearchPath>worlds\manual_pikmin4olimar_nicopopxd</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
@@ -62,23 +62,23 @@
     <Compile Include="test\__init__.py" />
     <Compile Include="Utils.py" />
     <Compile Include="WebHost.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Data.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\DataValidation.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Game.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Helpers.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\Data.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\Items.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\Locations.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\Options.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\Regions.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\World.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\hooks\__init__.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Items.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Locations.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Options.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Regions.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\Rules.py" />
-    <Compile Include="worlds\manual_p4olimarstale_nicopopxd\__init__.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Data.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\DataValidation.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Game.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Helpers.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\Data.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\Items.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\Locations.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\Options.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\Regions.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\World.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\hooks\__init__.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Items.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Locations.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Options.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Regions.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\Rules.py" />
+    <Compile Include="worlds\manual_pikmin4olimar_nicopopxd\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Players\off\Factorio.yaml" />
@@ -140,12 +140,12 @@
     <Content Include="Players\Templates\Wargroove.yaml" />
     <Content Include="Players\Templates\Zillion.yaml" />
     <Content Include="test\programs\data\OnePlayer\test.yaml" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\data\game.json" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\data\items.json" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\data\locations.json" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\data\regions.json" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\docs\en_Manual.md" />
-    <Content Include="worlds\manual_p4olimarstale_nicopopxd\docs\setup_en.md" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\data\game.json" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\data\items.json" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\data\locations.json" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\data\regions.json" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\docs\en_Manual.md" />
+    <Content Include="worlds\manual_pikmin4olimar_nicopopxd\docs\setup_en.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Players\" />
@@ -161,10 +161,10 @@
     <Folder Include="test\webhost\" />
     <Folder Include="test\worlds\" />
     <Folder Include="worlds\" />
-    <Folder Include="worlds\manual_p4olimarstale_nicopopxd\" />
-    <Folder Include="worlds\manual_p4olimarstale_nicopopxd\data" />
-    <Folder Include="worlds\manual_p4olimarstale_nicopopxd\docs" />
-    <Folder Include="worlds\manual_p4olimarstale_nicopopxd\hooks" />
+    <Folder Include="worlds\manual_pikmin4olimar_nicopopxd\" />
+    <Folder Include="worlds\manual_pikmin4olimar_nicopopxd\data" />
+    <Folder Include="worlds\manual_pikmin4olimar_nicopopxd\docs" />
+    <Folder Include="worlds\manual_pikmin4olimar_nicopopxd\hooks" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
