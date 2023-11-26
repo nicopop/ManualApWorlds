@@ -472,6 +472,13 @@
 		"requires": [ "EYE > Secret entrance" ]
 	},
 	{
+		"name": "8 - Watch the hull anomaly slide in the Hidden Gorge",
+		"region": "The Stranger",
+		"requires": "|Scout| and |Scout Photos|",
+		"category": [ "8 - The Stranger" ]
+	},
+
+	{
 		"name": "8 - Watch the slide in the reservoir",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
