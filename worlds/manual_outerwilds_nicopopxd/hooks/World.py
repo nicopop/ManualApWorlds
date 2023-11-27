@@ -4,6 +4,7 @@ from BaseClasses import MultiWorld
 import json
 import os
 import pkgutil
+import logging
 
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
@@ -18,8 +19,7 @@ from .Options import RandomContent, Goal
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
-
-
+logger = logging.getLogger()
 
 ########################################################################################
 ## Order of method calls when the world generates:
@@ -39,7 +39,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     if 'version' in game_table:
         apworldversion = game_table['version']
         if apworldversion != "":
-            print(f"Includes {game_name} version: {apworldversion}")
+            logger.info(f"Includes {game_name} version: {apworldversion}")
             multiworld.game_version[player].value = apworldversion
         else:
             multiworld.game_version[player].value = "Unknown"
@@ -71,8 +71,9 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
     elif randomContent == RandomContent.option_dlc:
+        world.location_name_to_location["Get in ship for the first time"].pop("place_item_category", "")
         world.item_name_to_item["forced Meditation"]["count"] = 3
-        world.item_name_to_item["Ticket for (1) free death"]["count"] = 7
+        world.item_name_to_item["Ticket for (1) free death"]["count"] = 5
     if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
         #if either only base game or only dlc
         #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
@@ -107,7 +108,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
         victory_name = "Stuck in Dreamworld"
     victory_location['place_item'] = ["Victory"]
     victory_location['requires'] += VictoryItemsToAdd
-    print(f'Set the player {game_name}:{player} Victory rules to {victory_name}: "{victory_location["requires"]}"')
+    logger.info(f'Set the player {game_name}:{player} Victory rules to {victory_name}: "{victory_location["requires"]}"')
     # THX Axxroy
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
@@ -148,12 +149,12 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
             elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
             reducedSpooks = False
-            print("Using only base game")
+            message = "Using only base game"
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
                     item_pool.remove(item)
             removelocations += dlc_data["echoes"]["locations"]
-        if randomContent == RandomContent.option_dlc:
+        elif randomContent == RandomContent.option_dlc:
             message = "Using only DLC"
             valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
             valid_locations = dlc_data["echoes"]["locations"] + dlc_data["both"]["locations"]
@@ -182,7 +183,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 valid_items += dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["require_solanum"]["locations"]
                 message += " plus Solanum"
-            print(message)
+
             for item in list(item_pool):
                 if item.name not in valid_items:
                     item_pool.remove(item)
@@ -196,6 +197,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                         world.location_name_to_location[location.name].pop("place_item_category", "")
                         region.locations.remove(location)
             multiworld.clear_location_cache()
+
+        logger.info(message)
 
     if goal != Goal.option_stuck_with_solanum:
         removelocations.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
@@ -221,7 +224,6 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     world.location_name_to_location[location.name].pop("place_item_category", "")
                     region.locations.remove(location)
         multiworld.clear_location_cache()
-
 
 #
     ## if total_characters < 10 or total_characters > 50:
