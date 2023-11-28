@@ -158,39 +158,39 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
             elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
             reducedSpooks = False
-            message = "Using only base game"
+            message = "Base game"
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
                     item_pool.remove(item)
             locations_to_be_removed += dlc_data["echoes"]["locations"]
         elif randomContent == RandomContent.option_dlc:
-            message = "Using only DLC"
+            message = "DLC"
             valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
             valid_locations = dlc_data["echoes"]["locations"] + dlc_data["both"]["locations"]
             if goal == Goal.option_eye:
                 valid_items += dlc_data["victory_eye"]["items"]
                 valid_locations += dlc_data["victory_eye"]["locations"]
-                message += " plus Eye"
+                message += " + Eye"
             elif goal == Goal.option_ash_twin_project_break_spacetime:
                 valid_items += dlc_data["victory_ash_twin_project_break_spacetime"]["items"]
                 valid_locations += dlc_data["victory_ash_twin_project_break_spacetime"]["locations"]
-                message += " plus Ash Twin project"
+                message += " + Ash Twin project"
             elif goal == Goal.option_high_energy_lab_break_spacetime:
                 valid_items += dlc_data["victory_high_energy_lab_break_spacetime"]["items"]
                 valid_locations += dlc_data["victory_high_energy_lab_break_spacetime"]["locations"]
-                message += " plus High Energy Lab"
+                message += " + High Energy Lab"
             elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
                 valid_items +=  dlc_data["need_warpdrive"]["items"]
                 valid_locations += dlc_data["need_warpdrive"]["locations"]
-                message += " plus Adv. warp core"
+                message += " + Adv. warp core"
             elif goal == Goal.option_stuck_with_solanum:
                 valid_items +=  dlc_data["need_warpdrive"]["items"] + dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["need_warpdrive"]["locations"] + dlc_data["require_solanum"]["locations"]
-                message += " plus Adv. warp core plus Solanum"
-            if solanum:
+                message += " + Adv. warp core + Solanum"
+            if solanum and goal != Goal.option_stuck_with_solanum:
                 valid_items += dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["require_solanum"]["locations"]
-                message += " plus Solanum"
+                message += " + Solanum"
 
             for item in list(item_pool):
                 if item.name not in valid_items:
@@ -201,8 +201,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     locations_to_be_removed.append(location)
 
     else:
-        message = "Using Everything"
-    logger.info(message)
+        message = "Both"
+    #logger.info(message)
 
     if goal != Goal.option_stuck_with_solanum:
         locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
@@ -238,7 +238,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     removedlocCount += 1
         multiworld.clear_location_cache()
 
-    logger.info(f"{world.game}:{player}: {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
+    logger.info(f"{world.game}:{player}:({message}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
 
 #region replace missing items placement if needed
 
@@ -258,39 +258,39 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     readded_place_item_Count += 1
         if readded_place_item_Count > 0:
             multiworld.clear_location_cache()
-            logger.info(f"ReAdded {readded_place_item_Count} locations placed item")
+            #logger.info(f"ReAdded placed item info to {readded_place_item_Count} locations.")
 #endregion
 
 #region Placing Victory item in location
-    VictoryItemsToAdd = ""
-    if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
-    if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
+    VictoryInfoToAdd = ""
+    if solanum: VictoryInfoToAdd += " + 'Seen Solanum'"
+    if owlguy: VictoryInfoToAdd += " + 'Seen Prisoner'"
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
         victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
-        victory_message = "Eye"
+        victory_base_message = "Eye"
     elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
         victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
-        victory_message = "Prisoner"
+        victory_base_message = "Prisoner"
     elif goal == Goal.option_visit_all_archive:
         victory_name = "9 - In a loop visit all 3 archive without getting caught"
-        victory_message = "Visit all archive"
+        victory_base_message = "Visit all archive"
     elif goal == Goal.option_ash_twin_project_break_spacetime:
         victory_name = "1 - Break Space-Time in the Ash Twin Project"
-        victory_message = "Ash Twin Project"
+        victory_base_message = "Ash Twin Project"
     elif goal == Goal.option_high_energy_lab_break_spacetime:
         victory_name = "1 - Break space time in the lab"
-        victory_message = "High Energy Lab"
+        victory_base_message = "High Energy Lab"
     elif goal == Goal.option_stuck_with_solanum:
         victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
-        victory_message = "Stuck with Solanum"
+        victory_base_message = "Stuck with Solanum"
     elif goal == Goal.option_stuck_in_stranger:
         victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
-        victory_message = "Stuck in Stranger"
+        victory_base_message = "Stuck in Stranger"
     elif goal == Goal.option_stuck_in_dream:
         victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
-        victory_message = "Stuck in Dreamworld"
-    victory_location_text = world.location_name_to_location[victory_name]["requires"] + VictoryItemsToAdd
+        victory_base_message = "Stuck in Dreamworld"
+    victory_message = victory_base_message + VictoryInfoToAdd
 
     for item in item_pool:
         if item.player != player:
@@ -302,7 +302,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         if location.name == victory_name:
             location.place_locked_item(victory_item)
     item_pool.remove(victory_item)
-    logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}: "{victory_location_text}"')
+    #logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}: "{victory_location_text}"')
+    logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}')
 #endregion
     return item_pool
 
