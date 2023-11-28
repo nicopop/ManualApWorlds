@@ -144,7 +144,7 @@ class ManualWorld(World):
 
         extras = personal_locations - len(pool) - 2 # subtracting 1 because of Victory; seems right
 
-        logger.info(f"Extras: {extras}")
+        #logger.info(f"Extras: {extras}")
 
         if extras > 0:
             for i in range(0, extras):
