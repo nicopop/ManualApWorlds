@@ -455,19 +455,19 @@
 		"name": "8 - Get in the hidden Laboratory",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > hull breach entrance" ]
+		"requires": [ "EYE > Hull breach entrance" ]
 	},
 	{
 		"name": "8 - Use the prototype artifact with explosive result",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > hull breach entrance" ]
+		"requires": [ "EYE > Hull breach entrance" ]
 	},
 	{
 		"name": "8 - Watch the hidden lab's slide",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": "|Projectors Knowledge| and |EYE > hull breach entrance|"
+		"requires": "|Projectors Knowledge| and |EYE > Hull breach entrance|"
 	},
 	{
 		"name": "8 - Watch the hull anomaly slide in the Hidden Gorge",
