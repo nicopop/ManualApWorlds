@@ -133,7 +133,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
-    removelocations = []
+    locations_to_be_removed = []
 
     if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
         fname = os.path.join("..", "data", "dlc.json")
@@ -162,7 +162,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
                     item_pool.remove(item)
-            removelocations += dlc_data["echoes"]["locations"]
+            locations_to_be_removed += dlc_data["echoes"]["locations"]
         elif randomContent == RandomContent.option_dlc:
             message = "Using only DLC"
             valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
@@ -198,34 +198,34 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
             for location in list(world.location_name_to_location):
                 if location not in valid_locations:
-                    removelocations.append(location)
+                    locations_to_be_removed.append(location)
 
     else:
         message = "Using Everything"
     logger.info(message)
 
     if goal != Goal.option_stuck_with_solanum:
-        removelocations.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
     if goal != Goal.option_stuck_in_stranger:
-        removelocations.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
     if goal != Goal.option_stuck_in_dream:
-        removelocations.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
 
     if reducedSpooks:
-        removelocations += dlc_data["reduce_spooks"]["locations"]
+        locations_to_be_removed += dlc_data["reduce_spooks"]["locations"]
         #do stuff to reduce spook like change requires of some locations
-    # (goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)
+
     if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
-        removelocations.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
 
     local_valid_locations = copy(world.location_name_to_location)
     removedlocCount = 1 #victory included
-    if len(removelocations) > 0:
+    if len(locations_to_be_removed) > 0:
         for region in multiworld.regions:
             if region.player != player:
                 continue
             for location in list(region.locations):
-                if location.name in removelocations:
+                if location.name in locations_to_be_removed:
                     worldlocation = world.location_name_to_location[location.name]
                     if 'place_item' in worldlocation:
                         removedPlacedItems[location.name] = copy(worldlocation["place_item"])
