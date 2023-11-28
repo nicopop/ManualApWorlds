@@ -1,5 +1,8 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
+from worlds.generic.Rules import add_rule
+from copy import copy
+
 from BaseClasses import MultiWorld
 import json
 import os
@@ -14,12 +17,15 @@ from ..Locations import ManualLocation
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from ..Game import game_name
 from .Options import RandomContent, Goal
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
+
 logger = logging.getLogger()
+removedPlacedItems = {}
+removedPlacedItemsCategory = {}
+versionAnnounced = {}
 
 ########################################################################################
 ## Order of method calls when the world generates:
@@ -36,11 +42,14 @@ logger = logging.getLogger()
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
+    # Set version in yaml and log
     if 'version' in game_table:
         apworldversion = game_table['version']
         if apworldversion != "":
-            logger.info(f"Includes {game_name} version: {apworldversion}")
             multiworld.game_version[player].value = apworldversion
+            if len(versionAnnounced) == 0:
+                logger.info(f"player(s) uses {world.game} version: {apworldversion}")
+                versionAnnounced["checked"] = "yep :D"
         else:
             multiworld.game_version[player].value = "Unknown"
     else:
@@ -53,66 +62,66 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
-    randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    solanum = get_option_value(multiworld, player, "require_solanum") or False
-    owlguy = get_option_value(multiworld, player, "require_prisoner") or False
-    goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
-    if not (solanum or owlguy) and randomContent == RandomContent.option_both and goal == Goal.option_standard:
+    randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
+
+    if randomContent == RandomContent.option_both:
         return
 
     if randomContent == RandomContent.option_base_game:
-        owlguy = False
         world.item_name_to_item["forced Meditation"]["count"] = 2
-        world.item_name_to_item["Musical Instrument"]["count"] = 5
-        world.item_name_to_item["Ticket for (1) free death"]["count"] = 8
+        world.item_name_to_item["Musical Instrument"]["count"] = 8
+        world.item_name_to_item["Ticket for (1) free death"]["count"] = 4
+
+    elif randomContent == RandomContent.option_dlc:
+        world.location_name_to_location["Get in ship for the first time"].pop("place_item_category", "")
+
+        world.item_name_to_item["forced Meditation"]["count"] = 3
+        world.item_name_to_item["Ticket for (1) free death"]["count"] = 5
+    # if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
+        #if either only base game or only dlc
+        #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
+
+
+# Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
+def after_set_rules(world: World, multiworld: MultiWorld, player: int):
+    solanum = get_option_value(multiworld, player, "require_solanum") or False
+    owlguy = get_option_value(multiworld, player, "require_prisoner") or False
+    randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
+    goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
+
+    if randomContent == RandomContent.option_base_game:
+        owlguy = False
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
-    elif randomContent == RandomContent.option_dlc:
-        world.location_name_to_location["Get in ship for the first time"].pop("place_item_category", "")
-        world.item_name_to_item["forced Meditation"]["count"] = 3
-        world.item_name_to_item["Ticket for (1) free death"]["count"] = 5
-    if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
-        #if either only base game or only dlc
-        #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
-        multiworld.clear_location_cache()
-    VictoryItemsToAdd = ""
-    if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
-    if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"]
-        victory_name = "Eye"
+        victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
     elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
-        victory_location = world.location_name_to_location["94 - Communicate with the prisoner in the Subterranean Lake Dream"]
-        victory_name = "Prisoner"
+        victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
     elif goal == Goal.option_visit_all_archive:
-        victory_location = world.location_name_to_location["9 - In a loop visit all 3 archive without getting caught"]
-        victory_name = "Visit all archive"
+        victory_name = "9 - In a loop visit all 3 archive without getting caught"
     elif goal == Goal.option_ash_twin_project_break_spacetime:
-        victory_location = world.location_name_to_location["1 - Break Space-Time in the Ash Twin Project"]
-        victory_name = "Ash Twin Project"
+        victory_name = "1 - Break Space-Time in the Ash Twin Project"
     elif goal == Goal.option_high_energy_lab_break_spacetime:
-        victory_location = world.location_name_to_location["1 - Break space time in the lab"]
-        victory_name = "High Energy Lab"
+        victory_name = "1 - Break space time in the lab"
     elif goal == Goal.option_stuck_with_solanum:
-        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"]
-        victory_name = "Stuck with Solanum"
+        victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
     elif goal == Goal.option_stuck_in_stranger:
-        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the Stranger and wait until Credits"]
-        victory_name = "Stuck in Stranger"
+        victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
     elif goal == Goal.option_stuck_in_dream:
-        victory_location = world.location_name_to_location["FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"]
-        victory_name = "Stuck in Dreamworld"
-    victory_location['place_item'] = ["Victory"]
-    victory_location['requires'] += VictoryItemsToAdd
-    logger.info(f'Set the player {game_name}:{player} Victory rules to {victory_name}: "{victory_location["requires"]}"')
-    # THX Axxroy
+        victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
 
-# Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
-def after_set_rules(world: World, multiworld: MultiWorld, player: int):
+    for location in multiworld.get_unfilled_locations(player):
+        if location.name == victory_name:
+            if solanum:
+                add_rule(location,
+                         lambda state: state.has("Seen Solanum", player))
+            if owlguy:
+                add_rule(location,
+                         lambda state: state.has("Seen Prisoner", player))
     pass
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
@@ -120,7 +129,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     solanum = get_option_value(multiworld, player, "require_solanum") or False
     owlguy = get_option_value(multiworld, player, "require_prisoner") or False
     reducedSpooks = get_option_value(multiworld, player, "reduced_spooks") or False
-    do_place_item_category = get_option_value(multiworld, player, "do_place_item_category") or True
+    do_place_item_category = get_option_value(multiworld, player, "do_place_item_category") or False
     randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
 
@@ -129,21 +138,21 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
         fname = os.path.join("..", "data", "dlc.json")
         dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
+        # THX Axxroy
 
     if not do_place_item_category:
-        for region in multiworld.regions:
-                if region.player != player:
-                    continue
-                for location in list(dlc_data["no_place_item_category"]["locations"]):
-                    if location in world.location_name_to_location:
-                        world.location_name_to_location[location].pop("place_item_category", "")
+        for location in list(dlc_data["no_place_item_category"]["locations"]):
+            if location in world.location_name_to_location:
+                worldlocation = world.location_name_to_location[location]
+                if "place_item_category" in worldlocation:
+                    removedPlacedItemsCategory[location] = copy(worldlocation["place_item_category"])
+                    worldlocation.pop("place_item_category", "")
         multiworld.clear_location_cache()
-    #if goal != Goal
-    # if (goal == Goal.option_eye or goal == Goal.option_standard) and randomContent == RandomContent.option_both:
-    #         return item_pool
+
 
     if randomContent != RandomContent.option_both:
         if randomContent == RandomContent.option_base_game:
+            owlguy = False
             if goal == Goal.option_prisoner: goal = Goal.default #imposible option
             elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
             elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
@@ -175,10 +184,9 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 valid_locations += dlc_data["need_warpdrive"]["locations"]
                 message += " plus Adv. warp core"
             elif goal == Goal.option_stuck_with_solanum:
-                valid_items +=  dlc_data["need_warpdrive"]["items"]
-                valid_locations += dlc_data["need_warpdrive"]["locations"]
-                message += " plus Adv. warp core"
-                solanum = True
+                valid_items +=  dlc_data["need_warpdrive"]["items"] + dlc_data["require_solanum"]["items"]
+                valid_locations += dlc_data["need_warpdrive"]["locations"] + dlc_data["require_solanum"]["locations"]
+                message += " plus Adv. warp core plus Solanum"
             if solanum:
                 valid_items += dlc_data["require_solanum"]["items"]
                 valid_locations += dlc_data["require_solanum"]["locations"]
@@ -188,17 +196,13 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 if item.name not in valid_items:
                     item_pool.remove(item)
 
-            for region in multiworld.regions:
-                if region.player != player:
-                    continue
-                for location in list(region.locations):
-                    if location.name not in valid_locations:
-                        world.location_name_to_location[location.name].pop("place_item", "")
-                        world.location_name_to_location[location.name].pop("place_item_category", "")
-                        region.locations.remove(location)
-            multiworld.clear_location_cache()
+            for location in list(world.location_name_to_location):
+                if location not in valid_locations:
+                    removelocations.append(location)
 
-        logger.info(message)
+    else:
+        message = "Using Everything"
+    logger.info(message)
 
     if goal != Goal.option_stuck_with_solanum:
         removelocations.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
@@ -210,55 +214,96 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     if reducedSpooks:
         removelocations += dlc_data["reduce_spooks"]["locations"]
         #do stuff to reduce spook like change requires of some locations
-
-    if ((goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)):
+    # (goal != Goal.option_eye) and (goal != Goal.option_standard or randomContent == RandomContent.option_dlc)
+    if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
         removelocations.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
 
+    local_valid_locations = copy(world.location_name_to_location)
+    removedlocCount = 1 #victory included
     if len(removelocations) > 0:
         for region in multiworld.regions:
             if region.player != player:
                 continue
             for location in list(region.locations):
                 if location.name in removelocations:
-                    world.location_name_to_location[location.name].pop("place_item", "")
-                    world.location_name_to_location[location.name].pop("place_item_category", "")
+                    worldlocation = world.location_name_to_location[location.name]
+                    if 'place_item' in worldlocation:
+                        removedPlacedItems[location.name] = copy(worldlocation["place_item"])
+                        worldlocation.pop("place_item", "")
+                    if'place_item_category' in worldlocation:
+                        removedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
+                        worldlocation.pop("place_item_category", "")
                     region.locations.remove(location)
+                    local_valid_locations.pop(location.name, "")
+                    removedlocCount += 1
         multiworld.clear_location_cache()
 
-#
-    ## if total_characters < 10 or total_characters > 50:
-    ##     total_characters = 50
-#
-    ## # shuffle the character item names and pull a subset with a maximum for the option we provided
-    ## character_names = [name for name in world.item_names]
-    ## random.shuffle(character_names)
-    ## character_names = character_names[0:total_characters]
-#
-    ## # remove any items that have been added that don't have those item names
-    ## item_pool = [item for item in item_pool if item.name in character_names]
-    #
-    ## # remove any locations that have been added that aren't for those items
-    ## world.location_id_to_name = {id: name for (id, name) in world.location_id_to_name.items() if name.replace("Beat the Game - ", "") in character_names}
-    ## world.location_name_to_id = {name: id for (id, name) in world.location_id_to_name.items()}
-    ## world.location_names = world.location_name_to_id.keys()
-#
-    ## # remove the locations above from the multiworld as well
-    ## multiworld.clear_location_cache()
-    #
-    ## for region in multiworld.regions:
-    ##     locations_to_remove_from_region = []
-#
-    ##     for location in region.locations:
-    ##         if location.name.replace("Beat the Game - ", "") not in character_names and location.player == player:
-    ##             locations_to_remove_from_region.append(location)
-#
-    ##     for location in locations_to_remove_from_region:
-    ## #         region.locations.remove(location)
-    #
-    ## # modify the victory requirements to only include items that are in the item names list
-    ## victory_location = multiworld.get_location("__Manual Game Complete__", player)
-    ## victory_location.access_rule = lambda state, items=character_names, p=player: state.has_all(items, p)
+    logger.info(f"{world.game}:{player}: {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
 
+#region replace missing items placement if needed
+
+    readded_place_item_Count = 0
+    if len(removedPlacedItems) > 0 or len(removedPlacedItemsCategory) > 0:
+        locationstoCheck = {}
+        locationstoCheck.update(removedPlacedItems)
+        locationstoCheck.update(removedPlacedItemsCategory)
+        for location in locationstoCheck:
+            if location in local_valid_locations:
+                worldlocation = world.location_name_to_location[location]
+                if do_place_item_category and location in removedPlacedItemsCategory:
+                    worldlocation["place_item_category"] = removedPlacedItemsCategory[location]
+                if location in removedPlacedItems:
+                    worldlocation["place_item"] = removedPlacedItems[location]
+                if "place_item" in worldlocation or "place_item_category" in worldlocation:
+                    readded_place_item_Count += 1
+        if readded_place_item_Count > 0:
+            multiworld.clear_location_cache()
+            logger.info(f"ReAdded {readded_place_item_Count} locations placed item")
+#endregion
+
+#region Placing Victory item in location
+    VictoryItemsToAdd = ""
+    if solanum: VictoryItemsToAdd += " and |Seen Solanum|"
+    if owlguy: VictoryItemsToAdd += " and |Seen Prisoner|"
+
+    if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
+        victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
+        victory_message = "Eye"
+    elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
+        victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
+        victory_message = "Prisoner"
+    elif goal == Goal.option_visit_all_archive:
+        victory_name = "9 - In a loop visit all 3 archive without getting caught"
+        victory_message = "Visit all archive"
+    elif goal == Goal.option_ash_twin_project_break_spacetime:
+        victory_name = "1 - Break Space-Time in the Ash Twin Project"
+        victory_message = "Ash Twin Project"
+    elif goal == Goal.option_high_energy_lab_break_spacetime:
+        victory_name = "1 - Break space time in the lab"
+        victory_message = "High Energy Lab"
+    elif goal == Goal.option_stuck_with_solanum:
+        victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
+        victory_message = "Stuck with Solanum"
+    elif goal == Goal.option_stuck_in_stranger:
+        victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
+        victory_message = "Stuck in Stranger"
+    elif goal == Goal.option_stuck_in_dream:
+        victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
+        victory_message = "Stuck in Dreamworld"
+    victory_location_text = world.location_name_to_location[victory_name]["requires"] + VictoryItemsToAdd
+
+    for item in item_pool:
+        if item.player != player:
+            continue
+        if item.name == "Victory Token":
+            victory_item = item
+            break
+    for location in multiworld.get_unfilled_locations(player):
+        if location.name == victory_name:
+            location.place_locked_item(victory_item)
+    item_pool.remove(victory_item)
+    logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}: "{victory_location_text}"')
+#endregion
     return item_pool
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs

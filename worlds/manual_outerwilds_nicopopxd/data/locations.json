@@ -14,11 +14,6 @@
 		"region": "Tutorial",
 		"category": [ "0 - Beginning" ]
 	},
-	{
-		"name": "Land the model Ship on the large landing pad",
-		"region": "Tutorial",
-		"category": [ "0 - Beginning" ]
-	},
 
 	{
 		"name": "Get in ship for the first time",
@@ -207,6 +202,7 @@
 	{
 		"name": "1 - Visit > Get in the Ash Twin Project",
 		"region": "Space",
+		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Teleporter Knowledge" ],
 		"place_item": [ "Seen Adv. warp core" ]
 	},
@@ -367,8 +363,7 @@
 	{
 		"name": "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
 		"region": "Dark Bramble",
-		"requires": "|@1 Need For End:7| and |@4a Knowledge:4|",
-		"place_item": [ "Victory" ]
+		"requires": "|@1 Need For End:7| and |@4a Knowledge:4|"
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
@@ -390,7 +385,7 @@
 		"name": "Credits",
 		"victory": true,
 		"region": "Tutorial",
-		"requires": [ "Victory" ]
+		"requires": [ "Victory Token" ]
 	},
 
 
@@ -399,7 +394,7 @@
 		"name": "2 - Visit the Radio Station and check the photos",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace", "Stranger Presence Knowledge" ]
+		"requires": "|Stranger Presence Knowledge|"
 	},
 
 	{
@@ -441,46 +436,50 @@
 	{
 		"name": "8 - Watch a slide in River Lowlands",
 		"region": "The Stranger",
+		"requires": "|Projectors Knowledge|",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Watch a slide in Cinder Isles",
 		"region": "The Stranger",
+		"requires": "|Projectors Knowledge|",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Watch a slide in Hidden Gorge",
 		"region": "The Stranger",
+		"requires": "|Projectors Knowledge|",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
 		"name": "8 - Get in the hidden Laboratory",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > Secret entrance" ]
+		"requires": [ "EYE > hull breach entrance" ]
 	},
 	{
 		"name": "8 - Use the prototype artifact with explosive result",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > Secret entrance" ]
+		"requires": [ "EYE > hull breach entrance" ]
 	},
 	{
 		"name": "8 - Watch the hidden lab's slide",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > Secret entrance" ]
+		"requires": "|Projectors Knowledge| and |EYE > hull breach entrance|"
 	},
 	{
 		"name": "8 - Watch the hull anomaly slide in the Hidden Gorge",
 		"region": "The Stranger",
-		"requires": "|Scout| and |Scout Photos|",
+		"requires": "|Projectors Knowledge| and |Scout| and |Scout Photos|",
 		"category": [ "8 - The Stranger" ]
 	},
 
 	{
 		"name": "8 - Watch the slide in the reservoir",
 		"region": "The Stranger",
+		"requires": "|Projectors Knowledge|",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
@@ -512,16 +511,34 @@
 		"requires": [ "EYE > Progressive Slide burning room:1" ]
 	},
 	{
+		"name": "8 - Watch the Slide from the burning room in River Lowlands",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ],
+		"requires": "|Projectors Knowledge| and |EYE > Progressive Slide burning room:1|"
+	},
+	{
 		"name": "8 - Get in the hidden Slide burning room in Cinder Isles",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:2" ]
 	},
 	{
+		"name": "8 - Watch the Slide from the burning room in Cinder Isles",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ],
+		"requires": "|Projectors Knowledge| and |EYE > Progressive Slide burning room:2|"
+	},
+	{
 		"name": "8 - Get in the hidden Slide burning room in Hidden Gorge",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
 		"requires": [ "EYE > Progressive Slide burning room:3" ]
+	},
+	{
+		"name": "8 - Watch the Slide from the burning room in Hidden Gorge",
+		"region": "The Stranger",
+		"category": [ "8 - The Stranger" ],
+		"requires": "|Projectors Knowledge| and |EYE > Progressive Slide burning room:3|"
 	},
 	{
 		"name": "9 - Enter the DreamWorld",

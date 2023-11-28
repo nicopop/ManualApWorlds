@@ -12,7 +12,7 @@
         "category": [ "1 Need For End", "2a Not Trap" ]
     },
     {
-        "name": "Victory",
+        "name": "Victory Token",
         "progression": true,
         "category": [ "1 Need For End" ]
     },
@@ -57,7 +57,8 @@
     {
         "name": "Meditation",
         "count": 1,
-        "useful": true,
+        "progression": true,
+        "_comment": "marked as progression so it wont get removed if missing spaces",
         "category": [ "Bonus", "2a Not Trap" ]
     },
     {
@@ -176,6 +177,11 @@
         "category": [ "4b DLC Knowledge", "3 Echoes of the Eye", "2a Not Trap" ]
     },
     {
+        "name": "Projectors Knowledge",
+        "progression": true,
+        "category": [ "4b DLC Knowledge", "3 Echoes of the Eye", "2a Not Trap" ]
+    },
+    {
         "name": "EYE > Main entrance",
         "progression": true,
       "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ],
@@ -192,7 +198,7 @@
         "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ]
     },
     {
-        "name": "EYE > Secret entrance",
+        "name": "EYE > hull breach entrance",
         "progression": true,
         "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ]
     },

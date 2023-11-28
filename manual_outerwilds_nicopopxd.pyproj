@@ -84,7 +84,9 @@
     <Compile Include="worlds\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Players\OuterWilds.yaml" />
+    <Content Include="Players\OuterWilds 1.yaml" />
+    <Content Include="Players\tmp\OuterWilds 2.yaml" />
+    <Content Include="Players\tmp\OuterWilds 3.yaml" />
     <Content Include="requirements.txt" />
     <Content Include="test\programs\data\OnePlayer\test.yaml" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\dlc.json" />
@@ -111,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Players\" />
+    <Folder Include="Players\tmp\" />
     <Folder Include="test\" />
     <Folder Include="test\general\" />
     <Folder Include="test\programs\" />
