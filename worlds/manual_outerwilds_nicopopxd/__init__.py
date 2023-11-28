@@ -1,3 +1,4 @@
+import logging
 import random
 
 from .Data import item_table, progressive_item_table, location_table
@@ -73,6 +74,7 @@ class ManualWorld(World):
         after_pre_fill(self, self.multiworld, self.player)
 
     def generate_basic(self):
+        logger = logging.getLogger()
         # Generate item pool
         pool = []
         configured_item_names = self.item_id_to_name.copy()
@@ -140,8 +142,9 @@ class ManualWorld(World):
 
         personal_locations = sum([len(r.locations) for r in self.multiworld.regions if r.player == self.player])
 
-        extras = personal_locations - len(pool) - 1 # subtracting 1 because of Victory; seems right
-        print(f"Extras: {extras}")
+        extras = personal_locations - len(pool) - 2 # subtracting 1 because of Victory; seems right
+
+        logger.info(f"Extras: {extras}")
 
         if extras > 0:
             for i in range(0, extras):
