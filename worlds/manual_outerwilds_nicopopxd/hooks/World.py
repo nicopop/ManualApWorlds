@@ -28,9 +28,10 @@ removedPlacedItemsCategory = {}
 changedItemsCount = {}
 OWMiscData = {}
 """Miscellaneous shared data"""
+OWMiscData["KnownPlayers"] = []
 OWLastOptions = {}
 """Last player's options"""
-OWCurOptions = {}
+OWOptions = {}
 """Current options"""
 
 ########################################################################################
@@ -53,35 +54,48 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         apworldversion = game_table['version']
         if apworldversion != "":
             multiworld.game_version[player].value = apworldversion
-            if "versionTold" in OWMiscData:
+            if "version" not in OWMiscData:
                 logger.info(f"player(s) uses {world.game} version: {apworldversion}")
-                OWMiscData["versionTold"] = "yep :D"
+                OWMiscData["version"] = apworldversion
         else:
             multiworld.game_version[player].value = "Unknown"
     else:
         multiworld.game_version[player].value = "Unknown"
-    pass
 #Init Options
 #region
-    OWCurOptions["solanum"] = get_option_value(multiworld, player, "require_solanum") or False
-    OWCurOptions["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or False
-    OWCurOptions["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or False
-    OWCurOptions["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or False
-    OWCurOptions["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    OWCurOptions["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
-#endregion
-
-#Options Check for imposibities
-    if OWCurOptions["randomContent"] == RandomContent.option_base_game:
-        OWCurOptions["owlguy"] = False
-        goal = OWCurOptions["goal"]
+    global OWLastOptions
+    OWMiscData["KnownPlayers"].append(player)
+    OWOptions[player] = {}
+    OWMiscData[player] = {}
+    OWOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or False
+    OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or False
+    OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or False
+    OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or False
+    OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
+    OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
+    #Options Check for imposibities
+    if OWOptions[player]["randomContent"] == RandomContent.option_base_game:
+        OWOptions[player]["owlguy"] = False
+        goal = OWOptions[player]["goal"]
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
-        OWCurOptions["goal"] = goal
-        OWCurOptions["reducedSpooks"] = False
-
+        OWOptions[player]["goal"] = goal
+        OWOptions[player]["reducedSpooks"] = False
+    #Is it safe to skip some code
+    OWMiscData[player]["SafeGen"] = False #value for first run
+    if len(OWLastOptions) > 0:
+        OWMiscData[player]["SafeGen"] = True
+        if OWOptions[player]["randomContent"] != OWLastOptions["randomContent"]:
+            OWMiscData[player]["SafeGen"] = False
+        elif OWOptions[player]["do_place_item_category"] != OWLastOptions["do_place_item_category"]:
+            OWMiscData[player]["SafeGen"] = False
+        elif OWOptions[player]["goal"] != OWLastOptions["goal"]:
+            OWMiscData[player]["SafeGen"] = False
+        logger.debug(f'SafeGen for player {player} set to {OWMiscData[player]["SafeGen"]}')
+#endregion
+    OWLastOptions = copy(OWOptions[player])
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     pass
@@ -92,10 +106,10 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
-    solanum = OWCurOptions["solanum"]
-    owlguy = OWCurOptions["owlguy"]
-    randomContent = OWCurOptions["randomContent"]
-    goal = OWCurOptions["goal"]
+    solanum = OWOptions[player]["solanum"]
+    owlguy = OWOptions[player]["owlguy"]
+    randomContent = OWOptions[player]["randomContent"]
+    goal = OWOptions[player]["goal"]
 
 #Victory Location access rules mod
 #region
@@ -127,38 +141,37 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
                          lambda state: state.has("Seen Prisoner", player))
 #endregion
 
-    pass
-
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
-    solanum = OWCurOptions["solanum"]
-    owlguy = OWCurOptions["owlguy"]
-    reducedSpooks = OWCurOptions["reducedSpooks"]
-    do_place_item_category = OWCurOptions["do_place_item_category"]
-    randomContent = OWCurOptions["randomContent"]
-    goal = OWCurOptions["goal"]
+    solanum = OWOptions[player]["solanum"]
+    owlguy = OWOptions[player]["owlguy"]
+    reducedSpooks = OWOptions[player]["reducedSpooks"]
+    do_place_item_category = OWOptions[player]["do_place_item_category"]
+    randomContent = OWOptions[player]["randomContent"]
+    goal = OWOptions[player]["goal"]
 
 #Restore location placed items
 #region
-    if len(removedPlacedItems) > 0 or len(removedPlacedItemsCategory) > 0:
-        readded_place_item_Count = 0
-        locationstoCheck = {}
-        locationstoCheck.update(removedPlacedItems)
-        locationstoCheck.update(removedPlacedItemsCategory)
-        for location in locationstoCheck:
-            if location in world.location_names:
-                worldlocation = world.location_name_to_location[location]
-                if location in removedPlacedItemsCategory:
-                    worldlocation["place_item_category"] = removedPlacedItemsCategory[location]
-                    removedPlacedItemsCategory.pop(location)
-                if location in removedPlacedItems:
-                    worldlocation["place_item"] = removedPlacedItems[location]
-                    removedPlacedItems.pop(location)
-                if "place_item" in worldlocation or "place_item_category" in worldlocation:
-                    readded_place_item_Count += 1
-        if readded_place_item_Count > 0:
-            multiworld.clear_location_cache()
-            logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
+    if OWMiscData["KnownPlayers"][0] != player and OWMiscData[player]["SafeGen"] == False:
+        if len(removedPlacedItems) > 0 or len(removedPlacedItemsCategory) > 0:
+            readded_place_item_Count = 0
+            locationstoCheck = {}
+            locationstoCheck.update(removedPlacedItems)
+            locationstoCheck.update(removedPlacedItemsCategory)
+            for location in locationstoCheck:
+                if location in world.location_names:
+                    worldlocation = world.location_name_to_location[location]
+                    if location in removedPlacedItemsCategory:
+                        worldlocation["place_item_category"] = removedPlacedItemsCategory[location]
+                        removedPlacedItemsCategory.pop(location)
+                    if location in removedPlacedItems:
+                        worldlocation["place_item"] = removedPlacedItems[location]
+                        removedPlacedItems.pop(location)
+                    if "place_item" in worldlocation or "place_item_category" in worldlocation:
+                        readded_place_item_Count += 1
+            if readded_place_item_Count > 0:
+                multiworld.clear_location_cache()
+                logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
 #endregion
 
 # Personnal Item counts adjustment
@@ -281,13 +294,14 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                 continue
             for location in list(region.locations):
                 if location.name in locations_to_be_removed:
-                    worldlocation = world.location_name_to_location[location.name]
-                    if 'place_item' in worldlocation:
-                        removedPlacedItems[location.name] = copy(worldlocation["place_item"])
-                        worldlocation.pop("place_item", "")
-                    if'place_item_category' in worldlocation:
-                        removedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
-                        worldlocation.pop("place_item_category", "")
+                    if OWMiscData[player]["SafeGen"] == False:
+                        worldlocation = world.location_name_to_location[location.name]
+                        if 'place_item' in worldlocation:
+                            removedPlacedItems[location.name] = copy(worldlocation["place_item"])
+                            worldlocation.pop("place_item", "")
+                        if'place_item_category' in worldlocation:
+                            removedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
+                            worldlocation.pop("place_item_category", "")
                     region.locations.remove(location)
                     local_valid_locations.pop(location.name, "")
                     removedlocCount += 1
@@ -369,5 +383,4 @@ def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld,
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
-    OWLastOptions = copy(OWCurOptions)
     return slot_data
