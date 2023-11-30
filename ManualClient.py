@@ -124,7 +124,7 @@ class ManualContext(SuperContext):
         class ManualManager(GameManager):
             logging_pairs = [
                 ("Client", "Archipelago"),
-                ("Manual", "Manual - Locations and Items")
+                ("Manual", "Manual")
             ]
             base_title = "Archipelago Manual Client"
             listed_items = {"(no category)": []}
@@ -154,7 +154,7 @@ class ManualContext(SuperContext):
                 self.grid.add_widget(self.manual_game_layout, 3)
 
                 for child in self.tabs.tab_list:
-                    if child.text == "Manual - Locations and Items":
+                    if child.text == "Manual":
                         panel = child # instead of creating a new TabbedPanelItem, use the one we use above to make the tabs show
                 
                 self.tracker_and_locations_panel = panel.content = TrackerAndLocationsLayout(cols = 2)
