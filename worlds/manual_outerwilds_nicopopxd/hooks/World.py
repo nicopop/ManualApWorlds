@@ -27,6 +27,11 @@ removedPlacedItems = {}
 removedPlacedItemsCategory = {}
 changedItemsCount = {}
 OWMiscData = {}
+"""Miscellaneous shared data"""
+OWLastOptions = {}
+"""Last player's options"""
+OWCurOptions = {}
+"""Current options"""
 
 ########################################################################################
 ## Order of method calls when the world generates:
@@ -56,6 +61,26 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     else:
         multiworld.game_version[player].value = "Unknown"
     pass
+#Init Options
+#region
+    OWCurOptions["solanum"] = get_option_value(multiworld, player, "require_solanum") or False
+    OWCurOptions["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or False
+    OWCurOptions["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or False
+    OWCurOptions["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or False
+    OWCurOptions["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
+    OWCurOptions["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
+#endregion
+
+#Options Check for imposibities
+    if OWCurOptions["randomContent"] == RandomContent.option_base_game:
+        OWCurOptions["owlguy"] = False
+        goal = OWCurOptions["goal"]
+        if goal == Goal.option_prisoner: goal = Goal.default #imposible option
+        elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
+        elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
+        elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
+        OWCurOptions["goal"] = goal
+        OWCurOptions["reducedSpooks"] = False
 
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
@@ -67,19 +92,13 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
-    solanum = get_option_value(multiworld, player, "require_solanum") or False
-    owlguy = get_option_value(multiworld, player, "require_prisoner") or False
-    randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
+    solanum = OWCurOptions["solanum"]
+    owlguy = OWCurOptions["owlguy"]
+    randomContent = OWCurOptions["randomContent"]
+    goal = OWCurOptions["goal"]
 
 #Victory Location access rules mod
 #region
-    if randomContent == RandomContent.option_base_game:
-        owlguy = False
-        if goal == Goal.option_prisoner: goal = Goal.default #imposible option
-        elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
-        elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
-        elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
         victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
@@ -112,12 +131,12 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
-    solanum = get_option_value(multiworld, player, "require_solanum") or False
-    owlguy = get_option_value(multiworld, player, "require_prisoner") or False
-    reducedSpooks = get_option_value(multiworld, player, "reduced_spooks") or False
-    do_place_item_category = get_option_value(multiworld, player, "do_place_item_category") or False
-    randomContent = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    goal = get_option_value(multiworld, player, "goal") or Goal.option_standard
+    solanum = OWCurOptions["solanum"]
+    owlguy = OWCurOptions["owlguy"]
+    reducedSpooks = OWCurOptions["reducedSpooks"]
+    do_place_item_category = OWCurOptions["do_place_item_category"]
+    randomContent = OWCurOptions["randomContent"]
+    goal = OWCurOptions["goal"]
 
 #Restore location placed items
 #region
@@ -194,12 +213,6 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     if randomContent != RandomContent.option_both:
         if randomContent == RandomContent.option_base_game:
-            owlguy = False
-            if goal == Goal.option_prisoner: goal = Goal.default #imposible option
-            elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
-            elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
-            elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
-            reducedSpooks = False
             message = "Base game"
             for item in list(item_pool):
                 if item.name in dlc_data["echoes"]["items"]:
@@ -356,4 +369,5 @@ def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld,
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
+    OWLastOptions = copy(OWCurOptions)
     return slot_data
