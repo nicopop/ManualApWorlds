@@ -25,7 +25,6 @@ from ..Helpers import is_option_enabled, get_option_value
 logger = logging.getLogger()
 removedPlacedItems = {}
 removedPlacedItemsCategory = {}
-changedItemsCount = {}
 OWMiscData = {}
 """Miscellaneous shared data"""
 OWMiscData["KnownPlayers"] = []
