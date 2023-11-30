@@ -2,6 +2,7 @@
 from worlds.AutoWorld import World
 from worlds.generic.Rules import add_rule
 from copy import copy
+from difflib import SequenceMatcher
 
 from BaseClasses import MultiWorld
 import json
@@ -17,7 +18,7 @@ from ..Locations import ManualLocation
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from .Options import RandomContent, Goal
+from .Options import RandomContent, Goal, GameLanguage, SpoilerFreeNames
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
@@ -45,11 +46,13 @@ RemovedPlacedItemsCategory = {}
 ## The fill_slot_data method will be used to send data to the Manual client for later use, like deathlink.
 ########################################################################################
 
-
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
-    # Set version in yaml and log
+# Set version in yaml and log
+#region
     if 'version' in game_table:
         apworldversion = game_table['version']
         if apworldversion != "":
@@ -61,27 +64,94 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
             multiworld.game_version[player].value = "Unknown"
     else:
         multiworld.game_version[player].value = "Unknown"
-#Init Options
+#endregion
+# init player personnal data
 #region
     OWMiscData["KnownPlayers"].append(player)
-    OWOptions[player] = {}
     OWMiscData[player] = {}
+    OWMiscData[player]["name"] = multiworld.get_player_name(player)
+    OWOptions[player] = {}
+    OWOptions[player]["name"] = multiworld.get_player_name(player)
+#endregion
+# Add Current Options to OWOptions
+#region
     OWOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
     OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
     OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
     OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
-    OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
+    OWOptions[player]["no_spoilers"] = get_option_value(multiworld, player, "no_spoilers") or SpoilerFreeNames.default
+    OWOptions[player]["language"] = get_option_value(multiworld, player, "game_language") or GameLanguage.default
+    OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.default
+    OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.default
     #Options Check for imposibities
     if OWOptions[player]["randomContent"] == RandomContent.option_base_game:
         OWOptions[player]["owlguy"] = 0
+        OWOptions[player]["reducedSpooks"] = 0
         goal = OWOptions[player]["goal"]
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
         OWOptions[player]["goal"] = goal
-        OWOptions[player]["reducedSpooks"] = False
+#endregion
+# Spoiler Detection
+#region
+    if OWOptions[player]["no_spoilers"] == SpoilerFreeNames.option_detection:
+        if 'SpoilersSafe' in OWMiscData:
+            if OWMiscData["SpoilersSafe"]:
+                OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_disabled
+            else:
+                OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_enabled
+        elif 'SpoilersSafe' not in OWMiscData and multiworld.players > 1:    #Only run once
+            similarities = {}
+            PlayersToCheck = set([])
+            players = multiworld.player_name
+            for pid, name in players.items():
+                if pid not in similarities:
+                    similarities[pid] = {}
+                    similarities[pid]["name"] = multiworld.get_player_name(pid)
+                for _pid, _name in players.items():
+                    if pid == _pid:
+                        continue
+                    elif _pid in similarities[pid]:
+                        continue
+                    test = similar(name, _name)
+                    if test >= 0.60:
+                        if _pid not in similarities:
+                            similarities[_pid] = {}
+                            similarities[_pid]["name"] = multiworld.get_player_name(pid)
+                        similarities[pid][_pid] = multiworld.get_player_name(_pid)
+                        similarities[_pid][pid] = multiworld.get_player_name(pid)
+                    else:
+                        PlayersToCheck.add(_pid)
+            else:
+                logger.info(f"Spoiler Protection: Got {len(PlayersToCheck)} players to check")
+                for _player in PlayersToCheck:
+                    result = False
+                    if len(similarities[_player]) == 1 and multiworld.game[_player] != multiworld.game[player]:
+                        break
+                    elif len(similarities[_player]) > 1:
+                        for test in similarities[_player]:
+                            if test.key == "name":
+                                continue
+                            if multiworld.game[test] == multiworld.game[player]:
+                                result = True
+                                if test in PlayersToCheck:
+                                    PlayersToCheck.remove(test)
+                                break
+                        else:
+                            break
+                        continue
+                similarities.clear()
+                PlayersToCheck.clear()
+                OWMiscData['SpoilersSafe'] = result
+                if result:
+                    OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_disabled
+                else:
+                    OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_enabled
+#endregion
+# Compare Current option with last options
+#region
     #Is it safe to skip some code
     OWMiscData[player]["SafeGen"] = False #value for first run
     index = OWMiscData["KnownPlayers"].index(player)
@@ -94,6 +164,10 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
             OWMiscData[player]["SafeGen"] = False
         elif OWOptions[player]["goal"] != OWOptions[index]["goal"]:
             OWMiscData[player]["SafeGen"] = False
+        elif OWOptions[player]["no_spoilers"] != OWOptions[index]["no_spoilers"]:
+            OWMiscData[player]["SafeGen"] = False
+        elif OWOptions[player]["language"] != OWOptions[index]["language"]:
+            OWMiscData[player]["SafeGen"] = False
         logger.debug(f'SafeGen for player {player} set to {OWMiscData[player]["SafeGen"]}')
 #endregion
 # Called after regions and locations are created, in case you want to see or modify that information.
@@ -102,6 +176,7 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
+    print("hello :D")
     pass
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
