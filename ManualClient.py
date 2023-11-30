@@ -13,9 +13,15 @@ if __name__ == "__main__":
     Utils.init_logging("ManualClient", exception_logger="Client")
 
 from NetUtils import ClientStatus
-from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, \
-    CommonContext, server_loop
+from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 from BaseClasses import Item, ItemClassification, Location, Region, CollectionState, MultiWorld
+
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as SuperContext
 
 class ManualClientCommandProcessor(ClientCommandProcessor):
     def _cmd_resync(self):
@@ -24,10 +30,11 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
         self.ctx.syncing = True
 
 
-class ManualContext(CommonContext):
+class ManualContext(SuperContext):
     command_processor: int = ManualClientCommandProcessor
     game = "not set" # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
+    tags = {"AP"}
 
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
@@ -117,7 +124,7 @@ class ManualContext(CommonContext):
         class ManualManager(GameManager):
             logging_pairs = [
                 ("Client", "Archipelago"),
-                ("Manual", "Manual"),
+                ("Manual", "Manual - Locations and Items")
             ]
             base_title = "Archipelago Manual Client"
             listed_items = {"(no category)": []}
@@ -146,10 +153,11 @@ class ManualContext(CommonContext):
 
                 self.grid.add_widget(self.manual_game_layout, 3)
 
-                panel = TabbedPanelItem(text="Tracker and Locations", size_hint_y = 1)
+                for child in self.tabs.tab_list:
+                    if child.text == "Manual - Locations and Items":
+                        panel = child # instead of creating a new TabbedPanelItem, use the one we use above to make the tabs show
+                
                 self.tracker_and_locations_panel = panel.content = TrackerAndLocationsLayout(cols = 2)
-
-                self.tabs.add_widget(panel)
 
                 self.build_tracker_and_locations_table()
 
@@ -508,6 +516,10 @@ class ManualContext(CommonContext):
                 self.ctx.syncing = True
 
         self.ui = ManualManager(self)
+
+        if tracker_loaded:
+            self.load_kv()
+
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
 async def game_watcher(ctx: ManualContext):
@@ -543,6 +555,8 @@ if __name__ == '__main__':
             config_file = read_apmanual_file(args.apmanual_file)
         ctx = ManualContext(args.connect, args.password, config_file.get("game"), config_file.get("player_name"))
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+        if tracker_loaded:
+            ctx.run_generator()
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
