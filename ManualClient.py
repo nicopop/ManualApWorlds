@@ -32,9 +32,13 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
 
 class ManualContext(SuperContext):
     command_processor: int = ManualClientCommandProcessor
-    game = "not set" # this is changed in server_auth below based on user input
+    game = "not set"  # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
     tags = {"AP"}
+    
+    location_table = {}
+    item_table = {}
+    region_table = {}
 
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
@@ -52,6 +56,9 @@ class ManualContext(SuperContext):
             raise Exception("The Manual client can only be used for Manual games.")
         
         self.game = self.ui.game_bar_text.text
+
+        if not self.location_table and not self.item_table and AutoWorldRegister.world_types.get(self.game) is None:
+            raise Exception(f"Cannot load {self.game}, please add the apworld to lib/worlds/")
 
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
 
@@ -71,6 +78,18 @@ class ManualContext(SuperContext):
 
     async def connection_closed(self):
         await super(ManualContext, self).connection_closed()
+
+    def get_location_by_name(self, name):
+        location = self.location_table.get(name)
+        if location:
+            return location
+        return AutoWorldRegister.world_types[self.game].location_name_to_location[name]
+    
+    def get_item_by_name(self, name):
+        item = self.item_table.get(name)
+        if item:
+            return item
+        return AutoWorldRegister.world_types[self.game].item_name_to_item[name]
 
     @property
     def endpoints(self):
@@ -200,7 +219,7 @@ class ManualContext(SuperContext):
                 self.clear_lists()
 
                 # seed all category names to start
-                for item in AutoWorldRegister.world_types[self.ctx.game].item_name_to_item.values():
+                for item in self.ctx.item_table.values() or AutoWorldRegister.world_types[self.ctx.game].item_name_to_item.values():
                     if "category" in item and len(item["category"]) > 0:
                         for category in item["category"]:
                             if category not in self.item_categories:
@@ -211,14 +230,14 @@ class ManualContext(SuperContext):
 
 
                 # Items are not received on connect, so don't bother attempting to work with received items here
-                
-                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+
+                if not self.ctx.location_table and not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
                     raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
-                
+
                 for location_id in self.ctx.missing_locations:
                     # holy nesting, wow
                     location_name = self.ctx.location_names[location_id]
-                    location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location[location_name]
+                    location = self.ctx.get_location_by_name(location_name)
 
                     if not location:
                         continue
@@ -235,7 +254,7 @@ class ManualContext(SuperContext):
                     else: # leave it in the generic category
                         self.listed_locations["(no category)"].append(location_id)
 
-                victory_location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location["__Manual Game Complete__"]
+                victory_location =  self.ctx.get_location_by_name("__Manual Game Complete__")
 
                 if "category" in victory_location and len(victory_location["category"]) > 0:
                     for category in victory_location["category"]:
@@ -264,11 +283,12 @@ class ManualContext(SuperContext):
                 locations_panel_scrollable = LocationsLayoutScrollable()
                 locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)))
                 
-                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+                # This seems like a redundant copy of the same check above?
+                if not self.ctx.location_table and not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
                     raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
 
                 for location_category in sorted(self.listed_locations.keys()):
-                    victory_location_data = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location["__Manual Game Complete__"]
+                    victory_location_data = self.ctx.get_location_by_name("__Manual Game Complete__")
                     locations_in_category = len(self.listed_locations[location_category])
 
                     if ("category" in victory_location_data and location_category in victory_location_data["category"]) or \
@@ -372,7 +392,7 @@ class ManualContext(SuperContext):
                                         # Get the item name from the item Label, minus quantity, then do a lookup for count
                                         old_item_text = item.text
                                         item_name = re.sub("\s\(\d+\)$", "", item.text)
-                                        item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+                                        item_data = self.ctx.get_item_by_name(item_name)
                                         item_count = len(list(i for i in self.ctx.items_received if i.item == item_data["id"]))
  
                                         # Update the label quantity
@@ -388,7 +408,7 @@ class ManualContext(SuperContext):
                                 # Label (for new item listings)
                                 for network_item in self.ctx.items_received:
                                     item_name = self.ctx.item_names[network_item.item]
-                                    item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+                                    item_data = self.ctx.get_item_by_name(item_name)
 
                                     if "category" not in item_data or not item_data["category"]:
                                         item_data["category"] = ["(no category)"]
@@ -450,12 +470,12 @@ class ManualContext(SuperContext):
                                 for location_button in category_grid.children:
                                     if type(location_button) is TreeViewButton:
                                         # should only be true for the victory location button, which has different text
-                                        if location_button.text not in AutoWorldRegister.world_types[self.ctx.game].location_name_to_location:
+                                        if location_button.text not in (self.ctx.location_table or AutoWorldRegister.world_types[self.ctx.game].location_name_to_location):
                                             category_count += 1
 
                                             continue
 
-                                        location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location[location_button.text]
+                                        location = self.ctx.get_location_by_name(location_button.text)
 
                                         # This is part of an attempt to check a logic state to see if location buttons should be highlighted or not.
                                         # The rest of the logic is about 100 lines above (commented out), but it doesn't work.
@@ -555,6 +575,11 @@ if __name__ == '__main__':
             config_file = read_apmanual_file(args.apmanual_file)
         ctx = ManualContext(args.connect, args.password, config_file.get("game"), config_file.get("player_name"))
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+
+        ctx.item_table = config_file.get("items")
+        ctx.location_table = config_file.get("locations")
+        ctx.region_table = config_file.get("regions")
+
         if tracker_loaded:
             ctx.run_generator()
         if gui_enabled:
