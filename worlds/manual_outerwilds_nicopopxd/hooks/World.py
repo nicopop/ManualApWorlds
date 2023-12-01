@@ -1,12 +1,10 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
 from worlds.generic.Rules import add_rule
+from ..Data import load_data_file
 from copy import copy
 
 from BaseClasses import MultiWorld
-import json
-import os
-import pkgutil
 import logging
 
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
@@ -210,9 +208,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     locations_to_be_removed = []
 
     if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
-        fname = os.path.join("..", "data", "extra.json")
-        extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
-        # THX Axxroy
+        extra_data = load_data_file("extra.json")
+
 
     if not do_place_item_category:
         for location in list(extra_data["no_place_item_category"]["locations"]):
