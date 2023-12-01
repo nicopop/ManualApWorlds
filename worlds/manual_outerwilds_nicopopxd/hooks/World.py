@@ -197,7 +197,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
             if "Locations" in OWWorkingData["Requires"]:
                 for name, requirement in OWWorkingData["Requires"]["Locations"].items():
                     world.location_name_to_location[name]["requires"] =  requirement
-                OWWorkingData["Requires"].pop("Regions")
+                OWWorkingData["Requires"].pop("Locations")
             OWWorkingData.pop("Requires")
         if language != "EN" or removeSpoilers == SpoilerFreeNames.option_enabled:
             fname = os.path.join("..", "data", "extra.json")
@@ -339,6 +339,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     do_place_item_category = OWOptions[player]["do_place_item_category"]
     randomContent = OWOptions[player]["randomContent"]
     goal = OWOptions[player]["goal"]
+    language = OWMiscData[player]["languageKey"]
+    removeSpoilers = OWOptions[player]["no_spoilers"]
 
 #Restore location placed items
 #region
@@ -399,9 +401,9 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     locations_to_be_removed = []
 
-    if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
-        fname = os.path.join("..", "data", "extra.json")
-        extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
+    #if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
+    fname = os.path.join("..", "data", "extra.json")
+    extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
         # THX Axxroy
 
     if not do_place_item_category:
@@ -413,7 +415,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     worldlocation.pop("place_item_category", "")
         multiworld.clear_location_cache()
 
-
+#Game Content removal
+#region
     if randomContent != RandomContent.option_both:
         if randomContent == RandomContent.option_base_game:
             message = "Base game"
@@ -460,7 +463,6 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     else:
         message = "Both"
-    #logger.info(message)
 
     if goal != Goal.option_stuck_with_solanum:
         locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
@@ -498,7 +500,78 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         multiworld.clear_location_cache()
 
     logger.info(f"{world.game}:{player}:({message}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
+#endregion
 
+#Item Renaming
+#region
+    renamedItems = {}
+    if language != "EN" or removeSpoilers == SpoilerFreeNames.option_enabled:
+        for item in item_pool:
+            old_name = ''
+            if removeSpoilers:
+                if item.name in extra_data["NameMapping"][language]["SpoilerFree"]["items"]:
+                    old_name = copy(item.name)
+                    item.name = extra_data["NameMapping"][language]["SpoilerFree"]["items"][old_name]
+                elif language != "EN" and item['name'] in extra_data["NameMapping"][language]["Normal"]["items"]:
+                    old_name = copy(item.name)
+                    item.name = extra_data["NameMapping"][language]["Normal"]["items"][old_name]
+            elif item.name in extra_data["NameMapping"][language]["Normal"]["items"]:
+                    old_name = copy(item.name)
+                    item.name = extra_data["NameMapping"][language]["Normal"]["items"][old_name]
+            if old_name != "":
+                renamedItems[item.name] = old_name
+        logger.debug(f"Done renaming {len(renamedItems)} items")
+#endregion
+
+#Replaceing items in location requirements
+#region
+    if not OWMiscData[player]["SafeGen"]:
+        #Restore first
+        if "PlaceItem" in OWWorkingData:
+            if "Locations" in OWWorkingData["PlaceItem"]:
+                for name, requirement in OWWorkingData["PlaceItem"]["Locations"].items():
+                    world.location_name_to_location[name]["requires"] =  requirement
+                OWWorkingData["PlaceItem"].pop("Locations")
+            OWWorkingData.pop("PlaceItem")
+        if language != "EN" or removeSpoilers == SpoilerFreeNames.option_enabled:
+            fname = os.path.join("..", "data", "extra.json")
+            extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
+            OWWorkingData["PlaceItem"] = {}
+        OWWorkingData['PlaceItem']['Locations'] = {}
+        for location in world.location_name_to_location.values():
+            # if 'requires' in location and location['name'] != "__Manual Game Complete__":
+            #     requirement = location['requires']
+            #     if len(requirement) > 0:
+            #         if isinstance(requirement, str):
+            #             for new_item, old_item in renamedItems.items():
+            #                 if requirement.find(f"|{old_item}|") != -1:
+            #                     logger.debug(f"replaced:|{old_item}| with |{new_item}| in : {location['name']}:{requirement}")
+            #                     if location['name'] not in replacedLocationItemsRequirements:
+            #                         replacedLocationItemsRequirements[location['name']] = copy(requirement)
+            #                     location['requires'] = location['requires'].replace(f"|{old_item}|", f"|{new_item}|")
+            #         elif isinstance(requirement, list):
+            #             for new_item, old_item in renamedItems.items():
+            #                 if old_item in requirement:
+            #                     logger.debug(f"replaced:|{old_item}| with |{new_item}| in : {location['name']}:{requirement}")
+            #                     if location['name'] not in replacedLocationItemsRequirements:
+            #                         replacedLocationItemsRequirements[location['name']] = copy(requirement)
+            #                     listindex = location['requires'].index(old_item)
+            #                     location['requires'].remove(old_item)
+            #                     location['requires'].insert(listindex, new_item)
+            if 'place_item' in location and location['name'] != "__Manual Game Complete__":
+                placed_item = location['place_item']
+                if len(placed_item) > 0:
+                    for new_item, old_item in renamedItems.items():
+                        if old_item in placed_item:
+                            logger.debug(f"replaced:|{old_item}| with |{new_item}| in : {location['name']}:{placed_item}")
+                            if location['name'] not in OWWorkingData['PlaceItem']['Locations']:
+                                OWWorkingData['PlaceItem']['Locations'][location['name']] = copy(placed_item)
+                            listindex = location['place_item'].index(old_item)
+                            location['place_item'].remove(old_item)
+                            location['place_item'].insert(listindex, new_item)
+
+    logger.debug(f"Done replacing requirements of {len(OWWorkingData['PlaceItem']['Locations'])} locations")
+    #endregion
 #Placing Victory item in location
 #region
     VictoryInfoToAdd = ""
@@ -530,7 +603,11 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
         victory_base_message = "Stuck in Dreamworld"
     victory_message = victory_base_message + VictoryInfoToAdd
-
+    victory_item_name = "Victory Token"
+    if removeSpoilers and victory_item_name in extra_data["NameMapping"][language]["SpoilerFree"]["items"]:
+        victory_item_name = extra_data["NameMapping"][language]["SpoilerFree"]["items"][victory_item_name]
+    elif victory_item_name in extra_data["NameMapping"][language]["Normal"]["items"]:
+        victory_item_name = extra_data["NameMapping"][language]["Normal"]["items"][victory_item_name]
     for item in item_pool:
         if item.player != player:
             continue
@@ -544,7 +621,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}')
 #endregion
-
+    tmp = multiworld.accessibility[player]
     return item_pool
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
