@@ -89,7 +89,7 @@
     <Content Include="Players\tmp\OuterWilds 3.yaml" />
     <Content Include="requirements.txt" />
     <Content Include="test\programs\data\OnePlayer\test.yaml" />
-    <Content Include="worlds\manual_outerwilds_nicopopxd\data\dlc.json" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\extra.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\game.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\items.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\locations.json" />

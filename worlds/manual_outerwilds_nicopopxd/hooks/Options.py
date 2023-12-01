@@ -55,8 +55,11 @@ class RandomContent(Choice):
     """
     display_name = "Randomized content"
     option_both = 0
+    alias_everything = 0
     option_base_game = 1
+    alias_no_dlc = 1
     option_dlc = 2
+    alias_only_dlc = 2
     default = 0
 
 class Goal(Choice):
@@ -73,6 +76,7 @@ class Goal(Choice):
     """
     display_name = "Goal"
     option_standard = 0
+    alias_default = 0
     option_eye = 1
     option_prisoner = 2
     option_visit_all_archive = 3

@@ -1,12 +1,10 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
 from worlds.generic.Rules import add_rule
+from ..Data import load_data_file
 from copy import copy
 
 from BaseClasses import MultiWorld
-import json
-import os
-import pkgutil
 import logging
 
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
@@ -23,16 +21,17 @@ from .Options import RandomContent, Goal
 from ..Helpers import is_option_enabled, get_option_value
 
 logger = logging.getLogger()
-removedPlacedItems = {}
-removedPlacedItemsCategory = {}
 OWMiscData = {}
 """Miscellaneous shared data"""
 OWMiscData["KnownPlayers"] = []
-OWLastOptions = {}
-"""Last player's options"""
 OWOptions = {}
-"""Current options"""
+"""
+Player options:
+To access option value: OWOptions[player]["optionName"]
+"""
 
+RemovedPlacedItems = {}
+RemovedPlacedItemsCategory = {}
 ########################################################################################
 ## Order of method calls when the world generates:
 ##    1. create_regions - Creates regions and locations
@@ -62,19 +61,18 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         multiworld.game_version[player].value = "Unknown"
 #Init Options
 #region
-    global OWLastOptions
     OWMiscData["KnownPlayers"].append(player)
     OWOptions[player] = {}
     OWMiscData[player] = {}
-    OWOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or False
-    OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or False
-    OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or False
-    OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or False
+    OWOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
+    OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
+    OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
+    OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
     OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
     #Options Check for imposibities
     if OWOptions[player]["randomContent"] == RandomContent.option_base_game:
-        OWOptions[player]["owlguy"] = False
+        OWOptions[player]["owlguy"] = 0
         goal = OWOptions[player]["goal"]
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
@@ -84,17 +82,18 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         OWOptions[player]["reducedSpooks"] = False
     #Is it safe to skip some code
     OWMiscData[player]["SafeGen"] = False #value for first run
-    if len(OWLastOptions) > 0:
+    index = OWMiscData["KnownPlayers"].index(player)
+    if index > 0:
+        index = OWMiscData["KnownPlayers"][index - 1]
         OWMiscData[player]["SafeGen"] = True
-        if OWOptions[player]["randomContent"] != OWLastOptions["randomContent"]:
+        if OWOptions[player]["randomContent"] != OWOptions[index]["randomContent"]:
             OWMiscData[player]["SafeGen"] = False
-        elif OWOptions[player]["do_place_item_category"] != OWLastOptions["do_place_item_category"]:
+        elif OWOptions[player]["do_place_item_category"] != OWOptions[index]["do_place_item_category"]:
             OWMiscData[player]["SafeGen"] = False
-        elif OWOptions[player]["goal"] != OWLastOptions["goal"]:
+        elif OWOptions[player]["goal"] != OWOptions[index]["goal"]:
             OWMiscData[player]["SafeGen"] = False
         logger.debug(f'SafeGen for player {player} set to {OWMiscData[player]["SafeGen"]}')
 #endregion
-    OWLastOptions = copy(OWOptions[player])
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     pass
@@ -152,20 +151,20 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 #Restore location placed items
 #region
     if OWMiscData["KnownPlayers"][0] != player and OWMiscData[player]["SafeGen"] == False:
-        if len(removedPlacedItems) > 0 or len(removedPlacedItemsCategory) > 0:
+        if len(RemovedPlacedItems) > 0 or len(RemovedPlacedItemsCategory) > 0:
             readded_place_item_Count = 0
             locationstoCheck = {}
-            locationstoCheck.update(removedPlacedItems)
-            locationstoCheck.update(removedPlacedItemsCategory)
+            locationstoCheck.update(RemovedPlacedItems)
+            locationstoCheck.update(RemovedPlacedItemsCategory)
             for location in locationstoCheck:
                 if location in world.location_names:
                     worldlocation = world.location_name_to_location[location]
-                    if location in removedPlacedItemsCategory:
-                        worldlocation["place_item_category"] = removedPlacedItemsCategory[location]
-                        removedPlacedItemsCategory.pop(location)
-                    if location in removedPlacedItems:
-                        worldlocation["place_item"] = removedPlacedItems[location]
-                        removedPlacedItems.pop(location)
+                    if location in RemovedPlacedItemsCategory:
+                        worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
+                        RemovedPlacedItemsCategory.pop(location)
+                    if location in RemovedPlacedItems:
+                        worldlocation["place_item"] = RemovedPlacedItems[location]
+                        RemovedPlacedItems.pop(location)
                     if "place_item" in worldlocation or "place_item_category" in worldlocation:
                         readded_place_item_Count += 1
             if readded_place_item_Count > 0:
@@ -183,7 +182,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     elif randomContent == RandomContent.option_dlc:
         worldlocation = world.location_name_to_location["Get in ship for the first time"]
-        removedPlacedItemsCategory[worldlocation.name] = copy(worldlocation["place_item_category"])
+        RemovedPlacedItemsCategory[worldlocation.name] = copy(worldlocation["place_item_category"])
         worldlocation.pop("place_item_category", "")
 
         item_counts["forced Meditation"] = 3
@@ -209,16 +208,15 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     locations_to_be_removed = []
 
     if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
-        fname = os.path.join("..", "data", "dlc.json")
-        dlc_data = json.loads(pkgutil.get_data(__name__, fname).decode())
-        # THX Axxroy
+        extra_data = load_data_file("extra.json")
+
 
     if not do_place_item_category:
-        for location in list(dlc_data["no_place_item_category"]["locations"]):
+        for location in list(extra_data["no_place_item_category"]["locations"]):
             if location in world.location_name_to_location:
                 worldlocation = world.location_name_to_location[location]
                 if "place_item_category" in worldlocation:
-                    removedPlacedItemsCategory[location] = copy(worldlocation["place_item_category"])
+                    RemovedPlacedItemsCategory[location] = copy(worldlocation["place_item_category"])
                     worldlocation.pop("place_item_category", "")
         multiworld.clear_location_cache()
 
@@ -227,36 +225,36 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         if randomContent == RandomContent.option_base_game:
             message = "Base game"
             for item in list(item_pool):
-                if item.name in dlc_data["echoes"]["items"]:
+                if item.name in extra_data["echoes"]["items"]:
                     item_pool.remove(item)
-            locations_to_be_removed += dlc_data["echoes"]["locations"]
+            locations_to_be_removed += extra_data["echoes"]["locations"]
         elif randomContent == RandomContent.option_dlc:
             message = "DLC"
-            valid_items = dlc_data["echoes"]["items"] + dlc_data["both"]["items"]
-            valid_locations = dlc_data["echoes"]["locations"] + dlc_data["both"]["locations"]
+            valid_items = extra_data["echoes"]["items"] + extra_data["both"]["items"]
+            valid_locations = extra_data["echoes"]["locations"] + extra_data["both"]["locations"]
             if goal == Goal.option_eye:
-                valid_items += dlc_data["victory_eye"]["items"]
-                valid_locations += dlc_data["victory_eye"]["locations"]
+                valid_items += extra_data["victory_eye"]["items"]
+                valid_locations += extra_data["victory_eye"]["locations"]
                 message += " + Eye"
             elif goal == Goal.option_ash_twin_project_break_spacetime:
-                valid_items += dlc_data["victory_ash_twin_project_break_spacetime"]["items"]
-                valid_locations += dlc_data["victory_ash_twin_project_break_spacetime"]["locations"]
+                valid_items += extra_data["victory_ash_twin_project_break_spacetime"]["items"]
+                valid_locations += extra_data["victory_ash_twin_project_break_spacetime"]["locations"]
                 message += " + Ash Twin project"
             elif goal == Goal.option_high_energy_lab_break_spacetime:
-                valid_items += dlc_data["victory_high_energy_lab_break_spacetime"]["items"]
-                valid_locations += dlc_data["victory_high_energy_lab_break_spacetime"]["locations"]
+                valid_items += extra_data["victory_high_energy_lab_break_spacetime"]["items"]
+                valid_locations += extra_data["victory_high_energy_lab_break_spacetime"]["locations"]
                 message += " + High Energy Lab"
             elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
-                valid_items +=  dlc_data["need_warpdrive"]["items"]
-                valid_locations += dlc_data["need_warpdrive"]["locations"]
+                valid_items +=  extra_data["need_warpdrive"]["items"]
+                valid_locations += extra_data["need_warpdrive"]["locations"]
                 message += " + Adv. warp core"
             elif goal == Goal.option_stuck_with_solanum:
-                valid_items +=  dlc_data["need_warpdrive"]["items"] + dlc_data["require_solanum"]["items"]
-                valid_locations += dlc_data["need_warpdrive"]["locations"] + dlc_data["require_solanum"]["locations"]
+                valid_items +=  extra_data["need_warpdrive"]["items"] + extra_data["require_solanum"]["items"]
+                valid_locations += extra_data["need_warpdrive"]["locations"] + extra_data["require_solanum"]["locations"]
                 message += " + Adv. warp core + Solanum"
             if solanum and goal != Goal.option_stuck_with_solanum:
-                valid_items += dlc_data["require_solanum"]["items"]
-                valid_locations += dlc_data["require_solanum"]["locations"]
+                valid_items += extra_data["require_solanum"]["items"]
+                valid_locations += extra_data["require_solanum"]["locations"]
                 message += " + Solanum"
 
             for item in list(item_pool):
@@ -279,7 +277,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
 
     if reducedSpooks:
-        locations_to_be_removed += dlc_data["reduce_spooks"]["locations"]
+        locations_to_be_removed += extra_data["reduce_spooks"]["locations"]
         #do stuff to reduce spook like change requires of some locations
 
     if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
@@ -296,10 +294,10 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     if OWMiscData[player]["SafeGen"] == False:
                         worldlocation = world.location_name_to_location[location.name]
                         if 'place_item' in worldlocation:
-                            removedPlacedItems[location.name] = copy(worldlocation["place_item"])
+                            RemovedPlacedItems[location.name] = copy(worldlocation["place_item"])
                             worldlocation.pop("place_item", "")
                         if'place_item_category' in worldlocation:
-                            removedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
+                            RemovedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
                             worldlocation.pop("place_item_category", "")
                     region.locations.remove(location)
                     local_valid_locations.pop(location.name, "")
