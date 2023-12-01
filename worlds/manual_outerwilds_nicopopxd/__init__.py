@@ -29,6 +29,36 @@ from .hooks.World import \
     before_fill_slot_data, after_fill_slot_data
 
 class ManualWeb(WebWorld):
+    options_presets = {
+        "Short":{
+            "require_solanum": False,
+            "require_prisoner": False,
+            "do_place_item_category": True,
+            "randomized_content": "both",
+            "goal": "standard"
+            },
+        "Long":{
+            "require_solanum": True,
+            "require_prisoner": True,
+            "do_place_item_category": True,
+            "randomized_content": "both",
+            "goal": "standard"
+            },
+        "Short (BaseGame)":{
+            "require_solanum": False,
+            "require_prisoner": False,
+            "do_place_item_category": True,
+            "randomized_content": "base_game",
+            "goal": "standard"
+            },
+        "Long (BaseGame)":{
+            "require_solanum": True,
+            "require_prisoner": False,
+            "do_place_item_category": True,
+            "randomized_content": "base_game",
+            "goal": "standard"
+            }
+        }
     theme = "ocean"
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
@@ -200,6 +230,8 @@ class ManualWorld(World):
             self.multiworld.itempool.remove(item_to_place)
 
         after_generate_basic(self, self.multiworld, self.player)
+        # from Utils import visualize_regions
+        # visualize_regions(self.multiworld.get_region("Menu", self.player), "my_world.puml")
 
     def create_item(self, name: str) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)
