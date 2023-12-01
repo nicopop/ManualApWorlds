@@ -260,6 +260,13 @@ class TrackerGameContext(CommonContext):
 
         self.multiworld = multiworld
         return
+    
+    def on_tracker_updated(self, reachable_locations: list):
+        self.tracker_page.resetData()
+        for temp_loc in reachable_locations:
+            #logger.info("YES rechable (" + temp_loc.name + ")")
+            self.tracker_page.addLine( temp_loc.name )
+        self.tracker_page.refresh_from_data()
 
 def updateTracker(ctx: TrackerGameContext):
     if ctx.player_id == None:
@@ -276,14 +283,10 @@ def updateTracker(ctx: TrackerGameContext):
 
     state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
     
-    ctx.tracker_page.resetData()
-    for temp_loc in ctx.multiworld.get_reachable_locations(state,ctx.player_id):
-        if temp_loc.address == None:
-            continue
-        if (temp_loc.address in ctx.missing_locations):
-            #logger.info("YES rechable (" + temp_loc.name + ")")
-            ctx.tracker_page.addLine( temp_loc.name )
-    ctx.tracker_page.refresh_from_data()
+    ctx.on_tracker_updated([
+        loc for loc in ctx.multiworld.get_reachable_locations(state,ctx.player_id) 
+            if loc.address != None and loc.address in ctx.missing_locations
+    ])
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
     while not ctx.exit_event.is_set():

@@ -114,6 +114,12 @@ class ManualContext(SuperContext):
         elif cmd in {"RoomUpdate"}:
             self.ui.update_tracker_and_locations_table(update_highlights=False)
 
+    def on_tracker_updated(self, reachable_locations: dict):
+        super().on_tracker_updated(reachable_locations)
+
+        self.tracker_reachable_locations = [loc.name for loc in reachable_locations]
+        self.ui.update_tracker_and_locations_table(update_highlights=True)
+
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
         from kvui import GameManager
