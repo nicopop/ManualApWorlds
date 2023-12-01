@@ -40,6 +40,8 @@ class ManualContext(SuperContext):
     item_table = {}
     region_table = {}
 
+    tracker_reachable_locations = []
+
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
         self.send_index: int = 0
@@ -102,8 +104,11 @@ class ManualContext(SuperContext):
         await super(ManualContext, self).shutdown()
 
     def on_package(self, cmd: str, args: dict):
+        super().on_package(cmd, args)
+
         if cmd in {"Connected"}:
             self.ui.build_tracker_and_locations_table()
+            self.ui.update_tracker_and_locations_table(update_highlights=True)
         elif cmd in {"ReceivedItems"}:
             self.ui.update_tracker_and_locations_table(update_highlights=True)
         elif cmd in {"RoomUpdate"}:
@@ -143,7 +148,7 @@ class ManualContext(SuperContext):
         class ManualManager(GameManager):
             logging_pairs = [
                 ("Client", "Archipelago"),
-                ("Manual", "Manual")
+                ("Manual", "Manual"),
             ]
             base_title = "Archipelago Manual Client"
             listed_items = {"(no category)": []}
@@ -160,7 +165,7 @@ class ManualContext(SuperContext):
                 super().__init__(ctx)
 
             def build(self) -> Layout: 
-                super(ManualManager, self).build()
+                super().build()
 
                 self.manual_game_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height=30)
 
@@ -179,6 +184,9 @@ class ManualContext(SuperContext):
                 self.tracker_and_locations_panel = panel.content = TrackerAndLocationsLayout(cols = 2)
 
                 self.build_tracker_and_locations_table()
+
+                if tracker_loaded:
+                    self.ctx.build_gui(self)
 
                 return self.container
             
@@ -265,8 +273,9 @@ class ManualContext(SuperContext):
                             self.listed_locations[category] = []
 
                 items_length = len(self.ctx.items_received)
-                tracker_panel_scrollable = TrackerLayoutScrollable()
-                tracker_panel = TreeView(root_options=dict(text="Items Received (%d)" % (items_length)))
+                tracker_panel_scrollable = TrackerLayoutScrollable(do_scroll=(False, True), bar_width=10)
+                tracker_panel = TreeView(root_options=dict(text="Items Received (%d)" % (items_length)), size_hint_y=None)
+                tracker_panel.bind(minimum_height=tracker_panel.setter('height'))
                 
                 # Since items_received is not available on connect, don't bother building item labels here
                 for item_category in sorted(self.listed_items.keys()):
@@ -280,8 +289,9 @@ class ManualContext(SuperContext):
                     category_scroll.add_widget(category_layout)
 
                 locations_length = len(self.ctx.missing_locations)
-                locations_panel_scrollable = LocationsLayoutScrollable()
-                locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)))
+                locations_panel_scrollable = LocationsLayoutScrollable(do_scroll=(False, True), bar_width=10)
+                locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)), size_hint_y=None)
+                locations_panel.bind(minimum_height=locations_panel.setter('height'))
                 
                 # This seems like a redundant copy of the same check above?
                 if not self.ctx.location_table and not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
@@ -327,37 +337,6 @@ class ManualContext(SuperContext):
             def update_tracker_and_locations_table(self, update_highlights=False):
                 items_length = len(self.ctx.items_received)
                 locations_length = len(self.ctx.missing_locations)
-
-                # This doesn't work, but was an attempt at getting the current logic state
-                # to be able to mark location buttons as reachable or not.
-                # Continued below in the location-specific area (also commented out).
-                #
-                #
-                # multiworld = MultiWorld(10000)
-                # multiworld.add_group("Player" + str(self.ctx.slot), self.ctx.game, [self.ctx.slot])
-                #
-                # collection_state = CollectionState(multiworld)
-                # collection_state.reachable_regions = {player: set() for player in [self.ctx.slot]}
-                # collection_state.blocked_connections = {player: set() for player in [self.ctx.slot]}
-                # collection_state.stale = {player: True for player in [self.ctx.slot]}
-                #
-                # for network_item in self.ctx.items_received:
-                #     item_name = self.ctx.item_names[network_item.item]
-                #     item = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
-                #
-                #     item_classification = ItemClassification.filler
-                #
-                #     if "trap" in item and item["trap"]:
-                #         item_classification = ItemClassification.trap
-                #
-                #     if "useful" in item and item["useful"]:
-                #         item_classification = ItemClassification.useful
-                #
-                #     if "progression" in item and item["progression"]:
-                #         item_classification = ItemClassification.progression
-                #
-                #     item_object = Item(item["name"], item_classification, item["id"],self.ctx.slot)
-                #     collection_state.collect(item_object)
 
                 for _, child in enumerate(self.tracker_and_locations_panel.children):
                     #
@@ -453,6 +432,13 @@ class ManualContext(SuperContext):
                         locations_remaining_label = next(treeview_nodes) # always the first node
                         locations_remaining_label.text = "Remaining Locations (%d)" % (locations_length)
 
+                        # waiting for a callback from the Universal Tracker folks to not do this ugly thing (that sorta doesn't work because it's behind)
+                        if tracker_loaded:
+                            for child_layout in self.ctx.tracker_page.children:
+                                for child in child_layout.children:
+                                    if child.text != "Tracker Initializing":
+                                        self.ctx.tracker_reachable_locations.append(child.text)
+                        
                         # loop for each category in listed items and get the label + scrollview
                         for x in range(0, len(self.location_categories)):
                             category_label = next(treeview_nodes) # TreeViewLabel for category
@@ -477,28 +463,17 @@ class ManualContext(SuperContext):
 
                                         location = self.ctx.get_location_by_name(location_button.text)
 
-                                        # This is part of an attempt to check a logic state to see if location buttons should be highlighted or not.
-                                        # The rest of the logic is about 100 lines above (commented out), but it doesn't work.
-                                        #
-                                        #
-                                        # region_object = None
-                                        #
-                                        # if location["region"]:
-                                        #     region_object = Region(location["region"], self.ctx.slot)
-                                        #
-                                        # location_object = Location(self.ctx.slot, location["name"], location["id"], region_object)
-                                        #
-                                        # if location_object.can_reach(collection_state):
-                                        #     logger.info("Location %s can be reached currently." % (location["name"]))
-                                        # else:
-                                        #     logger.info("Location %s can **NOT** be reached currently!" % (location["name"]))
-
                                         if ("victory" not in location or not location["victory"]) and location["id"] not in self.ctx.missing_locations:
                                             import logging
 
                                             logging.info("location button being removed: " + location_button.text)
                                             buttons_to_remove.append(location_button)
                                             continue
+
+                                        if location_button.text in self.ctx.tracker_reachable_locations:
+                                            location_button.background_color=[168/255, 242/255, 141/255, 1]
+                                        else:
+                                            location_button.background_color=[219/255, 218/255, 213/255, 1]
 
                                         category_count += 1
 
@@ -542,7 +517,7 @@ class ManualContext(SuperContext):
 
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
-async def game_watcher(ctx: ManualContext):
+async def game_watcher_manual(ctx: ManualContext):
     while not ctx.exit_event.is_set():
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
@@ -576,9 +551,9 @@ if __name__ == '__main__':
         ctx = ManualContext(args.connect, args.password, config_file.get("game"), config_file.get("player_name"))
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
 
-        ctx.item_table = config_file.get("items")
-        ctx.location_table = config_file.get("locations")
-        ctx.region_table = config_file.get("regions")
+        ctx.item_table = config_file.get("items") or {}
+        ctx.location_table = config_file.get("locations") or {}
+        ctx.region_table = config_file.get("regions") or {}
 
         if tracker_loaded:
             ctx.run_generator()
@@ -586,7 +561,7 @@ if __name__ == '__main__':
             ctx.run_gui()
         ctx.run_cli()
         progression_watcher = asyncio.create_task(
-            game_watcher(ctx), name="ManualProgressionWatcher")
+            game_watcher_manual(ctx), name="ManualProgressionWatcher")
 
         await ctx.exit_event.wait()
         ctx.server_address = None
