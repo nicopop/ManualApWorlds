@@ -89,9 +89,6 @@ components: List[Component] = [
     Component('SNI Client', 'SNIClient',
               file_identifier=SuffixIdentifier('.apz3', '.apm3', '.apsoe', '.aplttp', '.apsm', '.apsmz3', '.apdkc3',
                                                '.apsmw', '.apl2ac')),
-    # BizHawk
-    Component("BizHawk Client", "BizHawkClient", component_type=Type.CLIENT,
-              file_identifier=SuffixIdentifier()),
     Component('Links Awakening DX Client', 'LinksAwakeningClient',
               file_identifier=SuffixIdentifier('.apladx')),
     Component('LttP Adjuster', 'LttPAdjuster'),
@@ -104,8 +101,6 @@ components: List[Component] = [
     Component('OoT Adjuster', 'OoTAdjuster'),
     # FF1
     Component('FF1 Client', 'FF1Client'),
-    # Pokémon
-    Component('Pokemon Client', 'PokemonClient', file_identifier=SuffixIdentifier('.apred', '.apblue')),
     # TLoZ
     Component('Zelda 1 Client', 'Zelda1Client', file_identifier=SuffixIdentifier('.aptloz')),
     # ChecksFinder
