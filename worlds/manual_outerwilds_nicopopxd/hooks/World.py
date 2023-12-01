@@ -13,6 +13,7 @@ import logging
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
 from ..Locations import ManualLocation
+from ..Regions import regionMap
 
 # Raw JSON data from the Manual apworld, respectively:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
@@ -32,6 +33,9 @@ OWOptions = {}
 Player options:
 To access option value: OWOptions[player]["optionName"]
 """
+
+OWWorkingData = {}
+"""Contains Tracking of 'permanently' changed values to be restored as needed"""
 
 RemovedPlacedItems = {}
 RemovedPlacedItemsCategory = {}
@@ -68,8 +72,6 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 # init player personnal data
 #region
     OWMiscData["KnownPlayers"].append(player)
-    OWMiscData[player] = {}
-    OWMiscData[player]["name"] = multiworld.get_player_name(player)
     OWOptions[player] = {}
     OWOptions[player]["name"] = multiworld.get_player_name(player)
 #endregion
@@ -126,6 +128,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
                         PlayersToCheck.add(_pid)
             else:
                 logger.info(f"Spoiler Protection: Got {len(PlayersToCheck)} players to check")
+                result = False
                 for _player in PlayersToCheck:
                     result = False
                     if len(similarities[_player]) == 1 and multiworld.game[_player] != multiworld.game[player]:
@@ -149,6 +152,12 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
                     OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_disabled
                 else:
                     OWOptions[player]["no_spoilers"] = SpoilerFreeNames.option_enabled
+#endregion
+# Creating personnal Misc data
+#region
+    OWMiscData[player] = {}
+    OWMiscData[player]["name"] = multiworld.get_player_name(player)
+    OWMiscData[player]["languageKey"] = GameLanguage(OWOptions[player]["language"]).current_key.upper()
 #endregion
 # Compare Current option with last options
 #region
@@ -176,7 +185,98 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
 def before_set_rules(world: World, multiworld: MultiWorld, player: int):
-    print("hello :D")
+    language = str(OWMiscData[player]["languageKey"])
+    removeSpoilers = SpoilerFreeNames(OWOptions[player]["no_spoilers"])
+    if not OWMiscData[player]["SafeGen"]:
+        #Restore first
+        if "Requires" in OWWorkingData:
+            if "Regions" in OWWorkingData["Requires"]:
+                for name, requirement in OWWorkingData["Requires"]["Regions"].items():
+                    regionMap[name]["requires"] =  requirement
+                OWWorkingData["Requires"].pop("Regions")
+            if "Locations" in OWWorkingData["Requires"]:
+                for name, requirement in OWWorkingData["Requires"]["Locations"].items():
+                    world.location_name_to_location[name]["requires"] =  requirement
+                OWWorkingData["Requires"].pop("Regions")
+            OWWorkingData.pop("Requires")
+        if language != "EN" or removeSpoilers == SpoilerFreeNames.option_enabled:
+            fname = os.path.join("..", "data", "extra.json")
+            extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
+            OWWorkingData["Requires"] = {}
+        # Temporarily Renaming items
+        #region
+            itemchanged = {}
+            for item in item_table:
+                old_item_name = ""
+                if removeSpoilers:
+                    if item['name'] in extra_data["NameMapping"][language]["SpoilerFree"]["items"]:
+                        old_item_name = copy(item['name'])
+                        new_item_name = extra_data["NameMapping"][language]["SpoilerFree"]["items"][old_item_name]
+                    elif language != "EN" and item['name'] in extra_data["NameMapping"][language]["Normal"]["items"]:
+                        old_item_name = copy(item['name'])
+                        new_item_name = extra_data["NameMapping"][language]["Normal"]["items"][old_item_name]
+                elif item['name'] in extra_data["NameMapping"][language]["Normal"]["items"]:
+                        old_item_name = copy(item['name'])
+                        new_item_name = extra_data["NameMapping"][language]["Normal"]["items"][old_item_name]
+                if old_item_name != "":
+                    itemchanged[old_item_name] = new_item_name
+            logger.debug(f"Done renaming {len(itemchanged)} items")
+        #endregion
+            extra_data.clear()
+        #Replacing items in region requirements
+        #region
+            OWWorkingData['Requires']['Regions'] = {}
+            for name, region in regionMap.items():
+                if 'requires' in region:
+                    requirement = region['requires']
+                    if len(requirement) > 0:
+                        if isinstance(requirement, str):
+                            for old_item, new_item in itemchanged.items():
+                                if requirement.find(f"|{old_item}|") != -1:
+                                    logger.debug(f"replaced:|{old_item}| with |{new_item}| in region: {name}:{requirement}")
+                                    if name not in OWWorkingData['Requires']['Regions']:
+                                        OWWorkingData['Requires']['Regions'][name] = copy(requirement)
+                                    region['requires'] = region['requires'].replace(f"|{old_item}|", f"|{new_item}|")
+                        elif isinstance(requirement, list):
+                            for old_item, new_item in itemchanged.items():
+                                if old_item in requirement:
+                                    logger.debug(f"replaced:|{old_item}| with |{new_item}| in region: {name}:{requirement}")
+                                    if name not in OWWorkingData['Requires']['Regions']:
+                                        OWWorkingData['Requires']['Regions'][name] = copy(requirement)
+                                    listindex = region['requires'].index(old_item)
+                                    region['requires'].remove(old_item)
+                                    region['requires'].insert(listindex, new_item)
+            logger.debug(f"Done replacing requirements of {len(OWWorkingData['Requires']['Regions'])} Regions")
+            if len(OWWorkingData['Requires']['Regions']) == 0:
+                OWWorkingData['Requires'].pop('Regions')
+        #endregion
+        # Replaceing items in location requirements
+        #region
+            OWWorkingData['Requires']['Locations'] = {}
+            for location in world.location_name_to_location.values():
+                if 'requires' in location and location['name'] != "__Manual Game Complete__":
+                    requirement = location['requires']
+                    if len(requirement) > 0:
+                        if isinstance(requirement, str):
+                            for new_item, old_item in itemchanged.items():
+                                if requirement.find(f"|{old_item}|") != -1:
+                                    logger.debug(f"replaced:|{old_item}| with |{new_item}| in : {location['name']}:{requirement}")
+                                    if location['name'] not in OWWorkingData['Requires']['Locations']:
+                                        OWWorkingData['Requires']['Locations'][location['name']] = copy(requirement)
+                                    location['requires'] = location['requires'].replace(f"|{old_item}|", f"|{new_item}|")
+                        elif isinstance(requirement, list):
+                            for new_item, old_item in itemchanged.items():
+                                if old_item in requirement:
+                                    logger.debug(f"replaced:|{old_item}| with |{new_item}| in : {location['name']}:{requirement}")
+                                    if location['name'] not in OWWorkingData['Requires']['Locations']:
+                                        OWWorkingData['Requires']['Locations'][location['name']] = copy(requirement)
+                                    listindex = location['requires'].index(old_item)
+                                    location['requires'].remove(old_item)
+                                    location['requires'].insert(listindex, new_item)
+            logger.debug(f"Done replacing requirements of {len(OWWorkingData['Requires']['Locations'])} locations")
+            if len(OWWorkingData['Requires']['Locations']) == 0:
+                OWWorkingData['Requires'].pop('Locations')
+        #endregion
     pass
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
@@ -185,7 +285,11 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     owlguy = OWOptions[player]["owlguy"]
     randomContent = OWOptions[player]["randomContent"]
     goal = OWOptions[player]["goal"]
+    language = OWMiscData[player]["languageKey"]
+    removeSpoilers = OWOptions[player]["no_spoilers"]
 
+    fname = os.path.join("..", "data", "extra.json")
+    extra_data = json.loads(pkgutil.get_data(__name__, fname).decode())
 #Victory Location access rules mod
 #region
 
@@ -209,11 +313,22 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     for location in multiworld.get_unfilled_locations(player):
         if location.name == victory_name:
             if solanum:
+                name = "Seen Solanum"
+                if removeSpoilers and name in extra_data["NameMapping"][language]["SpoilerFree"]["items"]:
+                    name = extra_data["NameMapping"][language]["SpoilerFree"]["items"][name]
+                elif name in extra_data["NameMapping"][language]["Normal"]["items"]:
+                    name = extra_data["NameMapping"][language]["Normal"]["items"][name]
                 add_rule(location,
-                         lambda state: state.has("Seen Solanum", player))
+                            lambda state: state.has(name, player))
             if owlguy:
+                name = "Seen Prisoner"
+                if removeSpoilers and name in extra_data["NameMapping"][language]["SpoilerFree"]["items"]:
+                    name = extra_data["NameMapping"][language]["SpoilerFree"]["items"][name]
+                elif name in extra_data["NameMapping"][language]["Normal"]["items"]:
+                    name = extra_data["NameMapping"][language]["Normal"]["items"][name]
                 add_rule(location,
-                         lambda state: state.has("Seen Prisoner", player))
+                            lambda state: state.has(name, player))
+            break
 #endregion
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it

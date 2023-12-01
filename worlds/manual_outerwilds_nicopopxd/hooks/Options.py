@@ -47,6 +47,25 @@ class LocalPlacedItems(DefaultOnToggle):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
     display_name = "Predetermined Local Items"
 
+class SpoilerFreeNames(Choice):
+    """Do you want the replacement of some items and locations to be spoiler free in case of multiworld
+    detection: will detect if you're playing with people playing other games, if thats the case then spoiler is enabled
+    disabled and enabled: the name says it.
+    """
+    display_name = "Spoiler Protection"
+    option_disabled = 0
+    option_enabled = 1
+    option_detection = 2
+    default = 2
+
+class GameLanguage(Choice):
+    """Change the language of the items and locations, Currently only support English (EN)
+    """
+    display_name = "Language"
+    option_en = 0
+    default = 0
+
+
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
     Base Game: disable the dlc and set require_prisoner to false
@@ -94,6 +113,8 @@ def before_options_defined(options: dict) -> dict:
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     #options["reduced_spooks"] = ReducedSpooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["no_spoilers"] = SpoilerFreeNames
+    options["game_language"] = GameLanguage
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent
     options["goal"] = Goal
