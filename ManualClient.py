@@ -44,6 +44,10 @@ class ManualContext(SuperContext):
 
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
+        
+        if tracker_loaded:
+            super().set_callback(self.on_tracker_updated) # Universal Tracker takes this func and calls it when updateTracker is called
+
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
@@ -114,10 +118,8 @@ class ManualContext(SuperContext):
         elif cmd in {"RoomUpdate"}:
             self.ui.update_tracker_and_locations_table(update_highlights=False)
 
-    def on_tracker_updated(self, reachable_locations: dict):
-        super().on_tracker_updated(reachable_locations)
-
-        self.tracker_reachable_locations = [loc.name for loc in reachable_locations]
+    def on_tracker_updated(self, reachable_locations: list[str]):
+        self.tracker_reachable_locations = reachable_locations
         self.ui.update_tracker_and_locations_table(update_highlights=True)
 
     def run_gui(self):
