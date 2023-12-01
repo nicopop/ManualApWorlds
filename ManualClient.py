@@ -114,6 +114,12 @@ class ManualContext(SuperContext):
         elif cmd in {"RoomUpdate"}:
             self.ui.update_tracker_and_locations_table(update_highlights=False)
 
+    def on_tracker_updated(self, reachable_locations: dict):
+        super().on_tracker_updated(reachable_locations)
+
+        self.tracker_reachable_locations = [loc.name for loc in reachable_locations]
+        self.ui.update_tracker_and_locations_table(update_highlights=True)
+
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
         from kvui import GameManager
@@ -431,13 +437,6 @@ class ManualContext(SuperContext):
 
                         locations_remaining_label = next(treeview_nodes) # always the first node
                         locations_remaining_label.text = "Remaining Locations (%d)" % (locations_length)
-
-                        # waiting for a callback from the Universal Tracker folks to not do this ugly thing (that sorta doesn't work because it's behind)
-                        if tracker_loaded:
-                            for child_layout in self.ctx.tracker_page.children:
-                                for child in child_layout.children:
-                                    if child.text != "Tracker Initializing":
-                                        self.ctx.tracker_reachable_locations.append(child.text)
                         
                         # loop for each category in listed items and get the label + scrollview
                         for x in range(0, len(self.location_categories)):
@@ -447,8 +446,9 @@ class ManualContext(SuperContext):
                             if type(category_label) is TreeViewLabel and type(category_scrollview) is TreeViewScrollView:
                                 category_grid = category_scrollview.children[0] # GridLayout
 
-                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
+                                category_name = re.sub("\s\(\d+\/?(\d+)?\)$", "", category_label.text)
                                 category_count = 0
+                                reachable_count = 0
             
                                 buttons_to_remove = []
 
@@ -472,6 +472,7 @@ class ManualContext(SuperContext):
 
                                         if location_button.text in self.ctx.tracker_reachable_locations:
                                             location_button.background_color=[168/255, 242/255, 141/255, 1]
+                                            reachable_count += 1
                                         else:
                                             location_button.background_color=[219/255, 218/255, 213/255, 1]
 
@@ -488,8 +489,13 @@ class ManualContext(SuperContext):
                                 if scrollview_height < 10:
                                     scrollview_height = 50
 
-                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
-                                category_label.text = "%s (%s)" % (category_name, category_count)
+                                count_text = category_count
+
+                                if tracker_loaded:
+                                    count_text = "{}/{}".format(reachable_count, category_count)
+
+                                category_name = re.sub("\s\(\d+\/?(\d+)?\)$", "", category_label.text)
+                                category_label.text = "%s (%s)" % (category_name, count_text)
                                 category_scrollview.size=(Window.width / 2, scrollview_height)
                     
             def location_button_callback(self, location_id, button):
