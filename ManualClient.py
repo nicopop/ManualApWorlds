@@ -114,12 +114,6 @@ class ManualContext(SuperContext):
         elif cmd in {"RoomUpdate"}:
             self.ui.update_tracker_and_locations_table(update_highlights=False)
 
-    def on_tracker_updated(self, reachable_locations: dict):
-        super().on_tracker_updated(reachable_locations)
-
-        self.tracker_reachable_locations = [loc.name for loc in reachable_locations]
-        self.ui.update_tracker_and_locations_table(update_highlights=True)
-
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
         from kvui import GameManager
@@ -471,7 +465,7 @@ class ManualContext(SuperContext):
                                             continue
 
                                         if location_button.text in self.ctx.tracker_reachable_locations:
-                                            location_button.background_color=[168/255, 242/255, 141/255, 1]
+                                            location_button.background_color=[2/255, 242/255, 42/255, 1]
                                             reachable_count += 1
                                         else:
                                             location_button.background_color=[219/255, 218/255, 213/255, 1]
