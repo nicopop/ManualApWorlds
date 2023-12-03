@@ -15,7 +15,7 @@ from ..Locations import ManualLocation
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from .Options import RandomContent, Goal
+from .Options import EarlyLaunchCode, RandomContent, Goal
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
@@ -68,6 +68,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
     OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
     OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
+    OWOptions[player]["early_launch_codes"] = get_option_value(multiworld, player, "early_launch_codes") or 0
     OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
     OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
     #Options Check for imposibities
@@ -96,6 +97,15 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 #endregion
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
+# Early Launch Codes
+#region
+    early_launch = OWOptions[player]["early_launch_codes"]
+    if early_launch == EarlyLaunchCode.option_local:
+        multiworld.local_early_items[player]["Launch Codes"] = 1
+    elif early_launch == EarlyLaunchCode.option_global:
+        multiworld.early_items[player]["Launch Codes"] = 1
+
+#endregion
     pass
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.

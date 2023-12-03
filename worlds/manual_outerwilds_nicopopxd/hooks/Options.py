@@ -62,6 +62,15 @@ class RandomContent(Choice):
     alias_only_dlc = 2
     default = 0
 
+class EarlyLaunchCode(Choice):
+    """Do you want the launch codes to be located in the early game"""
+    display_name = "Early Launch Codes"
+    option_local = 1
+    option_global = 2
+    option_anywhere = 0
+    default = 1
+
+
 class Goal(Choice):
     """Where do you want to end,
     standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
@@ -98,6 +107,7 @@ def before_options_defined(options: dict) -> dict:
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     #options["reduced_spooks"] = ReducedSpooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["early_launch_codes"] = EarlyLaunchCode
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent
     options["goal"] = Goal
