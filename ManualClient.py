@@ -13,9 +13,15 @@ if __name__ == "__main__":
     Utils.init_logging("ManualClient", exception_logger="Client")
 
 from NetUtils import ClientStatus
-from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, \
-    CommonContext, server_loop
+from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 from BaseClasses import Item, ItemClassification, Location, Region, CollectionState, MultiWorld
+
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as SuperContext
 
 class ManualClientCommandProcessor(ClientCommandProcessor):
     def _cmd_resync(self):
@@ -24,13 +30,24 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
         self.ctx.syncing = True
 
 
-class ManualContext(CommonContext):
+class ManualContext(SuperContext):
     command_processor: int = ManualClientCommandProcessor
-    game = "not set" # this is changed in server_auth below based on user input
+    game = "not set"  # this is changed in server_auth below based on user input
     items_handling = 0b111  # full remote
+    tags = {"AP"}
+    
+    location_table = {}
+    item_table = {}
+    region_table = {}
+
+    tracker_reachable_locations = []
 
     def __init__(self, server_address, password, game, player_name) -> None:
         super(ManualContext, self).__init__(server_address, password)
+        
+        if tracker_loaded:
+            super().set_callback(self.on_tracker_updated) # Universal Tracker takes this func and calls it when updateTracker is called
+
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
@@ -45,6 +62,9 @@ class ManualContext(CommonContext):
             raise Exception("The Manual client can only be used for Manual games.")
         
         self.game = self.ui.game_bar_text.text
+
+        if not self.location_table and not self.item_table and AutoWorldRegister.world_types.get(self.game) is None:
+            raise Exception(f"Cannot load {self.game}, please add the apworld to lib/worlds/")
 
         self.location_names_to_id = dict([(value, key) for key, value in self.location_names.items()])
 
@@ -65,6 +85,18 @@ class ManualContext(CommonContext):
     async def connection_closed(self):
         await super(ManualContext, self).connection_closed()
 
+    def get_location_by_name(self, name):
+        location = self.location_table.get(name)
+        if location:
+            return location
+        return AutoWorldRegister.world_types[self.game].location_name_to_location[name]
+    
+    def get_item_by_name(self, name):
+        item = self.item_table.get(name)
+        if item:
+            return item
+        return AutoWorldRegister.world_types[self.game].item_name_to_item[name]
+
     @property
     def endpoints(self):
         if self.server:
@@ -76,12 +108,19 @@ class ManualContext(CommonContext):
         await super(ManualContext, self).shutdown()
 
     def on_package(self, cmd: str, args: dict):
+        super().on_package(cmd, args)
+
         if cmd in {"Connected"}:
             self.ui.build_tracker_and_locations_table()
+            self.ui.update_tracker_and_locations_table(update_highlights=True)
         elif cmd in {"ReceivedItems"}:
             self.ui.update_tracker_and_locations_table(update_highlights=True)
         elif cmd in {"RoomUpdate"}:
             self.ui.update_tracker_and_locations_table(update_highlights=False)
+
+    def on_tracker_updated(self, reachable_locations: list[str]):
+        self.tracker_reachable_locations = reachable_locations
+        self.ui.update_tracker_and_locations_table(update_highlights=True)
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
@@ -134,7 +173,7 @@ class ManualContext(CommonContext):
                 super().__init__(ctx)
 
             def build(self) -> Layout: 
-                super(ManualManager, self).build()
+                super().build()
 
                 self.manual_game_layout = BoxLayout(orientation="horizontal", size_hint_y=None, height=30)
 
@@ -146,12 +185,16 @@ class ManualContext(CommonContext):
 
                 self.grid.add_widget(self.manual_game_layout, 3)
 
-                panel = TabbedPanelItem(text="Tracker and Locations", size_hint_y = 1)
+                for child in self.tabs.tab_list:
+                    if child.text == "Manual":
+                        panel = child # instead of creating a new TabbedPanelItem, use the one we use above to make the tabs show
+                
                 self.tracker_and_locations_panel = panel.content = TrackerAndLocationsLayout(cols = 2)
 
-                self.tabs.add_widget(panel)
-
                 self.build_tracker_and_locations_table()
+
+                if tracker_loaded:
+                    self.ctx.build_gui(self)
 
                 return self.container
             
@@ -192,7 +235,7 @@ class ManualContext(CommonContext):
                 self.clear_lists()
 
                 # seed all category names to start
-                for item in AutoWorldRegister.world_types[self.ctx.game].item_name_to_item.values():
+                for item in self.ctx.item_table.values() or AutoWorldRegister.world_types[self.ctx.game].item_name_to_item.values():
                     if "category" in item and len(item["category"]) > 0:
                         for category in item["category"]:
                             if category not in self.item_categories:
@@ -203,14 +246,14 @@ class ManualContext(CommonContext):
 
 
                 # Items are not received on connect, so don't bother attempting to work with received items here
-                
-                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+
+                if not self.ctx.location_table and not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
                     raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
-                
+
                 for location_id in self.ctx.missing_locations:
                     # holy nesting, wow
                     location_name = self.ctx.location_names[location_id]
-                    location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location[location_name]
+                    location = self.ctx.get_location_by_name(location_name)
 
                     if not location:
                         continue
@@ -227,7 +270,7 @@ class ManualContext(CommonContext):
                     else: # leave it in the generic category
                         self.listed_locations["(no category)"].append(location_id)
 
-                victory_location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location["__Manual Game Complete__"]
+                victory_location =  self.ctx.get_location_by_name("__Manual Game Complete__")
 
                 if "category" in victory_location and len(victory_location["category"]) > 0:
                     for category in victory_location["category"]:
@@ -238,8 +281,9 @@ class ManualContext(CommonContext):
                             self.listed_locations[category] = []
 
                 items_length = len(self.ctx.items_received)
-                tracker_panel_scrollable = TrackerLayoutScrollable()
-                tracker_panel = TreeView(root_options=dict(text="Items Received (%d)" % (items_length)))
+                tracker_panel_scrollable = TrackerLayoutScrollable(do_scroll=(False, True), bar_width=10)
+                tracker_panel = TreeView(root_options=dict(text="Items Received (%d)" % (items_length)), size_hint_y=None)
+                tracker_panel.bind(minimum_height=tracker_panel.setter('height'))
                 
                 # Since items_received is not available on connect, don't bother building item labels here
                 for item_category in sorted(self.listed_items.keys()):
@@ -253,14 +297,16 @@ class ManualContext(CommonContext):
                     category_scroll.add_widget(category_layout)
 
                 locations_length = len(self.ctx.missing_locations)
-                locations_panel_scrollable = LocationsLayoutScrollable()
-                locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)))
+                locations_panel_scrollable = LocationsLayoutScrollable(do_scroll=(False, True), bar_width=10)
+                locations_panel = TreeView(root_options=dict(text="Remaining Locations (%d)" % (locations_length + 1)), size_hint_y=None)
+                locations_panel.bind(minimum_height=locations_panel.setter('height'))
                 
-                if not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
+                # This seems like a redundant copy of the same check above?
+                if not self.ctx.location_table and not hasattr(AutoWorldRegister.world_types[self.ctx.game], 'location_name_to_location'):
                     raise Exception("The apworld for %s is too outdated for this client. Please update it." % (self.ctx.game))
 
                 for location_category in sorted(self.listed_locations.keys()):
-                    victory_location_data = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location["__Manual Game Complete__"]
+                    victory_location_data = self.ctx.get_location_by_name("__Manual Game Complete__")
                     locations_in_category = len(self.listed_locations[location_category])
 
                     if ("category" in victory_location_data and location_category in victory_location_data["category"]) or \
@@ -300,37 +346,6 @@ class ManualContext(CommonContext):
                 items_length = len(self.ctx.items_received)
                 locations_length = len(self.ctx.missing_locations)
 
-                # This doesn't work, but was an attempt at getting the current logic state
-                # to be able to mark location buttons as reachable or not.
-                # Continued below in the location-specific area (also commented out).
-                #
-                #
-                # multiworld = MultiWorld(10000)
-                # multiworld.add_group("Player" + str(self.ctx.slot), self.ctx.game, [self.ctx.slot])
-                #
-                # collection_state = CollectionState(multiworld)
-                # collection_state.reachable_regions = {player: set() for player in [self.ctx.slot]}
-                # collection_state.blocked_connections = {player: set() for player in [self.ctx.slot]}
-                # collection_state.stale = {player: True for player in [self.ctx.slot]}
-                #
-                # for network_item in self.ctx.items_received:
-                #     item_name = self.ctx.item_names[network_item.item]
-                #     item = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
-                #
-                #     item_classification = ItemClassification.filler
-                #
-                #     if "trap" in item and item["trap"]:
-                #         item_classification = ItemClassification.trap
-                #
-                #     if "useful" in item and item["useful"]:
-                #         item_classification = ItemClassification.useful
-                #
-                #     if "progression" in item and item["progression"]:
-                #         item_classification = ItemClassification.progression
-                #
-                #     item_object = Item(item["name"], item_classification, item["id"],self.ctx.slot)
-                #     collection_state.collect(item_object)
-
                 for _, child in enumerate(self.tracker_and_locations_panel.children):
                     #
                     # Structure of items:
@@ -364,7 +379,7 @@ class ManualContext(CommonContext):
                                         # Get the item name from the item Label, minus quantity, then do a lookup for count
                                         old_item_text = item.text
                                         item_name = re.sub("\s\(\d+\)$", "", item.text)
-                                        item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+                                        item_data = self.ctx.get_item_by_name(item_name)
                                         item_count = len(list(i for i in self.ctx.items_received if i.item == item_data["id"]))
  
                                         # Update the label quantity
@@ -380,7 +395,7 @@ class ManualContext(CommonContext):
                                 # Label (for new item listings)
                                 for network_item in self.ctx.items_received:
                                     item_name = self.ctx.item_names[network_item.item]
-                                    item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+                                    item_data = self.ctx.get_item_by_name(item_name)
 
                                     if "category" not in item_data or not item_data["category"]:
                                         item_data["category"] = ["(no category)"]
@@ -424,7 +439,7 @@ class ManualContext(CommonContext):
 
                         locations_remaining_label = next(treeview_nodes) # always the first node
                         locations_remaining_label.text = "Remaining Locations (%d)" % (locations_length)
-
+                        
                         # loop for each category in listed items and get the label + scrollview
                         for x in range(0, len(self.location_categories)):
                             category_label = next(treeview_nodes) # TreeViewLabel for category
@@ -433,8 +448,9 @@ class ManualContext(CommonContext):
                             if type(category_label) is TreeViewLabel and type(category_scrollview) is TreeViewScrollView:
                                 category_grid = category_scrollview.children[0] # GridLayout
 
-                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
+                                category_name = re.sub("\s\(\d+\/?(\d+)?\)$", "", category_label.text)
                                 category_count = 0
+                                reachable_count = 0
             
                                 buttons_to_remove = []
 
@@ -442,28 +458,12 @@ class ManualContext(CommonContext):
                                 for location_button in category_grid.children:
                                     if type(location_button) is TreeViewButton:
                                         # should only be true for the victory location button, which has different text
-                                        if location_button.text not in AutoWorldRegister.world_types[self.ctx.game].location_name_to_location:
+                                        if location_button.text not in (self.ctx.location_table or AutoWorldRegister.world_types[self.ctx.game].location_name_to_location):
                                             category_count += 1
 
                                             continue
 
-                                        location = AutoWorldRegister.world_types[self.ctx.game].location_name_to_location[location_button.text]
-
-                                        # This is part of an attempt to check a logic state to see if location buttons should be highlighted or not.
-                                        # The rest of the logic is about 100 lines above (commented out), but it doesn't work.
-                                        #
-                                        #
-                                        # region_object = None
-                                        #
-                                        # if location["region"]:
-                                        #     region_object = Region(location["region"], self.ctx.slot)
-                                        #
-                                        # location_object = Location(self.ctx.slot, location["name"], location["id"], region_object)
-                                        #
-                                        # if location_object.can_reach(collection_state):
-                                        #     logger.info("Location %s can be reached currently." % (location["name"]))
-                                        # else:
-                                        #     logger.info("Location %s can **NOT** be reached currently!" % (location["name"]))
+                                        location = self.ctx.get_location_by_name(location_button.text)
 
                                         if ("victory" not in location or not location["victory"]) and location["id"] not in self.ctx.missing_locations:
                                             import logging
@@ -471,6 +471,12 @@ class ManualContext(CommonContext):
                                             logging.info("location button being removed: " + location_button.text)
                                             buttons_to_remove.append(location_button)
                                             continue
+
+                                        if location_button.text in self.ctx.tracker_reachable_locations:
+                                            location_button.background_color=[2/255, 242/255, 42/255, 1]
+                                            reachable_count += 1
+                                        else:
+                                            location_button.background_color=[219/255, 218/255, 213/255, 1]
 
                                         category_count += 1
 
@@ -485,8 +491,13 @@ class ManualContext(CommonContext):
                                 if scrollview_height < 10:
                                     scrollview_height = 50
 
-                                category_name = re.sub("\s\(\d+\)$", "", category_label.text)
-                                category_label.text = "%s (%s)" % (category_name, category_count)
+                                count_text = category_count
+
+                                if tracker_loaded:
+                                    count_text = "{}/{}".format(reachable_count, category_count)
+
+                                category_name = re.sub("\s\(\d+\/?(\d+)?\)$", "", category_label.text)
+                                category_label.text = "%s (%s)" % (category_name, count_text)
                                 category_scrollview.size=(Window.width / 2, scrollview_height)
                     
             def location_button_callback(self, location_id, button):
@@ -508,9 +519,13 @@ class ManualContext(CommonContext):
                 self.ctx.syncing = True
 
         self.ui = ManualManager(self)
+
+        if tracker_loaded:
+            self.load_kv()
+
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
-async def game_watcher(ctx: ManualContext):
+async def game_watcher_manual(ctx: ManualContext):
     while not ctx.exit_event.is_set():
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
@@ -543,11 +558,18 @@ if __name__ == '__main__':
             config_file = read_apmanual_file(args.apmanual_file)
         ctx = ManualContext(args.connect, args.password, config_file.get("game"), config_file.get("player_name"))
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+
+        ctx.item_table = config_file.get("items") or {}
+        ctx.location_table = config_file.get("locations") or {}
+        ctx.region_table = config_file.get("regions") or {}
+
+        if tracker_loaded:
+            ctx.run_generator()
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
         progression_watcher = asyncio.create_task(
-            game_watcher(ctx), name="ManualProgressionWatcher")
+            game_watcher_manual(ctx), name="ManualProgressionWatcher")
 
         await ctx.exit_event.wait()
         ctx.server_address = None

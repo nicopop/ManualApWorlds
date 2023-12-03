@@ -88,12 +88,12 @@ def set_rules(base: World, world: MultiWorld, player: int):
                 category_items = [item["name"] for item in base.item_name_to_item.values() if "category" in item and item_name in item["category"]]
 
                 for category_item in category_items:
-                    total += state.item_count(category_item, player)
+                    total += state.count(category_item, player)
 
                     if total >= item_count:
                         requires_list = requires_list.replace(item_base, "1")
             elif require_type == 'item':
-                total = state.item_count(item_name, player)
+                total = state.count(item_name, player)
 
                 if total >= item_count:
                     requires_list = requires_list.replace(item_base, "1")

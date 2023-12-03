@@ -3,7 +3,7 @@ import os
 import random
 import json
 
-from .Data import item_table, progressive_item_table, location_table
+from .Data import item_table, progressive_item_table, location_table, region_table
 from .Game import game_name, filler_item_name, starting_items
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
@@ -247,6 +247,11 @@ class ManualWorld(World):
             "game": self.game,
             'player_name': self.multiworld.get_player_name(self.player),
             'player_id': self.player,
+            'items': self.item_name_to_item,
+            'locations': self.location_name_to_location,
+            # todo: extract connections out of mutliworld.get_regions() instead, in case hooks have modified the regions.
+            'regions': region_table,
+
         }
 
     def generate_output(self, output_directory: str):
