@@ -192,7 +192,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     elif randomContent == RandomContent.option_dlc:
         worldlocation = world.location_name_to_location["Get in ship for the first time"]
-        RemovedPlacedItemsCategory[worldlocation.name] = copy(worldlocation["place_item_category"])
+        RemovedPlacedItemsCategory[worldlocation['name']] = copy(worldlocation["place_item_category"])
         worldlocation.pop("place_item_category", "")
 
         item_counts["forced Meditation"] = 3

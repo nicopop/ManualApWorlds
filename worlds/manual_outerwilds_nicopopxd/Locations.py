@@ -36,8 +36,8 @@ location_table.append({
     "id": count + 1,
     "name": "__Manual Game Complete__",
     "region": custom_victory_location["region"] if "region" in custom_victory_location else "Manual",
-    "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else [],
-    "category": custom_victory_location["category"] if "category" in custom_victory_location else ["(no category)"]
+    "requires": custom_victory_location["requires"] if "requires" in custom_victory_location else []
+    # "category": custom_victory_location["category"] if "category" in custom_victory_location else []
 })
 
 location_id_to_name = {}
