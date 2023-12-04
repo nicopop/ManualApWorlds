@@ -149,9 +149,6 @@ class ManualWorld(World):
                 if name not in self.multiworld.local_items[self.player].value:
                     self.multiworld.local_items[self.player].value.add(name)
 
-        localtmp = self.multiworld.local_items[self.player]
-        localearlytmp = self.multiworld.local_early_items[self.player]
-        earlytmp = self.multiworld.early_items[self.player]
         items_started = []
 
         if starting_items:
