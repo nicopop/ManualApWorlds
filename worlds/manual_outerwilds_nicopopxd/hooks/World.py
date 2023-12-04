@@ -100,11 +100,11 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Early Launch Codes
 #region
     early_launch = OWOptions[player]["early_launch_codes"]
-    if early_launch == EarlyLaunchCode.option_local:
-        multiworld.local_early_items[player]["Launch Codes"] = 1
+    if early_launch == EarlyLaunchCode.option_anywhere:
+        multiworld.local_early_items[player].pop("Launch Codes", "")
     elif early_launch == EarlyLaunchCode.option_global:
+        multiworld.local_early_items[player].pop("Launch Codes", "")
         multiworld.early_items[player]["Launch Codes"] = 1
-
 #endregion
     pass
 
