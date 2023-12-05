@@ -4,21 +4,24 @@
       "Steak Recipe",
       "Basic floorplans"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Steak" ]
   },
   "level_2": {
     "items": [
       "Salad Recipe",
       "Booking Desk"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Salad" ]
   },
   "level_3": {
     "items": [
       "Pizza Recipe",
       "Country setting"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Pizza" ]
   },
   "level_4": {
     "items": [
@@ -28,14 +31,16 @@
       "Diner floorplans",
       "Medium floorplans"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Dumplings", "Coffee" ]
   },
   "level_5": {
     "items": [
       "Burger Recipe",
       "Autumn setting"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Burger" ]
   },
   "level_6": {
     "items": [
@@ -44,14 +49,16 @@
       "Daily floorplans",
       "Weekly floorplans"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Turkey" ]
   },
   "level_7": {
     "items": [
       "Pie Recipe",
       "Turbo setting"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Pie" ]
   },
   "level_8": {
     "items": [],
@@ -61,7 +68,8 @@
     "items": [
       "Fish Recipe"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Fish" ]
   },
   "level_10": {
     "items": [
@@ -74,7 +82,8 @@
       "Hot Dog Recipe",
       "Huge floorplans"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Hot Dog" ]
   },
   "level_12": {
     "items": [],
@@ -84,7 +93,8 @@
     "items": [
       "Breakfast Recipe"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Breakfast" ]
   },
   "level_14": {
     "items": [],
@@ -94,6 +104,7 @@
     "items": [
       "Stir Fry Recipe"
     ],
-    "locations": []
+    "locations": [],
+    "region": [ "Stir Fry" ]
   }
 }

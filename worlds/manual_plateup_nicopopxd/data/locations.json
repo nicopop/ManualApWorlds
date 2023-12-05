@@ -328,11 +328,5 @@
 		"victory": true,
 		"region": "Lobby",
 		"requires": "|Victory Token:9|"
-	},
-	{
-		"name": "Version> (Unknown)",
-		"region": "Lobby",
-		"requires": "Victory Token:12",
-		"place_item": [ "Version" ]
 	}
 ]

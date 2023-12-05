@@ -61,17 +61,17 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     PPMiscData["KnownPlayers"].append(player)
     PPOptions[player] = {}
     PPMiscData[player] = {}
-    PPOptions[player]["host_level"] = get_option_value(multiworld, player, "host_level") or 0
+    PPOptions[player]['host_level'] = get_option_value(multiworld, player, "host_level") or 0
     #Options Check for imposibities
     #WIP
     #Is it safe to skip some code
-    PPMiscData[player]["SafeGen"] = False #value for first run
-    index = PPMiscData["KnownPlayers"].index(player)
+    PPMiscData[player]['SafeGen'] = False #value for first run
+    index = PPMiscData['KnownPlayers'].index(player)
     if index > 0:
-        index = PPMiscData["KnownPlayers"][index - 1]
-        PPMiscData[player]["SafeGen"] = True
-        if PPOptions[player]["host_level"] != PPOptions[index]["host_level"]:
-            PPMiscData[player]["SafeGen"] = False
+        index = PPMiscData['KnownPlayers'][index - 1]
+        PPMiscData[player]['SafeGen'] = True
+        if PPOptions[player]['host_level'] != PPOptions[index]["host_level"]:
+            PPMiscData[player]['SafeGen'] = False
         # elif PPOptions[player]["do_place_item_category"] != PPOptions[index]["do_place_item_category"]:
         #     PPMiscData[player]["SafeGen"] = False
         logger.debug(f'SafeGen for player {player} set to {PPMiscData[player]["SafeGen"]}')
@@ -307,10 +307,6 @@ def before_pre_fill(world: World, multiworld: MultiWorld, player: int):
 
 # This method is called after the victory location has the victory event placed and locked
 def after_pre_fill(world: World, multiworld: MultiWorld, player: int):
-    for location in multiworld.get_locations(player):
-        if location.name != 'Version> (Unknown)':
-            continue
-        location.name = f"Version> {PPMiscData['version']}"
     pass
 
 # The item name to create is provided before the item is created, in case you want to make changes to it

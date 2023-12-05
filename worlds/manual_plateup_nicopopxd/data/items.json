@@ -1,10 +1,5 @@
 [
   {
-    "name": "Version",
-    "useful": false,
-    "progression": false
-  },
-  {
     "name": "Victory Token",
     "progression": true,
     "count": 12,
