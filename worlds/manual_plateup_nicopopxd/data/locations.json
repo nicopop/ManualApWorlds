@@ -1,0 +1,338 @@
+[
+	{
+		"name": "Steak - Day 3",
+		"region": "Steak",
+		"category": [ "1 - Steak" ]
+	},
+	{
+		"name": "Steak - Day 6",
+		"region": "Steak",
+		"category": [ "1 - Steak" ]
+	},
+	{
+		"name": "Steak - Day 9",
+		"region": "Steak",
+		"category": [ "1 - Steak" ]
+	},
+	{
+		"name": "Steak - Day 12",
+		"region": "Steak",
+		"category": [ "1 - Steak" ]
+	},
+	{
+		"name": "Steak - Day 15 (overtime)",
+		"region": "Steak",
+		"category": [ "1 - Steak" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Salad - Day 3",
+		"region": "Salad",
+		"category": [ "2 - Salad" ]
+	},
+	{
+		"name": "Salad - Day 6",
+		"region": "Salad",
+		"category": [ "2 - Salad" ]
+	},
+	{
+		"name": "Salad - Day 9",
+		"region": "Salad",
+		"category": [ "2 - Salad" ]
+	},
+	{
+		"name": "Salad - Day 12",
+		"region": "Salad",
+		"category": [ "2 - Salad" ]
+	},
+	{
+		"name": "Salad - Day 15 (overtime)",
+		"region": "Salad",
+		"category": [ "2 - Salad" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Pizza - Day 3",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ]
+	},
+	{
+		"name": "Pizza - Day 6",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ]
+	},
+	{
+		"name": "Pizza - Day 9",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ]
+	},
+	{
+		"name": "Pizza - Day 12",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ]
+	},
+	{
+		"name": "Pizza - Day 15 (overtime)",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Dumplings - Day 3",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ]
+	},
+	{
+		"name": "Dumplings - Day 6",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ]
+	},
+	{
+		"name": "Dumplings - Day 9",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ]
+	},
+	{
+		"name": "Dumplings - Day 12",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ]
+	},
+	{
+		"name": "Dumplings - Day 15 (overtime)",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Coffee - Day 3",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ]
+	},
+	{
+		"name": "Coffee - Day 6",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ]
+	},
+	{
+		"name": "Coffee - Day 9",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ]
+	},
+	{
+		"name": "Coffee - Day 12",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ]
+	},
+	{
+		"name": "Coffee - Day 15 (overtime)",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Burger - Day 3",
+		"region": "Burger",
+		"category": [ "6 - Burger" ]
+	},
+	{
+		"name": "Burger - Day 6",
+		"region": "Burger",
+		"category": [ "6 - Burger" ]
+	},
+	{
+		"name": "Burger - Day 9",
+		"region": "Burger",
+		"category": [ "6 - Burger" ]
+	},
+	{
+		"name": "Burger - Day 12",
+		"region": "Burger",
+		"category": [ "6 - Burger" ]
+	},
+	{
+		"name": "Burger - Day 15 (overtime)",
+		"region": "Burger",
+		"category": [ "6 - Burger" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Turkey - Day 3",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ]
+	},
+	{
+		"name": "Turkey - Day 6",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ]
+	},
+	{
+		"name": "Turkey - Day 9",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ]
+	},
+	{
+		"name": "Turkey - Day 12",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ]
+	},
+	{
+		"name": "Turkey - Day 15 (overtime)",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Pie - Day 3",
+		"region": "Pie",
+		"category": [ "8 - Pie" ]
+	},
+	{
+		"name": "Pie - Day 6",
+		"region": "Pie",
+		"category": [ "8 - Pie" ]
+	},
+	{
+		"name": "Pie - Day 9",
+		"region": "Pie",
+		"category": [ "8 - Pie" ]
+	},
+	{
+		"name": "Pie - Day 12",
+		"region": "Pie",
+		"category": [ "8 - Pie" ]
+	},
+	{
+		"name": "Pie - Day 15 (overtime)",
+		"region": "Pie",
+		"category": [ "8 - Pie" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Fish - Day 3",
+		"region": "Fish",
+		"category": [ "9 - Fish" ]
+	},
+	{
+		"name": "Fish - Day 6",
+		"region": "Fish",
+		"category": [ "9 - Fish" ]
+	},
+	{
+		"name": "Fish - Day 9",
+		"region": "Fish",
+		"category": [ "9 - Fish" ]
+	},
+	{
+		"name": "Fish - Day 12",
+		"region": "Fish",
+		"category": [ "9 - Fish" ]
+	},
+	{
+		"name": "Fish - Day 15 (overtime)",
+		"region": "Fish",
+		"category": [ "9 - Fish" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Hot Dog - Day 3",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ]
+	},
+	{
+		"name": "Hot Dog - Day 6",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ]
+	},
+	{
+		"name": "Hot Dog - Day 9",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ]
+	},
+	{
+		"name": "Hot Dog - Day 12",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ]
+	},
+	{
+		"name": "Hot Dog - Day 15 (overtime)",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Breakfast - Day 3",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ]
+	},
+	{
+		"name": "Breakfast - Day 6",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ]
+	},
+	{
+		"name": "Breakfast - Day 9",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ]
+	},
+	{
+		"name": "Breakfast - Day 12",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ]
+	},
+	{
+		"name": "Breakfast - Day 15 (overtime)",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Stir Fry - Day 3",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ]
+	},
+	{
+		"name": "Stir Fry - Day 6",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ]
+	},
+	{
+		"name": "Stir Fry - Day 9",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ]
+	},
+	{
+		"name": "Stir Fry - Day 12",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ]
+	},
+	{
+		"name": "Stir Fry - Day 15 (overtime)",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ],
+		"place_item": [ "Victory Token" ]
+	},
+
+	{
+		"name": "Credits",
+		"victory": true,
+		"region": "Lobby",
+		"requires": "|Victory Token:9|"
+	},
+	{
+		"name": "Version> (Unknown)",
+		"region": "Lobby",
+		"requires": "Victory Token:12",
+		"place_item": [ "Version" ]
+	}
+]

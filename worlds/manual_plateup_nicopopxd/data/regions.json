@@ -1,0 +1,54 @@
+{
+  "Lobby": {
+    "requires": [],
+    "connects_to": []
+  },
+  "Steak": {
+    "requires": "|Steak Recipe|",
+    "connects_to": []
+  },
+  "Salad": {
+    "requires": "|Salad Recipe|",
+    "connects_to": []
+  },
+  "Pizza": {
+    "requires": "|Pizza Recipe|",
+    "connects_to": []
+  },
+  "Dumplings": {
+    "requires": "|Dumplings Recipe|",
+    "connects_to": []
+  },
+  "Coffee": {
+    "requires": "|Coffee Recipe|",
+    "connects_to": []
+  },
+  "Burger": {
+    "requires": "|Burger Recipe|",
+    "connects_to": []
+  },
+  "Turkey": {
+    "requires": "|Turkey Recipe|",
+    "connects_to": []
+  },
+  "Pie": {
+    "requires": "|Pie Recipe|",
+    "connects_to": []
+  },
+  "Fish": {
+    "requires": "|Fish Recipe|",
+    "connects_to": []
+  },
+  "Hot Dog": {
+    "requires": "|Hot Dog Recipe|",
+    "connects_to": []
+  },
+  "Breakfast": {
+    "requires": "|Breakfast Recipe|",
+    "connects_to": []
+  },
+  "Stir Fry": {
+    "requires": "|Stir Fry Recipe|",
+    "connects_to": []
+  }
+}

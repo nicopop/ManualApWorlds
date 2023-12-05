@@ -1,0 +1,108 @@
+[
+  {
+    "name": "Version",
+    "useful": false,
+    "progression": false
+  },
+  {
+    "name": "Victory Token",
+    "progression": true,
+    "count": 12,
+    "category": [ "1 Important" ]
+  },
+  {
+    "name": "Steak Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Salad Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Pizza Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Dumplings Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Coffee Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Burger Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Turkey Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Pie Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Fish Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Hot Dog Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Breakfast Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Stir Fry Recipe",
+    "progression": true,
+    "category": [ "2 Recipes" ]
+  },
+  {
+    "name": "Basic floorplans",
+    "progression": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Diner floorplans",
+    "progression": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Medium floorplans",
+    "progression": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Extended floorplans",
+    "progression": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Huge floorplans",
+    "progression": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Daily floorplans",
+    "useful": true,
+    "category": [ "3 Floorplans" ]
+  },
+  {
+    "name": "Weekly floorplans",
+    "useful": true,
+    "category": [ "3 Floorplans" ]
+  }
+]

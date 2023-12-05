@@ -1,0 +1,99 @@
+{
+  "level_1": {
+    "items": [
+      "Steak Recipe",
+      "Basic floorplans"
+    ],
+    "locations": []
+  },
+  "level_2": {
+    "items": [
+      "Salad Recipe",
+      "Booking Desk"
+    ],
+    "locations": []
+  },
+  "level_3": {
+    "items": [
+      "Pizza Recipe",
+      "Country setting"
+    ],
+    "locations": []
+  },
+  "level_4": {
+    "items": [
+      "Dumplings Recipe",
+      "Coffee Recipe",
+      "Alpine setting",
+      "Diner floorplans",
+      "Medium floorplans"
+    ],
+    "locations": []
+  },
+  "level_5": {
+    "items": [
+      "Burger Recipe",
+      "Autumn setting"
+    ],
+    "locations": []
+  },
+  "level_6": {
+    "items": [
+      "Turkey Recipe",
+      "Custom Seeded Run",
+      "Daily floorplans",
+      "Weekly floorplans"
+    ],
+    "locations": []
+  },
+  "level_7": {
+    "items": [
+      "Pie Recipe",
+      "Turbo setting"
+    ],
+    "locations": []
+  },
+  "level_8": {
+    "items": [],
+    "locations": []
+  },
+  "level_9": {
+    "items": [
+      "Fish Recipe"
+    ],
+    "locations": []
+  },
+  "level_10": {
+    "items": [
+      "Extended floorplans"
+    ],
+    "locations": []
+  },
+  "level_11": {
+    "items": [
+      "Hot Dog Recipe",
+      "Huge floorplans"
+    ],
+    "locations": []
+  },
+  "level_12": {
+    "items": [],
+    "locations": []
+  },
+  "level_13": {
+    "items": [
+      "Breakfast Recipe"
+    ],
+    "locations": []
+  },
+  "level_14": {
+    "items": [],
+    "locations": []
+  },
+  "level_15": {
+    "items": [
+      "Stir Fry Recipe"
+    ],
+    "locations": []
+  }
+}
