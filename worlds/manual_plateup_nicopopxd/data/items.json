@@ -6,6 +6,11 @@
     "category": [ "1 Important" ]
   },
   {
+    "name": "Final Victory",
+    "progression": true,
+    "category": [ "1 Important" ]
+  },
+  {
     "name": "Steak Recipe",
     "progression": true,
     "category": [ "2 Recipes" ]
@@ -99,5 +104,52 @@
     "name": "Weekly floorplans",
     "useful": true,
     "category": [ "3 Floorplans" ]
+  },
+
+  {
+    "name": "Research Table",
+    "useful": true,
+    "early": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Conveyors",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Microwave",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Frozen Prep Station",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Table Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Hob Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Bin Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Sink Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
+  },
+  {
+    "name": "Mixer Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades" ]
   }
 ]

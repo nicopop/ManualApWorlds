@@ -1,5 +1,16 @@
 [
 	{
+		"name": "Get in a game for the first time",
+		"category": [ "0 - Lobby" ],
+		"region": "Lobby"
+	},
+	{
+		"name": "Get to Overtime for the first time",
+		"category": [ "0 - Lobby" ],
+		"requires": "|Victory Token:1|",
+		"region": "Lobby"
+	},
+	{
 		"name": "Steak - Day 3",
 		"region": "Steak",
 		"category": [ "1 - Steak" ]
@@ -20,10 +31,15 @@
 		"category": [ "1 - Steak" ]
 	},
 	{
-		"name": "Steak - Day 15 (overtime)",
+		"name": "Steak - Day 15 {overtime}",
 		"region": "Steak",
 		"category": [ "1 - Steak" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Steak - Overtime 3",
+		"region": "Steak",
+		"category": [ "1 - Steak" ]
 	},
 
 	{
@@ -47,10 +63,15 @@
 		"category": [ "2 - Salad" ]
 	},
 	{
-		"name": "Salad - Day 15 (overtime)",
+		"name": "Salad - Day 15 {overtime}",
 		"region": "Salad",
 		"category": [ "2 - Salad" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Salad - Overtime 3",
+		"region": "Salad",
+		"category": [ "2 - Salad" ]
 	},
 
 	{
@@ -74,10 +95,15 @@
 		"category": [ "3 - Pizza" ]
 	},
 	{
-		"name": "Pizza - Day 15 (overtime)",
+		"name": "Pizza - Day 15 {overtime}",
 		"region": "Pizza",
 		"category": [ "3 - Pizza" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Pizza - Overtime 3",
+		"region": "Pizza",
+		"category": [ "3 - Pizza" ]
 	},
 
 	{
@@ -101,10 +127,15 @@
 		"category": [ "4 - Dumplings" ]
 	},
 	{
-		"name": "Dumplings - Day 15 (overtime)",
+		"name": "Dumplings - Day 15 {overtime}",
 		"region": "Dumplings",
 		"category": [ "4 - Dumplings" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Dumplings - Overtime 3",
+		"region": "Dumplings",
+		"category": [ "4 - Dumplings" ]
 	},
 
 	{
@@ -128,10 +159,15 @@
 		"category": [ "5 - Coffee" ]
 	},
 	{
-		"name": "Coffee - Day 15 (overtime)",
+		"name": "Coffee - Day 15 {overtime}",
 		"region": "Coffee",
 		"category": [ "5 - Coffee" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Coffee - Overtime 3",
+		"region": "Coffee",
+		"category": [ "5 - Coffee" ]
 	},
 
 	{
@@ -155,10 +191,15 @@
 		"category": [ "6 - Burger" ]
 	},
 	{
-		"name": "Burger - Day 15 (overtime)",
+		"name": "Burger - Day 15 {overtime}",
 		"region": "Burger",
 		"category": [ "6 - Burger" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Burger - Overtime 3",
+		"region": "Burger",
+		"category": [ "6 - Burger" ]
 	},
 
 	{
@@ -182,10 +223,15 @@
 		"category": [ "7 - Turkey" ]
 	},
 	{
-		"name": "Turkey - Day 15 (overtime)",
+		"name": "Turkey - Day 15 {overtime}",
 		"region": "Turkey",
 		"category": [ "7 - Turkey" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Turkey - Overtime 3",
+		"region": "Turkey",
+		"category": [ "7 - Turkey" ]
 	},
 
 	{
@@ -209,10 +255,15 @@
 		"category": [ "8 - Pie" ]
 	},
 	{
-		"name": "Pie - Day 15 (overtime)",
+		"name": "Pie - Day 15 {overtime}",
 		"region": "Pie",
 		"category": [ "8 - Pie" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Pie - Overtime 3",
+		"region": "Pie",
+		"category": [ "8 - Pie" ]
 	},
 
 	{
@@ -236,10 +287,15 @@
 		"category": [ "9 - Fish" ]
 	},
 	{
-		"name": "Fish - Day 15 (overtime)",
+		"name": "Fish - Day 15 {overtime}",
 		"region": "Fish",
 		"category": [ "9 - Fish" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Fish - Overtime 3",
+		"region": "Fish",
+		"category": [ "9 - Fish" ]
 	},
 
 	{
@@ -263,10 +319,15 @@
 		"category": [ "10 - Hot Dog" ]
 	},
 	{
-		"name": "Hot Dog - Day 15 (overtime)",
+		"name": "Hot Dog - Day 15 {overtime}",
 		"region": "Hot Dog",
 		"category": [ "10 - Hot Dog" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Hot Dog - Overtime 3",
+		"region": "Hot Dog",
+		"category": [ "10 - Hot Dog" ]
 	},
 
 	{
@@ -290,10 +351,15 @@
 		"category": [ "11 - Breakfast" ]
 	},
 	{
-		"name": "Breakfast - Day 15 (overtime)",
+		"name": "Breakfast - Day 15 {overtime}",
 		"region": "Breakfast",
 		"category": [ "11 - Breakfast" ],
 		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Breakfast - Overtime 3",
+		"region": "Breakfast",
+		"category": [ "11 - Breakfast" ]
 	},
 
 	{
@@ -317,16 +383,27 @@
 		"category": [ "12 - Stir Fry" ]
 	},
 	{
-		"name": "Stir Fry - Day 15 (overtime)",
+		"name": "Stir Fry - Day 15 {overtime}",
 		"region": "Stir Fry",
 		"category": [ "12 - Stir Fry" ],
 		"place_item": [ "Victory Token" ]
 	},
+	{
+		"name": "Stir Fry - Overtime 3",
+		"region": "Stir Fry",
+		"category": [ "12 - Stir Fry" ]
+	},
 
+	{
+		"name": "All done",
+		"region": "Lobby",
+		"requires": "|Victory Token:9|",
+		"place_item": [ "Final Victory" ]
+	},
 	{
 		"name": "Credits",
 		"victory": true,
 		"region": "Lobby",
-		"requires": "|Victory Token:9|"
+		"requires": "|Final Victory|"
 	}
 ]

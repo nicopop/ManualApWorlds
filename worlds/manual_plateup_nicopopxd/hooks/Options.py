@@ -39,21 +39,71 @@ class ApWorldVersion(FreeText):
 
 class HostLevel(Range):
     """What level is your host player?"""
+    display_name = "Host Level:"
     range_start = 1
     range_end = 15
     default = 10
 class TotalTokenForWin(Range):
     """Percentage of available Recipe needed to win?(rounded up)"""
+    display_name = "Recipe % needed to Win"
     range_start = 1
     range_end = 100
     default = 75
-
+class EnableSteak(DefaultOnToggle):
+    """Enable the Steak Main recipe"""
+    display_name = "Enable Steak"
+class EnableSalad(DefaultOnToggle):
+    """Enable the Salad Main recipe"""
+    display_name = "Enable Salad"
+class EnablePizza(DefaultOnToggle):
+    """Enable the Pizza Main recipe"""
+    display_name = "Enable Pizza"
+class EnableDumplings(DefaultOnToggle):
+    """Enable the Dumplings Main recipe"""
+    display_name = "Enable Dumplings"
+class EnableCoffee(DefaultOnToggle):
+    """Enable the Coffee Main recipe"""
+    display_name = "Enable Coffee"
+class EnableBurger(DefaultOnToggle):
+    """Enable the Burger Main recipe"""
+    display_name = "Enable Burger"
+class EnableTurkey(DefaultOnToggle):
+    """Enable the Turkey Main recipe"""
+    display_name = "Enable Turkey"
+class EnablePie(DefaultOnToggle):
+    """Enable the Pie Main recipe"""
+    display_name = "Enable Pie"
+class EnableFish(DefaultOnToggle):
+    """Enable the Fish Main recipe"""
+    display_name = "Enable Fish"
+class EnableHotDog(DefaultOnToggle):
+    """Enable the Hot Dog Main recipe"""
+    display_name = "Enable Hot Dog"
+class EnableBreakfast(DefaultOnToggle):
+    """Enable the Breakfast Main recipe"""
+    display_name = "Enable Breakfast"
+class EnableStirFry(DefaultOnToggle):
+    """Enable the Stir Fry Main recipe"""
+    display_name = "Enable Stir Fry"
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
 #    options["total_characters_to_win_with"] = TotalCharactersToWinWith
     options["game_version"] = ApWorldVersion
     options["host_level"] = HostLevel
     options["win_percent"] = TotalTokenForWin
+    options["recipe_steak"] = EnableSteak
+    options["recipe_salad"] = EnableSalad
+    options["recipe_pizza"] = EnablePizza
+    options["recipe_dumplings"] = EnableDumplings
+    options["recipe_coffee"] = EnableCoffee
+    options["recipe_burger"] = EnableBurger
+    options["recipe_turkey"] = EnableTurkey
+    options["recipe_pie"] = EnablePie
+    options["recipe_fish"] = EnableFish
+    options["recipe_hotdog"] = EnableHotDog
+    options["recipe_breakfast"] = EnableBreakfast
+    options["recipe_stirfry"] = EnableStirFry
+
     #options["reduced_spooks"] = ReducedSpooks #we'll need to talk on what need to be disabled/modified when this is enabled
     return options
 

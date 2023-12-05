@@ -1,110 +1,158 @@
 {
   "level_1": {
     "items": [
-      "Steak Recipe",
       "Basic floorplans"
     ],
     "locations": [],
-    "region": [ "Steak" ]
+    "region": [ "Steak" ],
+    "MaxToken": 1
   },
   "level_2": {
     "items": [
-      "Salad Recipe",
       "Booking Desk"
     ],
     "locations": [],
-    "region": [ "Salad" ]
+    "region": [ "Salad" ],
+    "MaxToken": 2
   },
   "level_3": {
     "items": [
-      "Pizza Recipe",
       "Country setting"
     ],
     "locations": [],
-    "region": [ "Pizza" ]
+    "region": [ "Pizza" ],
+    "MaxToken": 3
   },
   "level_4": {
     "items": [
-      "Dumplings Recipe",
-      "Coffee Recipe",
       "Alpine setting",
       "Diner floorplans",
       "Medium floorplans"
     ],
     "locations": [],
-    "region": [ "Dumplings", "Coffee" ]
+    "region": [ "Dumplings", "Coffee" ],
+    "MaxToken": 5
   },
   "level_5": {
     "items": [
-      "Burger Recipe",
       "Autumn setting"
     ],
     "locations": [],
-    "region": [ "Burger" ]
+    "region": [ "Burger" ],
+    "MaxToken": 6
   },
   "level_6": {
     "items": [
-      "Turkey Recipe",
       "Custom Seeded Run",
       "Daily floorplans",
       "Weekly floorplans"
     ],
     "locations": [],
-    "region": [ "Turkey" ]
+    "region": [ "Turkey" ],
+    "MaxToken": 7
   },
   "level_7": {
     "items": [
-      "Pie Recipe",
       "Turbo setting"
     ],
     "locations": [],
-    "region": [ "Pie" ]
+    "region": [ "Pie" ],
+    "MaxToken": 8
   },
   "level_8": {
     "items": [],
-    "locations": []
+    "locations": [],
+    "MaxToken": 8
   },
   "level_9": {
-    "items": [
-      "Fish Recipe"
-    ],
+    "items": [],
     "locations": [],
-    "region": [ "Fish" ]
+    "region": [ "Fish" ],
+    "MaxToken": 9
   },
   "level_10": {
     "items": [
       "Extended floorplans"
     ],
-    "locations": []
+    "locations": [],
+    "MaxToken": 9
   },
   "level_11": {
     "items": [
-      "Hot Dog Recipe",
       "Huge floorplans"
     ],
     "locations": [],
-    "region": [ "Hot Dog" ]
+    "region": [ "Hot Dog" ],
+    "MaxToken": 10
   },
   "level_12": {
     "items": [],
-    "locations": []
+    "locations": [],
+    "MaxToken": 10
   },
   "level_13": {
-    "items": [
-      "Breakfast Recipe"
-    ],
+    "items": [],
     "locations": [],
-    "region": [ "Breakfast" ]
+    "region": [ "Breakfast" ],
+    "MaxToken": 11
   },
   "level_14": {
     "items": [],
-    "locations": []
+    "locations": [],
+    "MaxToken": 11
   },
   "level_15": {
-    "items": [
-      "Stir Fry Recipe"
-    ],
+    "items": [],
     "locations": [],
-    "region": [ "Stir Fry" ]
+    "region": [ "Stir Fry" ],
+    "MaxToken": 12
+  },
+  "recipe_steak": {
+    "locations": [ "Steak - Day 3", "Steak - Day 6", "Steak - Day 9", "Steak - Day 12", "Steak - Day 15 {overtime}", "Steak - Overtime 3" ],
+    "items": [ "Steak Recipe" ]
+  },
+  "recipe_salad": {
+    "locations": [ "Salad - Day 3", "Salad - Day 6", "Salad - Day 9", "Salad - Day 12", "Salad - Day 15 {overtime}", "Salad - Overtime 3" ],
+    "items": [ "Salad Recipe" ]
+  },
+  "recipe_pizza": {
+    "locations": [ "Pizza - Day 3", "Pizza - Day 6", "Pizza - Day 9", "Pizza - Day 12", "Pizza - Day 15 {overtime}", "Pizza - Overtime 3" ],
+    "items": [ "Pizza Recipe" ]
+  },
+  "recipe_dumplings": {
+    "locations": [ "Dumplings - Day 3", "Dumplings - Day 6", "Dumplings - Day 9", "Dumplings - Day 12", "Dumplings - Day 15 {overtime}", "Dumplings - Overtime 3" ],
+    "items": [ "Dumplings Recipe" ]
+  },
+  "recipe_coffee": {
+    "locations": [ "Coffee - Day 3", "Coffee - Day 6", "Coffee - Day 9", "Coffee - Day 12", "Coffee - Day 15 {overtime}", "Coffee - Overtime 3" ],
+    "items": [ "Coffee Recipe" ]
+  },
+  "recipe_burger": {
+    "locations": [ "Burger - Day 3", "Burger - Day 6", "Burger - Day 9", "Burger - Day 12", "Burger - Day 15 {overtime}", "Burger - Overtime 3" ],
+    "items": [ "Burger Recipe" ]
+  },
+  "recipe_turkey": {
+    "locations": [ "Turkey - Day 3", "Turkey - Day 6", "Turkey - Day 9", "Turkey - Day 12", "Turkey - Day 15 {overtime}", "Turkey - Overtime 3" ],
+    "items": [ "Turkey Recipe" ]
+  },
+  "recipe_pie": {
+    "locations": [ "Pie - Day 3", "Pie - Day 6", "Pie - Day 9", "Pie - Day 12", "Pie - Day 15 {overtime}", "Pie - Overtime 3" ],
+    "items": [ "Pie Recipe" ]
+  },
+  "recipe_fish": {
+    "locations": [ "Fish - Day 3", "Fish - Day 6", "Fish - Day 9", "Fish - Day 12", "Fish - Day 15 {overtime}", "Fish - Overtime 3" ],
+    "items": [ "Fish Recipe" ]
+  },
+  "recipe_hotdog": {
+    "locations": [ "Hot Dog - Day 3", "Hot Dog - Day 6", "Hot Dog - Day 9", "Hot Dog - Day 12", "Hot Dog - Day 15 {overtime}", "Hot Dog - Overtime 3" ],
+    "items": [ "Hot Dog Recipe" ]
+  },
+  "recipe_breakfast": {
+    "locations": [ "Breakfast - Day 3", "Breakfast - Day 6", "Breakfast - Day 9", "Breakfast - Day 12", "Breakfast - Day 15 {overtime}", "Breakfast - Overtime 3" ],
+    "items": [ "Breakfast Recipe" ]
+  },
+  "recipe_stirfry": {
+    "locations": [ "Stir Fry - Day 3", "Stir Fry - Day 6", "Stir Fry - Day 9", "Stir Fry - Day 12", "Stir Fry - Day 15 {overtime}", "Stir Fry - Overtime 3" ],
+    "items": [ "Stir Fry Recipe" ]
   }
 }

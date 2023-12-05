@@ -1,6 +1,6 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
-from worlds.generic.Rules import add_rule
+from worlds.generic.Rules import add_rule, set_rule
 from ..Data import load_data_file
 from copy import copy
 
@@ -48,6 +48,7 @@ Copy of any changed world item/locations
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
+    extra_data = load_data_file("extra.json")
     # Set version in yaml and log
     if not PPMiscData.get('version'):
         apworldversion = "Unknown"
@@ -62,8 +63,29 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     PPOptions[player] = {}
     PPMiscData[player] = {}
     PPOptions[player]['host_level'] = get_option_value(multiworld, player, "host_level") or 0
+    PPOptions[player]['win_percent'] = get_option_value(multiworld, player, "win_percent") or 0
+    PPOptions[player]['recipe_steak'] = get_option_value(multiworld, player, "recipe_steak") or 0
+    PPOptions[player]["recipe_salad"] = get_option_value(multiworld, player, "recipe_salad") or 0
+    PPOptions[player]["recipe_pizza"] = get_option_value(multiworld, player, "recipe_pizza") or 0
+    PPOptions[player]["recipe_dumplings"] = get_option_value(multiworld, player, "recipe_dumplings") or 0
+    PPOptions[player]["recipe_coffee"] = get_option_value(multiworld, player, "recipe_coffee") or 0
+    PPOptions[player]["recipe_burger"] = get_option_value(multiworld, player, "recipe_burger") or 0
+    PPOptions[player]["recipe_turkey"] = get_option_value(multiworld, player, "recipe_turkey") or 0
+    PPOptions[player]["recipe_pie"] = get_option_value(multiworld, player, "recipe_pie") or 0
+    PPOptions[player]["recipe_fish"] = get_option_value(multiworld, player, "recipe_fish") or 0
+    PPOptions[player]["recipe_hotdog"] = get_option_value(multiworld, player, "recipe_hotdog") or 0
+    PPOptions[player]["recipe_breakfast"] = get_option_value(multiworld, player, "recipe_breakfast") or 0
+    PPOptions[player]["recipe_stirfry"] = get_option_value(multiworld, player, "recipe_stirfry") or 0
     #Options Check for imposibities
-    #WIP
+    for i in range(PPOptions[player]['host_level'] + 1, 16):
+        recipes = extra_data.get(f"level_{i}", {}).get(f"region", [])
+        for recipe in recipes:
+            print(f"recipe_{recipe.lower().replace(' ', '')}")
+            PPOptions[player][f"recipe_{recipe.lower().replace(' ', '')}"] = 0
+    PPMiscData[player]["RecipeCount"] = 0
+    for option, count in PPOptions[player].items():
+        if option.startswith('recipe_'):
+            PPMiscData[player]["RecipeCount"] += count
     #Is it safe to skip some code
     PPMiscData[player]['SafeGen'] = False #value for first run
     index = PPMiscData['KnownPlayers'].index(player)
@@ -72,8 +94,30 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         PPMiscData[player]['SafeGen'] = True
         if PPOptions[player]['host_level'] != PPOptions[index]["host_level"]:
             PPMiscData[player]['SafeGen'] = False
-        # elif PPOptions[player]["do_place_item_category"] != PPOptions[index]["do_place_item_category"]:
-        #     PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_steak"] != PPOptions[index]["recipe_steak"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_salad"] != PPOptions[index]["recipe_salad"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_pizza"] != PPOptions[index]["recipe_pizza"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_dumplings"] != PPOptions[index]["recipe_dumplings"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_coffee"] != PPOptions[index]["recipe_coffee"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_burger"] != PPOptions[index]["recipe_burger"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_turkey"] != PPOptions[index]["recipe_turkey"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_pie"] != PPOptions[index]["recipe_pie"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_fish"] != PPOptions[index]["recipe_fish"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_hotdog"] != PPOptions[index]["recipe_hotdog"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_breakfast"] != PPOptions[index]["recipe_breakfast"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_stirfry"] != PPOptions[index]["recipe_stirfry"]:
+            PPMiscData[player]["SafeGen"] = False
         logger.debug(f'SafeGen for player {player} set to {PPMiscData[player]["SafeGen"]}')
 #endregion
 # Called after regions and locations are created, in case you want to see or modify that information.
@@ -86,141 +130,82 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
+    maxWin = round(PPMiscData[player]["RecipeCount"]*(PPOptions[player]['win_percent']/100))
+    PPMiscData[player]["MaxWin"] = maxWin
+    for location in multiworld.get_unfilled_locations(player):
+        if location.name == "All done":
+            set_rule(location,
+                     lambda state: state.has("Victory Token", player, maxWin))
+            break
     pass
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
     host_level = PPOptions[player]["host_level"]
-    print("hello")
+    extra_data = load_data_file("extra.json")
+    locations_to_be_removed = []
+    items_to_be_removed = []
 #Restore location placed items
 #region
     if PPMiscData["KnownPlayers"][0] != player and PPMiscData[player]["SafeGen"] == False:
-        # if len(RemovedPlacedItems) > 0 or len(RemovedPlacedItemsCategory) > 0:
-        #     readded_place_item_Count = 0
-        #     locationstoCheck = {}
-        #     locationstoCheck.update(RemovedPlacedItems)
-        #     locationstoCheck.update(RemovedPlacedItemsCategory)
-        #     for location in locationstoCheck:
-        #         if location in world.location_names:
-        #             worldlocation = world.location_name_to_location[location]
-        #             if location in RemovedPlacedItemsCategory:
-        #                 worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
-        #                 RemovedPlacedItemsCategory.pop(location)
-        #             if location in RemovedPlacedItems:
-        #                 worldlocation["place_item"] = RemovedPlacedItems[location]
-        #                 RemovedPlacedItems.pop(location)
-        #             if "place_item" in worldlocation or "place_item_category" in worldlocation:
-        #                 readded_place_item_Count += 1
-        #     if readded_place_item_Count > 0:
-        #         multiworld.clear_location_cache()
-        #         logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
+        RemovedPlacedItems = PPWorkingData.get("place_items", {})
+        RemovedPlacedItemsCategory = PPWorkingData.get('place_items_cat', {})
+        if len(RemovedPlacedItems) > 0 or len(RemovedPlacedItemsCategory) > 0:
+            readded_place_item_Count = 0
+            locationstoCheck = {}
+            locationstoCheck.update(RemovedPlacedItems)
+            locationstoCheck.update(RemovedPlacedItemsCategory)
+            for location in locationstoCheck:
+                if location in world.location_names:
+                    worldlocation = world.location_name_to_location[location]
+                    if location in RemovedPlacedItemsCategory:
+                        worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
+                        RemovedPlacedItemsCategory.pop(location)
+                    if location in RemovedPlacedItems:
+                        worldlocation["place_item"] = RemovedPlacedItems[location]
+                        RemovedPlacedItems.pop(location)
+                    if "place_item" in worldlocation or "place_item_category" in worldlocation:
+                        readded_place_item_Count += 1
+            if readded_place_item_Count > 0:
+                multiworld.clear_location_cache()
+                logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
         pass
 #endregion
-
 # Personnal Item counts adjustment
 #region
-    # item_counts= {}
-    # if randomContent == RandomContent.option_base_game:
-    #     item_counts["forced Meditation"] = 2
-    #     item_counts["Musical Instrument"] = 6
-    #     item_counts["Ticket for (1) free death"] = 4
+    #maxWin = round(PPMiscData[player]["RecipeCount"]*(PPOptions[player]['win_percent']/100))
 
-    # elif randomContent == RandomContent.option_dlc:
-    #     worldlocation = world.location_name_to_location["Get in ship for the first time"]
-    #     RemovedPlacedItemsCategory[worldlocation.name] = copy(worldlocation["place_item_category"])
-    #     worldlocation.pop("place_item_category", "")
+    item_counts= {}
 
-    #     item_counts["forced Meditation"] = 3
-    #     item_counts["Ticket for (1) free death"] = 5
-    # #if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
-    #     #if either only base game or only dlc
-    #     #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
+    item_counts["Victory Token"] = PPMiscData[player]["RecipeCount"]
 
-    # for name, count in item_counts.items():
-    #     checkedname = copy(name)
-    #     # future change item name here
-    #     items = []
-    #     for item in item_pool:
-    #         if item.player != player:
-    #             continue
-    #         if item.name == checkedname:
-    #             items.append(item)
-    #     if len(items) > count:
-    #         for x in range(len(items) - count):
-    #             item_pool.remove(items[x])
+    for name, count in item_counts.items():
+        checkedname = copy(name)
+        # future change item name here
+        items = []
+        for item in item_pool:
+            if item.player != player:
+                continue
+            if item.name == checkedname:
+                items.append(item)
+        if len(items) > count:
+            for x in range(len(items) - count):
+                item_pool.remove(items[x])
 #endregion
+# Removing disabled locations
+    for option, count in PPOptions[player].items():
+        if option.startswith('recipe_') and not count:
+            locations_to_be_removed += extra_data[option]["locations"]
+            items_to_be_removed += extra_data[option]["items"]
+    for i in range(PPOptions[player]['host_level'] + 1, 16):
+        items_to_be_removed += extra_data.get(f"level_{i}", {}).get(f"items", [])
 
-    locations_to_be_removed = []
-
-    extra_data = load_data_file("extra.json")
-
-
-    # if not do_place_item_category:
-    #     for location in list(extra_data["no_place_item_category"]["locations"]):
-    #         if location in world.location_name_to_location:
-    #             worldlocation = world.location_name_to_location[location]
-    #             if "place_item_category" in worldlocation:
-    #                 RemovedPlacedItemsCategory[location] = copy(worldlocation["place_item_category"])
-    #                 worldlocation.pop("place_item_category", "")
-    #     multiworld.clear_location_cache()
-
-
-    # if randomContent != RandomContent.option_both:
-    #     if randomContent == RandomContent.option_base_game:
-    #         message = "Base game"
-    #         for item in list(item_pool):
-    #             if item.name in extra_data["echoes"]["items"]:
-    #                 item_pool.remove(item)
-    #         locations_to_be_removed += extra_data["echoes"]["locations"]
-    #     elif randomContent == RandomContent.option_dlc:
-    #         message = "DLC"
-    #         valid_items = extra_data["echoes"]["items"] + extra_data["both"]["items"]
-    #         valid_locations = extra_data["echoes"]["locations"] + extra_data["both"]["locations"]
-    #         if goal == Goal.option_eye:
-    #             valid_items += extra_data["victory_eye"]["items"]
-    #             valid_locations += extra_data["victory_eye"]["locations"]
-    #             message += " + Eye"
-    #         elif goal == Goal.option_ash_twin_project_break_spacetime:
-    #             valid_items += extra_data["victory_ash_twin_project_break_spacetime"]["items"]
-    #             valid_locations += extra_data["victory_ash_twin_project_break_spacetime"]["locations"]
-    #             message += " + Ash Twin project"
-    #         elif goal == Goal.option_high_energy_lab_break_spacetime:
-    #             valid_items += extra_data["victory_high_energy_lab_break_spacetime"]["items"]
-    #             valid_locations += extra_data["victory_high_energy_lab_break_spacetime"]["locations"]
-    #             message += " + High Energy Lab"
-    #         elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
-    #             valid_items +=  extra_data["need_warpdrive"]["items"]
-    #             valid_locations += extra_data["need_warpdrive"]["locations"]
-    #             message += " + Adv. warp core"
-    #         elif goal == Goal.option_stuck_with_solanum:
-    #             valid_items +=  extra_data["need_warpdrive"]["items"] + extra_data["require_solanum"]["items"]
-    #             valid_locations += extra_data["need_warpdrive"]["locations"] + extra_data["require_solanum"]["locations"]
-    #             message += " + Adv. warp core + Solanum"
-    #         if solanum and goal != Goal.option_stuck_with_solanum:
-    #             valid_items += extra_data["require_solanum"]["items"]
-    #             valid_locations += extra_data["require_solanum"]["locations"]
-    #             message += " + Solanum"
-
-    #         for item in list(item_pool):
-    #             if item.name not in valid_items:
-    #                 item_pool.remove(item)
-
-    #         for location in list(world.location_name_to_location):
-    #             if location not in valid_locations:
-    #                 locations_to_be_removed.append(location)
-
-    # else:
-    #     message = "Both"
-    #logger.info(message)
-
-    # if goal != Goal.option_stuck_with_solanum:
-    #     locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
-    # if goal != Goal.option_stuck_in_stranger:
-    #     locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
-    # if goal != Goal.option_stuck_in_dream:
-    #     locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
-
-    # if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
-    #     locations_to_be_removed.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
+# Remove items in items_to_be_removed
+#region
+    for item in list(item_pool):
+        if item.name in items_to_be_removed:
+            item_pool.remove(item)
+    logger.info("done removing items")
+#endregion
 # Removing locations in locations_to_be_removed
 #region
     local_valid_locations = copy(world.location_name_to_location)
@@ -249,52 +234,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         multiworld.clear_location_cache()
     logger.info(f"{world.game}:{player}:({host_level}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
 #endregion
-#Placing Victory item in location
-#region
-    # VictoryInfoToAdd = ""
-    # if solanum: VictoryInfoToAdd += " + 'Seen Solanum'"
-    # if owlguy: VictoryInfoToAdd += " + 'Seen Prisoner'"
 
-    # if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-    #     victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
-    #     victory_base_message = "Eye"
-    # elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
-    #     victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
-    #     victory_base_message = "Prisoner"
-    # elif goal == Goal.option_visit_all_archive:
-    #     victory_name = "9 - In a loop visit all 3 archive without getting caught"
-    #     victory_base_message = "Visit all archive"
-    # elif goal == Goal.option_ash_twin_project_break_spacetime:
-    #     victory_name = "1 - Break Space-Time in the Ash Twin Project"
-    #     victory_base_message = "Ash Twin Project"
-    # elif goal == Goal.option_high_energy_lab_break_spacetime:
-    #     victory_name = "1 - Break space time in the lab"
-    #     victory_base_message = "High Energy Lab"
-    # elif goal == Goal.option_stuck_with_solanum:
-    #     victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
-    #     victory_base_message = "Stuck with Solanum"
-    # elif goal == Goal.option_stuck_in_stranger:
-    #     victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
-    #     victory_base_message = "Stuck in Stranger"
-    # elif goal == Goal.option_stuck_in_dream:
-    #     victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
-    #     victory_base_message = "Stuck in Dreamworld"
-    # victory_message = victory_base_message + VictoryInfoToAdd
-
-    # for item in item_pool:
-    #     if item.player != player:
-    #         continue
-    #     if item.name == "Victory Token":
-    #         victory_item = item
-    #         break
-    # for location in multiworld.get_unfilled_locations(player):
-    #     if location.name == victory_name:
-    #         location.place_locked_item(victory_item)
-    # item_pool.remove(victory_item)
-
-    # logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}')
-#endregion
-
+    local_valid_locations
     return item_pool
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs

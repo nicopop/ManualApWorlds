@@ -13,6 +13,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <TestFramework>Pytest</TestFramework>
+    <CommandLineArguments>--log=DEBUG</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -20,6 +21,7 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Players\Manual_PlateUp_Nicopopxd.yaml" />
     <Content Include="Players\tmp\NicopopxdOW.yaml" />
     <Content Include="Players\tmp\OuterWilds 1.yaml" />
     <Content Include="Players\Templates\A Link to the Past.yaml" />

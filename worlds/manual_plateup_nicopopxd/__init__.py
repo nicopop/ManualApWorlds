@@ -132,9 +132,21 @@ class ManualWorld(World):
             if "count" in item:
                 item_count = int(item["count"])
 
-            for i in range(item_count):
+            for _ in range(item_count):
                 new_item = self.create_item(name)
                 pool.append(new_item)
+            if item.get("early") and item.get("local"):
+              # both
+                self.multiworld.local_early_items[self.player][name] = item_count
+
+            elif item.get("early"):
+                # only early
+                self.multiworld.early_items[self.player][name] = item_count
+
+            elif item.get("local"):
+              # only local
+                if name not in self.multiworld.local_items[self.player].value:
+                    self.multiworld.local_items[self.player].value.add(name)
 
         items_started = []
 
@@ -175,7 +187,7 @@ class ManualWorld(World):
 
         personal_locations = sum([len(r.locations) for r in self.multiworld.regions if r.player == self.player])
 
-        extras = personal_locations - len(pool) - 1 # subtracting 1 because of Victory; seems right
+        extras = personal_locations - len(pool) - 2 # subtracting 1 because of Victory; seems right
 
         logger.debug(f"Extras: {extras}")
 
