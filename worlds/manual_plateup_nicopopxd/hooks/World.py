@@ -57,6 +57,8 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         multiworld.game_version[player].value = apworldversion
         PPMiscData["version"] = apworldversion
         logger.info(f"player(s) uses {world.game} version: {apworldversion}")
+    else:
+        multiworld.game_version[player].value = PPMiscData["version"]
 #Init Options
 #region
     PPMiscData["KnownPlayers"].append(player)
@@ -64,6 +66,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     PPMiscData[player] = {}
     PPOptions[player]['host_level'] = get_option_value(multiworld, player, "host_level") or 0
     PPOptions[player]['win_percent'] = get_option_value(multiworld, player, "win_percent") or 0
+    PPOptions[player]['do_overtime'] = get_option_value(multiworld, player, "do_overtime") or 0
     PPOptions[player]['recipe_steak'] = get_option_value(multiworld, player, "recipe_steak") or 0
     PPOptions[player]["recipe_salad"] = get_option_value(multiworld, player, "recipe_salad") or 0
     PPOptions[player]["recipe_pizza"] = get_option_value(multiworld, player, "recipe_pizza") or 0
@@ -80,7 +83,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     for i in range(PPOptions[player]['host_level'] + 1, 16):
         recipes = extra_data.get(f"level_{i}", {}).get(f"region", [])
         for recipe in recipes:
-            print(f"recipe_{recipe.lower().replace(' ', '')}")
+            logger.debug(f"removed player {player} recipe_{recipe.lower().replace(' ', '')}")
             PPOptions[player][f"recipe_{recipe.lower().replace(' ', '')}"] = 0
     PPMiscData[player]["RecipeCount"] = 0
     for option, count in PPOptions[player].items():
@@ -90,33 +93,35 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     PPMiscData[player]['SafeGen'] = False #value for first run
     index = PPMiscData['KnownPlayers'].index(player)
     if index > 0:
-        index = PPMiscData['KnownPlayers'][index - 1]
+        last_player = PPMiscData['KnownPlayers'][index - 1]
         PPMiscData[player]['SafeGen'] = True
-        if PPOptions[player]['host_level'] != PPOptions[index]["host_level"]:
+        if PPOptions[player]['host_level'] != PPOptions[last_player]["host_level"]:
             PPMiscData[player]['SafeGen'] = False
-        elif PPOptions[player]["recipe_steak"] != PPOptions[index]["recipe_steak"]:
+        if PPOptions[player]["do_overtime"] != PPOptions[last_player]["do_overtime"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_salad"] != PPOptions[index]["recipe_salad"]:
+        elif PPOptions[player]["recipe_steak"] != PPOptions[last_player]["recipe_steak"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_pizza"] != PPOptions[index]["recipe_pizza"]:
+        elif PPOptions[player]["recipe_salad"] != PPOptions[last_player]["recipe_salad"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_dumplings"] != PPOptions[index]["recipe_dumplings"]:
+        elif PPOptions[player]["recipe_pizza"] != PPOptions[last_player]["recipe_pizza"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_coffee"] != PPOptions[index]["recipe_coffee"]:
+        elif PPOptions[player]["recipe_dumplings"] != PPOptions[last_player]["recipe_dumplings"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_burger"] != PPOptions[index]["recipe_burger"]:
+        elif PPOptions[player]["recipe_coffee"] != PPOptions[last_player]["recipe_coffee"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_turkey"] != PPOptions[index]["recipe_turkey"]:
+        elif PPOptions[player]["recipe_burger"] != PPOptions[last_player]["recipe_burger"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_pie"] != PPOptions[index]["recipe_pie"]:
+        elif PPOptions[player]["recipe_turkey"] != PPOptions[last_player]["recipe_turkey"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_fish"] != PPOptions[index]["recipe_fish"]:
+        elif PPOptions[player]["recipe_pie"] != PPOptions[last_player]["recipe_pie"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_hotdog"] != PPOptions[index]["recipe_hotdog"]:
+        elif PPOptions[player]["recipe_fish"] != PPOptions[last_player]["recipe_fish"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_breakfast"] != PPOptions[index]["recipe_breakfast"]:
+        elif PPOptions[player]["recipe_hotdog"] != PPOptions[last_player]["recipe_hotdog"]:
             PPMiscData[player]["SafeGen"] = False
-        elif PPOptions[player]["recipe_stirfry"] != PPOptions[index]["recipe_stirfry"]:
+        elif PPOptions[player]["recipe_breakfast"] != PPOptions[last_player]["recipe_breakfast"]:
+            PPMiscData[player]["SafeGen"] = False
+        elif PPOptions[player]["recipe_stirfry"] != PPOptions[last_player]["recipe_stirfry"]:
             PPMiscData[player]["SafeGen"] = False
         logger.debug(f'SafeGen for player {player} set to {PPMiscData[player]["SafeGen"]}')
 #endregion
@@ -130,13 +135,44 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
-    maxWin = round(PPMiscData[player]["RecipeCount"]*(PPOptions[player]['win_percent']/100))
-    PPMiscData[player]["MaxWin"] = maxWin
+    host_level = PPOptions[player]["host_level"]
+    extra_data = load_data_file("extra.json")
+
+    minWin = max(round(PPMiscData[player]["RecipeCount"]*(PPOptions[player]['win_percent']/100)), 2)
+    PPMiscData[player]["MinWin"] = minWin
+
     for location in multiworld.get_unfilled_locations(player):
         if location.name == "All done":
             set_rule(location,
-                     lambda state: state.has("Victory Token", player, maxWin))
+                     lambda state: state.has("Victory Token", player, minWin))
             break
+
+# Removing disabled Items
+#region
+    items_to_be_removed = []
+    local = copy(world.item_name_to_item)
+    localid = copy(world.item_id_to_name)
+    localname = copy(world.item_name_to_id)
+# First we get what items to remove
+
+    for option, count in PPOptions[player].items():
+        if option.startswith('recipe_') and not count:
+            items_to_be_removed += extra_data[option]["items"]
+    for i in range(PPOptions[player]['host_level'] + 1, 16):
+        items_to_be_removed += extra_data.get(f"level_{i}", {}).get(f"items", [])
+
+# Then we remove items in items_to_be_removed
+
+    for name in items_to_be_removed:
+        if name in local:
+            localid.pop(local[name]['id'])
+            localname.pop(name)
+            local.pop(name, "")
+    logger.debug(f"Done removing {len(world.item_name_to_item) - len(local)} items from player {player}.")
+    world.item_name_to_item = local
+    world.item_id_to_name = localid
+    world.item_name_to_id = localname
+#endregion
     pass
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
@@ -167,7 +203,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                         readded_place_item_Count += 1
             if readded_place_item_Count > 0:
                 multiworld.clear_location_cache()
-                logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
+                logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations of player {player}.")
         pass
 #endregion
 # Personnal Item counts adjustment
@@ -195,17 +231,10 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     for option, count in PPOptions[player].items():
         if option.startswith('recipe_') and not count:
             locations_to_be_removed += extra_data[option]["locations"]
-            items_to_be_removed += extra_data[option]["items"]
     for i in range(PPOptions[player]['host_level'] + 1, 16):
-        items_to_be_removed += extra_data.get(f"level_{i}", {}).get(f"items", [])
-
-# Remove items in items_to_be_removed
-#region
-    for item in list(item_pool):
-        if item.name in items_to_be_removed:
-            item_pool.remove(item)
-    logger.info("done removing items")
-#endregion
+        locations_to_be_removed += extra_data.get(f"level_{i}", {}).get(f"locations", [])
+    if PPOptions[player]['do_overtime'] == False:
+        locations_to_be_removed += extra_data.get('overtime', {}).get('locations', [])
 # Removing locations in locations_to_be_removed
 #region
     local_valid_locations = copy(world.location_name_to_location)
@@ -232,10 +261,8 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     local_valid_locations.pop(location.name, "")
                     removedlocCount += 1
         multiworld.clear_location_cache()
-    logger.info(f"{world.game}:{player}:({host_level}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
+    logger.info(f"{world.game}:{player}:(lvl {host_level}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
 #endregion
-
-    local_valid_locations
     return item_pool
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs

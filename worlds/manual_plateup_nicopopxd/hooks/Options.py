@@ -36,19 +36,26 @@ from ..Helpers import is_option_enabled, get_option_value
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
+    default = "unknown"
 
 class HostLevel(Range):
     """What level is your host player?"""
-    display_name = "Host Level:"
-    range_start = 1
+    display_name = "Host Level"
+    range_start = 2
     range_end = 15
     default = 10
+
 class TotalTokenForWin(Range):
     """Percentage of available Recipe needed to win?(rounded up)"""
     display_name = "Recipe % needed to Win"
     range_start = 1
     range_end = 100
     default = 75
+
+class OverTimeEnabled(DefaultOnToggle):
+    """Do you want to enable the 'overtime - X' locations"""
+    display_name = "Overtime"
+
 class EnableSteak(DefaultOnToggle):
     """Enable the Steak Main recipe"""
     display_name = "Enable Steak"
@@ -91,6 +98,7 @@ def before_options_defined(options: dict) -> dict:
     options["game_version"] = ApWorldVersion
     options["host_level"] = HostLevel
     options["win_percent"] = TotalTokenForWin
+    options["do_overtime"] = OverTimeEnabled
     options["recipe_steak"] = EnableSteak
     options["recipe_salad"] = EnableSalad
     options["recipe_pizza"] = EnablePizza

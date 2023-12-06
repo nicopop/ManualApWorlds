@@ -2,6 +2,7 @@
 	{
 		"name": "Get in a game for the first time",
 		"category": [ "0 - Lobby" ],
+		"requires": "|@2 Recipes:1| and |Research Table|",
 		"region": "Lobby"
 	},
 	{

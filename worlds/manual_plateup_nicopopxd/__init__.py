@@ -187,7 +187,7 @@ class ManualWorld(World):
 
         personal_locations = sum([len(r.locations) for r in self.multiworld.regions if r.player == self.player])
 
-        extras = personal_locations - len(pool) - 2 # subtracting 1 because of Victory; seems right
+        extras = personal_locations - len(pool) - 1 # subtracting 1 because of Victory; seems right
 
         logger.debug(f"Extras: {extras}")
 

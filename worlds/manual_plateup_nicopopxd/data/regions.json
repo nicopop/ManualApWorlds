@@ -20,7 +20,7 @@
     "connects_to": []
   },
   "Coffee": {
-    "requires": "|Coffee Recipe|",
+    "requires": "|Coffee Recipe| and |Booking Desk|",
     "connects_to": []
   },
   "Burger": {

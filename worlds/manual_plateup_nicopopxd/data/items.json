@@ -3,153 +3,158 @@
     "name": "Victory Token",
     "progression": true,
     "count": 12,
-    "category": [ "1 Important" ]
+    "category": [ "1 Important", "0 Everything" ]
   },
   {
     "name": "Final Victory",
     "progression": true,
-    "category": [ "1 Important" ]
+    "category": [ "1 Important", "0 Everything" ]
   },
   {
     "name": "Steak Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Salad Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Pizza Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Dumplings Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Coffee Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Burger Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Turkey Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Pie Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Fish Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Hot Dog Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Breakfast Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Stir Fry Recipe",
     "progression": true,
-    "category": [ "2 Recipes" ]
+    "category": [ "2 Recipes", "0 Everything" ]
   },
   {
     "name": "Basic floorplans",
     "progression": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Diner floorplans",
     "progression": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Medium floorplans",
     "progression": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Extended floorplans",
     "progression": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Huge floorplans",
     "progression": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Daily floorplans",
     "useful": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
   {
     "name": "Weekly floorplans",
     "useful": true,
-    "category": [ "3 Floorplans" ]
+    "category": [ "3 Floorplans", "0 Everything" ]
   },
 
   {
     "name": "Research Table",
-    "useful": true,
+    "progression": true,
     "early": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Booking Desk",
+    "progression": true,
+    "category": [ "4 Appliances", "0 Everything" ]
   },
   {
     "name": "Conveyors",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Appliances", "0 Everything" ]
   },
   {
     "name": "Microwave",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Frozen Prep Station",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Table Upgrades",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Hob Upgrades",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Bin Upgrades",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Sink Upgrades",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   },
   {
     "name": "Mixer Upgrades",
     "useful": true,
-    "category": [ "4 Upgrades" ]
+    "category": [ "4 Upgrades", "0 Everything" ]
   }
 ]
