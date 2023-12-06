@@ -1,6 +1,6 @@
 # Object classes from AP core, to represent an entire MultiWorld and this individual World that's part of it
 from worlds.AutoWorld import World
-from worlds.generic.Rules import add_rule, set_rule
+from worlds.generic.Rules import add_rule, forbid_item, set_rule
 from ..Data import load_data_file
 from copy import copy
 
@@ -141,10 +141,16 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     minWin = max(round(PPMiscData[player]["RecipeCount"]*(PPOptions[player]['win_percent']/100)), 2)
     PPMiscData[player]["MinWin"] = minWin
 
+    fcount = 0
     for location in multiworld.get_unfilled_locations(player):
         if location.name == "All done":
             set_rule(location,
                      lambda state: state.has("Victory Token", player, minWin))
+            fcount += 1
+        elif location.name == "Get in a game for the first time":
+            forbid_item(location, "Research Table", player)
+            fcount +=1
+        elif fcount >= 2:
             break
 
 # Removing disabled Items
