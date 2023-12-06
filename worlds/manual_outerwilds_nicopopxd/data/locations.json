@@ -357,6 +357,8 @@
 	{
 		"name": "5 - Get through at least 2 nodes and get out alive",
 		"region": "Dark Bramble",
+		"requires": "(|Scout| and |Scout Photos|) or (|Signaloscope| and (|Signal > OW Ventures| or |Signal > Distress|))",
+		"_comment": "Added those requires because its not fun going in there blind",
 		"category": [ "5 - Dark Bramble" ]
 	},
 

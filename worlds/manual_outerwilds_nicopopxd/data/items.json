@@ -41,6 +41,8 @@
     {
         "name": "Launch Codes",
         "progression": true,
+        "early": true,
+        "local":  true,
         "category": [ "Tools", "2a Not Trap" ]
     },
     {

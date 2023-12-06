@@ -100,11 +100,11 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Early Launch Codes
 #region
     early_launch = OWOptions[player]["early_launch_codes"]
-    if early_launch == EarlyLaunchCode.option_local:
-        multiworld.local_early_items[player]["Launch Codes"] = 1
+    if early_launch == EarlyLaunchCode.option_anywhere:
+        multiworld.local_early_items[player].pop("Launch Codes", "")
     elif early_launch == EarlyLaunchCode.option_global:
+        multiworld.local_early_items[player].pop("Launch Codes", "")
         multiworld.early_items[player]["Launch Codes"] = 1
-
 #endregion
     pass
 
@@ -192,7 +192,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     elif randomContent == RandomContent.option_dlc:
         worldlocation = world.location_name_to_location["Get in ship for the first time"]
-        RemovedPlacedItemsCategory[worldlocation.name] = copy(worldlocation["place_item_category"])
+        RemovedPlacedItemsCategory[worldlocation['name']] = copy(worldlocation["place_item_category"])
         worldlocation.pop("place_item_category", "")
 
         item_counts["forced Meditation"] = 3

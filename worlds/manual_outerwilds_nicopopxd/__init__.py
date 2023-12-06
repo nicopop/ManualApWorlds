@@ -4,7 +4,7 @@ import logging
 import random
 import json
 
-from .Data import item_table, progressive_item_table, location_table
+from .Data import item_table, progressive_item_table, location_table, region_table
 from .Game import game_name, filler_item_name, starting_items
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, advancement_item_names
@@ -84,13 +84,13 @@ class ManualWorld(World):
     required_client_version = (0, 3, 4)
 
     # These properties are set from the imports of the same name above.
-    item_table = copy(item_table)
-    progressive_item_table = copy(progressive_item_table)
+    item_table = item_table
+    progressive_item_table = progressive_item_table
     item_id_to_name = item_id_to_name
     item_name_to_id = item_name_to_id
     item_name_to_item = item_name_to_item
     advancement_item_names = advancement_item_names
-    location_table = copy(location_table) # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
+    location_table = location_table # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
     location_id_to_name = location_id_to_name
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
@@ -136,6 +136,19 @@ class ManualWorld(World):
                 new_item = self.create_item(name)
                 pool.append(new_item)
 
+            if item.get("early") and item.get("local"):
+              # both
+                self.multiworld.local_early_items[self.player][name] = item_count
+
+            elif item.get("early"):
+                # only early
+                self.multiworld.early_items[self.player][name] = item_count
+
+            elif item.get("local"):
+              # only local
+                if name not in self.multiworld.local_items[self.player].value:
+                    self.multiworld.local_items[self.player].value.add(name)
+
         items_started = []
 
         if starting_items:
@@ -180,7 +193,7 @@ class ManualWorld(World):
         logger.debug(f"Extras: {extras}")
 
         if extras > 0:
-            for i in range(0, extras):
+            for _ in range(0, extras):
                 extra_item = self.create_item(filler_item_name)
                 pool.append(extra_item)
 
@@ -286,6 +299,10 @@ class ManualWorld(World):
             "game": self.game,
             'player_name': self.multiworld.get_player_name(self.player),
             'player_id': self.player,
+            'items': self.item_name_to_item,
+            'locations': self.location_name_to_location,
+            # todo: extract connections out of mutliworld.get_regions() instead, in case hooks have modified the regions.
+            'regions': region_table,
         }
 
     def generate_output(self, output_directory: str):
@@ -293,3 +310,4 @@ class ManualWorld(World):
         filename = f"{self.multiworld.get_out_file_name_base(self.player)}.apmanual"
         with open(os.path.join(output_directory, filename), 'wb') as f:
             f.write(b64encode(bytes(json.dumps(data), 'utf-8')))
+
