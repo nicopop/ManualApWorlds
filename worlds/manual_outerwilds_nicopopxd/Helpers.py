@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+from .Data import category_table
 
 from typing import Union
 
@@ -11,3 +12,12 @@ def get_option_value(world: MultiWorld, player: int, name: str) -> Union[int, di
         return 0
 
     return option[player].value
+
+def is_category_enabled(world: MultiWorld, player: int, category_name: str) -> bool:
+    """Check if a category has been disabled by a yaml option."""
+    category_data = category_table.get(category_name, {})
+    if "yaml_option" in category_data:
+        for option_name in category_data["yaml_option"]:
+            if not is_option_enabled(world, player, option_name):
+                return False
+    return True

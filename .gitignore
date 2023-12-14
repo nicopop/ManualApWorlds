@@ -28,6 +28,7 @@
 *.apsave
 *.BIN
 *.puml
+*.py.bak
 
 setups
 build
