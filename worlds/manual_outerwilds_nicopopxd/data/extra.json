@@ -65,7 +65,7 @@
       "Owlish feather"
     ],
     "locations": [
-      "2 - Visit the Radio Station and check the photos",
+      "2 - Visit the Radio Station and listen to the recording",
       "8 - Get in the stranger",
       "8 - Bring an artifact back to the museum",
       "8 - Attempt to use the artifact at a normal campfire",
@@ -82,7 +82,7 @@
       "8 - Watch the hull anomaly slide in the Hidden Gorge",
       "8 - Watch the slide in the reservoir",
       "8 - Get in Abandoned temple's secret basement",
-      "8 - Get in the burned interface room in the reservoir area",
+      "8 - Find the broken connection diagram in the reservoir area",
       "8 - Find the stranger trajectory diagram in the reservoir area",
       "8 - Find the Submerged structure diagram in the reservoir area",
       "8 - Get in the hidden Slide burning room in River Lowlands",
@@ -141,7 +141,7 @@
     ],
     "locations": [
       "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
-      "4 - Get in the Probe Tracking Module",
+      "4 - Reveal the Coords in the probe tracking module",
       "4 - See the Coords to the eye",
       "1 - Visit > Get in the Ash Twin Project",
       "1 - Item > Get in the Ash Twin Project"
@@ -187,8 +187,8 @@
     ],
     "locations": [
       "6 - Land on the Quantum moon",
-      "6 - Visit Solanum",
-      "6 - Communicate with Solanum"
+      "6 - Communicate with Solanum > visit",
+      "6 - Communicate with Solanum > item"
     ]
   },
   "reduce_spooks": {

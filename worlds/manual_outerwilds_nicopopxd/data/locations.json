@@ -33,216 +33,285 @@
 		"category": [ "01 - Space" ]
 	},
 	{
-		"name": "2 - Visit the Crater with the Bramble seed",
+		"name": "01 - Visit the deepspace satelite",
 		"region": "Space",
-		"category": [ "2 - Timber Hearth" ]
-	},
-
-	{
-		"name": "2 - Moon > Visit Eye Signal Locator",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ]
-	},
-
-	{
-		"name": "1 - Get in the High Energy Lab",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
-		"requires": [ "Signaloscope", "Signal > Distress" ]
+		"category": [ "01 - Space" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 	{
-		"name": "1 - Break space time in the lab",
+		"name": "01 - Knock the deepspace satelite out of orbit",
 		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
-		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
-	},
-	{
-		"name": "1 - Visit the Eye Shrine in the Sunless City",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
-		"requires": [ "Signaloscope", "Signal > Distress" ]
-	},
-	{
-		"name": "1 - Visit the Quantum Moon Locator",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ]
-	},
-	{
-		"name": "1 - Launch the gravity cannon's ship",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ]
-	},
-
-	{
-		"name": "7 - Get in Ruptured Core of the Interloper",
-		"region": "Space",
-		"requires": [ "Scout", "Scout Photos" ],
-		"category": [ "7 - Interloper" ]
-	},
-	{
-		"name": "7 - Find the frozen shuttle's log on the Interloper",
-		"region": "Space",
-		"category": [ "7 - Interloper" ]
-	},
-	{
-		"name": "4 - Get in Orbital Cannon",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ]
-	},
-	{
-		"name": "4 - Read the log on the Bramble Island",
-		"region": "Space",
-		"requires": [ "Scout", "Scout Photos" ],
-		"category": [ "4 - Giant's Deep" ]
-	},
-	{
-		"name": "4 - Read any text wall in the Construction yard",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ]
-	},
-
-	{
-		"name": "4 - Get in the Statue Island Workshop",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ]
-	},
-	{
-		"name": "4 - Visit the Ocean Depths",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Tornado Knowledge" ]
-	},
-	{
-		"name": "4 - Visit the Planet's Core",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
-	},
-	{
-		"name": "3 - Get in Southern Observatory and witness the tornados",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "3 - Visit the Old Settlement",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "3 - Visit the Gravity Crystal Workshop",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "3 - Visit the Classroom in the School District",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "3 - Launch the gravity cannon's ship",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "3 - Moon > Get inside Hollow's lantern's volcanic testing site",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ]
-	},
-	{
-		"name": "2 - Visit the Nomai mines and read any Nomain wall",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ]
-	},
-
-	{
-		"name": "2 - Play Hide and seek with the kids",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Signaloscope" ]
-	},
-
-	{
-		"name": "1 - Talk to Chert",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
-	},
-	{
-		"name": "2 - Moon > Talk to Esker",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
-	},
-	{
-		"name": "3 - Talk to Riebeck",
-		"region": "Space",
-		"category": [ "3 - Brittle Hollow" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
-	},
-	{
-		"name": "4 - Get the Meditation dialog from Gabbro",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
-	},
-
-	{
-		"name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
-		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
-	},
-	{
-		"name": "2 - Shoot your Scout in the Bramble seed and see the dead Anglerfish",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Scout", "Scout Photos" ]
+		"category": [ "01 - Space" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 
 	{
 		"name": "1 - Visit > Get in the Ash Twin Project",
-		"region": "Space",
+		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Teleporter Knowledge" ],
 		"place_item": [ "Seen Adv. warp core" ]
 	},
 	{
 		"name": "1 - Item > Get in the Ash Twin Project",
-		"region": "Space",
+		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Seen Adv. warp core" ],
 		"place_item_category": [ "2a Not Trap" ]
 	},
 	{
 		"name": "1 - Break Space-Time in the Ash Twin Project",
-		"region": "Space",
+		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin" ],
 		"requires": "|Seen Adv. warp core| and |Adv. warp core|"
 	},
 	{
 		"name": "1 - Get to the sun station",
-		"region": "Space",
+		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin" ],
 		"requires": [ "Teleporter Knowledge" ]
 	},
+
+	{
+		"name": "1 - Find Escape Pod 2",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
+		"name": "1 - Get in the High Energy Lab and read any wall",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
+		"name": "1 - Get in the High Energy Lab and Discover how black holes work",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
+	},
+	{
+		"name": "1 - Break space time in the lab",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
+	},
+	{
+		"name": "1 - Read any Nomai wall in the Eye Shrine of the Sunless City",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress" ]
+	},
+	{
+		"name": "1 - Read any Nomai wall near the Quantum Moon Locator",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ]
+	},
+	{
+		"name": "1 - Launch the gravity cannon's ship",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ]
+	},
+	{
+		"name": "1 - Read the log in the gravity cannon's ship",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ]
+	},
+	{
+		"name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
+	},
+	{
+		"name": "1 - Talk to Chert",
+		"region": "Ember Twin",
+		"category": [ "1 - Ember Twin" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+
+
+	{
+		"name": "2 - Moon > Visit Eye Signal Locator and listen to the recording",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ]
+	},
+	{
+		"name": "2 - Visit the Nomai mines and read any Nomain wall",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ]
+	},
+	{
+		"name": "2 - Play Hide and seek with the kids",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ],
+		"requires": [ "Signaloscope" ]
+	},
+	{
+		"name": "2 - Bring an artifact back to the museum",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ]
+	},
+	{
+		"name": "2 - Shoot your Scout in the Bramble seed and see the dead Anglerfish",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ],
+		"requires": [ "Scout", "Scout Photos" ]
+	},
+	{
+		"name": "2 - Visit the Radio Station and get it's signal",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
+	},
+	{
+		"name": "2 - Moon > Talk to Esker",
+		"region": "Timber Hearth",
+		"category": [ "2 - Timber Hearth" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+
+	{
+		"name": "3 - Get in Southern Observatory and witness the tornados",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Find the 3 Pod murals in the Old Settlement",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Visit the Gravity Crystal Workshop",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Read Solanum's report in the Classroom in the School District",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Launch the gravity cannon's ship",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Read the log in the gravity cannon's ship",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Moon > Read a wall inside Hollow's lantern's volcanic testing site",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ]
+	},
+	{
+		"name": "3 - Talk to Riebeck",
+		"region": "Brittle Hollow",
+		"category": [ "3 - Brittle Hollow" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
 	{
 		"name": "3 - Get in the Blackhole Forge",
-		"region": "Space",
+		"region": "Brittle Hollow",
 		"category": [ "3 - Brittle Hollow" ],
 		"requires": [ "Teleporter Knowledge" ]
 	},
 	{
 		"name": "3 - Find Escape Pod 1",
-		"region": "Space",
+		"region": "Brittle Hollow",
 		"category": [ "3 - Brittle Hollow" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
+
 	{
-		"name": "1 - Find Escape Pod 2",
-		"region": "Space",
-		"category": [ "1 - Ember Twin" ],
+		"name": "4 - Get in the Orbital Cannon",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ]
+	},
+	{
+		"name": "4 - Read the log on the Bramble Island",
+		"region": "Giant's Deep",
+		"requires": [ "Scout", "Scout Photos" ],
+		"category": [ "4 - Giant's Deep" ]
+	},
+	{
+		"name": "4 - Read any text wall in the Construction yard",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ]
+	},
+
+	{
+		"name": "4 - Read any text wall in the Statue Island Workshop",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ]
+	},
+	{
+		"name": "4 - Read the Fail-safe explanation text wall in the Statue Island Workshop",
+		"region": "Giant's Deep",
+		"requires": "|Tornado Knowledge|",
+		"category": [ "4 - Giant's Deep" ]
+	},
+	{
+		"name": "4 - Get to the Ocean Depths and notice the electrical barrier",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge" ]
+	},
+	{
+		"name": "4 - Reach the Planet's Core and find the Probe Tracking Module",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ]
+	},
+	{
+		"name": "4 - Reveal the Coords in the probe tracking module",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ],
+		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
+		"place_item": [ "Seen Coords" ]
+	},
+	{
+		"name": "4 - See the Coords to the eye",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ],
+		"requires": [ "Seen Coords" ],
+		"place_item_category": [ "2a Not Trap" ]
+	},
+	{
+		"name": "4 - Get the Meditation dialog from Gabbro",
+		"region": "Giant's Deep",
+		"category": [ "4 - Giant's Deep" ],
+		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+	},
+
+	{
+		"name": "5 - Find Escape Pod 3",
+		"region": "Dark Bramble",
+		"category": [ "5 - Dark Bramble" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
+	{
+		"name": "5 - Get to the Vessel",
+		"region": "Dark Bramble",
+		"category": [ "5 - Dark Bramble" ],
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Scout Photos|"
+	},
+	{
+		"name": "5 - Get through at least 2 nodes and get out alive",
+		"region": "Dark Bramble",
+		"requires": "(|Scout| and |Scout Photos|) or (|Signaloscope| and (|Signal > OW Ventures| or |Signal > Distress|))",
+		"_comment": "Added those requires because its not fun going in there blind",
+		"category": [ "5 - Dark Bramble" ]
+	},
+	{
+		"name": "5 - Get the Jellyfish dialog from Feldspar",
+		"region": "Dark Bramble",
+		"category": [ "5 - Dark Bramble" ],
+		"requires": "|Signaloscope| and |Signal > OW Ventures|"
+	},
+
 	{
 		"name": "6 - Land on the Quantum moon",
 		"region": "Quantum Trials",
@@ -250,14 +319,14 @@
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
-		"name": "6 - Visit Solanum",
+		"name": "6 - Communicate with Solanum > visit",
 		"region": "Quantum Trials",
 		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
 		"place_item": [ "Seen Solanum" ]
 	},
 	{
-		"name": "6 - Communicate with Solanum",
+		"name": "6 - Communicate with Solanum > item",
 		"region": "Quantum Trials",
 		"category": [ "6 - Quantum Moon" ],
 		"requires": [ "Seen Solanum" ]
@@ -305,61 +374,17 @@
 		"region": "Quantum Trials",
 		"category": [ "3 - Brittle Hollow" ]
 	},
-	{
-		"name": "01 - Visit the deepspace satelite",
-		"region": "Space",
-		"category": [ "01 - Space" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
-	},
-	{
-		"name": "01 - Knock the deepspace satelite out of orbit",
-		"region": "Space",
-		"category": [ "01 - Space" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
-	},
 
 	{
-		"name": "2 - Visit the Radio Station and get it's signal",
-		"region": "Space",
-		"category": [ "2 - Timber Hearth" ],
-		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
-	},
-
-	{
-		"name": "4 - Get in the Probe Tracking Module",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Tornado Knowledge", "Jellyfish Knowledge" ],
-		"place_item": [ "Seen Coords" ]
+		"name": "7 - Get in Ruptured Core of the Interloper and find what happened to the Nomai",
+		"region": "Interloper",
+		"requires": [ "Scout", "Scout Photos" ],
+		"category": [ "7 - Interloper" ]
 	},
 	{
-		"name": "4 - See the Coords to the eye",
-		"region": "Space",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Seen Coords" ],
-		"place_item_category": [ "2a Not Trap" ]
-	},
-
-	{
-		"name": "5 - Get the Jellyfish dialog from Feldspar",
-		"region": "Dark Bramble",
-		"category": [ "5 - Dark Bramble" ],
-		"requires": "|Signaloscope| and |Signal > OW Ventures|"
-	},
-
-	{
-		"name": "5 - Find Escape Pod 3",
-		"region": "Dark Bramble",
-		"category": [ "5 - Dark Bramble" ],
-		"requires": [ "Signaloscope", "Signal > Distress" ]
-	},
-
-	{
-		"name": "5 - Get through at least 2 nodes and get out alive",
-		"region": "Dark Bramble",
-		"requires": "(|Scout| and |Scout Photos|) or (|Signaloscope| and (|Signal > OW Ventures| or |Signal > Distress|))",
-		"_comment": "Added those requires because its not fun going in there blind",
-		"category": [ "5 - Dark Bramble" ]
+		"name": "7 - Find the frozen shuttle's log on the Interloper",
+		"region": "Interloper",
+		"category": [ "7 - Interloper" ]
 	},
 
 	{
@@ -393,7 +418,7 @@
 
 
 	{
-		"name": "2 - Visit the Radio Station and check the photos",
+		"name": "2 - Visit the Radio Station and listen to the recording",
 		"region": "Space",
 		"category": [ "2 - Timber Hearth" ],
 		"requires": "|Stranger Presence Knowledge|"
@@ -406,11 +431,6 @@
 	},
 	{
 		"name": "8 - Get crushed by a chain elevator",
-		"region": "The Stranger",
-		"category": [ "8 - The Stranger" ]
-	},
-	{
-		"name": "8 - Bring an artifact back to the museum",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
 	},
@@ -445,6 +465,11 @@
 		"name": "8 - Watch a slide in Cinder Isles",
 		"region": "The Stranger",
 		"requires": "|Projectors Knowledge|",
+		"category": [ "8 - The Stranger" ]
+	},
+	{
+		"name": "8 - Find the cave diagram in Cinder Isles",
+		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ]
 	},
 	{
@@ -491,10 +516,10 @@
 		"requires": [ "EYE > Abandoned temple code", "Visited CodeVault" ]
 	},
 	{
-		"name": "8 - Get in the burned interface room in the reservoir area",
+		"name": "8 - Find the broken connection diagram in the reservoir area",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger" ],
-		"requires": [ "EYE > Broken Interface room code" ]
+		"requires": "|EYE > Broken Interface room code| and ((|Scout| and |Scout Photos|) or |Visited CodeVault|)"
 	},
 	{
 		"name": "8 - Find the stranger trajectory diagram in the reservoir area",
@@ -589,7 +614,7 @@
 	{
 		"name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
 		"region": "DreamWorld General",
-		"requires": "(|EYE > River Lowlands flame access| and |DreamWorld Fake Fireplace Knowledge|) or (|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) ))",
+		"requires": "(|DreamWorld Loading Glitch Knowledge| and (|EYE > River Lowlands flame access| or (|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|)) )) or (|EYE > River Lowlands flame access| and |DreamWorld Fake Fireplace Knowledge| and ((|EYE > Cinder Isles flame access| and |DreamWorld Door Candle Knowledge|) or (|EYE > Hidden Gorge flame access| and (|DreamWorld Render Glitch Knowledge| or |DreamWorld Grabbing Hand Knowledge|))))",
 		"place_item": [ "Visited Shrouded Woodlands Archive" ],
 		"category": [ "91 - Shrouded Woodlands" ]
 	},
