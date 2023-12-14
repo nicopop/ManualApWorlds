@@ -203,7 +203,7 @@ class ManualWorld(World):
                     pool.remove(starting_item)
 
         extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(pool) - 1 # subtracting 1 because of Victory; seems right
-		logger.debug(f"Extras: {extras}")
+        logger.debug(f"Extras: {extras}")
         if extras > 0:
             trap_percent = get_option_value(self.multiworld, self.player, "filler_traps")
             if not traps:
@@ -236,9 +236,9 @@ class ManualWorld(World):
             if "dont_place_item" in manual_location:
                 if len(manual_location["dont_place_item"]) == 0:
                     continue
-                
+
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if i["name"] in manual_location["dont_place_item"]])
-            
+
             if "dont_place_item_category" in manual_location:
                 if len(manual_location["dont_place_item_category"]) == 0:
                     continue
@@ -278,9 +278,9 @@ class ManualWorld(World):
             if "dont_place_item" in manual_location:
                 if len(manual_location["dont_place_item"]) == 0:
                     continue
-                
+
                 eligible_items = [item for item in eligible_items if item.name not in manual_location["dont_place_item"]]
-                
+
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match placed_items(_category) because of forbidden %s." % (manual_location["name"], ", ".join(manual_location["dont_place_item"])))
 
@@ -289,7 +289,7 @@ class ManualWorld(World):
                     continue
 
                 forbidden_item_names = [i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])]
-                
+
                 eligible_items = [item for item in eligible_items if item.name not in forbidden_item_names]
 
                 if len(eligible_items) == 0:
@@ -303,7 +303,7 @@ class ManualWorld(World):
 
             item_to_place = self.random.choice(eligible_items)
             location.place_locked_item(item_to_place)
-            
+
             # remove the item we're about to place from the pool so it isn't placed twice
             self.multiworld.itempool.remove(item_to_place)
 
