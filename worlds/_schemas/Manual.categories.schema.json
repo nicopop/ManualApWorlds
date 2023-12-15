@@ -7,27 +7,19 @@
                 {
                     "type": "object",
                     "properties": {
-                        "requires": {
-                            "description": "(Optional) Either an array of items or a boolean logic string(check discord).",
-                            "type": [ "array", "string" ],
-                            "items": {
-                                "$ref": "#/definitions/Require"
-                            },
-                            "minItems": 0,
-                            "uniqueItems": true
+                        "hidden": {
+                            "description": "(Optional) Should this category be Hidden in the client?",
+                            "type": "boolean",
+                            "default": true
                         },
-                        "connects_to": {
-                            "description": "Array of other regions the player can go from this region.",
+                        "yaml_option": {
+                            "description": "(Optional) Array of Options that will decide if the items & locations in this category are enabled",
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/Connects_to"
                             },
-                            "minItems": 0,
+                            "minItems": 1,
                             "uniqueItems": true
-                        },
-                        "starting": {
-                            "description": "(Optional) Is this region accessible from the start? Defaults to false if not included.",
-                            "type":"boolean"
                         },
                         "_comment": {
                             "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",

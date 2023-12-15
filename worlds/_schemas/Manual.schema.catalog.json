@@ -24,7 +24,13 @@
         "description": "regions.json schema file for the manual Archipelago Apworld",
         "fileMatch": [ "**/manual_*/data/regions.json" ],
         "url": "https://raw.githubusercontent.com/nicopop/ManualApWorlds/manual_schemas/worlds/_schemas/Manual.regions.schema.json"
+    },
+    {
+        "name": "Manual categories.json",
+        "description": "categories.json schema file for the manual Archipelago Apworld",
+        "fileMatch": [ "**/manual_*/data/categories.json" ],
+        "url": "https://raw.githubusercontent.com/nicopop/ManualApWorlds/manual_schemas/worlds/_schemas/Manual.categories.schema.json"
     }
   ],
-  "version": 2.7
+  "version": 3.0
 }

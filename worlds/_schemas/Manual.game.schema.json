@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
         "game": {
@@ -48,21 +48,21 @@
                     }
                 },
                 "items": {
-                    "description": "(Optional) List of item to pick from. If not included will pick from item_categories if present or from the entire item pool if absent",
+                    "description": "(Optional) List of item to pick from. If not included will pick from 'item_categories' if present or from the entire item pool if absent",
                     "type":"array",
                     "items":{
                         "type":"string"
                     }
                 },
                 "item_categories": {
-                    "description": "(Optional) List of category of items to pick from. If not included will pick from items if present or from the entire item pool if absent",
+                    "description": "(Optional) List of category of items to pick from. If not included will pick from 'items' if present or from the entire item pool if absent",
                     "type":"array",
                     "items":{
                         "type":"string"
                     } 
                 },
                 "random": {
-                    "description": "(Optional) how many of this selection to add to inventory",
+                    "description": "(Optional) how many items of this block will be randomly added to inventory. Will add every item in the block if not included",
                     "type":"integer"
                 },
                 "_comment": {
