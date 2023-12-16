@@ -17,6 +17,8 @@
     <TestFramework>Pytest</TestFramework>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <PublishUrl>output</PublishUrl>
+    <CommandLineArguments>
+    </CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -84,11 +86,13 @@
     <Compile Include="worlds\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Players\Nicopopxd.yaml" />
     <Content Include="Players\OuterWilds 1.yaml" />
     <Content Include="Players\tmp\OuterWilds 2.yaml" />
     <Content Include="Players\tmp\OuterWilds 3.yaml" />
     <Content Include="requirements.txt" />
     <Content Include="test\programs\data\OnePlayer\test.yaml" />
+    <Content Include="worlds\manual_outerwilds_nicopopxd\data\categories.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\extra.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\game.json" />
     <Content Include="worlds\manual_outerwilds_nicopopxd\data\items.json" />

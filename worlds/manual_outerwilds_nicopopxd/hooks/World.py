@@ -10,6 +10,7 @@ import logging
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
 from ..Locations import ManualLocation
+from BaseClasses import ItemClassification
 
 # Raw JSON data from the Manual apworld, respectively:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
@@ -21,17 +22,18 @@ from .Options import EarlyLaunchCode, RandomContent, Goal
 from ..Helpers import is_option_enabled, get_option_value
 
 logger = logging.getLogger()
-OWMiscData = {}
+APMiscData = {}
 """Miscellaneous shared data"""
-OWMiscData["KnownPlayers"] = []
-OWOptions = {}
+APMiscData["KnownPlayers"] = []
+APOptions = {}
 """
 Player options:
-To access option value: OWOptions[player]["optionName"]
+To access option value: APOptions[player]["optionName"]
 """
-
-RemovedPlacedItems = {}
-RemovedPlacedItemsCategory = {}
+APWorkingData = {}
+"""
+Copy of any changed world item/locations
+"""
 ########################################################################################
 ## Order of method calls when the world generates:
 ##    1. create_regions - Creates regions and locations
@@ -48,63 +50,174 @@ RemovedPlacedItemsCategory = {}
 # Called before regions and locations are created. Not clear why you'd want this, but it's here.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     # Set version in yaml and log
-    if 'version' in game_table:
-        apworldversion = game_table['version']
-        if apworldversion != "":
-            multiworld.game_version[player].value = apworldversion
-            if "version" not in OWMiscData:
-                logger.info(f"player(s) uses {world.game} version: {apworldversion}")
-                OWMiscData["version"] = apworldversion
-        else:
-            multiworld.game_version[player].value = "Unknown"
-    else:
-        multiworld.game_version[player].value = "Unknown"
+    if not APMiscData.get('version'):
+        APMiscData['version'] = "Unknown"
+        APMiscData['043Compatible'] = False
+
+        if 'version' in game_table:
+            APMiscData['version'] = game_table['version']
+
+        if hasattr(multiworld, 'clear_location_cache') and callable(multiworld.clear_location_cache):
+            APMiscData['043Compatible'] = True
+
+        logger.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
+
+    multiworld.game_version[player].value = APMiscData["version"]
 #Init Options
 #region
-    OWMiscData["KnownPlayers"].append(player)
-    OWOptions[player] = {}
-    OWMiscData[player] = {}
-    OWOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
-    OWOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
-    OWOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
-    OWOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
-    OWOptions[player]["early_launch_codes"] = get_option_value(multiworld, player, "early_launch_codes") or 0
-    OWOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
-    OWOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
+    APMiscData["KnownPlayers"].append(player)
+    APOptions[player] = {}
+    APMiscData[player] = {}
+    APOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
+    APOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
+    APOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
+    APOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
+    APOptions[player]["early_launch_codes"] = get_option_value(multiworld, player, "early_launch_codes") or 0
+    APOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
+    APOptions[player]["goal"] = get_option_value(multiworld, player, "goal") or Goal.option_standard
     #Options Check for imposibities
-    if OWOptions[player]["randomContent"] == RandomContent.option_base_game:
-        OWOptions[player]["owlguy"] = 0
-        goal = OWOptions[player]["goal"]
+    if APOptions[player]["randomContent"] == RandomContent.option_base_game:
+        APOptions[player]["owlguy"] = 0
+        goal = APOptions[player]["goal"]
         if goal == Goal.option_prisoner: goal = Goal.default #imposible option
         elif goal == Goal.option_visit_all_archive: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_stranger: goal = Goal.default #imposible option
         elif goal == Goal.option_stuck_in_dream: goal = Goal.default #imposible option
-        OWOptions[player]["goal"] = goal
-        OWOptions[player]["reducedSpooks"] = False
+        APOptions[player]["goal"] = goal
+        APOptions[player]["reducedSpooks"] = False
     #Is it safe to skip some code
-    OWMiscData[player]["SafeGen"] = False #value for first run
-    index = OWMiscData["KnownPlayers"].index(player)
+    APMiscData[player]["SafeGen"] = False #value for first run
+    index = APMiscData["KnownPlayers"].index(player)
     if index > 0:
-        index = OWMiscData["KnownPlayers"][index - 1]
-        OWMiscData[player]["SafeGen"] = True
-        if OWOptions[player]["randomContent"] != OWOptions[index]["randomContent"]:
-            OWMiscData[player]["SafeGen"] = False
-        elif OWOptions[player]["do_place_item_category"] != OWOptions[index]["do_place_item_category"]:
-            OWMiscData[player]["SafeGen"] = False
-        elif OWOptions[player]["goal"] != OWOptions[index]["goal"]:
-            OWMiscData[player]["SafeGen"] = False
-        logger.debug(f'SafeGen for player {player} set to {OWMiscData[player]["SafeGen"]}')
+        index = APMiscData["KnownPlayers"][index - 1]
+        APMiscData[player]["SafeGen"] = True
+        if APOptions[player]["randomContent"] != APOptions[index]["randomContent"]:
+            APMiscData[player]["SafeGen"] = False
+        elif APOptions[player]["do_place_item_category"] != APOptions[index]["do_place_item_category"]:
+            APMiscData[player]["SafeGen"] = False
+        elif APOptions[player]["goal"] != APOptions[index]["goal"]:
+            APMiscData[player]["SafeGen"] = False
+        logger.debug(f'SafeGen for player {player} set to {APMiscData[player]["SafeGen"]}')
 #endregion
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
 # Early Launch Codes
 #region
-    early_launch = OWOptions[player]["early_launch_codes"]
+    early_launch = APOptions[player]["early_launch_codes"]
     if early_launch == EarlyLaunchCode.option_anywhere:
         multiworld.local_early_items[player].pop("Launch Codes", "")
     elif early_launch == EarlyLaunchCode.option_global:
         multiworld.local_early_items[player].pop("Launch Codes", "")
         multiworld.early_items[player]["Launch Codes"] = 1
+#endregion
+    extra_data = load_data_file("extra.json")
+    solanum = APOptions[player]["solanum"]
+    owlguy = APOptions[player]["owlguy"]
+    randomContent = APOptions[player]["randomContent"]
+    goal = APOptions[player]["goal"]
+    reducedSpooks = APOptions[player]["reducedSpooks"]
+# Removing items/locations
+#region
+    items_to_be_removed = []
+    locations_to_be_removed = []
+    if not APWorkingData.get('item_name_to_item'):
+        APWorkingData['item_name_to_item'] = copy(world.item_name_to_item)
+    local = copy(world.item_name_to_item)
+    localid = copy(world.item_id_to_name)
+    localname = copy(world.item_name_to_id)
+
+    # Selecting what content to remove
+    #region
+    if randomContent != RandomContent.option_both:
+        if randomContent == RandomContent.option_base_game:
+            message = "Base game"
+            items_to_be_removed += extra_data["echoes"]["items"]
+            locations_to_be_removed += extra_data["echoes"]["locations"]
+        elif randomContent == RandomContent.option_dlc:
+            message = "DLC"
+            valid_items = extra_data["echoes"]["items"] + extra_data["both"]["items"]
+            valid_locations = extra_data["echoes"]["locations"] + extra_data["both"]["locations"]
+            if goal == Goal.option_eye:
+                valid_items += extra_data["victory_eye"]["items"]
+                valid_locations += extra_data["victory_eye"]["locations"]
+                message += " + Eye"
+            elif goal == Goal.option_ash_twin_project_break_spacetime:
+                valid_items += extra_data["victory_ash_twin_project_break_spacetime"]["items"]
+                valid_locations += extra_data["victory_ash_twin_project_break_spacetime"]["locations"]
+                message += " + Ash Twin project"
+            elif goal == Goal.option_high_energy_lab_break_spacetime:
+                valid_items += extra_data["victory_high_energy_lab_break_spacetime"]["items"]
+                valid_locations += extra_data["victory_high_energy_lab_break_spacetime"]["locations"]
+                message += " + High Energy Lab"
+            elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
+                valid_items +=  extra_data["need_warpdrive"]["items"]
+                valid_locations += extra_data["need_warpdrive"]["locations"]
+                message += " + Adv. warp core"
+            elif goal == Goal.option_stuck_with_solanum:
+                valid_items +=  extra_data["need_warpdrive"]["items"] + extra_data["require_solanum"]["items"]
+                valid_locations += extra_data["need_warpdrive"]["locations"] + extra_data["require_solanum"]["locations"]
+                message += " + Adv. warp core + Solanum"
+            if solanum and goal != Goal.option_stuck_with_solanum:
+                valid_items += extra_data["require_solanum"]["items"]
+                valid_locations += extra_data["require_solanum"]["locations"]
+                message += " + Solanum"
+
+            for item in list(world.item_name_to_item):
+                if item not in valid_items:
+                    items_to_be_removed.append(item)
+
+            for location in list(world.location_name_to_location):
+                if location not in valid_locations:
+                    locations_to_be_removed.append(location)
+
+    else:
+        message = "Both"
+    #logger.info(message)
+    APMiscData[player]['message'] = message
+    if goal != Goal.option_stuck_with_solanum:
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
+    if goal != Goal.option_stuck_in_stranger:
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
+    if goal != Goal.option_stuck_in_dream:
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
+
+    if reducedSpooks:
+        locations_to_be_removed += extra_data["reduce_spooks"]["locations"]
+        #do stuff to reduce spook like change requires of some locations
+
+    if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
+        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
+    #endregion
+
+    #Removing items
+    #region
+
+    for name in items_to_be_removed:
+        if name in local:
+            localid.pop(local[name]['id'])
+            localname.pop(name)
+            local.pop(name, "")
+    logger.debug(f"Done removing {len(world.item_name_to_item) - len(local)} items from player {player}.")
+    world.item_name_to_item = local
+    world.item_id_to_name = localid
+    world.item_name_to_id = localname
+
+    #endregion
+
+    #Removing Locations
+    #region
+
+    if len(locations_to_be_removed) > 0:
+        for region in multiworld.regions:
+            if region.player != player:
+                continue
+            for location in list(region.locations):
+                if location.name in locations_to_be_removed:
+                    region.locations.remove(location)
+        if APMiscData['043Compatible']:
+            multiworld.clear_location_cache()
+
+    #endregion
 #endregion
     pass
 
@@ -114,10 +227,12 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
-    solanum = OWOptions[player]["solanum"]
-    owlguy = OWOptions[player]["owlguy"]
-    randomContent = OWOptions[player]["randomContent"]
-    goal = OWOptions[player]["goal"]
+    extra_data = load_data_file("extra.json")
+    solanum = APOptions[player]["solanum"]
+    owlguy = APOptions[player]["owlguy"]
+    randomContent = APOptions[player]["randomContent"]
+    goal = APOptions[player]["goal"]
+    reducedSpooks = APOptions[player]["reducedSpooks"]
 
 #Victory Location access rules mod
 #region
@@ -151,16 +266,17 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
-    solanum = OWOptions[player]["solanum"]
-    owlguy = OWOptions[player]["owlguy"]
-    reducedSpooks = OWOptions[player]["reducedSpooks"]
-    do_place_item_category = OWOptions[player]["do_place_item_category"]
-    randomContent = OWOptions[player]["randomContent"]
-    goal = OWOptions[player]["goal"]
+    solanum = APOptions[player]["solanum"]
+    owlguy = APOptions[player]["owlguy"]
+    do_place_item_category = APOptions[player]["do_place_item_category"]
+    randomContent = APOptions[player]["randomContent"]
+    goal = APOptions[player]["goal"]
 
 #Restore location placed items
 #region
-    if OWMiscData["KnownPlayers"][0] != player and OWMiscData[player]["SafeGen"] == False:
+    if APMiscData["KnownPlayers"][0] != player and APMiscData[player]["SafeGen"] == False:
+        RemovedPlacedItems = APWorkingData.get('RM_place_item', {})
+        RemovedPlacedItemsCategory = APWorkingData.get('RM_place_item_cat', {})
         if len(RemovedPlacedItems) > 0 or len(RemovedPlacedItemsCategory) > 0:
             readded_place_item_Count = 0
             locationstoCheck = {}
@@ -171,19 +287,21 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
                     worldlocation = world.location_name_to_location[location]
                     if location in RemovedPlacedItemsCategory:
                         worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
-                        RemovedPlacedItemsCategory.pop(location)
+                        APWorkingData['RM_place_item_cat'].pop(location)
                     if location in RemovedPlacedItems:
                         worldlocation["place_item"] = RemovedPlacedItems[location]
-                        RemovedPlacedItems.pop(location)
+                        APWorkingData['RM_place_item'].pop(location)
                     if "place_item" in worldlocation or "place_item_category" in worldlocation:
                         readded_place_item_Count += 1
             if readded_place_item_Count > 0:
-                multiworld.clear_location_cache()
+                if APMiscData["043Compatible"]:
+                    multiworld.clear_location_cache()
                 logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
 #endregion
 
 # Personnal Item counts adjustment
 #region
+    location_count = len(multiworld.get_unfilled_locations(player)) - 1
     item_counts= {}
     if randomContent == RandomContent.option_base_game:
         item_counts["forced Meditation"] = 2
@@ -192,7 +310,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
 
     elif randomContent == RandomContent.option_dlc:
         worldlocation = world.location_name_to_location["Get in ship for the first time"]
-        RemovedPlacedItemsCategory[worldlocation['name']] = copy(worldlocation["place_item_category"])
+        APWorkingData['RM_place_item_cat'][worldlocation['name']] = copy(worldlocation["place_item_category"])
         worldlocation.pop("place_item_category", "")
 
         item_counts["forced Meditation"] = 3
@@ -202,119 +320,45 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
 
     for name, count in item_counts.items():
-        checkedname = copy(name)
         # future change item name here
         items = []
         for item in item_pool:
             if item.player != player:
                 continue
-            if item.name == checkedname:
+            if item.name == name:
                 items.append(item)
         if len(items) > count:
             for x in range(len(items) - count):
                 item_pool.remove(items[x])
+                if len(item_pool) < location_count:
+                    filler = ManualItem(game_table["filler_item_name"], ItemClassification.filler, #needed since filter are added before this.
+                                        APWorkingData['item_name_to_item'][game_table["filler_item_name"]], player)
+                    item_pool.append(filler)
 #endregion
 
-    locations_to_be_removed = []
-
-    if randomContent != RandomContent.option_both or reducedSpooks or not do_place_item_category :
+    if not do_place_item_category :
         extra_data = load_data_file("extra.json")
-
+        if 'RM_place_item_cat' not in APWorkingData:
+            APWorkingData["RM_place_item_cat"] = {}
+        if 'RM_place_item' not in APWorkingData:
+            APWorkingData["RM_place_item"] = {}
 
     if not do_place_item_category:
         for location in list(extra_data["no_place_item_category"]["locations"]):
             if location in world.location_name_to_location:
                 worldlocation = world.location_name_to_location[location]
                 if "place_item_category" in worldlocation:
-                    RemovedPlacedItemsCategory[location] = copy(worldlocation["place_item_category"])
+                    APWorkingData['RM_place_item_cat'][location] = copy(worldlocation["place_item_category"])
                     worldlocation.pop("place_item_category", "")
-        multiworld.clear_location_cache()
+        if APMiscData["043Compatible"]:
+            multiworld.clear_location_cache()
 
-
-    if randomContent != RandomContent.option_both:
-        if randomContent == RandomContent.option_base_game:
-            message = "Base game"
-            for item in list(item_pool):
-                if item.name in extra_data["echoes"]["items"]:
-                    item_pool.remove(item)
-            locations_to_be_removed += extra_data["echoes"]["locations"]
-        elif randomContent == RandomContent.option_dlc:
-            message = "DLC"
-            valid_items = extra_data["echoes"]["items"] + extra_data["both"]["items"]
-            valid_locations = extra_data["echoes"]["locations"] + extra_data["both"]["locations"]
-            if goal == Goal.option_eye:
-                valid_items += extra_data["victory_eye"]["items"]
-                valid_locations += extra_data["victory_eye"]["locations"]
-                message += " + Eye"
-            elif goal == Goal.option_ash_twin_project_break_spacetime:
-                valid_items += extra_data["victory_ash_twin_project_break_spacetime"]["items"]
-                valid_locations += extra_data["victory_ash_twin_project_break_spacetime"]["locations"]
-                message += " + Ash Twin project"
-            elif goal == Goal.option_high_energy_lab_break_spacetime:
-                valid_items += extra_data["victory_high_energy_lab_break_spacetime"]["items"]
-                valid_locations += extra_data["victory_high_energy_lab_break_spacetime"]["locations"]
-                message += " + High Energy Lab"
-            elif goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream:
-                valid_items +=  extra_data["need_warpdrive"]["items"]
-                valid_locations += extra_data["need_warpdrive"]["locations"]
-                message += " + Adv. warp core"
-            elif goal == Goal.option_stuck_with_solanum:
-                valid_items +=  extra_data["need_warpdrive"]["items"] + extra_data["require_solanum"]["items"]
-                valid_locations += extra_data["need_warpdrive"]["locations"] + extra_data["require_solanum"]["locations"]
-                message += " + Adv. warp core + Solanum"
-            if solanum and goal != Goal.option_stuck_with_solanum:
-                valid_items += extra_data["require_solanum"]["items"]
-                valid_locations += extra_data["require_solanum"]["locations"]
-                message += " + Solanum"
-
-            for item in list(item_pool):
-                if item.name not in valid_items:
-                    item_pool.remove(item)
-
-            for location in list(world.location_name_to_location):
-                if location not in valid_locations:
-                    locations_to_be_removed.append(location)
-
-    else:
-        message = "Both"
-    #logger.info(message)
-
-    if goal != Goal.option_stuck_with_solanum:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
-    if goal != Goal.option_stuck_in_stranger:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
-    if goal != Goal.option_stuck_in_dream:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
-
-    if reducedSpooks:
-        locations_to_be_removed += extra_data["reduce_spooks"]["locations"]
-        #do stuff to reduce spook like change requires of some locations
-
-    if (goal != Goal.option_eye and not (goal == Goal.option_standard and (randomContent != RandomContent.option_dlc))):
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
-
-    local_valid_locations = copy(world.location_name_to_location)
-    removedlocCount = 1 #victory included
-    if len(locations_to_be_removed) > 0:
-        for region in multiworld.regions:
-            if region.player != player:
-                continue
-            for location in list(region.locations):
-                if location.name in locations_to_be_removed:
-                    if OWMiscData[player]["SafeGen"] == False:
-                        worldlocation = world.location_name_to_location[location.name]
-                        if 'place_item' in worldlocation:
-                            RemovedPlacedItems[location.name] = copy(worldlocation["place_item"])
-                            worldlocation.pop("place_item", "")
-                        if'place_item_category' in worldlocation:
-                            RemovedPlacedItemsCategory[location.name] = copy(worldlocation["place_item_category"])
-                            worldlocation.pop("place_item_category", "")
-                    region.locations.remove(location)
-                    local_valid_locations.pop(location.name, "")
-                    removedlocCount += 1
-        multiworld.clear_location_cache()
-
-    logger.info(f"{world.game}:{player}:({message}) {len(item_pool)} items | {len(world.location_names) - removedlocCount} locations")
+    message = APMiscData[player]['message']
+    filler = 0
+    for item in item_pool:
+        if item.name == game_table["filler_item_name"]:
+            filler += 1
+    logger.info(f"{world.game}:{player}:({message}) {len(item_pool) - filler} items | {location_count} locations")
 
 #Placing Victory item in location
 #region
@@ -362,6 +406,10 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}')
 #endregion
 
+    if len(APWorkingData.get('RM_place_item_cat', ["tomato"])) == 0:
+        APWorkingData.pop("RM_place_item_cat", "")
+    if len(APWorkingData.get('RM_place_item', ["tomato"])) == 0:
+        APWorkingData.pop("RM_place_item", "")
     return item_pool
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs

@@ -18,3 +18,7 @@ def after_load_location_file(location_table: list) -> list:
 # if you need access to the locations after processing to add ids, etc., you should use the hooks in World.py
 def after_load_region_file(region_table: dict) -> dict:
     return region_table
+
+# called after the categories.json file has been loaded
+def after_load_category_file(category_table: dict) -> dict:
+    return category_table

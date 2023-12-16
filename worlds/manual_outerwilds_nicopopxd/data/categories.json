@@ -1,0 +1,11 @@
+{
+  "2b Trap": {
+    "hidden": true
+  },
+  "DLC - Eye": {
+    "hidden": true
+  },
+  "Example Yaml-option category": {
+    "yaml_option_off": [ "DLC_enabled" ]
+  }
+}

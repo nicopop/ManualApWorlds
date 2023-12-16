@@ -201,7 +201,9 @@ class ManualWorld(World):
                     items_started.append(starting_item)
                     self.multiworld.push_precollected(starting_item)
                     pool.remove(starting_item)
-
+                    
+        
+        
         extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(pool) - 1 # subtracting 1 because of Victory; seems right
         logger.debug(f"Extras: {extras}")
         if extras > 0:
@@ -311,8 +313,8 @@ class ManualWorld(World):
 
         # Uncomment these to generate a diagram of your manual.  Only works on 0.4.4+
 
-        # from Utils import visualize_regions
-        # visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}.puml")
+        from Utils import visualize_regions
+        visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}{self.player}.puml")
 
     def create_item(self, name: str) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)

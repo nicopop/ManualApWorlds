@@ -12,7 +12,7 @@
   },
   "Ash Twin": {
     "requires": [],
-    "connects_to": [ "Space", "Quantum Trials", "Ember Twin", "Brittle Hollow" ]
+    "connects_to": [ "Space", "Ember Twin", "Brittle Hollow" ]
   },
   "Ember Twin": {
     "requires": [],
@@ -42,13 +42,13 @@
   },
   "Interloper": {
     "requires": [],
-    "connects_to": [ "Space", "Quantum Trials", "The Stranger" ]
+    "connects_to": [ "Space" ]
   },
 
   "The Stranger": {
     "_comment": "Base Region for the DLC",
     "requires": "|Signaloscope| and |Signal > DeepSpace| and |Stranger Presence Knowledge| and |@3b DLC entrance:1|",
-    "connects_to": [ "Space", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+    "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
   },
   "DreamWorld General": {
     "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
