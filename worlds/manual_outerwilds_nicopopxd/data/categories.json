@@ -1,0 +1,24 @@
+{
+  "2b Trap": {
+    "hidden": true
+  },
+  "Base Game Main Progression": {
+    "hidden": true
+  },
+  "DLC - Eye": {
+    "hidden": true
+  },
+  "DLC - Stranger Entrance": {
+    "hidden": true
+  },
+  "DLC Flame": {
+    "hidden": true
+  },
+  "DLC - Reduced Knowledge": {
+    "yaml_option": [ "DLC_Main_Knowledge_Requirement" ],
+    "hidden": true
+  },
+  "Example Yaml-option category": {
+    "yaml_option_off": [ "DLC_enabled" ]
+  }
+}

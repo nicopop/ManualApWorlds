@@ -43,6 +43,9 @@ class RequirePrisoner(Toggle):
 class ReducedSpooks(Toggle):
     """Do you want to remove the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
+class MainDlcKnowledge(DefaultOnToggle):
+    """Should The main 2 dlc knowledges item (stranger and dreamworld) be enabled?"""
+    display_name = "Enable Main 2 Dlc Access Items"
 class LocalPlacedItems(DefaultOnToggle):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
     display_name = "Predetermined Local Items"
@@ -110,6 +113,7 @@ def before_options_defined(options: dict) -> dict:
     options["early_launch_codes"] = EarlyLaunchCode
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent
+    options["DLC_Main_Knowledge_Requirement"] = MainDlcKnowledge
     options["goal"] = Goal
     return options
 

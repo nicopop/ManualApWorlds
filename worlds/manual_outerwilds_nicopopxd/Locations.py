@@ -42,10 +42,17 @@ location_table.append({
 
 location_id_to_name = {}
 location_name_to_location = {}
+location_name_groups = {}
 
 for item in location_table:
     location_id_to_name[item["id"]] = item["name"]
     location_name_to_location[item["name"]] = item
+
+    for c in item.get("category", []):
+        if c not in location_name_groups:
+            location_name_groups[c] = []
+        location_name_groups[c].append(item["name"])
+
 
 # location_id_to_name[None] = "__Manual Game Complete__"
 location_name_to_id = {name: id for id, name in location_id_to_name.items()}

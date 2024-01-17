@@ -3,13 +3,13 @@
         "name": "Coords to the eye",
         "progression": true,
         "count": 1,
-        "category": [ "1 Need For End", "2a Not Trap" ]
+        "category": [ "3 Base Game", "1 Need For End", "2 everything" ]
     },
     {
         "name": "Adv. warp core",
         "progression": true,
         "count": 1,
-        "category": [ "1 Need For End", "2a Not Trap" ]
+        "category": [ "3 Base Game", "1 Need For End", "2 everything" ]
     },
     {
         "name": "Victory Token",
@@ -18,24 +18,29 @@
     },
 
     {
-        "name": "Tornado Knowledge",
+        "name": "Counter-Clockwise Tornadoes",
         "progression": true,
-        "category": [ "4a Knowledge", "2a Not Trap"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
     },
     {
-        "name": "Jellyfish Knowledge",
+        "name": "Clockwise Tornadoes",
         "progression": true,
-        "category": [ "4a Knowledge", "2a Not Trap"]
+        "category": [ "3 Base Game", "3a Progression", "2 everything"]
     },
     {
-        "name": "Teleporter Knowledge",
+        "name": "Jellyfishes",
         "progression": true,
-        "category": [ "4a Knowledge", "2a Not Trap"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
     },
     {
-        "name": "Anglerfish Knowledge",
+        "name": "Teleporters",
         "progression": true,
-        "category": [ "4a Knowledge", "2a Not Trap"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
+    },
+    {
+        "name": "Anglerfish Biology",
+        "progression": true,
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
     },
 
     {
@@ -43,17 +48,17 @@
         "progression": true,
         "early": true,
         "local":  true,
-        "category": [ "Tools", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3a Progression", "2 everything" ]
     },
     {
         "name": "Scout",
         "progression": true,
-        "category": [ "Tools", "2a Not Trap", "1 Need For End" ]
+        "category": [ "3 Base Game", "3a Progression", "2 everything", "1 Need For End" ]
     },
     {
         "name": "Scout Photos",
         "progression": true,
-        "category": [ "Tools", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3a Progression", "2 everything" ]
     },
 
     {
@@ -61,255 +66,254 @@
         "count": 1,
         "progression": true,
         "_comment": "marked as progression so it wont get removed if missing spaces",
-        "category": [ "Bonus", "2a Not Trap" ]
+        "category": [ "3 Base Game", "2a Filler and Useful", "2 everything" ]
     },
     {
         "name": "Landing Camera",
         "count": 1,
         "useful": true,
-        "category": [ "Bonus", "Tools", "2a Not Trap" ]
+        "category": [ "3 Base Game", "2a Filler and Useful", "2 everything" ]
     },
 
     {
         "name": "Signaloscope",
         "progression": true,
-        "category": [ "Tools", "4 Signal", "2a Not Trap", "1 Need For End" ]
+        "category": [ "3 Base Game", "3a Progression", "3b Signals", "2 everything", "1 Need For End" ]
     },
     {
         "name": "Signal > OW Ventures",
         "progression": true,
-        "category": [ "4 Signal", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything" ]
     },
     {
         "name": "Signal > Quantum",
         "progression": true,
-        "category": [ "4 Signal", "5 Quantum", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3b Signals", "3d Quantum", "2 everything" ]
     },
     {
         "name": "Signal > Distress",
         "progression": true,
-        "category": [ "4 Signal", "2a Not Trap", "1 Need For End" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything", "1 Need For End" ]
     },
     {
         "name": "Signal > DeepSpace",
         "progression": true,
-        "category": [ "4 Signal", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything" ]
     },
 
     {
         "name": "Quantum Rule > imaging",
         "progression": true,
-        "category": [ "5 Quantum", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
     },
     {
         "name": "Quantum Rule > entanglement",
         "progression": true,
-        "category": [ "5 Quantum", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
     },
     {
         "name": "Quantum Rule > sixth location",
         "progression": true,
-        "category": [ "5 Quantum", "2a Not Trap" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
     },
     {
         "name": "Musical Instrument",
         "count": 7,
-        "category": [ "Bonus", "2a Not Trap" ]
+        "category": [ "2a Filler and Useful", "2 everything" ]
     },
     {
         "name": "Ticket for (1) free death",
         "count": 14,
-        "category": [ "Bonus", "2a Not Trap" ]
+        "category": [ "2a Filler and Useful", "2 everything" ]
     },
     {
         "name": "Owlish feather",
         "count": 3,
-        "category": [ "Bonus", "2a Not Trap" ]
+        "category": [ "2a Filler and Useful", "2 everything" ]
     },
 
     {
-        "name": "forced Meditation",
+        "name": "Forced Meditation",
         "count": 4,
-        "category": [ "2b Trap" ],
+        "category": [ "2b Trap", "2 everything" ],
         "trap": true
     },
     {
         "name": "Disabled Ship controles 'Till next loop/meditation",
         "count": 3,
-        "category": [ "2b Trap" ],
+        "category": [ "2b Trap", "2 everything" ],
         "trap": true
     },
     {
         "name": "Minor Damage to ship",
         "count": 3,
-        "category": [ "2b Trap" ],
+        "category": [ "2b Trap", "2 everything" ],
         "trap": true
     },
     {
         "name": "Major Damage to ship",
         "count": 2,
-        "category": [ "2b Trap" ],
+        "category": [ "2b Trap", "2 everything" ],
         "trap": true
     },
 
     {
         "name": "Seen Coords",
         "progression": true,
-        "category": [ "Visits", "1 Need For End" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End" ]
     },
     {
         "name": "Seen Adv. warp core",
         "progression": true,
-        "category": [ "Visits", "1 Need For End" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End" ]
     },
     {
         "name": "Seen Prisoner",
         "progression": true,
-        "category": [ "Visits"]
+        "category": [ "4 Echoes of the Eye", "4d Visits", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Seen Solanum",
         "progression": true,
-        "category": [ "Visits"]
+        "category": [ "3 Base Game", "3d Visits", "2 everything" ]
     },
 
     {
-        "name": "Stranger Presence Knowledge",
+        "name": "Stranger Access",
         "progression": true,
-        "category": [ "4b DLC Knowledge", "3 Echoes of the Eye", "2a Not Trap" ]
+        "category": [ "4a Entrances", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "DLC - Reduced Knowledge" ]
     },
     {
-        "name": "Projectors Knowledge",
+        "name": "Stranger Projectors",
         "progression": true,
-        "category": [ "4b DLC Knowledge", "3 Echoes of the Eye", "2a Not Trap" ]
+        "category": [ "4a Progression", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "EYE > Main entrance",
         "progression": true,
-      "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ],
-      "_comment": "if we had logic only category the '3b DLC entrance' would be one"
+      "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ],
+      "_comment": "if we had logic only category the '3a DLC entrance' would be one"
     },
     {
         "name": "EYE > Dam entrance",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
     },
     {
         "name": "EYE > Back entrance",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
     },
     {
         "name": "EYE > Hull breach entrance",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "3b DLC entrance", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "2 everything", "DLC - Eye", "DLC - Stranger Entrance" ]
     },
     {
         "name": "EYE > Abandoned temple code",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "Code", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "EYE > Broken Interface room code",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "Code", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4e codes", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "EYE > Progressive Slide burning room",
         "count": 3,
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "2c Progressive", "2a Not Trap" ]
+        "category": [ "4a Progression", "4e Progressive", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "EYE > River Lowlands flame access",
+        "name": "EYE > River Lowlands Flame",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ],
-        "_comment": "if we had logic only category the 'DLC Flame' would be one"
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "EYE > Cinder Isles flame access",
+        "name": "EYE > Cinder Isles Flame",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "EYE > Hidden Gorge flame access",
+        "name": "EYE > Hidden Gorge Flame",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "EYE > Submerge Structure flame access",
+        "name": "EYE > Submerge Structure Flame",
         "progression": true,
-        "category": [ "3 Echoes of the Eye", "DLC Flame", "2a Not Trap" ]
+        "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Knowledge",
+        "name": "DreamWorld Access",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Entrances", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye", "DLC - Reduced Knowledge" ]
     },
     {
-        "name": "DreamWorld Loading Glitch Knowledge",
+        "name": "DreamWorld Loading Glitch",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Render Glitch Knowledge",
+        "name": "DreamWorld Render Glitch",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Death Glitch Knowledge",
+        "name": "DreamWorld Death Glitch",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Grabbing Hand Knowledge",
+        "name": "DreamWorld Grabbing Hands",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Door Candle Knowledge",
+        "name": "DreamWorld Door Candles",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Fake Fireplace Knowledge",
+        "name": "DreamWorld Fake Fireplace",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Fake Wall Knowledge",
+        "name": "DreamWorld Fake Wall",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "DreamWorld Hidden Hand Knowledge",
+        "name": "DreamWorld Hidden Hand",
         "progression": true,
-      "category": [ "4b DLC Knowledge", "3a DreamWorld", "3 Echoes of the Eye", "2a Not Trap" ]
+      "category": [ "4a Progression", "4c DreamWorld", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "EYE > Progressive Datamined Sealed Vault Code",
         "count": 3,
         "progression": true,
-        "category": [ "Code", "2c Progressive", "3 Echoes of the Eye", "2a Not Trap" ]
+        "category": [ "4a Progression", "4e codes", "4e Progressive", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited CodeVault",
         "progression": true,
-        "category": [ "Visits", "3 Echoes of the Eye" ]
+        "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Shrouded Woodlands Archive",
         "progression": true,
-        "category": [ "Visits", "3 Echoes of the Eye" ]
+        "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Starlit Cove Archive",
         "progression": true,
-        "category": [ "Visits", "3 Echoes of the Eye" ]
+        "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Endless Canyon Archive",
         "progression": true,
-        "category": [ "Visits", "3 Echoes of the Eye" ]
+        "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     }
 ]
