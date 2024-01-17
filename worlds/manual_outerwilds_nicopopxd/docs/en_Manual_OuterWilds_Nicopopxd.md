@@ -39,7 +39,7 @@ For more info on the location of the goal: check [here](#standard-in-base-game-o
 ### Goal Standard only DLC or Prisoner Goal DLC required
 
 You need to get to the Prisoner, your victory is when you join the prisoner in the river.  
-to get there you'll need a combo of [DLC Progressions](#dlc-progressions) and some way to get to the Subterranean Lake  
+to get there you'll need a combo of [DLC Progressions](#dlc-progressions) and some way to get to the Subterranean Lake.  
 For a more detailed requirement check [Here](#dlc-goal-items).  
 For more info on the location of the goal: check [here](#standard-in-dlc-or-prisoner-requirements)
 
@@ -52,7 +52,7 @@ For more info on the location of the goal: check [here](#ash-twin-project-break-
 ### High Energy Lab Break Spacetime
 
 At minimum you need to have "Signal > distress", the scout and Signaloscope  
-then get in the High Energy Lab and break SpaceTime thats all there is to it  
+then get in the High Energy Lab and break SpaceTime thats all there is to it.  
 For more info on the location of the goal: check [here](#high-energy-lab-break-spacetime-requirement)
 
 ### Visit All Archive DLC required
@@ -69,7 +69,7 @@ Most item can be in another player's world except for all the "Seen X" items or 
 ## What if I have items, unlocks, or locations that I'd like to not have randomized?
 
 It's all manual. Just exclude them from either the item or location list. Just make sure not to exclude items  
-that starts with either "seen X" or "Visited X" and do not exclude the location that give those
+that starts with either "seen X" or "Visited X" and do not exclude the location that give those.
 
 ## How do I install the mod for a Manual game?
 
@@ -87,26 +87,26 @@ There is no mandatory mods for this game. For more info look at the <a href="../
 
 #### Base Game Progressions
 
-- "Clockwise Tornadoes": unlocks using tornadoes to go up and get checks (in reality there is currently 1 check that needs it)
-- "Counter-Clockwise Tornadoes": unlock going under the current
-- "Jellyfishes" : unlock using the jellyfish to get in Giant's deep core
-- "Teleporters": unlock using teleporters on ashtwin (you can allways use the white hole station)
-- "Anglerfish Biology": unlock Dark Bramble by allowing you to avoid Anglerfish
+- "Clockwise Tornadoes": unlocks using tornadoes to go up and get checks (in reality there is currently 1 check that needs it).
+- "Counter-Clockwise Tornadoes": unlock going under the current.
+- "Jellyfishes" : unlock using the jellyfish to get in Giant's deep core.
+- "Teleporters": unlock using teleporters on ashtwin (you can allways use the white hole station).
+- "Anglerfish Biology": unlock Dark Bramble by allowing you to avoid Anglerfish.
 
 #### DLC Progressions
 
-- "Stranger Access": unlock the dlc (can be removed by option)
-- "DreamWorld Access": unlock the dreamworld (can be removed by option)
-- "DreamWorld Loading Glitch": unlock the ability to use the loading glitch to get to the lake dream
-- "DreamWorld Render Glitch": unlock the ability to use the Render Glitch to see and use the invisible platforms
-- "DreamWorld Death Glitch": unlock the ability to die and thus bypass the statues that would wake you up
-- "DreamWorld Grabbing Hands": unlock the usage of the hand statues in the dream to get across gap
-- "DreamWorld Door Candles": unlock the ability to blow out the candles in the dream to open doors
-- "DreamWorld Fake Fireplace": allow you to go through the fake fireplace in Shrouded Woodlands
-- "DreamWorld Fake Wall": allow you to go through the fake wall in Endless Canyon
-- "DreamWorld Hidden Hand": this and DreamWorld Grabbing Hands allows you to go and turn off the light in Starlit Cove
-- "EYE > Progressive Slide burning room": unlocks going in the burning rooms, the order is from the main entrance follow the water
-- "EYE > Progressive Datamined Sealed Vault Code": replace the last 2 glitch to open the vault, counts from left to right with the vault behind you
+- "Stranger Access": unlock the dlc (can be removed by option).
+- "DreamWorld Access": unlock the dreamworld (can be removed by option).
+- "DreamWorld Loading Glitch": unlock the ability to use the loading glitch to get to the lake dream.
+- "DreamWorld Render Glitch": unlock the ability to use the Render Glitch to see and use the invisible platforms.
+- "DreamWorld Death Glitch": unlock the ability to die and thus bypass the statues that would wake you up.
+- "DreamWorld Grabbing Hands": unlock the usage of the hand statues in the dream to get across gap.
+- "DreamWorld Door Candles": unlock the ability to blow out the candles in the dream to open doors.
+- "DreamWorld Fake Fireplace": allow you to go through the fake fireplace in Shrouded Woodlands.
+- "DreamWorld Fake Wall": allow you to go through the fake wall in Endless Canyon.
+- "DreamWorld Hidden Hand": this and DreamWorld Grabbing Hands allows you to go and turn off the light in Starlit Cove.
+- "EYE > Progressive Slide burning room": unlocks going in the burning rooms, the order is from the main entrance follow the water.
+- "EYE > Progressive Datamined Sealed Vault Code": replace the last 2 glitch to open the vault, counts from left to right with the vault behind you, first one is useless.
 
 ### Goal Items
 
@@ -136,17 +136,17 @@ There is no mandatory mods for this game. For more info look at the <a href="../
 
 #### Base Game Visits
 
-- "Seen Coords": You've been in the tracker module
-- "Seen Adv. warp core": You've been in the Ash Twin Project
-- "Seen Prisoner": You've seen the prisoner in the Vault
-- "Seen Solanum": You've seen Solanum on the Quantum Moon
+- "Seen Coords": You've been in the tracker module.
+- "Seen Adv. warp core": You've been in the Ash Twin Project.
+- "Seen Prisoner": You've seen the prisoner in the Vault.
+- "Seen Solanum": You've seen Solanum on the Quantum Moon.
 
 #### Dlc Visits
 
-- "Visited CodeVault": You've been in the Code vault and thus "know" the codes there
-- "Visited Shrouded Woodlands Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location
-- "Visited Starlit Cove Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location
-- "Visited Endless Canyon Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location
+- "Visited CodeVault": You've been in the Code vault and thus "know" the codes there.
+- "Visited Shrouded Woodlands Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location.
+- "Visited Starlit Cove Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location.
+- "Visited Endless Canyon Archive": You've been in the Shrouded Woodlands Archive 1/3 needed for the all archive location.
 
 ### Other items
 
