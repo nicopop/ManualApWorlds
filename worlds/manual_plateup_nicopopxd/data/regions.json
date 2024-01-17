@@ -1,7 +1,12 @@
 {
   "Lobby": {
+    "starting": true,
     "requires": [],
-    "connects_to": []
+    "connects_to": ["Restaurant"]
+  },
+  "Restaurant": {
+    "requires": "|@floorplans:1| and |@Normal Settings:1|",
+    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey", "Pie", "Cakes", "Fish", "Hot Dog", "Breakfast", "Stir Fry"]
   },
   "Steak": {
     "requires": "|Steak Recipe|",
@@ -33,6 +38,10 @@
   },
   "Pie": {
     "requires": "|Pie Recipe|",
+    "connects_to": []
+  },
+  "Cakes": {
+    "requires": "|Cakes Recipe|",
     "connects_to": []
   },
   "Fish": {

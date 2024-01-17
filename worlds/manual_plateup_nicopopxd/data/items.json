@@ -2,7 +2,7 @@
   {
     "name": "Victory Token",
     "progression": true,
-    "count": 12,
+    "count": 13,
     "category": [ "1 Important", "0 Everything" ]
   },
   {
@@ -13,97 +13,107 @@
   {
     "name": "Steak Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_1" ]
   },
   {
     "name": "Salad Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_2" ]
   },
   {
     "name": "Pizza Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_3" ]
   },
   {
     "name": "Dumplings Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_4" ]
   },
   {
     "name": "Coffee Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_4" ]
   },
   {
     "name": "Burger Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_5" ]
   },
   {
     "name": "Turkey Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_6" ]
   },
   {
     "name": "Pie Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_7" ]
+  },
+  {
+    "name": "Cakes Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_7" ]
   },
   {
     "name": "Fish Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_9" ]
   },
   {
     "name": "Hot Dog Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_11" ]
   },
   {
     "name": "Breakfast Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_13" ]
   },
   {
     "name": "Stir Fry Recipe",
     "progression": true,
-    "category": [ "2 Recipes", "0 Everything" ]
+    "category": [ "2 Recipes", "0 Everything", "level_15" ]
   },
   {
     "name": "Basic floorplans",
     "progression": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_1" ]
   },
   {
     "name": "Diner floorplans",
     "progression": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_4" ]
   },
   {
     "name": "Medium floorplans",
     "progression": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_4" ]
   },
   {
     "name": "Extended floorplans",
     "progression": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything" ]
   },
   {
     "name": "Huge floorplans",
     "progression": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything" ]
   },
   {
     "name": "Daily floorplans",
     "useful": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_6" ]
   },
   {
     "name": "Weekly floorplans",
     "useful": true,
-    "category": [ "3 Floorplans", "0 Everything" ]
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_6" ]
+  },
+  {
+    "name": "Custom Seeded Run",
+    "useful": true,
+    "category": [ "3 Restaurant", "0 Everything", "level_6" ]
   },
 
   {
@@ -115,7 +125,7 @@
   {
     "name": "Booking Desk",
     "progression": true,
-    "category": [ "4 Appliances", "0 Everything" ]
+    "category": [ "4 Appliances", "0 Everything", "level_2" ]
   },
   {
     "name": "Conveyors",
@@ -156,5 +166,30 @@
     "name": "Mixer Upgrades",
     "useful": true,
     "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "City Setting",
+    "progression": true,
+    "category": [ "4 Settings", "Normal Settings", "0 Everything", "level_1" ]
+  },
+  {
+    "name": "Country Setting",
+    "progression": true,
+    "category": [ "4 Settings", "Normal Settings", "0 Everything", "level_3" ]
+  },
+  {
+    "name": "Alpine Setting",
+    "progression": true,
+    "category": [ "4 Settings", "Normal Settings", "0 Everything", "level_4" ]
+  },
+  {
+    "name": "Autumn Setting",
+    "useful": true,
+    "category": [ "4 Settings", "0 Everything", "level_5" ]
+  },
+  {
+    "name": "Turbo Setting",
+    "useful": true,
+    "category": [ "4 Settings", "0 Everything", "level_5" ]
   }
 ]

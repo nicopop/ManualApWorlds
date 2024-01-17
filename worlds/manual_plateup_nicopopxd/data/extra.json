@@ -6,8 +6,7 @@
     "locations": [],
     "region": [
       "Steak"
-    ],
-    "MaxToken": 1
+    ]
   },
   "level_2": {
     "items": [
@@ -16,8 +15,7 @@
     "locations": [],
     "region": [
       "Salad"
-    ],
-    "MaxToken": 2
+    ]
   },
   "level_3": {
     "items": [
@@ -26,8 +24,7 @@
     "locations": [],
     "region": [
       "Pizza"
-    ],
-    "MaxToken": 3
+    ]
   },
   "level_4": {
     "items": [
@@ -39,8 +36,7 @@
     "region": [
       "Dumplings",
       "Coffee"
-    ],
-    "MaxToken": 5
+    ]
   },
   "level_5": {
     "items": [
@@ -49,8 +45,7 @@
     "locations": [],
     "region": [
       "Burger"
-    ],
-    "MaxToken": 6
+    ]
   },
   "level_6": {
     "items": [
@@ -61,8 +56,7 @@
     "locations": [],
     "region": [
       "Turkey"
-    ],
-    "MaxToken": 7
+    ]
   },
   "level_7": {
     "items": [
@@ -70,29 +64,26 @@
     ],
     "locations": [],
     "region": [
-      "Pie"
-    ],
-    "MaxToken": 8
+      "Pie",
+      "Cakes"
+    ]
   },
   "level_8": {
     "items": [],
-    "locations": [],
-    "MaxToken": 8
+    "locations": []
   },
   "level_9": {
     "items": [],
     "locations": [],
     "region": [
       "Fish"
-    ],
-    "MaxToken": 9
+    ]
   },
   "level_10": {
     "items": [
       "Extended floorplans"
     ],
-    "locations": [],
-    "MaxToken": 9
+    "locations": []
   },
   "level_11": {
     "items": [
@@ -101,34 +92,29 @@
     "locations": [],
     "region": [
       "Hot Dog"
-    ],
-    "MaxToken": 10
+    ]
   },
   "level_12": {
     "items": [],
-    "locations": [],
-    "MaxToken": 10
+    "locations": []
   },
   "level_13": {
     "items": [],
     "locations": [],
     "region": [
       "Breakfast"
-    ],
-    "MaxToken": 11
+    ]
   },
   "level_14": {
     "items": [],
-    "locations": [],
-    "MaxToken": 11
+    "locations": []
   },
   "level_15": {
     "items": [],
     "locations": [],
     "region": [
       "Stir Fry"
-    ],
-    "MaxToken": 12
+    ]
   },
   "overtime": {
     "locations": [
@@ -140,6 +126,7 @@
       "Burger - Overtime 3",
       "Turkey - Overtime 3",
       "Pie - Overtime 3",
+      "Cakes - Overtime 3",
       "Fish - Overtime 3",
       "Hot Dog - Overtime 3",
       "Breakfast - Overtime 3",
@@ -249,6 +236,19 @@
     ],
     "items": [
       "Pie Recipe"
+    ]
+  },
+  "recipe_cakes": {
+    "locations": [
+      "Cakes - Day 3",
+      "Cakes - Day 6",
+      "Cakes - Day 9",
+      "Cakes - Day 12",
+      "Cakes - Day 15 {overtime}",
+      "Cakes - Overtime 3"
+    ],
+    "items": [
+      "Cakes Recipe"
     ]
   },
   "recipe_fish": {

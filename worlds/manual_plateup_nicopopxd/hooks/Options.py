@@ -58,40 +58,43 @@ class OverTimeEnabled(DefaultOnToggle):
 
 class EnableSteak(DefaultOnToggle):
     """Enable the Steak Main recipe"""
-    display_name = "Enable Steak"
+    display_name = "Enable Steak (lvl1)"
 class EnableSalad(DefaultOnToggle):
     """Enable the Salad Main recipe"""
-    display_name = "Enable Salad"
+    display_name = "Enable Salad (lvl2)"
 class EnablePizza(DefaultOnToggle):
     """Enable the Pizza Main recipe"""
-    display_name = "Enable Pizza"
+    display_name = "Enable Pizza (lvl3)"
 class EnableDumplings(DefaultOnToggle):
     """Enable the Dumplings Main recipe"""
-    display_name = "Enable Dumplings"
+    display_name = "Enable Dumplings (lvl4)"
 class EnableCoffee(DefaultOnToggle):
     """Enable the Coffee Main recipe"""
-    display_name = "Enable Coffee"
+    display_name = "Enable Coffee (lvl4)"
 class EnableBurger(DefaultOnToggle):
     """Enable the Burger Main recipe"""
-    display_name = "Enable Burger"
+    display_name = "Enable Burger (lvl5)"
 class EnableTurkey(DefaultOnToggle):
     """Enable the Turkey Main recipe"""
-    display_name = "Enable Turkey"
+    display_name = "Enable Turkey (lvl6)"
 class EnablePie(DefaultOnToggle):
     """Enable the Pie Main recipe"""
-    display_name = "Enable Pie"
+    display_name = "Enable Pie (lvl7)"
+class EnableCakes(DefaultOnToggle):
+    """Enable the Cakes Main recipe"""
+    display_name = "Enable Cakes (lvl7)"
 class EnableFish(DefaultOnToggle):
     """Enable the Fish Main recipe"""
-    display_name = "Enable Fish"
+    display_name = "Enable Fish (lvl9)"
 class EnableHotDog(DefaultOnToggle):
     """Enable the Hot Dog Main recipe"""
-    display_name = "Enable Hot Dog"
+    display_name = "Enable Hot Dog (lvl11)"
 class EnableBreakfast(DefaultOnToggle):
     """Enable the Breakfast Main recipe"""
-    display_name = "Enable Breakfast"
+    display_name = "Enable Breakfast (lvl13)"
 class EnableStirFry(DefaultOnToggle):
     """Enable the Stir Fry Main recipe"""
-    display_name = "Enable Stir Fry"
+    display_name = "Enable Stir Fry (lvl15)"
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
 #    options["total_characters_to_win_with"] = TotalCharactersToWinWith
@@ -107,6 +110,7 @@ def before_options_defined(options: dict) -> dict:
     options["recipe_burger"] = EnableBurger
     options["recipe_turkey"] = EnableTurkey
     options["recipe_pie"] = EnablePie
+    options["recipe_cakes"] = EnableCakes
     options["recipe_fish"] = EnableFish
     options["recipe_hotdog"] = EnableHotDog
     options["recipe_breakfast"] = EnableBreakfast

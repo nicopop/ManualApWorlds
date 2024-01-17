@@ -3,10 +3,14 @@
   "creator": "Nicopopxd",
 
   "filler_item_name": "Customer spillage",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "starting_items": [
     {
       "item_categories": [ "2 Recipes" ],
+      "random": 1
+    },
+    {
+      "item_categories": [ "Normal Settings" ],
       "random": 1
     },
     {

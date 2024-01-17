@@ -69,33 +69,33 @@ In doubts look at the items :
 - "Signal > Distress" in the "Signal" category
 - All the [Knowledges](#knowledges)
 ##### DLC goal items:
-- "Stranger Presence Knowledge"
-- "DreamWorld Knowledge"
--  "DreamWorld Render Glitch Knowledge" + "DreamWorld Death Glitch Knowledge" + "DreamWorld Loading Glitch Knowledge"
+- "Stranger Access"
+- "DreamWorld Access"
+-  "DreamWorld Render Glitch" + "DreamWorld Death Glitch" + "DreamWorld Loading Glitch"
    - but the last 2 can be replaced by "EYE > Progressive Datamined Sealed Vault Code" 2 and 3
 - and one of the mutiple way to get to the Subterranean Lake:
-  - "EYE > Submerge Structure flame access"
-  - or any other flame + any item required to get to their boat access + "DreamWorld Loading Glitch Knowledge"
+  - "EYE > Submerge Structure Flame"
+  - or any other flame + any item required to get to their boat access + "DreamWorld Loading Glitch"
 
 #### Knowledges  
 
-- "Tornado Knowledge"
-- "Jellyfish Knowledge"
-- "Teleporter Knowledge"
-- "Anglerfish Knowledge"
+- "Counter-Clockwise Tornadoes"
+- "Jellyfishes"
+- "Teleporters"
+- "Anglerfish Biology"
 
 #### DLCknowledges
 
-- "Stranger Presence Knowledge"
-- "DreamWorld Knowledge"
-- "DreamWorld Loading Glitch Knowledge"
-- "DreamWorld Render Glitch Knowledge"
-- "DreamWorld Death Glitch Knowledge"
-- "DreamWorld Grabbing Hand Knowledge"
-- "DreamWorld Door Candle Knowledge"
-- "DreamWorld Fake Fireplace Knowledge"
-- "DreamWorld Fake Wall Knowledge"
-- "DreamWorld Hidden Hand Knowledge"
+- "Stranger Access"
+- "DreamWorld Access"
+- "DreamWorld Loading Glitch"
+- "DreamWorld Render Glitch"
+- "DreamWorld Death Glitch"
+- "DreamWorld Grabbing Hands"
+- "DreamWorld Door Candles"
+- "DreamWorld Fake Fireplace"
+- "DreamWorld Fake Wall"
+- "DreamWorld Hidden Hand"
 
 #### Tools   
 
@@ -129,7 +129,7 @@ In doubts look at the items :
 
 #### TRAPS
 
-- "forced Meditation", "count": 3
+- "Forced Meditation", "count": 3
     - Ignore if you don't have the "Meditation" item
 - "Disabled Ship controls 'Till next loop/meditation", "count": 3
 - "Minor Damage to ship", "count": 3
@@ -166,7 +166,7 @@ requires: "Signal > Quantum", "Signaloscope"
 
 #### Dark Bramble 
 
-requires": "Anglerfish Knowledge"
+requires": "Anglerfish Biology"
 
 ### Locations
 
@@ -188,12 +188,12 @@ In doubts here are the locations and their respective requirements:
 ##### 1 - Ash Twin
 
 - "Visit > Get in the Ash Twin Project"
-    - requires: "Teleporter Knowledge" 
+    - requires: "Teleporters" 
     - Always contain: "**[Seen Adv. warp core](#visits)**"
 - "Item > Get in the Ash Twin Project"
-    - requires: "Teleporter Knowledge" 
+    - requires: "Teleporters" 
 - "Get to the sun station"
-    - requires: "Teleporter Knowledge"
+    - requires: "Teleporters"
 
 ##### 1 - Ember Twin
 
@@ -247,7 +247,7 @@ In doubts here are the locations and their respective requirements:
 - "Talk to Riebeck"
     - requires: "Signaloscope", "Signal > OW Ventures"
 - "Get in the Blackhole Forge"
-    - requires: "Teleporter Knowledge"
+    - requires: "Teleporters"
 - "Find Escape Pod 1"
     - requires: "Signaloscope", "Signal > Distress"  
 - "Find the Tower Shard"
@@ -263,9 +263,9 @@ In doubts here are the locations and their respective requirements:
 - "Read any text wall in the Construction yard"
 - "Get in the Statue Island Workshop"
 - "Visit the Ocean Depths"
-    - requires: "Tornado Knowledge"
+    - requires: "Counter-Clockwise Tornadoes"
 - "Visit the Planet's Core"
-    - requires: "Tornado Knowledge", "Jellyfish Knowledge"
+    - requires: "Counter-Clockwise Tornadoes", "Jellyfishes"
 - "Get the Meditation dialog from Gabbro"
     - requires: "Signaloscope", "Signal > OW Ventures" 
 - "Find the Island Shard"
@@ -275,10 +275,10 @@ In doubts here are the locations and their respective requirements:
     - **Region**": [Quantum Trials](#quantum-trials),
     - requires: "Quantum Rule > imaging", "Scout", "Scout Photos"
 - "Visit > Get in the Probe Tracking Module and see the Coords to the eye"
-    - requires: "Tornado Knowledge", "Jellyfish Knowledge"
+    - requires: "Counter-Clockwise Tornadoes", "Jellyfishes"
     - Always contain: "**[Seen Coords](#visits)**"
 - "Item > Get in the Probe Tracking Module and see the Coords to the eye"
-    - requires: "Seen Coords", "Tornado Knowledge", "Jellyfish Knowledge"
+    - requires: "Seen Coords", "Counter-Clockwise Tornadoes", "Jellyfishes"
     - Never Contains a trap.
 
 ##### 5 - Dark Bramble
@@ -323,9 +323,9 @@ Every location in this category is part of the "[Quantum Trials](#quantum-trials
 - "94 - Communicate with the prisoner in the Subterranean Lake Dream"
     - **Region**: Subterranean Lake,
     - requires: Seen Prisoner
-    - AKA (|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch Knowledge|)  
-      or (|DreamWorld Loading Glitch Knowledge| and |DreamWorld Render Glitch Knowledge|  
-      and |DreamWorld Death Glitch Knowledge|)
+    - AKA (|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|)  
+      or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch|  
+      and |DreamWorld Death Glitch|)
 
 **[Visit all Archives](#visit-all-archive(dlc-required))**
 - "9 - In a loop visit all 3 archive without getting caught"
