@@ -9,7 +9,7 @@
       "Scout Photos",
       "Meditation",
       "Landing Camera",
-      "forced Meditation",
+      "Forced Meditation",
       "Musical Instrument",
       "Ticket for (1) free death",
       "Victory Token"
@@ -35,8 +35,8 @@
   "echoes": {
     "items": [
       "Seen Prisoner",
-      "Stranger Presence Knowledge",
-      "Projectors Knowledge",
+      "Stranger Access",
+      "Stranger Projectors",
       "EYE > Dam entrance",
       "EYE > Main entrance",
       "EYE > Back entrance",
@@ -44,19 +44,19 @@
       "EYE > Abandoned temple code",
       "EYE > Broken Interface room code",
       "EYE > Progressive Slide burning room",
-      "EYE > River Lowlands flame access",
-      "EYE > Cinder Isles flame access",
-      "EYE > Hidden Gorge flame access",
-      "EYE > Submerge Structure flame access",
-      "DreamWorld Knowledge",
-      "DreamWorld Loading Glitch Knowledge",
-      "DreamWorld Render Glitch Knowledge",
-      "DreamWorld Death Glitch Knowledge",
-      "DreamWorld Grabbing Hand Knowledge",
-      "DreamWorld Door Candle Knowledge",
-      "DreamWorld Fake Fireplace Knowledge",
-      "DreamWorld Fake Wall Knowledge",
-      "DreamWorld Hidden Hand Knowledge",
+      "EYE > River Lowlands Flame",
+      "EYE > Cinder Isles Flame",
+      "EYE > Hidden Gorge Flame",
+      "EYE > Submerge Structure Flame",
+      "DreamWorld Access",
+      "DreamWorld Loading Glitch",
+      "DreamWorld Render Glitch",
+      "DreamWorld Death Glitch",
+      "DreamWorld Grabbing Hands",
+      "DreamWorld Door Candles",
+      "DreamWorld Fake Fireplace",
+      "DreamWorld Fake Wall",
+      "DreamWorld Hidden Hand",
       "EYE > Progressive Datamined Sealed Vault Code",
       "Visited CodeVault",
       "Visited Shrouded Woodlands Archive",
@@ -135,10 +135,10 @@
       "Adv. warp core",
       "Seen Adv. warp core",
       "Signal > Distress",
-      "Tornado Knowledge",
-      "Jellyfish Knowledge",
-      "Anglerfish Knowledge",
-      "Teleporter Knowledge"
+      "Counter-Clockwise Tornadoes",
+      "Jellyfishes",
+      "Anglerfish Biology",
+      "Teleporters"
     ],
     "locations": [
       "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
@@ -152,7 +152,7 @@
     "items": [
       "Adv. warp core",
       "Seen Adv. warp core",
-      "Teleporter Knowledge"
+      "Teleporters"
     ],
     "locations": [
       "1 - Visit > Get in the Ash Twin Project",
@@ -163,7 +163,7 @@
     "items": [
       "Adv. warp core",
       "Seen Adv. warp core",
-      "Teleporter Knowledge"
+      "Teleporters"
     ],
     "locations": [
       "1 - Visit > Get in the Ash Twin Project",

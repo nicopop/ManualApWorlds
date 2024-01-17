@@ -71,6 +71,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     APOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
     APOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
     APOptions[player]["reducedSpooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
+    APOptions[player]["DLC_Main_Knowledge_Requirement"] = get_option_value(multiworld, player, "DLC_Main_Knowledge_Requirement") or 0
     APOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
     APOptions[player]["early_launch_codes"] = get_option_value(multiworld, player, "early_launch_codes") or 0
     APOptions[player]["randomContent"] = get_option_value(multiworld, player, "randomized_content") or RandomContent.option_both
@@ -233,6 +234,7 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     randomContent = APOptions[player]["randomContent"]
     goal = APOptions[player]["goal"]
     reducedSpooks = APOptions[player]["reducedSpooks"]
+    DlcMainItemsRequired = APOptions[player]["DLC_Main_Knowledge_Requirement"]
 
 #Victory Location access rules mod
 #region
@@ -263,7 +265,21 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
                 add_rule(location,
                          lambda state: state.has("Seen Prisoner", player))
 #endregion
-
+# Add Stranger if required
+#region
+    def _add_region_rule(region, item: str):
+        for entrance in region.entrances:
+            add_rule(entrance,
+                lambda state: state.has(item, player))
+    if DlcMainItemsRequired:
+        for region in multiworld.regions:
+            if region.name == "The Stranger":
+                _add_region_rule(region, "Stranger Access")
+            elif region.name == "DreamWorld General" or region.name == "Shrouded Woodlands" or region.name == "Starlit Cove":
+                _add_region_rule(region, "DreamWorld Access")
+            elif region.name == "Endless Canyon" or region.name == "Subterranean Lake":
+                _add_region_rule(region, "DreamWorld Access")
+#endregion
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld, player: int):
     solanum = APOptions[player]["solanum"]
@@ -304,7 +320,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
     location_count = len(multiworld.get_unfilled_locations(player)) - 1
     item_counts= {}
     if randomContent == RandomContent.option_base_game:
-        item_counts["forced Meditation"] = 2
+        item_counts["Forced Meditation"] = 2
         item_counts["Musical Instrument"] = 6
         item_counts["Ticket for (1) free death"] = 4
 
@@ -313,7 +329,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
         APWorkingData['RM_place_item_cat'][worldlocation['name']] = copy(worldlocation["place_item_category"])
         worldlocation.pop("place_item_category", "")
 
-        item_counts["forced Meditation"] = 3
+        item_counts["Forced Meditation"] = 3
         item_counts["Ticket for (1) free death"] = 5
     #if randomContent == RandomContent.option_base_game or randomContent == RandomContent.option_dlc:
         #if either only base game or only dlc
@@ -403,7 +419,7 @@ def before_generate_basic(item_pool: list, world: World, multiworld: MultiWorld,
             location.place_locked_item(victory_item)
     item_pool.remove(victory_item)
 
-    logger.info(f'Set the player {multiworld.get_player_name(player)} Victory rules to {victory_message}')
+    logger.info(f'Set the player {multiworld.get_player_name(player)} ({player}) Victory rules to {victory_message}')
 #endregion
 
     if len(APWorkingData.get('RM_place_item_cat', ["tomato"])) == 0:
