@@ -16,7 +16,7 @@ from .Regions import create_regions
 from .Items import ManualItem
 from .Rules import set_rules
 from .Options import manual_options
-from .Helpers import is_category_enabled, is_option_enabled, get_option_value
+from .Helpers import is_option_enabled, is_item_enabled, get_option_value
 
 from BaseClasses import ItemClassification, Tutorial, Item
 from worlds.AutoWorld import World, WebWorld
@@ -70,6 +70,7 @@ class ManualWeb(WebWorld):
         "setup/en",
         ["Nicopopxd"]
     )]
+    bug_report_page = "https://discord.com/channels/1097532591650910289/1101289500602286161"
 
 
 class ManualWorld(World):
@@ -93,12 +94,18 @@ class ManualWorld(World):
     item_name_to_id = item_name_to_id
     item_name_to_item = item_name_to_item
     item_name_groups = item_name_groups
+    item_counts = {}
+
     advancement_item_names = advancement_item_names
     location_table = location_table # this is likely imported from Data instead of Locations because the Game Complete location should not be in here, but is used for lookups
     location_id_to_name = location_id_to_name
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
     location_name_groups = location_name_groups
+
+    def interpret_slot_data(self, slot_data: dict[str, any]):
+        #this is called by UT before rules are called
+        self.item_counts[self.player] = slot_data['item_counts']
 
     def pre_fill(self):
         before_pre_fill(self, self.multiworld, self.player)
@@ -142,10 +149,8 @@ class ManualWorld(World):
                 item_count = int(item["count"])
 
             if "category" in item:
-                for category in item.get("category", []):
-                    if not is_category_enabled(self.multiworld, self.player, category):
-                        item_count = 0
-                        break
+                if not is_item_enabled(self.multiworld, self.player, item):
+                    item_count = 0
 
             if item_count == 0:
                 continue
@@ -201,9 +206,7 @@ class ManualWorld(World):
                     items_started.append(starting_item)
                     self.multiworld.push_precollected(starting_item)
                     pool.remove(starting_item)
-                    
-        
-        
+
         extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(pool) - 1 # subtracting 1 because of Victory; seems right
         logger.debug(f"Extras: {extras}")
         if extras > 0:
@@ -309,12 +312,16 @@ class ManualWorld(World):
             # remove the item we're about to place from the pool so it isn't placed twice
             self.multiworld.itempool.remove(item_to_place)
 
-        after_generate_basic(self, self.multiworld, self.player)
+        # Generate item_counts here so it could be acessed in after_generate_basic
+        if self.player not in self.item_counts:
+            real_pool = self.multiworld.get_items()
+            self.item_counts[self.player] = {i.name:real_pool.count(i) for i in real_pool if i.player == self.player}
 
+        after_generate_basic(self, self.multiworld, self.player)
         # Uncomment these to generate a diagram of your manual.  Only works on 0.4.4+
 
-        from Utils import visualize_regions
-        visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}{self.player}.puml")
+        # from Utils import visualize_regions
+        # visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
 
     def create_item(self, name: str) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)
@@ -359,6 +366,7 @@ class ManualWorld(World):
         slot_data = before_fill_slot_data({}, self, self.multiworld, self.player)
 
         # slot_data["DeathLink"] = bool(self.multiworld.death_link[self.player].value)
+        slot_data["item_counts"] = self.item_counts.get(self.player)
 
         slot_data = after_fill_slot_data(slot_data, self, self.multiworld, self.player)
 

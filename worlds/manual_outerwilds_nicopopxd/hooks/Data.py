@@ -4,7 +4,7 @@
 def after_load_item_file(item_table: list) -> list:
     return item_table
 
-# NOTE: Progressive items are not currently supported in Manual. Once they are, 
+# NOTE: Progressive items are not currently supported in Manual. Once they are,
 #       this hook will provide the ability to meaningfully change those.
 def after_load_progressive_item_file(progressive_item_table: list) -> list:
     return progressive_item_table
