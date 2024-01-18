@@ -44,7 +44,7 @@ class ReducedSpooks(Toggle):
     """Do you want to remove the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
 class MainDlcKnowledge(DefaultOnToggle):
-    """Should The main 2 dlc knowledges item (stranger and dreamworld) be enabled?"""
+    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
     display_name = "Enable Main 2 Dlc Access Items"
 class LocalPlacedItems(DefaultOnToggle):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this

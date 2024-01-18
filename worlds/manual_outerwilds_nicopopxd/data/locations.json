@@ -689,12 +689,12 @@
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
-		"name": "93 - Find the Stage with the 4 musical instruments",
+		"name": "93 - Find the Stage with the 2 musical instruments",
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
-		"name": "93 - Get in the restaurant",
+		"name": "93 - Make the bridge appear inside the mansion",
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ],
 		"requires": "|DreamWorld Grabbing Hands|"
