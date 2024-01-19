@@ -110,7 +110,7 @@ def before_options_defined(options: dict) -> dict:
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    options["reduced_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["enable_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
     options["early_launch_codes"] = EarlyLaunchCode
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent

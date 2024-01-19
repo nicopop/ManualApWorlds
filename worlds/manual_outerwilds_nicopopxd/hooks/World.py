@@ -70,7 +70,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     APMiscData[player] = {}
     APOptions[player]["solanum"] = get_option_value(multiworld, player, "require_solanum") or 0
     APOptions[player]["owlguy"] = get_option_value(multiworld, player, "require_prisoner") or 0
-    APOptions[player]["do_spooks"] = get_option_value(multiworld, player, "reduced_spooks") or 0
+    APOptions[player]["do_spooks"] = get_option_value(multiworld, player, "enable_spooks") or 0
     APOptions[player]["DLC_Main_Knowledge_Requirement"] = get_option_value(multiworld, player, "DLC_Main_Knowledge_Requirement") or 0
     APOptions[player]["do_place_item_category"] = get_option_value(multiworld, player, "do_place_item_category") or 0
     APOptions[player]["early_launch_codes"] = get_option_value(multiworld, player, "early_launch_codes") or 0

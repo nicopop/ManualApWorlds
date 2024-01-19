@@ -22,7 +22,7 @@
     "hidden": true
   },
   "DLC - Spooky": {
-    "yaml_option": [ "reduced_spooks" ],
+    "yaml_option": [ "enable_spooks" ],
     "hidden": true
   },
   "Example Yaml-option category": {
