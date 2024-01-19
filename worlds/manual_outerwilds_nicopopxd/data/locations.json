@@ -618,20 +618,19 @@
 	},
 	{
 		"name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
-		"region": "DreamWorld General",
-		"requires": "(|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|EYE > River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
+		"region": "Shrouded Woodlands Archive",
 		"place_item": [ "Visited Shrouded Woodlands Archive" ],
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Watch the Loading Glitch Slide",
-		"region": "Shrouded Woodlands",
+		"region": "Shrouded Woodlands Archive",
 		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Discover the burned code",
-		"region": "Shrouded Woodlands",
+		"region": "Shrouded Woodlands Archive",
 		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
@@ -665,21 +664,35 @@
 		"category": [ "8 - The Stranger", "DLC - Eye" ]
 	},
 	{
-		"name": "92 - Get in the Forbidden Archive of the Starlit Cove",
-		"region": "Starlit Cove",
-		"requires": "|DreamWorld Door Candles| and (|DreamWorld Death Glitch| or (|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|))",
+		"name": "92 - [Lights on] Get in the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove Archive",
+		"requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch|",
 		"place_item": [ "Visited Starlit Cove Archive" ],
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
+		"name": "92 - [Lights out] Sneak in the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove Archive",
+		"requires": "|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
+		"place_item": [ "Visited Starlit Cove Archive" ],
+		"category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
+	},
+	{
+		"name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove Archive",
+		"requires": "|Visited Starlit Cove Archive:2|",
+		"category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
+	},
+
+	{
 		"name": "92 - Watch the Death Glitch Slide",
-		"region": "Starlit Cove",
+		"region": "Starlit Cove Archive",
 		"requires": "|Visited Starlit Cove Archive|",
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
 		"name": "92 - Discover the burned code",
-		"region": "Starlit Cove",
+		"region": "Starlit Cove Archive",
 		"requires": "|Visited Starlit Cove Archive|",
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
@@ -694,33 +707,52 @@
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
-		"name": "93 - Make the bridge appear inside the mansion",
+		"name": "93 - [Lights on] Make the bridge appear inside the mansion",
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ],
 		"requires": "|DreamWorld Grabbing Hands|"
 	},
 	{
-		"name": "93 - Get the 1 / 900 achivement",
+		"name": "93 - [Lights out] Make the bridge appear inside the mansion",
 		"region": "Endless Canyon",
-		"requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
-		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
+		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
+		"requires": "|DreamWorld Grabbing Hands| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|)"
 	},
 	{
-		"name": "93 - Get in the Forbidden Archive of the Endless Canyon Dream",
+		"name": "93 - [Lights out] Get the 1 / 900 achivement",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
+		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+	},
+	{
+		"name": "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
+		"region": "Endless Canyon Archive",
+		"requires": "|DreamWorld Render Glitch|",
 		"place_item": [ "Visited Endless Canyon Archive" ],
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
+		"name": "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
+		"region": "Endless Canyon Archive",
+		"requires": "(|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
+		"place_item": [ "Visited Endless Canyon Archive" ],
+		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+	},
+	{
+		"name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
+		"region": "Endless Canyon Archive",
+		"requires": "|Visited Endless Canyon Archive:2|",
+		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
+	},
+	{
 		"name": "93 - Watch the Render Glitch Slide",
-		"region": "Endless Canyon",
+		"region": "Endless Canyon Archive",
 		"requires": "|Visited Endless Canyon Archive|",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
 		"name": "93 - Discover the burned code",
-		"region": "Endless Canyon",
+		"region": "Endless Canyon Archive",
 		"requires": "|Visited Endless Canyon Archive|",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},

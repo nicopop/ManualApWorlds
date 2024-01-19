@@ -53,19 +53,31 @@
   "DreamWorld General": {
     "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
     "requires": "|@DLC Flame:1|",
-    "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+    "connects_to": [ "Subterranean Lake", "Shrouded Woodlands Archive", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands": {
     "requires": "|EYE > River Lowlands Flame|",
-    "connects_to": [ "The Stranger", "Subterranean Lake", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
+    "connects_to": [ "The Stranger", "Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
+  },
+  "Shrouded Woodlands Archive": {
+    "requires": "(|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|EYE > River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
+    "connects_to": []
   },
   "Starlit Cove": {
     "requires": "|EYE > Cinder Isles Flame|",
-    "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon", "DreamWorld General" ]
+    "connects_to": [ "The Stranger", "Starlit Cove Archive", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon", "DreamWorld General" ]
+  },
+  "Starlit Cove Archive": {
+    "requires": "|DreamWorld Door Candles| and (|DreamWorld Death Glitch| or (|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|))",
+    "connects_to": []
   },
   "Endless Canyon": {
     "requires": "|EYE > Hidden Gorge Flame|",
-    "connects_to": [ "The Stranger", "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "DreamWorld General" ]
+    "connects_to": [ "The Stranger", "Endless Canyon Archive",  "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "DreamWorld General" ]
+  },
+  "Endless Canyon Archive": {
+    "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
+    "connects_to": []
   },
   "Subterranean Lake": {
     "requires": "(|EYE > Submerge Structure Flame| or ((|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) ))) )",
