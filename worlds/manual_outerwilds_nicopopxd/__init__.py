@@ -207,23 +207,7 @@ class ManualWorld(World):
                     self.multiworld.push_precollected(starting_item)
                     pool.remove(starting_item)
 
-        extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(pool) - 1 # subtracting 1 because of Victory; seems right
-        logger.debug(f"Extras: {extras}")
-        if extras > 0:
-            trap_percent = get_option_value(self.multiworld, self.player, "filler_traps")
-            if not traps:
-                trap_percent = 0
-
-            trap_count = extras * trap_percent // 100
-            filler_count = extras - trap_count
-
-            for i in range(0, trap_count):
-                extra_item = self.create_item(self.random.choice(traps))
-                pool.append(extra_item)
-
-            for i in range(0, filler_count):
-                extra_item = self.create_item(filler_item_name)
-                pool.append(extra_item)
+        pool = self.add_filler_items(pool, traps)
 
         pool = before_generate_basic(pool, self, self.multiworld, self.player)
 
@@ -320,8 +304,8 @@ class ManualWorld(World):
         after_generate_basic(self, self.multiworld, self.player)
         # Uncomment these to generate a diagram of your manual.  Only works on 0.4.4+
 
-        # from Utils import visualize_regions
-        # visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
+        #from Utils import visualize_regions
+        #visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
 
     def create_item(self, name: str) -> Item:
         name = before_create_item(name, self, self.multiworld, self.player)
@@ -372,6 +356,26 @@ class ManualWorld(World):
 
         return slot_data
 
+    def add_filler_items(self, item_pool, traps):
+        extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(item_pool) - 1 # subtracting 1 because of Victory; seems right
+
+        if extras > 0:
+            trap_percent = get_option_value(self.multiworld, self.player, "filler_traps")
+            if not traps:
+                trap_percent = 0
+
+            trap_count = extras * trap_percent // 100
+            filler_count = extras - trap_count
+
+            for i in range(0, trap_count):
+                extra_item = self.create_item(self.random.choice(traps))
+                item_pool.append(extra_item)
+
+            for i in range(0, filler_count):
+                extra_item = self.create_item(filler_item_name)
+                item_pool.append(extra_item)
+        return item_pool
+
     def client_data(self):
         return {
             "game": self.game,
@@ -402,7 +406,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 20231206 # YYYYMMDD
+    version = 20240112 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":
