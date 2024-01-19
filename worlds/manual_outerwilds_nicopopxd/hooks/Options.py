@@ -40,11 +40,11 @@ class RequireSolanum(Toggle):
 class RequirePrisoner(Toggle):
     """Do you want to require Talking to the Prisoner before you can win?"""
     display_name = "Require Talking to the Prisoner"
-class ReducedSpooks(Toggle):
-    """Do you want to remove the Spookier DLC locations?"""
+class do_spooks(DefaultOnToggle):
+    """Do you want to enable some of the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
 class MainDlcKnowledge(DefaultOnToggle):
-    """Should The main 2 dlc knowledges item (stranger and dreamworld) be enabled?"""
+    """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
     display_name = "Enable Main 2 Dlc Access Items"
 class LocalPlacedItems(DefaultOnToggle):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
@@ -61,6 +61,7 @@ class RandomContent(Choice):
     alias_everything = 0
     option_base_game = 1
     alias_no_dlc = 1
+    alias_base = 1
     option_dlc = 2
     alias_only_dlc = 2
     default = 0
@@ -109,7 +110,7 @@ def before_options_defined(options: dict) -> dict:
     options["game_version"] = ApWorldVersion
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
-    #options["reduced_spooks"] = ReducedSpooks #we'll need to talk on what need to be disabled/modified when this is enabled
+    options["enable_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
     options["early_launch_codes"] = EarlyLaunchCode
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent

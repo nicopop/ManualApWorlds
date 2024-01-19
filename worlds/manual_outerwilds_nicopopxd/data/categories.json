@@ -5,6 +5,9 @@
   "Base Game Main Progression": {
     "hidden": true
   },
+  "Base Game":{
+    "hidden": true
+  },
   "DLC - Eye": {
     "hidden": true
   },
@@ -16,6 +19,10 @@
   },
   "DLC - Reduced Knowledge": {
     "yaml_option": [ "DLC_Main_Knowledge_Requirement" ],
+    "hidden": true
+  },
+  "DLC - Spooky": {
+    "yaml_option": [ "enable_spooks" ],
     "hidden": true
   },
   "Example Yaml-option category": {

@@ -3,13 +3,13 @@
         "name": "Coords to the eye",
         "progression": true,
         "count": 1,
-        "category": [ "3 Base Game", "1 Need For End", "2 everything" ]
+        "category": [ "3 Base Game", "1 Need For End", "2 everything", "Base Game" ]
     },
     {
         "name": "Adv. warp core",
         "progression": true,
         "count": 1,
-        "category": [ "3 Base Game", "1 Need For End", "2 everything" ]
+        "category": [ "3 Base Game", "1 Need For End", "2 everything", "Base Game" ]
     },
     {
         "name": "Victory Token",
@@ -20,27 +20,27 @@
     {
         "name": "Counter-Clockwise Tornadoes",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
     },
     {
         "name": "Clockwise Tornadoes",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "2 everything"]
+        "category": [ "3 Base Game", "3a Progression", "2 everything", "Base Game"]
     },
     {
         "name": "Jellyfishes",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
     },
     {
         "name": "Teleporters",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
     },
     {
         "name": "Anglerfish Biology",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything"]
+        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
     },
 
     {
@@ -83,17 +83,17 @@
     {
         "name": "Signal > OW Ventures",
         "progression": true,
-        "category": [ "3 Base Game", "3b Signals", "2 everything" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything", "Base Game" ]
     },
     {
         "name": "Signal > Quantum",
         "progression": true,
-        "category": [ "3 Base Game", "3b Signals", "3d Quantum", "2 everything" ]
+        "category": [ "3 Base Game", "3b Signals", "3d Quantum", "2 everything", "Base Game" ]
     },
     {
         "name": "Signal > Distress",
         "progression": true,
-        "category": [ "3 Base Game", "3b Signals", "2 everything", "1 Need For End" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything", "1 Need For End", "Base Game" ]
     },
     {
         "name": "Signal > DeepSpace",
@@ -104,17 +104,17 @@
     {
         "name": "Quantum Rule > imaging",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
     },
     {
         "name": "Quantum Rule > entanglement",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
     },
     {
         "name": "Quantum Rule > sixth location",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
     },
     {
         "name": "Musical Instrument",
@@ -141,31 +141,31 @@
     {
         "name": "Disabled Ship controles 'Till next loop/meditation",
         "count": 3,
-        "category": [ "2b Trap", "2 everything" ],
+        "category": [ "2b Trap", "2 everything", "Base Game" ],
         "trap": true
     },
     {
         "name": "Minor Damage to ship",
         "count": 3,
-        "category": [ "2b Trap", "2 everything" ],
+        "category": [ "2b Trap", "2 everything", "Base Game" ],
         "trap": true
     },
     {
         "name": "Major Damage to ship",
         "count": 2,
-        "category": [ "2b Trap", "2 everything" ],
+        "category": [ "2b Trap", "2 everything", "Base Game" ],
         "trap": true
     },
 
     {
         "name": "Seen Coords",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End", "Base Game" ]
     },
     {
         "name": "Seen Adv. warp core",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End", "Base Game" ]
     },
     {
         "name": "Seen Prisoner",
@@ -175,7 +175,7 @@
     {
         "name": "Seen Solanum",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything", "Base Game" ]
     },
 
     {
@@ -309,11 +309,13 @@
     {
         "name": "Visited Starlit Cove Archive",
         "progression": true,
+        "count": 2,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Endless Canyon Archive",
         "progression": true,
+        "count": 2,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     }
 ]
