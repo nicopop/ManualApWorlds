@@ -1,4 +1,21 @@
 {
+  "Options":{
+    "level_1": ["Steak"],
+    "level_2": ["Salad"],
+    "level_3": ["Pizza"],
+    "level_4": ["Dumplings", "Coffee"],
+    "level_5": ["Burger"],
+    "level_6": ["Turkey"],
+    "level_7": ["Pie", "Cakes"],
+    "level_8": ["Spaghetti"],
+    "level_9": ["Fish"],
+    "level_10": [],
+    "level_11": ["Hot Dog"],
+    "level_12": [],
+    "level_13": ["Breakfast"],
+    "level_14": [],
+    "level_15": ["Stir Fry"]
+  },
   "level_1": {
     "items": [
       "Basic floorplans"
@@ -70,7 +87,10 @@
   },
   "level_8": {
     "items": [],
-    "locations": []
+    "locations": [],
+    "region": [
+      "Spaghetti"
+    ]
   },
   "level_9": {
     "items": [],
@@ -118,30 +138,30 @@
   },
   "overtime": {
     "locations": [
-      "Steak - Overtime 3",
-      "Salad - Overtime 3",
-      "Pizza - Overtime 3",
-      "Dumplings - Overtime 3",
-      "Coffee - Overtime 3",
-      "Burger - Overtime 3",
-      "Turkey - Overtime 3",
-      "Pie - Overtime 3",
-      "Cakes - Overtime 3",
-      "Fish - Overtime 3",
-      "Hot Dog - Overtime 3",
-      "Breakfast - Overtime 3",
-      "Stir Fry - Overtime 3"
+      "Steak - Beat Overtime 3",
+      "Salad - Beat Overtime 3",
+      "Pizza - Beat Overtime 3",
+      "Dumplings - Beat Overtime 3",
+      "Coffee - Beat Overtime 3",
+      "Burger - Beat Overtime 3",
+      "Turkey - Beat Overtime 3",
+      "Pie - Beat Overtime 3",
+      "Cakes - Beat Overtime 3",
+      "Fish - Beat Overtime 3",
+      "Hot Dog - Beat Overtime 3",
+      "Breakfast - Beat Overtime 3",
+      "Stir Fry - Beat Overtime 3"
     ],
     "items": []
   },
   "recipe_steak": {
     "locations": [
-      "Steak - Day 3",
-      "Steak - Day 6",
-      "Steak - Day 9",
-      "Steak - Day 12",
-      "Steak - Day 15 {overtime}",
-      "Steak - Overtime 3"
+      "Steak - Beat Day 3",
+      "Steak - Beat Day 6",
+      "Steak - Beat Day 9",
+      "Steak - Beat Day 12",
+      "Steak - Beat Day 15 {overtime}",
+      "Steak - Beat Overtime 3"
     ],
     "items": [
       "Steak Recipe"
@@ -149,12 +169,12 @@
   },
   "recipe_salad": {
     "locations": [
-      "Salad - Day 3",
-      "Salad - Day 6",
-      "Salad - Day 9",
-      "Salad - Day 12",
-      "Salad - Day 15 {overtime}",
-      "Salad - Overtime 3"
+      "Salad - Beat Day 3",
+      "Salad - Beat Day 6",
+      "Salad - Beat Day 9",
+      "Salad - Beat Day 12",
+      "Salad - Beat Day 15 {overtime}",
+      "Salad - Beat Overtime 3"
     ],
     "items": [
       "Salad Recipe"
@@ -162,12 +182,12 @@
   },
   "recipe_pizza": {
     "locations": [
-      "Pizza - Day 3",
-      "Pizza - Day 6",
-      "Pizza - Day 9",
-      "Pizza - Day 12",
-      "Pizza - Day 15 {overtime}",
-      "Pizza - Overtime 3"
+      "Pizza - Beat Day 3",
+      "Pizza - Beat Day 6",
+      "Pizza - Beat Day 9",
+      "Pizza - Beat Day 12",
+      "Pizza - Beat Day 15 {overtime}",
+      "Pizza - Beat Overtime 3"
     ],
     "items": [
       "Pizza Recipe"
@@ -175,12 +195,12 @@
   },
   "recipe_dumplings": {
     "locations": [
-      "Dumplings - Day 3",
-      "Dumplings - Day 6",
-      "Dumplings - Day 9",
-      "Dumplings - Day 12",
-      "Dumplings - Day 15 {overtime}",
-      "Dumplings - Overtime 3"
+      "Dumplings - Beat Day 3",
+      "Dumplings - Beat Day 6",
+      "Dumplings - Beat Day 9",
+      "Dumplings - Beat Day 12",
+      "Dumplings - Beat Day 15 {overtime}",
+      "Dumplings - Beat Overtime 3"
     ],
     "items": [
       "Dumplings Recipe"
@@ -188,12 +208,12 @@
   },
   "recipe_coffee": {
     "locations": [
-      "Coffee - Day 3",
-      "Coffee - Day 6",
-      "Coffee - Day 9",
-      "Coffee - Day 12",
-      "Coffee - Day 15 {overtime}",
-      "Coffee - Overtime 3"
+      "Coffee - Beat Day 3",
+      "Coffee - Beat Day 6",
+      "Coffee - Beat Day 9",
+      "Coffee - Beat Day 12",
+      "Coffee - Beat Day 15 {overtime}",
+      "Coffee - Beat Overtime 3"
     ],
     "items": [
       "Coffee Recipe"
@@ -201,12 +221,12 @@
   },
   "recipe_burger": {
     "locations": [
-      "Burger - Day 3",
-      "Burger - Day 6",
-      "Burger - Day 9",
-      "Burger - Day 12",
-      "Burger - Day 15 {overtime}",
-      "Burger - Overtime 3"
+      "Burger - Beat Day 3",
+      "Burger - Beat Day 6",
+      "Burger - Beat Day 9",
+      "Burger - Beat Day 12",
+      "Burger - Beat Day 15 {overtime}",
+      "Burger - Beat Overtime 3"
     ],
     "items": [
       "Burger Recipe"
@@ -214,12 +234,12 @@
   },
   "recipe_turkey": {
     "locations": [
-      "Turkey - Day 3",
-      "Turkey - Day 6",
-      "Turkey - Day 9",
-      "Turkey - Day 12",
-      "Turkey - Day 15 {overtime}",
-      "Turkey - Overtime 3"
+      "Turkey - Beat Day 3",
+      "Turkey - Beat Day 6",
+      "Turkey - Beat Day 9",
+      "Turkey - Beat Day 12",
+      "Turkey - Beat Day 15 {overtime}",
+      "Turkey - Beat Overtime 3"
     ],
     "items": [
       "Turkey Recipe"
@@ -227,12 +247,12 @@
   },
   "recipe_pie": {
     "locations": [
-      "Pie - Day 3",
-      "Pie - Day 6",
-      "Pie - Day 9",
-      "Pie - Day 12",
-      "Pie - Day 15 {overtime}",
-      "Pie - Overtime 3"
+      "Pie - Beat Day 3",
+      "Pie - Beat Day 6",
+      "Pie - Beat Day 9",
+      "Pie - Beat Day 12",
+      "Pie - Beat Day 15 {overtime}",
+      "Pie - Beat Overtime 3"
     ],
     "items": [
       "Pie Recipe"
@@ -240,12 +260,12 @@
   },
   "recipe_cakes": {
     "locations": [
-      "Cakes - Day 3",
-      "Cakes - Day 6",
-      "Cakes - Day 9",
-      "Cakes - Day 12",
-      "Cakes - Day 15 {overtime}",
-      "Cakes - Overtime 3"
+      "Cakes - Beat Day 3",
+      "Cakes - Beat Day 6",
+      "Cakes - Beat Day 9",
+      "Cakes - Beat Day 12",
+      "Cakes - Beat Day 15 {overtime}",
+      "Cakes - Beat Overtime 3"
     ],
     "items": [
       "Cakes Recipe"
@@ -253,12 +273,12 @@
   },
   "recipe_fish": {
     "locations": [
-      "Fish - Day 3",
-      "Fish - Day 6",
-      "Fish - Day 9",
-      "Fish - Day 12",
-      "Fish - Day 15 {overtime}",
-      "Fish - Overtime 3"
+      "Fish - Beat Day 3",
+      "Fish - Beat Day 6",
+      "Fish - Beat Day 9",
+      "Fish - Beat Day 12",
+      "Fish - Beat Day 15 {overtime}",
+      "Fish - Beat Overtime 3"
     ],
     "items": [
       "Fish Recipe"
@@ -266,12 +286,12 @@
   },
   "recipe_hotdog": {
     "locations": [
-      "Hot Dog - Day 3",
-      "Hot Dog - Day 6",
-      "Hot Dog - Day 9",
-      "Hot Dog - Day 12",
-      "Hot Dog - Day 15 {overtime}",
-      "Hot Dog - Overtime 3"
+      "Hot Dog - Beat Day 3",
+      "Hot Dog - Beat Day 6",
+      "Hot Dog - Beat Day 9",
+      "Hot Dog - Beat Day 12",
+      "Hot Dog - Beat Day 15 {overtime}",
+      "Hot Dog - Beat Overtime 3"
     ],
     "items": [
       "Hot Dog Recipe"
@@ -279,12 +299,12 @@
   },
   "recipe_breakfast": {
     "locations": [
-      "Breakfast - Day 3",
-      "Breakfast - Day 6",
-      "Breakfast - Day 9",
-      "Breakfast - Day 12",
-      "Breakfast - Day 15 {overtime}",
-      "Breakfast - Overtime 3"
+      "Breakfast - Beat Day 3",
+      "Breakfast - Beat Day 6",
+      "Breakfast - Beat Day 9",
+      "Breakfast - Beat Day 12",
+      "Breakfast - Beat Day 15 {overtime}",
+      "Breakfast - Beat Overtime 3"
     ],
     "items": [
       "Breakfast Recipe"
@@ -292,12 +312,12 @@
   },
   "recipe_stirfry": {
     "locations": [
-      "Stir Fry - Day 3",
-      "Stir Fry - Day 6",
-      "Stir Fry - Day 9",
-      "Stir Fry - Day 12",
-      "Stir Fry - Day 15 {overtime}",
-      "Stir Fry - Overtime 3"
+      "Stir Fry - Beat Day 3",
+      "Stir Fry - Beat Day 6",
+      "Stir Fry - Beat Day 9",
+      "Stir Fry - Beat Day 12",
+      "Stir Fry - Beat Day 15 {overtime}",
+      "Stir Fry - Beat Overtime 3"
     ],
     "items": [
       "Stir Fry Recipe"

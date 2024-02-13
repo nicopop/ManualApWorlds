@@ -44,6 +44,15 @@ class HostLevel(Range):
     range_start = 2
     range_end = 15
     default = 10
+class AdditionnalRecipe(SpecialRange):
+    """Add extra X number of unnamed recipe for modded recipe support?"""
+    display_name = "Modded Recipes"
+    range_start = 0
+    range_end = 10
+    default = 0
+    special_range_names = {
+        "None": 0
+    }
 
 class TotalTokenForWin(Range):
     """Percentage of available Recipe needed to win?(rounded up)"""
@@ -83,6 +92,9 @@ class EnablePie(DefaultOnToggle):
 class EnableCakes(DefaultOnToggle):
     """Enable the Cakes Main recipe"""
     display_name = "Enable Cakes (lvl7)"
+class EnableSpaghetti(DefaultOnToggle):
+    """Enable the Spaghetti Main recipe"""
+    display_name = "Enable Spaghetti (lvl8)"
 class EnableFish(DefaultOnToggle):
     """Enable the Fish Main recipe"""
     display_name = "Enable Fish (lvl9)"
@@ -97,7 +109,6 @@ class EnableStirFry(DefaultOnToggle):
     display_name = "Enable Stir Fry (lvl15)"
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
-#    options["total_characters_to_win_with"] = TotalCharactersToWinWith
     options["game_version"] = ApWorldVersion
     options["host_level"] = HostLevel
     options["win_percent"] = TotalTokenForWin
@@ -112,11 +123,12 @@ def before_options_defined(options: dict) -> dict:
     options["recipe_pie"] = EnablePie
     options["recipe_cakes"] = EnableCakes
     options["recipe_fish"] = EnableFish
+    options["recipe_spaghetti"] = EnableSpaghetti
     options["recipe_hotdog"] = EnableHotDog
     options["recipe_breakfast"] = EnableBreakfast
     options["recipe_stirfry"] = EnableStirFry
+    options["more_recipes"] = AdditionnalRecipe
 
-    #options["reduced_spooks"] = ReducedSpooks #we'll need to talk on what need to be disabled/modified when this is enabled
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options

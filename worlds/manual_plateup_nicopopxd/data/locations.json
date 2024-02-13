@@ -1,454 +1,815 @@
 [
 	{
 		"name": "Get in a game for the first time",
-		"category": [ "0 - Lobby" ],
-		"dont_place_item": [ "Research Table", "Booking Desk" ],
+		"category": [ "00 - Lobby" ],
+		"dont_place_item": [ "Research Desk", "Booking Desk" ],
 		"region": "Lobby"
 	},
 	{
 		"name": "Get to Overtime for the first time",
-		"category": [ "0 - Lobby" ],
+		"category": [ "00 - Lobby" ],
 		"requires": "|Victory Token:1|",
 		"region": "Lobby"
 	},
 	{
-		"name": "Get at least half of the Victory tokens",
-		"category": [ "0 - Lobby" ],
-		"requires": "|Victory Token:half|",
+		"name": "Get at least 10% of the Victory tokens",
+		"category": [ "00 - Lobby" ],
+		"requires": "|Victory Token:10%|",
+		"region": "Lobby"
+	},
+	{
+		"name": "Get at least 25% of the Victory tokens",
+		"category": [ "00 - Lobby" ],
+		"requires": "|Victory Token:25%|",
 		"region": "Lobby"
 	},
 	{
 		"name": "Get at least 50% of the Victory tokens",
-		"category": [ "0 - Lobby" ],
+		"category": [ "00 - Lobby" ],
 		"requires": "|Victory Token:50%|",
 		"region": "Lobby"
 	},
 	{
 		"name": "Get to 75% of the Victory tokens",
-		"category": [ "0 - Lobby" ],
+		"category": [ "00 - Lobby" ],
 		"requires": "|Victory Token:75%|",
 		"region": "Lobby"
 	},
 	{
-		"name": "Steak - Day 3",
+		"name": "Steak - Beat Day 3",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1" ]
+		"category": [ "01 - Steak", "level_01" ]
 	},
 	{
-		"name": "Steak - Day 6",
+		"name": "Steak - Beat Day 6",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1"]
+		"category": [ "01 - Steak", "level_01"]
 	},
 	{
-		"name": "Steak - Day 9",
+		"name": "Steak - Beat Day 9",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1"]
+		"category": [ "01 - Steak", "level_01"]
 	},
 	{
-		"name": "Steak - Day 12",
+		"name": "Steak - Beat Day 12",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1"]
+		"category": [ "01 - Steak", "level_01"]
 	},
 	{
-		"name": "Steak - Day 15 {overtime}",
+		"name": "Steak - Beat Day 15 {overtime}",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1"],
+		"category": [ "01 - Steak", "level_01"],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Steak - Overtime 3",
+		"name": "Steak - Beat Overtime 3",
 		"region": "Steak",
-		"category": [ "1 - Steak", "level_1"]
+		"category": [ "01 - Steak", "level_01", "overtimes"]
 	},
 
 	{
-		"name": "Salad - Day 3",
+		"name": "Salad - Beat Day 3",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"]
+		"category": [ "02 - Salad", "level_02"]
 	},
 	{
-		"name": "Salad - Day 6",
+		"name": "Salad - Beat Day 6",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"]
+		"category": [ "02 - Salad", "level_02"]
 	},
 	{
-		"name": "Salad - Day 9",
+		"name": "Salad - Beat Day 9",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"]
+		"category": [ "02 - Salad", "level_02"]
 	},
 	{
-		"name": "Salad - Day 12",
+		"name": "Salad - Beat Day 12",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"]
+		"category": [ "02 - Salad", "level_02"]
 	},
 	{
-		"name": "Salad - Day 15 {overtime}",
+		"name": "Salad - Beat Day 15 {overtime}",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"],
+		"category": [ "02 - Salad", "level_02"],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Salad - Overtime 3",
+		"name": "Salad - Beat Overtime 3",
 		"region": "Salad",
-		"category": [ "2 - Salad", "level_2"]
+		"category": [ "02 - Salad", "level_02", "overtimes"]
 	},
 
 	{
-		"name": "Pizza - Day 3",
+		"name": "Pizza - Beat Day 3",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ]
+		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
-		"name": "Pizza - Day 6",
+		"name": "Pizza - Beat Day 6",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ]
+		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
-		"name": "Pizza - Day 9",
+		"name": "Pizza - Beat Day 9",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ]
+		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
-		"name": "Pizza - Day 12",
+		"name": "Pizza - Beat Day 12",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ]
+		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
-		"name": "Pizza - Day 15 {overtime}",
+		"name": "Pizza - Beat Day 15 {overtime}",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ],
+		"category": [ "03 - Pizza", "level_03" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Pizza - Overtime 3",
+		"name": "Pizza - Beat Overtime 3",
 		"region": "Pizza",
-		"category": [ "3 - Pizza", "level_3" ]
+		"category": [ "03 - Pizza", "level_03", "overtimes" ]
 	},
 
 	{
-		"name": "Dumplings - Day 3",
+		"name": "Dumplings - Beat Day 3",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ]
+		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
-		"name": "Dumplings - Day 6",
+		"name": "Dumplings - Beat Day 6",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ]
+		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
-		"name": "Dumplings - Day 9",
+		"name": "Dumplings - Beat Day 9",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ]
+		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
-		"name": "Dumplings - Day 12",
+		"name": "Dumplings - Beat Day 12",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ]
+		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
-		"name": "Dumplings - Day 15 {overtime}",
+		"name": "Dumplings - Beat Day 15 {overtime}",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ],
+		"category": [ "04a - Dumplings", "level_04" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Dumplings - Overtime 3",
+		"name": "Dumplings - Beat Overtime 3",
 		"region": "Dumplings",
-		"category": [ "4a - Dumplings", "level_4" ]
+		"category": [ "04a - Dumplings", "level_04", "overtimes" ]
 	},
 
 	{
-		"name": "Coffee - Day 3",
+		"name": "Coffee - Beat Day 3",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ]
+		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
-		"name": "Coffee - Day 6",
+		"name": "Coffee - Beat Day 6",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ]
+		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
-		"name": "Coffee - Day 9",
+		"name": "Coffee - Beat Day 9",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ]
+		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
-		"name": "Coffee - Day 12",
+		"name": "Coffee - Beat Day 12",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ]
+		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
-		"name": "Coffee - Day 15 {overtime}",
+		"name": "Coffee - Beat Day 15 {overtime}",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ],
+		"category": [ "04b - Coffee", "level_04" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Coffee - Overtime 3",
+		"name": "Coffee - Beat Overtime 3",
 		"region": "Coffee",
-		"category": [ "4b - Coffee", "level_4" ]
+		"category": [ "04b - Coffee", "level_04", "overtimes" ]
 	},
 
 	{
-		"name": "Burger - Day 3",
+		"name": "Burger - Beat Day 3",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ]
+		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
-		"name": "Burger - Day 6",
+		"name": "Burger - Beat Day 6",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ]
+		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
-		"name": "Burger - Day 9",
+		"name": "Burger - Beat Day 9",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ]
+		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
-		"name": "Burger - Day 12",
+		"name": "Burger - Beat Day 12",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ]
+		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
-		"name": "Burger - Day 15 {overtime}",
+		"name": "Burger - Beat Day 15 {overtime}",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ],
+		"category": [ "05 - Burger", "level_05" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Burger - Overtime 3",
+		"name": "Burger - Beat Overtime 3",
 		"region": "Burger",
-		"category": [ "5 - Burger", "level_5" ]
+		"category": [ "05 - Burger", "level_05", "overtimes" ]
 	},
 
 	{
-		"name": "Turkey - Day 3",
+		"name": "Turkey - Beat Day 3",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ]
+		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
-		"name": "Turkey - Day 6",
+		"name": "Turkey - Beat Day 6",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ]
+		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
-		"name": "Turkey - Day 9",
+		"name": "Turkey - Beat Day 9",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ]
+		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
-		"name": "Turkey - Day 12",
+		"name": "Turkey - Beat Day 12",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ]
+		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
-		"name": "Turkey - Day 15 {overtime}",
+		"name": "Turkey - Beat Day 15 {overtime}",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ],
+		"category": [ "06 - Turkey", "level_06" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Turkey - Overtime 3",
+		"name": "Turkey - Beat Overtime 3",
 		"region": "Turkey",
-		"category": [ "6 - Turkey", "level_6" ]
+		"category": [ "06 - Turkey", "level_06", "overtimes" ]
 	},
 
 	{
-		"name": "Pie - Day 3",
+		"name": "Pie - Beat Day 3",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ]
+		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
-		"name": "Pie - Day 6",
+		"name": "Pie - Beat Day 6",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ]
+		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
-		"name": "Pie - Day 9",
+		"name": "Pie - Beat Day 9",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ]
+		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
-		"name": "Pie - Day 12",
+		"name": "Pie - Beat Day 12",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ]
+		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
-		"name": "Pie - Day 15 {overtime}",
+		"name": "Pie - Beat Day 15 {overtime}",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ],
+		"requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+		"category": [ "07a - Pie", "level_07" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Pie - Overtime 3",
+		"name": "Pie - Beat Overtime 3",
 		"region": "Pie",
-		"category": [ "7a - Pie", "level_7" ]
+		"requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|) ",
+		"category": [ "07a - Pie", "level_07", "overtimes" ]
 	},
 
 	{
-		"name": "Cakes - Day 3",
+		"name": "Cakes - Beat Day 3",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ]
+		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
-		"name": "Cakes - Day 6",
+		"name": "Cakes - Beat Day 6",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ]
+		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
-		"name": "Cakes - Day 9",
+		"name": "Cakes - Beat Day 9",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ]
+		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
-		"name": "Cakes - Day 12",
+		"name": "Cakes - Beat Day 12",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ]
+		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
-		"name": "Cakes - Day 15 {overtime}",
+		"name": "Cakes - Beat Day 15 {overtime}",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ],
+		"category": [ "07b - Cakes", "level_07" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Cakes - Overtime 3",
+		"name": "Cakes - Beat Overtime 3",
 		"region": "Cakes",
-		"category": [ "7b - Cakes", "level_7" ]
+		"category": [ "07b - Cakes", "level_07", "overtimes" ]
 	},
 
 	{
-		"name": "Fish - Day 3",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ]
+		"name": "Spaghetti - Beat Day 3",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
-		"name": "Fish - Day 6",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ]
+		"name": "Spaghetti - Beat Day 6",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
-		"name": "Fish - Day 9",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ]
+		"name": "Spaghetti - Beat Day 9",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
-		"name": "Fish - Day 12",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ]
+		"name": "Spaghetti - Beat Day 12",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
-		"name": "Fish - Day 15 {overtime}",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ],
+		"name": "Spaghetti - Beat Day 15 {overtime}",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Fish - Overtime 3",
-		"region": "Fish",
-		"category": [ "9 - Fish", "level_9" ]
+		"name": "Spaghetti - Beat Overtime 3",
+		"region": "Spaghetti",
+		"category": [ "08 - Spaghetti", "level_08", "overtimes" ]
 	},
 
 	{
-		"name": "Hot Dog - Day 3",
+		"name": "Fish - Beat Day 3",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09" ]
+	},
+	{
+		"name": "Fish - Beat Day 6",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09" ]
+	},
+	{
+		"name": "Fish - Beat Day 9",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09" ]
+	},
+	{
+		"name": "Fish - Beat Day 12",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09" ]
+	},
+	{
+		"name": "Fish - Beat Day 15 {overtime}",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Fish - Beat Overtime 3",
+		"region": "Fish",
+		"category": [ "09 - Fish", "level_09", "overtimes" ]
+	},
+
+	{
+		"name": "Hot Dog - Beat Day 3",
 		"region": "Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
-		"name": "Hot Dog - Day 6",
+		"name": "Hot Dog - Beat Day 6",
 		"region": "Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
-		"name": "Hot Dog - Day 9",
+		"name": "Hot Dog - Beat Day 9",
 		"region": "Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
-		"name": "Hot Dog - Day 12",
+		"name": "Hot Dog - Beat Day 12",
 		"region": "Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
-		"name": "Hot Dog - Day 15 {overtime}",
+		"name": "Hot Dog - Beat Day 15 {overtime}",
 		"region": "Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Hot Dog - Overtime 3",
+		"name": "Hot Dog - Beat Overtime 3",
 		"region": "Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11" ]
+		"category": [ "11 - Hot Dog", "level_11", "overtimes" ]
 	},
 
 	{
-		"name": "Breakfast - Day 3",
+		"name": "Breakfast - Beat Day 3",
 		"region": "Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
-		"name": "Breakfast - Day 6",
+		"name": "Breakfast - Beat Day 6",
 		"region": "Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
-		"name": "Breakfast - Day 9",
+		"name": "Breakfast - Beat Day 9",
 		"region": "Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
-		"name": "Breakfast - Day 12",
+		"name": "Breakfast - Beat Day 12",
 		"region": "Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
-		"name": "Breakfast - Day 15 {overtime}",
+		"name": "Breakfast - Beat Day 15 {overtime}",
 		"region": "Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Breakfast - Overtime 3",
+		"name": "Breakfast - Beat Overtime 3",
 		"region": "Breakfast",
-		"category": [ "13 - Breakfast", "level_13" ]
+		"category": [ "13 - Breakfast", "level_13", "overtimes" ]
 	},
 
 	{
-		"name": "Stir Fry - Day 3",
+		"name": "Stir Fry - Beat Day 3",
 		"region": "Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
-		"name": "Stir Fry - Day 6",
+		"name": "Stir Fry - Beat Day 6",
 		"region": "Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
-		"name": "Stir Fry - Day 9",
+		"name": "Stir Fry - Beat Day 9",
 		"region": "Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
-		"name": "Stir Fry - Day 12",
+		"name": "Stir Fry - Beat Day 12",
 		"region": "Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
-		"name": "Stir Fry - Day 15 {overtime}",
+		"name": "Stir Fry - Beat Day 15 {overtime}",
 		"region": "Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
-		"name": "Stir Fry - Overtime 3",
+		"name": "Stir Fry - Beat Overtime 3",
 		"region": "Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15" ]
+		"category": [ "15 - Stir Fry", "level_15", "overtimes" ]
 	},
+
+	{
+		"name": "Extra 01 - Beat Day 3",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras" ]
+	},
+	{
+		"name": "Extra 01 - Beat Day 6",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras" ]
+	},
+	{
+		"name": "Extra 01 - Beat Day 9",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras" ]
+	},
+	{
+		"name": "Extra 01 - Beat Day 12",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras" ]
+	},
+	{
+		"name": "Extra 01 - Beat Day 15 {overtime}",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 01 - Beat Overtime 3",
+		"region": "Extra 01",
+		"category": [ "99 - Extra Recipe 01", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 02 - Beat Day 3",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras" ]
+	},
+	{
+		"name": "Extra 02 - Beat Day 6",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras" ]
+	},
+	{
+		"name": "Extra 02 - Beat Day 9",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras" ]
+	},
+	{
+		"name": "Extra 02 - Beat Day 12",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras" ]
+	},
+	{
+		"name": "Extra 02 - Beat Day 15 {overtime}",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 02 - Beat Overtime 3",
+		"region": "Extra 02",
+		"category": [ "99 - Extra Recipe 02", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 03 - Beat Day 3",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras" ]
+	},
+	{
+		"name": "Extra 03 - Beat Day 6",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras" ]
+	},
+	{
+		"name": "Extra 03 - Beat Day 9",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras" ]
+	},
+	{
+		"name": "Extra 03 - Beat Day 12",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras" ]
+	},
+	{
+		"name": "Extra 03 - Beat Day 15 {overtime}",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 03 - Beat Overtime 3",
+		"region": "Extra 03",
+		"category": [ "99 - Extra Recipe 03", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 04 - Beat Day 3",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras" ]
+	},
+	{
+		"name": "Extra 04 - Beat Day 6",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras" ]
+	},
+	{
+		"name": "Extra 04 - Beat Day 9",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras" ]
+	},
+	{
+		"name": "Extra 04 - Beat Day 12",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras" ]
+	},
+	{
+		"name": "Extra 04 - Beat Day 15 {overtime}",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 04 - Beat Overtime 3",
+		"region": "Extra 04",
+		"category": [ "99 - Extra Recipe 04", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 05 - Beat Day 3",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras" ]
+	},
+	{
+		"name": "Extra 05 - Beat Day 6",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras" ]
+	},
+	{
+		"name": "Extra 05 - Beat Day 9",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras" ]
+	},
+	{
+		"name": "Extra 05 - Beat Day 12",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras" ]
+	},
+	{
+		"name": "Extra 05 - Beat Day 15 {overtime}",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 05 - Beat Overtime 3",
+		"region": "Extra 05",
+		"category": [ "99 - Extra Recipe 05", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 06 - Beat Day 3",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras" ]
+	},
+	{
+		"name": "Extra 06 - Beat Day 6",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras" ]
+	},
+	{
+		"name": "Extra 06 - Beat Day 9",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras" ]
+	},
+	{
+		"name": "Extra 06 - Beat Day 12",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras" ]
+	},
+	{
+		"name": "Extra 06 - Beat Day 15 {overtime}",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 06 - Beat Overtime 3",
+		"region": "Extra 06",
+		"category": [ "99 - Extra Recipe 06", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 07 - Beat Day 3",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras" ]
+	},
+	{
+		"name": "Extra 07 - Beat Day 6",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras" ]
+	},
+	{
+		"name": "Extra 07 - Beat Day 9",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras" ]
+	},
+	{
+		"name": "Extra 07 - Beat Day 12",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras" ]
+	},
+	{
+		"name": "Extra 07 - Beat Day 15 {overtime}",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 07 - Beat Overtime 3",
+		"region": "Extra 07",
+		"category": [ "99 - Extra Recipe 07", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 08 - Beat Day 3",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras" ]
+	},
+	{
+		"name": "Extra 08 - Beat Day 6",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras" ]
+	},
+	{
+		"name": "Extra 08 - Beat Day 9",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras" ]
+	},
+	{
+		"name": "Extra 08 - Beat Day 12",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras" ]
+	},
+	{
+		"name": "Extra 08 - Beat Day 15 {overtime}",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 08 - Beat Overtime 3",
+		"region": "Extra 08",
+		"category": [ "99 - Extra Recipe 08", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 09 - Beat Day 3",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras" ]
+	},
+	{
+		"name": "Extra 09 - Beat Day 6",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras" ]
+	},
+	{
+		"name": "Extra 09 - Beat Day 9",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras" ]
+	},
+	{
+		"name": "Extra 09 - Beat Day 12",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras" ]
+	},
+	{
+		"name": "Extra 09 - Beat Day 15 {overtime}",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 09 - Beat Overtime 3",
+		"region": "Extra 09",
+		"category": [ "99 - Extra Recipe 09", "Extras", "overtimes" ]
+	},
+
+	{
+		"name": "Extra 10 - Beat Day 3",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras" ]
+	},
+	{
+		"name": "Extra 10 - Beat Day 6",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras" ]
+	},
+	{
+		"name": "Extra 10 - Beat Day 9",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras" ]
+	},
+	{
+		"name": "Extra 10 - Beat Day 12",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras" ]
+	},
+	{
+		"name": "Extra 10 - Beat Day 15 {overtime}",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Extra 10 - Beat Overtime 3",
+		"region": "Extra 10",
+		"category": [ "99 - Extra Recipe 10", "Extras", "overtimes" ]
+	},
+
 
 	{
 		"name": "All done",
 		"region": "Lobby",
-		"requires": "|Victory Token:9|",
+		"requires": "|Victory Token:75%|",
 		"place_item": [ "Final Victory" ]
 	},
 	{

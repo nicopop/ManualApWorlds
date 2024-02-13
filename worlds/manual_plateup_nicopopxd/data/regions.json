@@ -5,8 +5,9 @@
     "connects_to": ["Restaurant"]
   },
   "Restaurant": {
-    "requires": "|@floorplans:1| and |@Normal Settings:1|",
-    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey", "Pie", "Cakes", "Fish", "Hot Dog", "Breakfast", "Stir Fry"]
+    "requires": "|@Basefloorplans:1| and |@NormalSettings:1|",
+    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey",
+        "Pie", "Cakes", "Spaghetti", "Fish", "Hot Dog", "Breakfast", "Stir Fry", "Extras"]
   },
   "Steak": {
     "requires": "|Steak Recipe|",
@@ -44,6 +45,10 @@
     "requires": "|Cakes Recipe|",
     "connects_to": []
   },
+  "Spaghetti": {
+    "requires": "|Spaghetti Recipe|",
+    "connects_to": []
+  },
   "Fish": {
     "requires": "|Fish Recipe|",
     "connects_to": []
@@ -58,6 +63,50 @@
   },
   "Stir Fry": {
     "requires": "|Stir Fry Recipe|",
+    "connects_to": []
+  },
+  "Extras":{
+    "requires": "|@Extras:1|",
+    "connects_to": ["Extra 01", "Extra 02", "Extra 03", "Extra 04", "Extra 05", "Extra 06", "Extra 07", "Extra 08", "Extra 09", "Extra 10"]
+  },
+  "Extra 01":{
+    "requires": "|Extra 01 Recipe|",
+    "connects_to": []
+  },
+  "Extra 02":{
+    "requires": "|Extra 02 Recipe|",
+    "connects_to": []
+  },
+  "Extra 03":{
+    "requires": "|Extra 03 Recipe|",
+    "connects_to": []
+  },
+  "Extra 04":{
+    "requires": "|Extra 04 Recipe|",
+    "connects_to": []
+  },
+  "Extra 05":{
+    "requires": "|Extra 05 Recipe|",
+    "connects_to": []
+  },
+  "Extra 06":{
+    "requires": "|Extra 06 Recipe|",
+    "connects_to": []
+  },
+  "Extra 07":{
+    "requires": "|Extra 07 Recipe|",
+    "connects_to": []
+  },
+  "Extra 08":{
+    "requires": "|Extra 08 Recipe|",
+    "connects_to": []
+  },
+  "Extra 09":{
+    "requires": "|Extra 09 Recipe|",
+    "connects_to": []
+  },
+  "Extra 10":{
+    "requires": "|Extra 10 Recipe|",
     "connects_to": []
   }
 }
