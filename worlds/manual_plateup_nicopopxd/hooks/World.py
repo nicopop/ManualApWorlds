@@ -17,6 +17,7 @@ from ..Data import game_table, item_table, location_table, region_table
 from ..Helpers import is_option_enabled, get_option_value
 
 import logging
+import math
 from copy import copy
 
 logger = logging.getLogger()
@@ -137,11 +138,12 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
                         break
         return found
 
-    if world.hasOptionsManager:
-        DisabledRecipe = [name for name, option in world.options.__dict__.items() if name.startswith('recipe_') and not option.value]
-        for option in DisabledRecipe:
-            APWorkingData['items_to_be_removed'][player].extend(FindRecipeItems(option))
-            locationNamesToRemove += FindRecipeLoc(option)
+    # if world.hasOptionsManager:
+    #     DisabledRecipe = [name for name, option in world.options.__dict__.items() if name.startswith('recipe_') and not option.value]
+    #     for option in DisabledRecipe:
+    #         APWorkingData['items_to_be_removed'][player].extend(FindRecipeItems(option))
+    #         # locationNamesToRemove += FindRecipeLoc(option)
+    #         pass
 
     if len(locationNamesToRemove) > 0:
         for region in multiworld.regions:
@@ -159,8 +161,11 @@ def before_create_items_starting(item_pool: list, world: World, multiworld: Mult
 # The item pool after starting items are processed but before filler is added, in case you want to see the raw item pool at that stage
 def before_create_items_filler(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
     # Use this hook to remove items from the item pool
-    itemNamesToRemove = [] # List of item names
     item_counts= {}
+    location_count = len(multiworld.get_unfilled_locations(player))
+    totalRecipes = APMiscData[player]["EnabledRecipeCount"]
+    if world.hasOptionsManager:
+        host_level = world.options.host_level.value
     # Add your code here to calculate which items to remove.
     #
     # Because multiple copies of an item can exist, you need to add an item name
@@ -168,7 +173,7 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     for item in APWorkingData["items_to_be_removed"].get(player, []):
         item_counts[item] = 0
 
-    item_counts["Victory Token"] = APMiscData[player]["EnabledRecipeCount"]
+    item_counts["Victory Token"] = totalRecipes
 
     for name, count in item_counts.items():
         checkedname = copy(name)
@@ -188,6 +193,8 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     #     item = next(i for i in item_pool if i.name == itemName)
     #     item_pool.remove(item)
 
+    logger.info(f"{world.game}:{APMiscData[player]['name']}({player}):(lvl {host_level})(Recipes: {totalRecipes}) {len(item_pool)} items | {location_count} locations")
+
     return item_pool
 
     # Some other useful hook options:
@@ -200,18 +207,6 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
 
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
 def after_create_items(item_pool: list, world: World, multiworld: MultiWorld, player: int) -> list:
-    from BaseClasses import ItemClassification
-    location_count = len(multiworld.get_unfilled_locations(player))
-    filler = 0
-    if world.hasOptionsManager:
-        host_level = world.options.host_level.value
-    for item in item_pool:
-        if item.classification == ItemClassification.filler or item.classification == ItemClassification.trap:
-            filler += 1
-    if world.options.more_recipes.value:
-        logger.info(f"{world.game}:{APMiscData[player]['name']}({player}):(lvl {host_level})(extra: {world.options.more_recipes.value}) {len(item_pool) - filler} items | {location_count} locations")
-    else:
-        logger.info(f"{world.game}:{APMiscData[player]['name']}({player}):(lvl {host_level}) {len(item_pool) - filler} items | {location_count} locations")
     return item_pool
 
 # Called before rules for accessing regions and locations are created. Not clear why you'd want this, but it's here.
@@ -222,7 +217,7 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
     if world.hasOptionsManager:
-        minWin = max(round(APMiscData[player]["EnabledRecipeCount"]*(world.options.win_percent.value /100)), 2)
+        minWin = max(math.ceil(APMiscData[player]["EnabledRecipeCount"]*(world.options.win_percent.value /100)), 2)
     APMiscData[player]["MinWin"] = minWin
 
     for location in multiworld.get_unfilled_locations(player):
