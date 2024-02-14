@@ -51,7 +51,7 @@ class AdditionnalRecipe(NamedRange):
     range_end = 10
     default = 0
     special_range_names = {
-        "None": 0
+        "none": 0
     }
 
 class TotalTokenForWin(Range):
