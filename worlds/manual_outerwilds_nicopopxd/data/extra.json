@@ -9,7 +9,7 @@
       "Scout Photos",
       "Meditation",
       "Landing Camera",
-      "forced Meditation",
+      "Forced Meditation",
       "Musical Instrument",
       "Ticket for (1) free death",
       "Victory Token"
@@ -20,10 +20,10 @@
       "Land the model Ship on the small landing pad",
       "Land the model Ship on the large landing pad",
       "Get in ship for the first time",
-      "01 - Die within 60 seconds of a new loop",
-      "01 - Use your suit's oxygen as jetpack fuel",
-      "01 - Visit the deepspace satelite",
-      "01 - Knock the deepspace satelite out of orbit",
+      "0 - Die within 60 seconds of a new loop",
+      "0 - Use your suit's oxygen as jetpack fuel",
+      "0 - Visit the deepspace satelite",
+      "0 - Knock the deepspace satelite out of orbit",
       "2 - Visit the Radio Station and get it's signal",
       "2 - Play Hide and seek with the kids",
       "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
@@ -35,8 +35,8 @@
   "echoes": {
     "items": [
       "Seen Prisoner",
-      "Stranger Presence Knowledge",
-      "Projectors Knowledge",
+      "Stranger Access",
+      "Stranger Projectors",
       "EYE > Dam entrance",
       "EYE > Main entrance",
       "EYE > Back entrance",
@@ -44,19 +44,19 @@
       "EYE > Abandoned temple code",
       "EYE > Broken Interface room code",
       "EYE > Progressive Slide burning room",
-      "EYE > River Lowlands flame access",
-      "EYE > Cinder Isles flame access",
-      "EYE > Hidden Gorge flame access",
-      "EYE > Submerge Structure flame access",
-      "DreamWorld Knowledge",
-      "DreamWorld Loading Glitch Knowledge",
-      "DreamWorld Render Glitch Knowledge",
-      "DreamWorld Death Glitch Knowledge",
-      "DreamWorld Grabbing Hand Knowledge",
-      "DreamWorld Door Candle Knowledge",
-      "DreamWorld Fake Fireplace Knowledge",
-      "DreamWorld Fake Wall Knowledge",
-      "DreamWorld Hidden Hand Knowledge",
+      "EYE > River Lowlands Flame",
+      "EYE > Cinder Isles Flame",
+      "EYE > Hidden Gorge Flame",
+      "EYE > Submerge Structure Flame",
+      "DreamWorld Access",
+      "DreamWorld Loading Glitch",
+      "DreamWorld Render Glitch",
+      "DreamWorld Death Glitch",
+      "DreamWorld Grabbing Hands",
+      "DreamWorld Door Candles",
+      "DreamWorld Fake Fireplace",
+      "DreamWorld Fake Wall",
+      "DreamWorld Hidden Hand",
       "EYE > Progressive Datamined Sealed Vault Code",
       "Visited CodeVault",
       "Visited Shrouded Woodlands Archive",
@@ -65,7 +65,7 @@
       "Owlish feather"
     ],
     "locations": [
-      "2 - Visit the Radio Station and check the photos",
+      "2 - Visit the Radio Station and listen to the recording",
       "8 - Get in the stranger",
       "8 - Bring an artifact back to the museum",
       "8 - Attempt to use the artifact at a normal campfire",
@@ -74,6 +74,7 @@
       "8 - Get crushed by a chain elevator",
       "8 - Watch a slide in River Lowlands",
       "8 - Watch a slide in Cinder Isles",
+      "8 - Find the cave diagram in Cinder Isles",
       "8 - Watch a slide in Hidden Gorge",
       "8 - Get in the hidden Laboratory",
       "8 - Use the prototype artifact with explosive result",
@@ -82,7 +83,7 @@
       "8 - Watch the hull anomaly slide in the Hidden Gorge",
       "8 - Watch the slide in the reservoir",
       "8 - Get in Abandoned temple's secret basement",
-      "8 - Get in the burned interface room in the reservoir area",
+      "8 - Find the broken connection diagram in the reservoir area",
       "8 - Find the stranger trajectory diagram in the reservoir area",
       "8 - Find the Submerged structure diagram in the reservoir area",
       "8 - Get in the hidden Slide burning room in River Lowlands",
@@ -105,16 +106,21 @@
       "92 - Enter the Starlit Cove Dream",
       "92 - Visit the Burned Eye Church in the dream",
       "92 - Get to the top of the Tower in the Starlit Cove",
-      "8 - Get in the Code Vault",
-      "8 - See the codes in the Code Vault",
-      "92 - Get in the Forbidden Archive of the Starlit Cove",
+      "8 - Get in the Code Vault and see the codes > visit",
+      "8 - Get in the Code Vault and see the codes > item",
+      "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
+      "92 - [Lights on] Get in the Forbidden Archive of the Starlit Cove",
+      "92 - [Lights out] Sneak in the Forbidden Archive of the Starlit Cove",
       "92 - Watch the Death Glitch Slide",
       "92 - Discover the burned code",
       "93 - Enter the Endless Canyon Dream",
-      "93 - Find the Stage with the 4 musical instruments",
-      "93 - Get in the restaurant",
-      "93 - Get the 1 / 900 achivement",
-      "93 - Get in the Forbidden Archive of the Endless Canyon Dream",
+      "93 - Find the Stage with the 2 musical instruments",
+      "93 - [Lights on] Make the bridge appear inside the mansion",
+      "93 - [Lights out] Make the bridge appear inside the mansion",
+      "93 - [Lights out] Get the 1 / 900 achivement",
+      "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
+      "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
+      "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
       "93 - Watch the Render Glitch Slide",
       "93 - Discover the burned code",
       "94 - Enter the Subterranean Lake Dream",
@@ -134,14 +140,14 @@
       "Adv. warp core",
       "Seen Adv. warp core",
       "Signal > Distress",
-      "Tornado Knowledge",
-      "Jellyfish Knowledge",
-      "Anglerfish Knowledge",
-      "Teleporter Knowledge"
+      "Counter-Clockwise Tornadoes",
+      "Jellyfishes",
+      "Anglerfish Biology",
+      "Teleporters"
     ],
     "locations": [
       "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
-      "4 - Get in the Probe Tracking Module",
+      "4 - Reveal the Coords in the probe tracking module",
       "4 - See the Coords to the eye",
       "1 - Visit > Get in the Ash Twin Project",
       "1 - Item > Get in the Ash Twin Project"
@@ -151,7 +157,7 @@
     "items": [
       "Adv. warp core",
       "Seen Adv. warp core",
-      "Teleporter Knowledge"
+      "Teleporters"
     ],
     "locations": [
       "1 - Visit > Get in the Ash Twin Project",
@@ -162,7 +168,7 @@
     "items": [
       "Adv. warp core",
       "Seen Adv. warp core",
-      "Teleporter Knowledge"
+      "Teleporters"
     ],
     "locations": [
       "1 - Visit > Get in the Ash Twin Project",
@@ -187,8 +193,8 @@
     ],
     "locations": [
       "6 - Land on the Quantum moon",
-      "6 - Visit Solanum",
-      "6 - Communicate with Solanum"
+      "6 - Communicate with Solanum > visit",
+      "6 - Communicate with Solanum > item"
     ]
   },
   "reduce_spooks": {
@@ -198,9 +204,7 @@
   "no_place_item_category": {
     "items": [],
     "locations": [
-      "Get in ship for the first time",
-      "1 - Item > Get in the Ash Twin Project",
-      "4 - See the Coords to the eye"
+      "Get in ship for the first time"
     ]
   }
 }

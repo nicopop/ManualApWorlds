@@ -21,7 +21,7 @@ from pathlib import Path
 
 # This is a bit jank. We need cx-Freeze to be able to run anything from this script, so install it
 try:
-    requirement = 'cx-Freeze>=6.15.2'
+    requirement = 'cx-Freeze>=6.15.10'
     import pkg_resources
     try:
         pkg_resources.require(requirement)
@@ -64,7 +64,25 @@ from Cython.Build import cythonize
 # On  Python < 3.10 LogicMixin is not currently supported.
 non_apworlds: set = {
     "A Link to the Past",
-    "Archipelago"
+    "Adventure",
+    "ArchipIDLE",
+    "Archipelago",
+    "ChecksFinder",
+    "Clique",
+    "DLCQuest",
+    "Final Fantasy",
+    "Lufia II Ancient Cave",
+    "Meritous",
+    "Ocarina of Time",
+    "Overcooked! 2",
+    "Raft",
+    "Secret of Evermore",
+    "Slay the Spire",
+    "Sudoku",
+    "Super Mario 64",
+    "VVVVVV",
+    "Wargroove",
+    "Zillion",
 }
 
 # LogicMixin is broken before 3.10 import revamp
@@ -601,7 +619,7 @@ cx_Freeze.setup(
             "excludes": ["numpy", "Cython", "PySide2", "PIL",
                          "pandas"],
             "zip_include_packages": ["*"],
-            "zip_exclude_packages": ["worlds", "sc2"],
+            "zip_exclude_packages": ["worlds", "sc2", "orjson"],  # TODO: remove orjson here once we drop py3.8 support
             "include_files": [],  # broken in cx 6.14.0, we use more special sauce now
             "include_msvcr": False,
             "replace_paths": ["*."],

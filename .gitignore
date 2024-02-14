@@ -9,12 +9,14 @@
 *.apmc
 *.apz5
 *.aptloz
+*.apemerald
 *.pyc
 *.pyd
 *.sfc
 *.z64
 *.n64
 *.nes
+*.smc
 *.sms
 *.gb
 *.gbc
@@ -28,6 +30,7 @@
 *.apsave
 *.BIN
 *.puml
+*.py.bak
 
 setups
 build
@@ -196,6 +199,9 @@ minecraft_versions.json
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
 /worlds/*.apworld
 /SymbolicLinks.bat
 /TestResults
+/worlds/*.zip
+/worlds/tracker
