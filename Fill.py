@@ -173,7 +173,7 @@ def fill_restrictive(world: MultiWorld, base_state: CollectionState, locations: 
         # validate all placements and remove invalid ones
         state = sweep_from_pool(base_state, [])
         for placement in placements:
-            if world.accessibility[placement.item.player] != "minimal" and not placement.can_reach(state):
+            if world.worlds[placement.item.player].options.accessibility.current_key != "minimal" and not placement.can_reach(state):
                 placement.item.location = None
                 unplaced_items.append(placement.item)
                 placement.item = None
@@ -705,7 +705,7 @@ def balance_multiworld_progression(multiworld: MultiWorld) -> None:
                     items_to_replace.sort()
                     multiworld.random.shuffle(items_to_replace)
 
-                    # Start swapping items. Since we swap into earlier spheres, no need for accessibility checks. 
+                    # Start swapping items. Since we swap into earlier spheres, no need for accessibility checks.
                     while replacement_locations and items_to_replace:
                         old_location = items_to_replace.pop()
                         for i, new_location in enumerate(replacement_locations):

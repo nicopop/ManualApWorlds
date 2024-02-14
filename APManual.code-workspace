@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Manual-Main"
+		},
+		{
+			"path": "../Arch-Manual-PlateUp"
+		},
+		{
+			"path": "../Arch-Manual-OuterWilds"
+		}
+	],
+	"settings": {}
+}
