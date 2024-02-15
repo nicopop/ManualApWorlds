@@ -80,7 +80,7 @@
     "connects_to": []
   },
   "Subterranean Lake": {
-    "requires": "(|EYE > Submerge Structure Flame| or ((|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) ))) )",
+    "requires": "(|EYE > Submerged Structure Flame| or ((|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) ))) )",
     "connects_to": []
   }
 }

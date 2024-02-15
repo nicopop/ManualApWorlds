@@ -129,7 +129,7 @@ There is no mandatory mods for this game. For more info look at the <a href="../
 - "DreamWorld Render Glitch" + "DreamWorld Death Glitch" + "DreamWorld Loading Glitch"
   - but the last 2 can be replaced by "EYE > Progressive Datamined Sealed Vault Code" 2 and 3
 - and one of the mutiple way to get to the Subterranean Lake:
-  - "EYE > Submerge Structure Flame"
+  - "EYE > Submerged Structure Flame"
   - or any other flame + any item required to get to their boat access + "DreamWorld Loading Glitch"
 
 ### Visits

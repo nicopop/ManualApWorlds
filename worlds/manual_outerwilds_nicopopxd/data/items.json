@@ -3,24 +3,24 @@
         "name": "Coords to the eye",
         "progression": true,
         "count": 1,
-        "category": [ "3 Base Game", "1 Need For End", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "1 Need For End", "Base Need For End", "2 everything", "Base Game", "Win_Eye" ]
     },
     {
         "name": "Adv. warp core",
         "progression": true,
         "count": 1,
-        "category": [ "3 Base Game", "1 Need For End", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "1 Need For End", "Base Need For End", "2 everything", "Base Game", "need_warpdrive" ]
     },
     {
         "name": "Victory Token",
         "progression": true,
-        "category": [ "1 Need For End" ]
+        "category": [ "1 Need For End", "Base Need For End" ]
     },
 
     {
         "name": "Counter-Clockwise Tornadoes",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
+        "category": [ "3 Base Game", "3a Progression", "1 Need For End", "Base Game Main Progression", "2 everything", "Base Game", "Win_Eye"]
     },
     {
         "name": "Clockwise Tornadoes",
@@ -30,17 +30,18 @@
     {
         "name": "Jellyfishes",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
+        "category": [ "3 Base Game", "3a Progression", "1 Need For End", "Base Game Main Progression", "2 everything", "Base Game", "Win_Eye"]
     },
     {
         "name": "Teleporters",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
+        "category": [ "3 Base Game", "3a Progression", "1 Need For End", "Base Game Main Progression",
+                      "2 everything", "Base Game", "need_warpdrive"]
     },
     {
         "name": "Anglerfish Biology",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "Base Game Main Progression", "2 everything", "Base Game"]
+        "category": [ "3 Base Game", "3a Progression", "1 Need For End", "Base Game Main Progression", "2 everything", "Base Game", "Win_Eye"]
     },
 
     {
@@ -53,7 +54,7 @@
     {
         "name": "Scout",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "2 everything", "1 Need For End" ]
+        "category": [ "3 Base Game", "3a Progression", "2 everything", "1 Need For End", "Base Need For End" ]
     },
     {
         "name": "Scout Photos",
@@ -78,7 +79,7 @@
     {
         "name": "Signaloscope",
         "progression": true,
-        "category": [ "3 Base Game", "3a Progression", "3b Signals", "2 everything", "1 Need For End" ]
+        "category": [ "3 Base Game", "3a Progression", "3b Signals", "2 everything", "1 Need For End", "Base Need For End" ]
     },
     {
         "name": "Signal > OW Ventures",
@@ -88,12 +89,12 @@
     {
         "name": "Signal > Quantum",
         "progression": true,
-        "category": [ "3 Base Game", "3b Signals", "3d Quantum", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "3b Signals", "3d Quantum", "2 everything", "Base Game", "require_solanum" ]
     },
     {
         "name": "Signal > Distress",
         "progression": true,
-        "category": [ "3 Base Game", "3b Signals", "2 everything", "1 Need For End", "Base Game" ]
+        "category": [ "3 Base Game", "3b Signals", "2 everything", "1 Need For End", "Base Need For End", "Base Game", "Win_Eye", "Win_HEL_break_spacetime" ]
     },
     {
         "name": "Signal > DeepSpace",
@@ -104,17 +105,17 @@
     {
         "name": "Quantum Rule > imaging",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game", "require_solanum" ]
     },
     {
         "name": "Quantum Rule > entanglement",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game", "require_solanum" ]
     },
     {
         "name": "Quantum Rule > sixth location",
         "progression": true,
-        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "3d Quantum", "2 everything", "Base Game", "require_solanum" ]
     },
     {
         "name": "Musical Instrument",
@@ -129,7 +130,7 @@
     {
         "name": "Owlish feather",
         "count": 3,
-        "category": [ "2a Filler and Useful", "2 everything" ]
+        "category": [ "2a Filler and Useful", "2 everything", "DLC - Eye" ]
     },
 
     {
@@ -160,12 +161,12 @@
     {
         "name": "Seen Coords",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End", "Base Game" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End", "Base Need For End", "Base Game" ]
     },
     {
         "name": "Seen Adv. warp core",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End", "Base Game" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End", "Base Need For End", "Base Game", "need_warpdrive" ]
     },
     {
         "name": "Seen Prisoner",
@@ -175,7 +176,7 @@
     {
         "name": "Seen Solanum",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything", "Base Game" ]
+        "category": [ "3 Base Game", "3d Visits", "2 everything", "Base Game", "require_solanum" ]
     },
 
     {
@@ -241,7 +242,7 @@
         "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },
     {
-        "name": "EYE > Submerge Structure Flame",
+        "name": "EYE > Submerged Structure Flame",
         "progression": true,
         "category": [ "4 Echoes of the Eye", "4a Entrances", "DLC Flame", "2 everything", "DLC - Eye" ]
     },

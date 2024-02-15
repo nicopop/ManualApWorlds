@@ -53,85 +53,85 @@
 	{
 		"name": "1 - Visit > Get in the Ash Twin Project",
 		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin" ],
+		"category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
 		"requires": [ "Teleporters" ],
 		"place_item": [ "Seen Adv. warp core" ]
 	},
 	{
 		"name": "1 - Item > Get in the Ash Twin Project",
 		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin" ],
+		"category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
 		"requires": [ "Seen Adv. warp core" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
 		"name": "1 - Break Space-Time in the Ash Twin Project",
 		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin" ],
+		"category": [ "1 - Ash Twin", "Base Game", "Win_ATP_break_spacetime" ],
 		"requires": "|Seen Adv. warp core| and |Adv. warp core|"
 	},
 	{
 		"name": "1 - Get to the sun station",
 		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin" ],
+		"category": [ "1 - Ash Twin", "Base Game" ],
 		"requires": [ "Teleporters" ]
 	},
 
 	{
 		"name": "1 - Find Escape Pod 2",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "1 - Get in the High Energy Lab and read any wall",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "1 - Get in the High Energy Lab and Discover how black holes work",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
 	},
 	{
 		"name": "1 - Break space time in the lab",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
 	},
 	{
 		"name": "1 - Read any Nomai wall in the Eye Shrine of the Sunless City",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "1 - Read any Nomai wall near the Quantum Moon Locator",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ]
+		"category": [ "1 - Ember Twin", "Base Game" ]
 	},
 	{
 		"name": "1 - Launch the gravity cannon's ship",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ]
+		"category": [ "1 - Ember Twin", "Base Game" ]
 	},
 	{
 		"name": "1 - Read the log in the gravity cannon's ship",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ]
+		"category": [ "1 - Ember Twin", "Base Game" ]
 	},
 	{
 		"name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
 	},
 	{
 		"name": "1 - Talk to Chert",
 		"region": "Ember Twin",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 
@@ -139,35 +139,35 @@
 	{
 		"name": "2 - Moon > Visit Eye Signal Locator and listen to the recording",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
 		"name": "2 - Visit the Nomai mines and read any Nomain wall",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
 		"name": "2 - Play Hide and seek with the kids",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth", "Base Game" ],
 		"requires": [ "Signaloscope" ]
 	},
 	{
 		"name": "2 - Bring an artifact back to the museum",
 		"region": "Timber Hearth",
 		"requires": "(|Seen Adv. warp core| and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
-		"category": [ "2 - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
 		"name": "2 - Shoot your Scout in the Bramble seed and see the dead Anglerfish",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth", "Base Game" ],
 		"requires": [ "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "2 - Visit the Radio Station and get it's signal",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth"],
 		"requires": [ "Signaloscope", "Signal > DeepSpace" ]
 	},
 	{
@@ -180,135 +180,135 @@
 	{
 		"name": "2 - Moon > Talk to Esker",
 		"region": "Timber Hearth",
-		"category": [ "2 - Timber Hearth" ],
+		"category": [ "2 - Timber Hearth", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 
 	{
 		"name": "3 - Get in Southern Observatory and witness the tornados",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Find the 3 Pod murals in the Old Settlement",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Visit the Gravity Crystal Workshop",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Read Solanum's report in the Classroom in the School District",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Launch the gravity cannon's ship",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Read the log in the gravity cannon's ship",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Moon > Read a wall inside Hollow's lantern's volcanic testing site",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "3 - Talk to Riebeck",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 	{
 		"name": "3 - Get in the Blackhole Forge",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow", "Base Game" ],
 		"requires": [ "Teleporters" ]
 	},
 	{
 		"name": "3 - Find Escape Pod 1",
 		"region": "Brittle Hollow",
-		"category": [ "3 - Brittle Hollow" ],
+		"category": [ "3 - Brittle Hollow", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 
 	{
 		"name": "4 - Get in the Orbital Cannon",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep", "Base Game" ]
 	},
 	{
 		"name": "4 - Read the log on the Bramble Island",
 		"region": "Giant's Deep",
 		"requires": [ "Scout", "Scout Photos" ],
-		"category": [ "4 - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep", "Base Game" ]
 	},
 	{
 		"name": "4 - Read any text wall in the Construction yard",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep", "Base Game" ]
 	},
 
 	{
 		"name": "4 - Read any text wall in the Statue Island Workshop",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep", "Base Game" ]
 	},
 	{
 		"name": "4 - Read the Memory discussion text wall in the Statue Island Workshop",
 		"region": "Giant's Deep",
 		"requires": "|Clockwise Tornadoes|",
-		"category": [ "4 - Giant's Deep" ]
+		"category": [ "4 - Giant's Deep", "Base Game" ]
 	},
 	{
 		"name": "4 - Get to the Ocean Depths and notice the electrical barrier",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ],
-		"requires": [ "Counter-Clockwise Tornadoes" ]
+		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
+		"requires": [ "Counter-Clockwise Tornadoes"]
 	},
 	{
 		"name": "4 - Reach the Planet's Core and find the Probe Tracking Module",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
 		"requires": [ "Counter-Clockwise Tornadoes", "Jellyfishes" ]
 	},
 	{
 		"name": "4 - Reveal the Coords in the probe tracking module",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
 		"requires": [ "Counter-Clockwise Tornadoes", "Jellyfishes" ],
 		"place_item": [ "Seen Coords" ]
 	},
 	{
 		"name": "4 - See the Coords to the eye",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
 		"requires": [ "Seen Coords" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
 		"name": "4 - Get the Meditation dialog from Gabbro",
 		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
 	},
 
 	{
 		"name": "5 - Find Escape Pod 3",
 		"region": "Dark Bramble",
-		"category": [ "5 - Dark Bramble" ],
+		"category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
 		"requires": [ "Signaloscope", "Signal > Distress" ]
 	},
 	{
 		"name": "5 - Get to the Vessel",
 		"region": "Dark Bramble",
-		"category": [ "5 - Dark Bramble" ],
+		"category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Scout Photos|"
 	},
 	{
@@ -316,100 +316,102 @@
 		"region": "Dark Bramble",
 		"requires": "(|Scout| and |Scout Photos|) or (|Signaloscope| and (|Signal > OW Ventures| or |Signal > Distress|))",
 		"_comment": "Added those requires because its not fun going in there blind",
-		"category": [ "5 - Dark Bramble" ]
+		"category": [ "5 - Dark Bramble", "Base Game" ]
 	},
 	{
 		"name": "5 - Get the Jellyfish dialog from Feldspar",
 		"region": "Dark Bramble",
-		"category": [ "5 - Dark Bramble" ],
+		"category": [ "5 - Dark Bramble", "Base Game" ],
 		"requires": "|Signaloscope| and |Signal > OW Ventures|"
 	},
 
 	{
 		"name": "6 - Land on the Quantum moon",
 		"region": "Quantum Trials",
-		"category": [ "6 - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "6 - Communicate with Solanum > visit",
 		"region": "Quantum Trials",
-		"category": [ "6 - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
 		"place_item": [ "Seen Solanum" ]
 	},
 	{
 		"name": "6 - Communicate with Solanum > item",
 		"region": "Quantum Trials",
-		"category": [ "6 - Quantum Moon" ],
+		"category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
 		"requires": [ "Seen Solanum" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
 		"name": "2 - Find the Museum Shard",
 		"region": "Quantum Trials",
-		"category": [ "2 - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
 		"name": "2 - Find the Grove Shard",
 		"region": "Quantum Trials",
-		"category": [ "2 - Timber Hearth" ]
+		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
 		"name": "1 - Find the Cave Shard",
 		"region": "Quantum Trials",
-		"category": [ "1 - Ember Twin" ]
+		"category": [ "1 - Ember Twin", "Base Game" ]
 	},
 	{
 		"name": "4 - Find the Island Shard",
 		"region": "Quantum Trials",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "3 - Find the Tower Shard",
 		"region": "Quantum Trials",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 	{
 		"name": "4 - Complete the Tower of Quantum Trials",
 		"region": "Quantum Trials",
-		"category": [ "4 - Giant's Deep" ],
+		"category": [ "4 - Giant's Deep", "Base Game" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
 		"name": "1 - Ride Cave Quantum shard and 'learn' the second rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "1 - Ember Twin" ],
+		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Quantum Rule > entanglement" ]
 	},
 	{
 		"name": "3 - Get to the top of the Tower of Quantum Knowledge and 'learn' the third rule of Quantum",
 		"region": "Quantum Trials",
-		"category": [ "3 - Brittle Hollow" ]
+		"category": [ "3 - Brittle Hollow", "Base Game" ]
 	},
 
 	{
 		"name": "7 - Get in Ruptured Core of the Interloper and find what happened to the Nomai",
 		"region": "Interloper",
 		"requires": [ "Scout", "Scout Photos" ],
-		"category": [ "7 - Interloper" ]
+		"category": [ "7 - Interloper", "Base Game" ]
 	},
 	{
 		"name": "7 - Find the frozen shuttle's log on the Interloper",
 		"region": "Interloper",
-		"category": [ "7 - Interloper" ]
+		"category": [ "7 - Interloper", "Base Game" ]
 	},
 
 	{
 		"name": "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
 		"region": "Dark Bramble",
-		"requires": "|@1 Need For End:7| and |@Base Game Main Progression:4|"
+		"requires": "|@Base Need For End:7| and |@Base Game Main Progression:4|",
+		"category": [ "Base Game", "Win_Eye"]
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
 		"region": "Quantum Trials",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
+		"category": [ "Win_solanum" ]
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core to the Stranger and wait until Credits",
@@ -753,7 +755,7 @@
 	{
 		"name": "93 - Discover the burned code",
 		"region": "Endless Canyon Archive",
-		"requires": "|Visited Endless Canyon Archive|",
+		"requires": "|Visited Endless Canyon Archive| and |DreamWorld Render Glitch|",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{

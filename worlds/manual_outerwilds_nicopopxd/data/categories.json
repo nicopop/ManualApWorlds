@@ -5,11 +5,34 @@
   "Base Game Main Progression": {
     "hidden": true
   },
+  "Base Need For End": {
+    "hidden": true
+  },
   "Base Game":{
+    "hidden": true,
+    "yaml_option_off": [ "Enable_Base_game"]
+  },
+  "Win_Eye": {
+    "hidden": true
+  },
+  "Win_ATP_break_spacetime": {
+    "hidden": true
+  },
+  "Win_HEL_break_spacetime": {
+    "hidden": true
+  },
+  "Win_solanum": {
+    "hidden": true
+  },
+  "require_solanum": {
+    "hidden": true
+  },
+  "need_warpdrive": {
     "hidden": true
   },
   "DLC - Eye": {
-    "hidden": true
+    "hidden": true,
+    "yaml_option_off": [ "Enable_EotE_DLC"]
   },
   "DLC - Stranger Entrance": {
     "hidden": true
@@ -24,8 +47,5 @@
   "DLC - Spooky": {
     "yaml_option": [ "enable_spooks" ],
     "hidden": true
-  },
-  "Example Yaml-option category": {
-    "yaml_option_off": [ "DLC_enabled" ]
   }
 }
