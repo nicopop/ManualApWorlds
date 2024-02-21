@@ -43,7 +43,7 @@ class HostLevel(Range):
     display_name = "Host Level"
     range_start = 2
     range_end = 15
-    default = 10
+    default = 15
 class AdditionnalRecipe(NamedRange):
     """Add extra X number of unnamed recipe for modded recipe support?"""
     display_name = "Modded Recipes"

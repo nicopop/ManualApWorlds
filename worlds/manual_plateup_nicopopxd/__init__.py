@@ -228,7 +228,6 @@ class ManualWorld(World):
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])])
 
             if len(forbidden_item_names) > 0:
-                #forbidden_items = [item for item in self.multiworld.itempool if item.name in forbidden_item_names and item.player == self.player]
                 forbid_items_for_player(location, forbidden_item_names, self.player)
                 forbidden_item_names.clear()
 
@@ -364,7 +363,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 20240112 # YYYYMMDD
+    version = 20240128 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":

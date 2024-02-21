@@ -220,8 +220,10 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
         minWin = max(math.ceil(APMiscData[player]["EnabledRecipeCount"]*(world.options.win_percent.value /100)), 2)
     APMiscData[player]["MinWin"] = minWin
 
+
+    Goals = [x['name'] for x in location_table if x.get('goal','')]
     for location in multiworld.get_unfilled_locations(player):
-        if location.name == "All done":
+        if location.name in Goals:
             set_rule(location,
                      lambda state: state.has("Victory Token", player, minWin))
             break

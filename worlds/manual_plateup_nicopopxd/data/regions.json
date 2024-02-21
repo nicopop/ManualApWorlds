@@ -11,6 +11,12 @@
   },
   "Steak": {
     "requires": "|Steak Recipe|",
+    "connects_to": ["Early Steak"]
+  },
+  "Early Steak": {
+    "connects_to": ["Middle Steak"]
+  },
+  "Middle Steak": {
     "connects_to": ["Late Steak"]
   },
   "Late Steak": {
@@ -19,6 +25,12 @@
   },
   "Salad": {
     "requires": "|Salad Recipe|",
+    "connects_to": ["Early Salad"]
+  },
+  "Early Salad": {
+    "connects_to": ["Middle Salad"]
+  },
+  "Middle Salad": {
     "connects_to": ["Late Salad"]
   },
   "Late Salad": {
@@ -27,6 +39,12 @@
   },
   "Pizza": {
     "requires": "|Pizza Recipe|",
+    "connects_to": ["Early Pizza"]
+  },
+  "Early Pizza": {
+    "connects_to": ["Middle Pizza"]
+  },
+  "Middle Pizza": {
     "connects_to": ["Late Pizza"]
   },
   "Late Pizza": {
@@ -35,6 +53,12 @@
   },
   "Dumplings": {
     "requires": "|Dumplings Recipe|",
+    "connects_to": ["Early Dumplings"]
+  },
+  "Early Dumplings": {
+    "connects_to": ["Middle Dumplings"]
+  },
+  "Middle Dumplings": {
     "connects_to": ["Late Dumplings"]
   },
   "Late Dumplings": {
@@ -42,7 +66,14 @@
     "connects_to": []
   },
   "Coffee": {
-    "requires": "|Coffee Recipe| and |Booking Desk|",
+    "requires": "|Coffee Recipe|",
+    "connects_to": ["Early Coffee"]
+  },
+  "Early Coffee": {
+    "connects_to": ["Middle Coffee"]
+  },
+  "Middle Coffee": {
+    "requires": "|Booking Desk|",
     "connects_to": ["Late Coffee"]
   },
   "Late Coffee": {
@@ -51,6 +82,12 @@
   },
   "Burger": {
     "requires": "|Burger Recipe|",
+    "connects_to": ["Early Burger"]
+  },
+  "Early Burger": {
+    "connects_to": ["Middle Burger"]
+  },
+  "Middle Burger": {
     "connects_to": ["Late Burger"]
   },
   "Late Burger": {
@@ -59,14 +96,26 @@
   },
   "Turkey": {
     "requires": "|Turkey Recipe|",
+    "connects_to": ["Early Turkey"]
+  },
+  "Early Turkey": {
+    "connects_to": ["Middle Turkey"]
+  },
+  "Middle Turkey": {
     "connects_to": ["Late Turkey"]
   },
   "Late Turkey": {
-    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "requires": "|Research Desk| and |Sink Upgrades|",
     "connects_to": []
   },
   "Pie": {
     "requires": "|Pie Recipe|",
+    "connects_to": ["Early Pie"]
+  },
+  "Early Pie": {
+    "connects_to": ["Middle Pie"]
+  },
+  "Middle Pie": {
     "connects_to": ["Late Pie"]
   },
   "Late Pie": {
@@ -75,6 +124,13 @@
   },
   "Cakes": {
     "requires": "|Cakes Recipe|",
+    "connects_to": ["Early Cakes"]
+  },
+  "Early Cakes": {
+    "connects_to": ["Middle Cakes"]
+  },
+  "Middle Cakes": {
+
     "connects_to": ["Late Cakes"]
   },
   "Late Cakes": {
@@ -83,6 +139,12 @@
   },
   "Spaghetti": {
     "requires": "|Spaghetti Recipe|",
+    "connects_to": ["Early Spaghetti"]
+  },
+  "Early Spaghetti": {
+    "connects_to": ["Middle Spaghetti"]
+  },
+  "Middle Spaghetti": {
     "connects_to": ["Late Spaghetti"]
   },
   "Late Spaghetti": {
@@ -91,6 +153,12 @@
   },
   "Fish": {
     "requires": "|Fish Recipe|",
+    "connects_to": ["Early Fish"]
+  },
+  "Early Fish": {
+    "connects_to": ["Middle Fish"]
+  },
+  "Middle Fish": {
     "connects_to": ["Late Fish"]
   },
   "Late Fish": {
@@ -99,6 +167,12 @@
   },
   "Hot Dog": {
     "requires": "|Hot Dog Recipe|",
+    "connects_to": ["Early Hot Dog"]
+  },
+  "Early Hot Dog": {
+    "connects_to": ["Middle Hot Dog"]
+  },
+  "Middle Hot Dog": {
     "connects_to": ["Late Hot Dog"]
   },
   "Late Hot Dog": {
@@ -107,6 +181,12 @@
   },
   "Breakfast": {
     "requires": "|Breakfast Recipe|",
+    "connects_to": ["Early Breakfast"]
+  },
+  "Early Breakfast": {
+    "connects_to": ["Middle Breakfast"]
+  },
+  "Middle Breakfast": {
     "connects_to": ["Late Breakfast"]
   },
   "Late Breakfast": {
@@ -115,6 +195,12 @@
   },
   "Stir Fry": {
     "requires": "|Stir Fry Recipe|",
+    "connects_to": ["Early Stir Fry"]
+  },
+  "Early Stir Fry": {
+    "connects_to": ["Middle Stir Fry"]
+  },
+  "Middle Stir Fry": {
     "connects_to": ["Late Stir Fry"]
   },
   "Late Stir Fry": {
@@ -127,6 +213,12 @@
   },
   "Extra 01":{
     "requires": "|Extra 01 Recipe|",
+    "connects_to": ["Early Extra 01"]
+  },
+  "Early Extra 01":{
+    "connects_to": ["Middle Extra 01"]
+  },
+  "Middle Extra 01":{
     "connects_to": ["Late Extra 01"]
   },
   "Late Extra 01":{
@@ -135,6 +227,12 @@
   },
   "Extra 02":{
     "requires": "|Extra 02 Recipe|",
+    "connects_to": ["Early Extra 02"]
+  },
+  "Early Extra 02":{
+    "connects_to": ["Middle Extra 02"]
+  },
+  "Middle Extra 02":{
     "connects_to": ["Late Extra 02"]
   },
   "Late Extra 02":{
@@ -143,6 +241,12 @@
   },
   "Extra 03":{
     "requires": "|Extra 03 Recipe|",
+    "connects_to": ["Early Extra 03"]
+  },
+  "Early Extra 03":{
+    "connects_to": ["Middle Extra 03"]
+  },
+  "Middle Extra 03":{
     "connects_to": ["Late Extra 03"]
   },
   "Late Extra 03":{
@@ -151,6 +255,12 @@
   },
   "Extra 04":{
     "requires": "|Extra 04 Recipe|",
+    "connects_to": ["Early Extra 04"]
+  },
+  "Early Extra 04":{
+    "connects_to": ["Middle Extra 04"]
+  },
+  "Middle Extra 04":{
     "connects_to": ["Late Extra 04"]
   },
   "Late Extra 04":{
@@ -159,6 +269,12 @@
   },
   "Extra 05":{
     "requires": "|Extra 05 Recipe|",
+    "connects_to": ["Early Extra 05"]
+  },
+  "Early Extra 05":{
+    "connects_to": ["Middle Extra 05"]
+  },
+  "Middle Extra 05":{
     "connects_to": ["Late Extra 05"]
   },
   "Late Extra 05":{
@@ -167,6 +283,12 @@
   },
   "Extra 06":{
     "requires": "|Extra 06 Recipe|",
+    "connects_to": ["Early Extra 06"]
+  },
+  "Early Extra 06":{
+    "connects_to": ["Middle Extra 06"]
+  },
+  "Middle Extra 06":{
     "connects_to": ["Late Extra 06"]
   },
   "Late Extra 06":{
@@ -175,6 +297,12 @@
   },
   "Extra 07":{
     "requires": "|Extra 07 Recipe|",
+    "connects_to": ["Early Extra 07"]
+  },
+  "Early Extra 07":{
+    "connects_to": ["Middle Extra 07"]
+  },
+  "Middle Extra 07":{
     "connects_to": ["Late Extra 07"]
   },
   "Late Extra 07":{
@@ -183,6 +311,12 @@
   },
   "Extra 08":{
     "requires": "|Extra 08 Recipe|",
+    "connects_to": ["Early Extra 08"]
+  },
+  "Early Extra 08":{
+    "connects_to": ["Middle Extra 08"]
+  },
+  "Middle Extra 08":{
     "connects_to": ["Late Extra 08"]
   },
   "Late Extra 08":{
@@ -191,6 +325,12 @@
   },
   "Extra 09":{
     "requires": "|Extra 09 Recipe|",
+    "connects_to": ["Early Extra 09"]
+  },
+  "Early Extra 09":{
+    "connects_to": ["Middle Extra 09"]
+  },
+  "Middle Extra 09":{
     "connects_to": ["Late Extra 09"]
   },
   "Late Extra 09":{
@@ -199,6 +339,12 @@
   },
   "Extra 10":{
     "requires": "|Extra 10 Recipe|",
+    "connects_to": ["Early Extra 10"]
+  },
+  "Early Extra 10":{
+    "connects_to": ["Middle Extra 10"]
+  },
+  "Middle Extra 10":{
     "connects_to": ["Late Extra 10"]
   },
   "Late Extra 10":{

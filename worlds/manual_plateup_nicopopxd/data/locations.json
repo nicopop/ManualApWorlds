@@ -37,17 +37,17 @@
 	},
 	{
 		"name": "Steak - Beat Day 3",
-		"region": "Steak",
+		"region": "Early Steak",
 		"category": [ "01 - Steak", "level_01" ]
 	},
 	{
 		"name": "Steak - Beat Day 6",
-		"region": "Steak",
+		"region": "Early Steak",
 		"category": [ "01 - Steak", "level_01"]
 	},
 	{
 		"name": "Steak - Beat Day 9",
-		"region": "Steak",
+		"region": "Middle Steak",
 		"category": [ "01 - Steak", "level_01"]
 	},
 	{
@@ -69,17 +69,17 @@
 
 	{
 		"name": "Salad - Beat Day 3",
-		"region": "Salad",
+		"region": "Early Salad",
 		"category": [ "02 - Salad", "level_02"]
 	},
 	{
 		"name": "Salad - Beat Day 6",
-		"region": "Salad",
+		"region": "Early Salad",
 		"category": [ "02 - Salad", "level_02"]
 	},
 	{
 		"name": "Salad - Beat Day 9",
-		"region": "Salad",
+		"region": "Middle Salad",
 		"category": [ "02 - Salad", "level_02"]
 	},
 	{
@@ -101,17 +101,17 @@
 
 	{
 		"name": "Pizza - Beat Day 3",
-		"region": "Pizza",
+		"region": "Early Pizza",
 		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
 		"name": "Pizza - Beat Day 6",
-		"region": "Pizza",
+		"region": "Early Pizza",
 		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
 		"name": "Pizza - Beat Day 9",
-		"region": "Pizza",
+		"region": "Middle Pizza",
 		"category": [ "03 - Pizza", "level_03" ]
 	},
 	{
@@ -133,17 +133,17 @@
 
 	{
 		"name": "Dumplings - Beat Day 3",
-		"region": "Dumplings",
+		"region": "Early Dumplings",
 		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 6",
-		"region": "Dumplings",
+		"region": "Early Dumplings",
 		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 9",
-		"region": "Dumplings",
+		"region": "Middle Dumplings",
 		"category": [ "04a - Dumplings", "level_04" ]
 	},
 	{
@@ -165,17 +165,17 @@
 
 	{
 		"name": "Coffee - Beat Day 3",
-		"region": "Coffee",
+		"region": "Early Coffee",
 		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
 		"name": "Coffee - Beat Day 6",
-		"region": "Coffee",
+		"region": "Early Coffee",
 		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
 		"name": "Coffee - Beat Day 9",
-		"region": "Coffee",
+		"region": "Middle Coffee",
 		"category": [ "04b - Coffee", "level_04" ]
 	},
 	{
@@ -197,17 +197,17 @@
 
 	{
 		"name": "Burger - Beat Day 3",
-		"region": "Burger",
+		"region": "Early Burger",
 		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
 		"name": "Burger - Beat Day 6",
-		"region": "Burger",
+		"region": "Early Burger",
 		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
 		"name": "Burger - Beat Day 9",
-		"region": "Burger",
+		"region": "Middle Burger",
 		"category": [ "05 - Burger", "level_05" ]
 	},
 	{
@@ -229,17 +229,17 @@
 
 	{
 		"name": "Turkey - Beat Day 3",
-		"region": "Turkey",
+		"region": "Early Turkey",
 		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 6",
-		"region": "Turkey",
+		"region": "Early Turkey",
 		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 9",
-		"region": "Turkey",
+		"region": "Middle Turkey",
 		"category": [ "06 - Turkey", "level_06" ]
 	},
 	{
@@ -261,17 +261,17 @@
 
 	{
 		"name": "Pie - Beat Day 3",
-		"region": "Pie",
+		"region": "Early Pie",
 		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
 		"name": "Pie - Beat Day 6",
-		"region": "Pie",
+		"region": "Early Pie",
 		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
 		"name": "Pie - Beat Day 9",
-		"region": "Pie",
+		"region": "Middle Pie",
 		"category": [ "07a - Pie", "level_07" ]
 	},
 	{
@@ -293,17 +293,17 @@
 
 	{
 		"name": "Cakes - Beat Day 3",
-		"region": "Cakes",
+		"region": "Early Cakes",
 		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
 		"name": "Cakes - Beat Day 6",
-		"region": "Cakes",
+		"region": "Early Cakes",
 		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
 		"name": "Cakes - Beat Day 9",
-		"region": "Cakes",
+		"region": "Middle Cakes",
 		"category": [ "07b - Cakes", "level_07" ]
 	},
 	{
@@ -325,17 +325,17 @@
 
 	{
 		"name": "Spaghetti - Beat Day 3",
-		"region": "Spaghetti",
+		"region": "Early Spaghetti",
 		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 6",
-		"region": "Spaghetti",
+		"region": "Early Spaghetti",
 		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 9",
-		"region": "Spaghetti",
+		"region": "Middle Spaghetti",
 		"category": [ "08 - Spaghetti", "level_08" ]
 	},
 	{
@@ -357,17 +357,17 @@
 
 	{
 		"name": "Fish - Beat Day 3",
-		"region": "Fish",
+		"region": "Early Fish",
 		"category": [ "09 - Fish", "level_09" ]
 	},
 	{
 		"name": "Fish - Beat Day 6",
-		"region": "Fish",
+		"region": "Early Fish",
 		"category": [ "09 - Fish", "level_09" ]
 	},
 	{
 		"name": "Fish - Beat Day 9",
-		"region": "Fish",
+		"region": "Middle Fish",
 		"category": [ "09 - Fish", "level_09" ]
 	},
 	{
@@ -389,17 +389,17 @@
 
 	{
 		"name": "Hot Dog - Beat Day 3",
-		"region": "Hot Dog",
+		"region": "Early Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 6",
-		"region": "Hot Dog",
+		"region": "Early Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 9",
-		"region": "Hot Dog",
+		"region": "Middle Hot Dog",
 		"category": [ "11 - Hot Dog", "level_11" ]
 	},
 	{
@@ -421,17 +421,17 @@
 
 	{
 		"name": "Breakfast - Beat Day 3",
-		"region": "Breakfast",
+		"region": "Early Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 6",
-		"region": "Breakfast",
+		"region": "Early Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 9",
-		"region": "Breakfast",
+		"region": "Middle Breakfast",
 		"category": [ "13 - Breakfast", "level_13" ]
 	},
 	{
@@ -453,17 +453,17 @@
 
 	{
 		"name": "Stir Fry - Beat Day 3",
-		"region": "Stir Fry",
+		"region": "Early Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 6",
-		"region": "Stir Fry",
+		"region": "Early Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 9",
-		"region": "Stir Fry",
+		"region": "Middle Stir Fry",
 		"category": [ "15 - Stir Fry", "level_15" ]
 	},
 	{
@@ -485,17 +485,17 @@
 
 	{
 		"name": "Extra 01 - Beat Day 3",
-		"region": "Extra 01",
+		"region": "Early Extra 01",
 		"category": [ "99 - Extra Recipe 01", "Extras" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 6",
-		"region": "Extra 01",
+		"region": "Early Extra 01",
 		"category": [ "99 - Extra Recipe 01", "Extras" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 9",
-		"region": "Extra 01",
+		"region": "Middle Extra 01",
 		"category": [ "99 - Extra Recipe 01", "Extras" ]
 	},
 	{
@@ -517,17 +517,17 @@
 
 	{
 		"name": "Extra 02 - Beat Day 3",
-		"region": "Extra 02",
+		"region": "Early Extra 02",
 		"category": [ "99 - Extra Recipe 02", "Extras" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 6",
-		"region": "Extra 02",
+		"region": "Early Extra 02",
 		"category": [ "99 - Extra Recipe 02", "Extras" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 9",
-		"region": "Extra 02",
+		"region": "Middle Extra 02",
 		"category": [ "99 - Extra Recipe 02", "Extras" ]
 	},
 	{
@@ -549,17 +549,17 @@
 
 	{
 		"name": "Extra 03 - Beat Day 3",
-		"region": "Extra 03",
+		"region": "Early Extra 03",
 		"category": [ "99 - Extra Recipe 03", "Extras" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 6",
-		"region": "Extra 03",
+		"region": "Early Extra 03",
 		"category": [ "99 - Extra Recipe 03", "Extras" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 9",
-		"region": "Extra 03",
+		"region": "Middle Extra 03",
 		"category": [ "99 - Extra Recipe 03", "Extras" ]
 	},
 	{
@@ -581,17 +581,17 @@
 
 	{
 		"name": "Extra 04 - Beat Day 3",
-		"region": "Extra 04",
+		"region": "Early Extra 04",
 		"category": [ "99 - Extra Recipe 04", "Extras" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 6",
-		"region": "Extra 04",
+		"region": "Early Extra 04",
 		"category": [ "99 - Extra Recipe 04", "Extras" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 9",
-		"region": "Extra 04",
+		"region": "Middle Extra 04",
 		"category": [ "99 - Extra Recipe 04", "Extras" ]
 	},
 	{
@@ -613,17 +613,17 @@
 
 	{
 		"name": "Extra 05 - Beat Day 3",
-		"region": "Extra 05",
+		"region": "Early Extra 05",
 		"category": [ "99 - Extra Recipe 05", "Extras" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 6",
-		"region": "Extra 05",
+		"region": "Early Extra 05",
 		"category": [ "99 - Extra Recipe 05", "Extras" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 9",
-		"region": "Extra 05",
+		"region": "Middle Extra 05",
 		"category": [ "99 - Extra Recipe 05", "Extras" ]
 	},
 	{
@@ -645,17 +645,17 @@
 
 	{
 		"name": "Extra 06 - Beat Day 3",
-		"region": "Extra 06",
+		"region": "Early Extra 06",
 		"category": [ "99 - Extra Recipe 06", "Extras" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 6",
-		"region": "Extra 06",
+		"region": "Early Extra 06",
 		"category": [ "99 - Extra Recipe 06", "Extras" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 9",
-		"region": "Extra 06",
+		"region": "Middle Extra 06",
 		"category": [ "99 - Extra Recipe 06", "Extras" ]
 	},
 	{
@@ -677,17 +677,17 @@
 
 	{
 		"name": "Extra 07 - Beat Day 3",
-		"region": "Extra 07",
+		"region": "Early Extra 07",
 		"category": [ "99 - Extra Recipe 07", "Extras" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 6",
-		"region": "Extra 07",
+		"region": "Early Extra 07",
 		"category": [ "99 - Extra Recipe 07", "Extras" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 9",
-		"region": "Extra 07",
+		"region": "Middle Extra 07",
 		"category": [ "99 - Extra Recipe 07", "Extras" ]
 	},
 	{
@@ -709,17 +709,17 @@
 
 	{
 		"name": "Extra 08 - Beat Day 3",
-		"region": "Extra 08",
+		"region": "Early Extra 08",
 		"category": [ "99 - Extra Recipe 08", "Extras" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 6",
-		"region": "Extra 08",
+		"region": "Early Extra 08",
 		"category": [ "99 - Extra Recipe 08", "Extras" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 9",
-		"region": "Extra 08",
+		"region": "Middle Extra 08",
 		"category": [ "99 - Extra Recipe 08", "Extras" ]
 	},
 	{
@@ -741,17 +741,17 @@
 
 	{
 		"name": "Extra 09 - Beat Day 3",
-		"region": "Extra 09",
+		"region": "Early Extra 09",
 		"category": [ "99 - Extra Recipe 09", "Extras" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 6",
-		"region": "Extra 09",
+		"region": "Early Extra 09",
 		"category": [ "99 - Extra Recipe 09", "Extras" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 9",
-		"region": "Extra 09",
+		"region": "Middle Extra 09",
 		"category": [ "99 - Extra Recipe 09", "Extras" ]
 	},
 	{
@@ -773,17 +773,17 @@
 
 	{
 		"name": "Extra 10 - Beat Day 3",
-		"region": "Extra 10",
+		"region": "Early Extra 10",
 		"category": [ "99 - Extra Recipe 10", "Extras" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 6",
-		"region": "Extra 10",
+		"region": "Early Extra 10",
 		"category": [ "99 - Extra Recipe 10", "Extras" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 9",
-		"region": "Extra 10",
+		"region": "Middle Extra 10",
 		"category": [ "99 - Extra Recipe 10", "Extras" ]
 	},
 	{
@@ -805,9 +805,10 @@
 
 
 	{
-		"name": "All done",
+		"name": "Hit your Quota {Win}",
 		"region": "Lobby",
 		"requires": "|Victory Token:75%|",
+		"goal": true,
 		"place_item": [ "Final Victory" ]
 	},
 	{
