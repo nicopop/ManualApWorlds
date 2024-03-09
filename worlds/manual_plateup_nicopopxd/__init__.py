@@ -11,11 +11,12 @@ from .Data import item_table, location_table, region_table, category_table
 from .Game import game_name, filler_item_name, starting_items
 from .Locations import location_id_to_name, location_name_to_id, location_name_to_location, location_name_groups
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, item_name_groups
+from .DataValidation import runGenerationDataValidation
 
 from .Regions import create_regions
 from .Items import ManualItem
 from .Rules import set_rules
-from .Options import manual_options
+from .Options import manual_options_data
 from .Helpers import is_option_enabled, is_item_enabled, get_option_value
 
 from BaseClasses import ItemClassification, Tutorial, Item
@@ -28,7 +29,7 @@ from .hooks.World import \
     before_create_item, after_create_item, \
     before_set_rules, after_set_rules, \
     before_generate_basic, after_generate_basic, \
-    before_fill_slot_data, after_fill_slot_data
+    before_fill_slot_data, after_fill_slot_data, before_write_spoiler
 from .hooks.Data import hook_interpret_slot_data
 
 
@@ -54,7 +55,7 @@ class ManualWorld(World):
     game: str = game_name
     web = ManualWeb()
 
-    option_definitions = manual_options
+    options_dataclass = manual_options_data
     data_version = 2
     required_client_version = (0, 3, 4)
 
@@ -67,6 +68,7 @@ class ManualWorld(World):
     item_name_to_id = item_name_to_id
     item_name_to_item = item_name_to_item
     item_name_groups = item_name_groups
+
     item_counts = {}
     start_inventory = {}
 
@@ -78,6 +80,11 @@ class ManualWorld(World):
     def interpret_slot_data(self, slot_data: dict[str, any]):
         #this is called by tools like UT
         hook_interpret_slot_data(self, self.player, slot_data)
+
+    @classmethod
+    def stage_assert_generate(cls, multiworld) -> None:
+        runGenerationDataValidation()
+
 
     def create_regions(self):
         before_create_regions(self, self.multiworld, self.player)
@@ -118,13 +125,11 @@ class ManualWorld(World):
                 new_item = self.create_item(name)
                 pool.append(new_item)
 
-            if item.get("early") and item.get("local"): # both
-                self.multiworld.local_early_items[self.player][name] = item_count
-            elif item.get("early"): # only early
+            if item.get("early"): # only early
                 self.multiworld.early_items[self.player][name] = item_count
-            elif item.get("local"): # only local
+            if item.get("local"): # only local
                 if name not in self.multiworld.local_items[self.player].value:
-                    self.multiworld.local_items[self.player].value.add(name)
+                    self.options.local_items.value.add(name)
 
         pool = before_create_items_starting(pool, self, self.multiworld, self.player)
 
@@ -293,8 +298,8 @@ class ManualWorld(World):
         after_generate_basic(self, self.multiworld, self.player)
         # Uncomment these to generate a diagram of your manual.  Only works on 0.4.4+
 
-        # from Utils import visualize_regions
-        # visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
+        from Utils import visualize_regions
+        visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
 
     def fill_slot_data(self):
         slot_data = before_fill_slot_data({}, self, self.multiworld, self.player)
@@ -310,6 +315,9 @@ class ManualWorld(World):
         filename = f"{self.multiworld.get_out_file_name_base(self.player)}.apmanual"
         with open(os.path.join(output_directory, filename), 'wb') as f:
             f.write(b64encode(bytes(json.dumps(data), 'utf-8')))
+
+    def write_spoiler(self, spoiler_handle):
+        before_write_spoiler(self, self.multiworld, spoiler_handle)
 
     ###
     # Non-standard AP world methods
@@ -336,6 +344,15 @@ class ManualWorld(World):
                 item_pool.append(extra_item)
 
         return item_pool
+
+    def get_item_counts(self, player: Optional[int] = None, reset: bool = False) -> dict:
+        """returns the player real item count"""
+        if player == None:
+            player = self.player
+        if player not in self.item_counts or reset:
+            real_pool = self.multiworld.get_items()
+            self.item_counts[player] = {i.name: real_pool.count(i) for i in real_pool if i.player == player}
+        return self.item_counts.get(player)
 
     def client_data(self):
         return {
