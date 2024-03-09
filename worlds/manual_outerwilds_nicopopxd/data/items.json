@@ -14,6 +14,7 @@
     {
         "name": "Victory Token",
         "progression": true,
+        "local": true,
         "category": [ "1 Need For End", "Base Need For End" ]
     },
 
@@ -161,21 +162,25 @@
     {
         "name": "Seen Coords",
         "progression": true,
-        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End", "Base Need For End", "Base Game" ]
+        "local": true,
+        "category": [ "3 Base Game", "3d Visits", "2 everything",  "1 Need For End", "Base Need For End", "Base Game", "Win_Eye" ]
     },
     {
         "name": "Seen Adv. warp core",
         "progression": true,
+        "local": true,
         "category": [ "3 Base Game", "3d Visits", "2 everything", "1 Need For End", "Base Need For End", "Base Game", "need_warpdrive" ]
     },
     {
         "name": "Seen Prisoner",
         "progression": true,
+        "local": true,
         "category": [ "4 Echoes of the Eye", "4d Visits", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Seen Solanum",
         "progression": true,
+        "local": true,
         "category": [ "3 Base Game", "3d Visits", "2 everything", "Base Game", "require_solanum" ]
     },
 
@@ -300,22 +305,26 @@
     {
         "name": "Visited CodeVault",
         "progression": true,
+        "local": true,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Shrouded Woodlands Archive",
         "progression": true,
+        "local": true,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Starlit Cove Archive",
         "progression": true,
+        "local": true,
         "count": 2,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     },
     {
         "name": "Visited Endless Canyon Archive",
         "progression": true,
+        "local": true,
         "count": 2,
         "category": [ "4d Visits", "4 Echoes of the Eye", "2 everything", "DLC - Eye" ]
     }

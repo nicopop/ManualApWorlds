@@ -321,7 +321,7 @@
 		"name": "5 - Get to the Vessel",
 		"region": "Dark Bramble",
 		"category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
-		"requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Scout Photos|"
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Scout Photos| and |Anglerfish Biology|"
 	},
 	{
 		"name": "5 - Get through at least 2 nodes and get out alive",

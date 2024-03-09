@@ -30,9 +30,8 @@
     "connects_to": ["Quantum Trials" ]
   },
   "Dark Bramble": {
-    "_comment": "Contains every location in the Dark Bramble planet",
-    "requires": [ "Anglerfish Biology" ],
-    "connects_to": [ "Space" ]
+    "requires": "",
+    "connects_to": []
   },
   "Quantum Trials": {
     "_comment": "Contains everything Quantum related",
