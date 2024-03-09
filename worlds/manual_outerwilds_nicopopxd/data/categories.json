@@ -41,7 +41,7 @@
     "hidden": true
   },
   "DLC - Reduced Knowledge": {
-    "yaml_option": [ "DLC_Main_Knowledge_Requirement" ],
+    "yaml_option": [ "dlc_access_items" ],
     "hidden": true
   },
   "DLC - Spooky": {

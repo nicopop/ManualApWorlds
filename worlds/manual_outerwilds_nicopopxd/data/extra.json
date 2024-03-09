@@ -19,7 +19,7 @@
       "Do the repairs in the Zero-G Cave",
       "Land the model Ship on the small landing pad",
       "Land the model Ship on the large landing pad",
-      "Get in ship for the first time",
+      "Get in the ship for the first time",
       "0 - Die within 60 seconds of a new loop",
       "0 - Use your suit's oxygen as jetpack fuel",
       "0 - Visit the deepspace satelite",
@@ -204,7 +204,7 @@
   "no_place_item_category": {
     "items": [],
     "locations": [
-      "Get in ship for the first time"
+      "Get in the ship for the first time"
     ]
   }
 }

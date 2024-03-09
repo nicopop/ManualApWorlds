@@ -1,5 +1,5 @@
 # Object classes from AP that represent different types of options that you can create
-from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, SpecialRange
+from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, get_option_value
@@ -114,7 +114,7 @@ def before_options_defined(options: dict) -> dict:
     options["early_launch_codes"] = EarlyLaunchCode
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent
-    options["DLC_Main_Knowledge_Requirement"] = MainDlcKnowledge
+    options["dlc_access_items"] = MainDlcKnowledge
     options["goal"] = Goal
     return options
 

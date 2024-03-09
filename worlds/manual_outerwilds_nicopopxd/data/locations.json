@@ -19,7 +19,7 @@
 	},
 
 	{
-		"name": "Get in ship for the first time",
+		"name": "Get in the ship for the first time",
 		"region": "Tutorial",
 		"category": [ "0 - Beginning" ],
 		"requires": [ "Launch Codes" ],
@@ -67,8 +67,14 @@
 	{
 		"name": "1 - Break Space-Time in the Ash Twin Project",
 		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin", "Base Game", "Win_ATP_break_spacetime" ],
-		"requires": "|Seen Adv. warp core| and |Adv. warp core|"
+		"category": [ "1 - Ash Twin", "Base Game" ],
+		"requires": "|Seen Adv. warp core|"
+	},
+	{
+		"name": "FINAL > Break Space-Time in the Ash Twin Project",
+		"region": "Ash Twin",
+		"category": [ "0 - Finale", "1 - Ash Twin", "Win_ATP_break_spacetime" ],
+		"requires": "|Seen Adv. warp core|"
 	},
 	{
 		"name": "1 - Get to the sun station",
@@ -99,6 +105,12 @@
 		"name": "1 - Break space time in the lab",
 		"region": "Ember Twin",
 		"category": [ "1 - Ember Twin", "Base Game" ],
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
+	},
+	{
+		"name": "FINAL > Break space time in the lab",
+		"region": "Ember Twin",
+		"category": [ "0 - Finale", "1 - Ember Twin", "Win_HEL_break_spacetime" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
 	},
 	{
@@ -174,14 +186,14 @@
 		"name": "2 - Visit the Radio Station and listen to the recording",
 		"region": "Timber Hearth",
 		"category": [ "2 - Timber Hearth", "DLC - Eye" ],
-		"requires": "|Stranger Access|"
+		"requires": "{OptOne(|Stranger Access|)}"
 	},
 
 	{
 		"name": "2 - Moon > Talk to Esker",
 		"region": "Timber Hearth",
 		"category": [ "2 - Timber Hearth", "Base Game" ],
-		"requires": [ "Signaloscope", "Signal > OW Ventures" ]
+		"requires": "|Signaloscope| and |Signal > OW Ventures|"
 	},
 
 	{
@@ -405,23 +417,25 @@
 		"name": "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
 		"region": "Dark Bramble",
 		"requires": "|@Base Need For End:7| and |@Base Game Main Progression:4|",
-		"category": [ "Base Game", "Win_Eye"]
+		"category": [ "0 - Finale", "Base Game", "Win_Eye"]
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
 		"region": "Quantum Trials",
 		"requires": "|Adv. warp core| and |Seen Adv. warp core| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
-		"category": [ "Win_solanum" ]
+		"category": [ "0 - Finale", "6 - Quantum Moon", "Win_solanum" ]
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core to the Stranger and wait until Credits",
 		"region": "The Stranger",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core|",
+		"category": ["0 - Finale", "8 - The Stranger"]
 	},
 	{
 		"name": "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld",
 		"region": "DreamWorld General",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core|"
+		"requires": "|Adv. warp core| and |Seen Adv. warp core|",
+		"category": ["0 - Finale", "9 - DreamWorld General"]
 	},
 
 	{
@@ -444,7 +458,7 @@
 	{
 		"name": "8 - Attempt to use the artifact at a normal campfire",
 		"region": "The Stranger",
-		"requires": "|DreamWorld Access|",
+		"requires": "{OptOne(DreamWorld Access)}",
 		"category": [ "8 - The Stranger", "DLC - Eye" ]
 	},
 	{
@@ -602,6 +616,12 @@
 		"region": "DreamWorld General",
 		"requires": "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|",
 		"category": [ "9 - DreamWorld General", "DLC - Eye" ]
+	},
+	{
+		"name": "FINAL > In a loop visit all 3 archive without getting caught",
+		"region": "DreamWorld General",
+		"requires": "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|",
+		"category": [ "0 - Finale", "9 - DreamWorld General", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Enter the Shrouded Woodlands Dream",

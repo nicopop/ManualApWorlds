@@ -1,34 +1,33 @@
 {
   "Tutorial": {
     "_comment": "Contains the 4 starting locations",
-    "requires": [],
+    "requires": "",
     "connects_to": [ "Space" ],
     "starting": true
   },
   "Space": {
-    "_comment": "For now contains all the Main locations",
     "requires": [ "Launch Codes" ],
     "connects_to": [ "Ember Twin", "Ash Twin", "Timber Hearth", "Brittle Hollow", "Giant's Deep", "Dark Bramble", "Quantum Trials", "Interloper", "The Stranger" ]
   },
   "Ash Twin": {
-    "requires": [],
-    "connects_to": [ "Space", "Ember Twin", "Brittle Hollow" ]
+    "requires": "",
+    "connects_to": ["Ember Twin", "Brittle Hollow" ]
   },
   "Ember Twin": {
-    "requires": [],
-    "connects_to": [ "Space", "Quantum Trials", "Ash Twin" ]
+    "requires": "",
+    "connects_to": ["Quantum Trials", "Ash Twin" ]
   },
   "Timber Hearth": {
-    "requires": [],
-    "connects_to": [ "Space", "Quantum Trials", "The Stranger" ]
+    "requires": "",
+    "connects_to": ["Quantum Trials" ]
   },
   "Brittle Hollow": {
-    "requires": [],
-    "connects_to": [ "Space", "Quantum Trials"]
+    "requires": "",
+    "connects_to": ["Quantum Trials"]
   },
   "Giant's Deep": {
-    "requires": [],
-    "connects_to": [ "Space", "Quantum Trials" ]
+    "requires": "",
+    "connects_to": ["Quantum Trials" ]
   },
   "Dark Bramble": {
     "_comment": "Contains every location in the Dark Bramble planet",
@@ -38,26 +37,26 @@
   "Quantum Trials": {
     "_comment": "Contains everything Quantum related",
     "requires": [ "Signal > Quantum", "Signaloscope" ],
-    "connects_to": [ "Space" ]
+    "connects_to": []
   },
   "Interloper": {
-    "requires": [],
-    "connects_to": [ "Space" ]
+    "requires": "",
+    "connects_to": []
   },
 
   "The Stranger": {
     "_comment": "Base Region for the DLC",
-    "requires": "|Signaloscope| and |Signal > DeepSpace| and |@DLC - Stranger Entrance:1|",
-    "connects_to": [ "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
+    "requires": "|Signaloscope| and |Signal > DeepSpace| and {OptOne(|Stranger Access|)} and |@DLC - Stranger Entrance:1|",
+    "connects_to": ["DreamWorld General"]
   },
   "DreamWorld General": {
     "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
-    "requires": "|@DLC Flame:1|",
+    "requires": "|@DLC Flame:1| and {OptOne(|DreamWorld Access|)}",
     "connects_to": [ "Subterranean Lake", "Shrouded Woodlands Archive", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands": {
     "requires": "|EYE > River Lowlands Flame|",
-    "connects_to": [ "The Stranger", "Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon", "DreamWorld General" ]
+    "connects_to": ["Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands Archive": {
     "requires": "(|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|EYE > River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
@@ -65,7 +64,7 @@
   },
   "Starlit Cove": {
     "requires": "|EYE > Cinder Isles Flame|",
-    "connects_to": [ "The Stranger", "Starlit Cove Archive", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon", "DreamWorld General" ]
+    "connects_to": ["Starlit Cove Archive", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon" ]
   },
   "Starlit Cove Archive": {
     "requires": "|DreamWorld Door Candles| and (|DreamWorld Death Glitch| or (|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|))",
@@ -73,7 +72,7 @@
   },
   "Endless Canyon": {
     "requires": "|EYE > Hidden Gorge Flame|",
-    "connects_to": [ "The Stranger", "Endless Canyon Archive",  "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove", "DreamWorld General" ]
+    "connects_to": ["Endless Canyon Archive",  "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove" ]
   },
   "Endless Canyon Archive": {
     "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
