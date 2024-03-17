@@ -208,7 +208,7 @@
     "connects_to": []
   },
   "Extras":{
-    "requires": "{OptOne(|@Extras:1|)",
+    "requires": "{OptOne(|@Extras:1|)}",
     "connects_to": ["Extra 01", "Extra 02", "Extra 03", "Extra 04", "Extra 05", "Extra 06", "Extra 07", "Extra 08", "Extra 09", "Extra 10"]
   },
   "Extra 01":{
