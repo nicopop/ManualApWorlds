@@ -1,0 +1,19 @@
+{
+  "Options":{
+    "level_1": ["Steak"],
+    "level_2": ["Salad"],
+    "level_3": ["Pizza"],
+    "level_4": ["Dumplings", "Coffee"],
+    "level_5": ["Burger"],
+    "level_6": ["Turkey"],
+    "level_7": ["Pie", "Cakes"],
+    "level_8": ["Spaghetti"],
+    "level_9": ["Fish"],
+    "level_10": [],
+    "level_11": ["Hot Dog"],
+    "level_12": [],
+    "level_13": ["Breakfast"],
+    "level_14": [],
+    "level_15": ["Stir Fry"]
+  }
+}

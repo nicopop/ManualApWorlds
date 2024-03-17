@@ -1,0 +1,354 @@
+{
+  "Lobby": {
+    "starting": true,
+    "requires": [],
+    "connects_to": ["Restaurant"]
+  },
+  "Restaurant": {
+    "requires": "|@Basefloorplans:1| and |@NormalSettings:1|",
+    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey",
+        "Pie", "Cakes", "Spaghetti", "Fish", "Hot Dog", "Breakfast", "Stir Fry", "Extras"]
+  },
+  "Steak": {
+    "requires": "|Steak Recipe|",
+    "connects_to": ["Early Steak"]
+  },
+  "Early Steak": {
+    "connects_to": ["Middle Steak"]
+  },
+  "Middle Steak": {
+    "connects_to": ["Late Steak"]
+  },
+  "Late Steak": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Salad": {
+    "requires": "|Salad Recipe|",
+    "connects_to": ["Early Salad"]
+  },
+  "Early Salad": {
+    "connects_to": ["Middle Salad"]
+  },
+  "Middle Salad": {
+    "connects_to": ["Late Salad"]
+  },
+  "Late Salad": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Pizza": {
+    "requires": "|Pizza Recipe|",
+    "connects_to": ["Early Pizza"]
+  },
+  "Early Pizza": {
+    "connects_to": ["Middle Pizza"]
+  },
+  "Middle Pizza": {
+    "connects_to": ["Late Pizza"]
+  },
+  "Late Pizza": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Dumplings": {
+    "requires": "|Dumplings Recipe|",
+    "connects_to": ["Early Dumplings"]
+  },
+  "Early Dumplings": {
+    "connects_to": ["Middle Dumplings"]
+  },
+  "Middle Dumplings": {
+    "connects_to": ["Late Dumplings"]
+  },
+  "Late Dumplings": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Coffee": {
+    "requires": "|Coffee Recipe|",
+    "connects_to": ["Early Coffee"]
+  },
+  "Early Coffee": {
+    "connects_to": ["Middle Coffee"]
+  },
+  "Middle Coffee": {
+    "requires": "|Booking Desk|",
+    "connects_to": ["Late Coffee"]
+  },
+  "Late Coffee": {
+    "requires": "|Research Desk| and |Frozen Prep Station|",
+    "connects_to": []
+  },
+  "Burger": {
+    "requires": "|Burger Recipe|",
+    "connects_to": ["Early Burger"]
+  },
+  "Early Burger": {
+    "connects_to": ["Middle Burger"]
+  },
+  "Middle Burger": {
+    "connects_to": ["Late Burger"]
+  },
+  "Late Burger": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Turkey": {
+    "requires": "|Turkey Recipe|",
+    "connects_to": ["Early Turkey"]
+  },
+  "Early Turkey": {
+    "connects_to": ["Middle Turkey"]
+  },
+  "Middle Turkey": {
+    "connects_to": ["Late Turkey"]
+  },
+  "Late Turkey": {
+    "requires": "|Research Desk| and |Sink Upgrades|",
+    "connects_to": []
+  },
+  "Pie": {
+    "requires": "|Pie Recipe|",
+    "connects_to": ["Early Pie"]
+  },
+  "Early Pie": {
+    "connects_to": ["Middle Pie"]
+  },
+  "Middle Pie": {
+    "connects_to": ["Late Pie"]
+  },
+  "Late Pie": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Cakes": {
+    "requires": "|Cakes Recipe|",
+    "connects_to": ["Early Cakes"]
+  },
+  "Early Cakes": {
+    "connects_to": ["Middle Cakes"]
+  },
+  "Middle Cakes": {
+
+    "connects_to": ["Late Cakes"]
+  },
+  "Late Cakes": {
+    "requires": "|Research Desk| and |Frozen Prep Station| and (|Counter Upgrades|)",
+    "connects_to": []
+  },
+  "Spaghetti": {
+    "requires": "|Spaghetti Recipe|",
+    "connects_to": ["Early Spaghetti"]
+  },
+  "Early Spaghetti": {
+    "connects_to": ["Middle Spaghetti"]
+  },
+  "Middle Spaghetti": {
+    "connects_to": ["Late Spaghetti"]
+  },
+  "Late Spaghetti": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Fish": {
+    "requires": "|Fish Recipe|",
+    "connects_to": ["Early Fish"]
+  },
+  "Early Fish": {
+    "connects_to": ["Middle Fish"]
+  },
+  "Middle Fish": {
+    "connects_to": ["Late Fish"]
+  },
+  "Late Fish": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Hot Dog": {
+    "requires": "{OptOne(|Hot Dog Recipe|)}",
+    "connects_to": ["Early Hot Dog"]
+  },
+  "Early Hot Dog": {
+    "connects_to": ["Middle Hot Dog"]
+  },
+  "Middle Hot Dog": {
+    "connects_to": ["Late Hot Dog"]
+  },
+  "Late Hot Dog": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Breakfast": {
+    "requires": "{OptOne(|Breakfast Recipe|)}",
+    "connects_to": ["Early Breakfast"]
+  },
+  "Early Breakfast": {
+    "connects_to": ["Middle Breakfast"]
+  },
+  "Middle Breakfast": {
+    "connects_to": ["Late Breakfast"]
+  },
+  "Late Breakfast": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Stir Fry": {
+    "requires": "{OptOne(|Stir Fry Recipe|)}",
+    "connects_to": ["Early Stir Fry"]
+  },
+  "Early Stir Fry": {
+    "connects_to": ["Middle Stir Fry"]
+  },
+  "Middle Stir Fry": {
+    "connects_to": ["Late Stir Fry"]
+  },
+  "Late Stir Fry": {
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extras":{
+    "requires": "{OptOne(|@Extras:1|)}",
+    "connects_to": ["Extra 01", "Extra 02", "Extra 03", "Extra 04", "Extra 05", "Extra 06", "Extra 07", "Extra 08", "Extra 09", "Extra 10"]
+  },
+  "Extra 01":{
+    "requires": "{OptOne(|Extra 01 Recipe|)}",
+    "connects_to": ["Early Extra 01"]
+  },
+  "Early Extra 01":{
+    "connects_to": ["Middle Extra 01"]
+  },
+  "Middle Extra 01":{
+    "connects_to": ["Late Extra 01"]
+  },
+  "Late Extra 01":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 02":{
+    "requires": "{OptOne(|Extra 02 Recipe|)}",
+    "connects_to": ["Early Extra 02"]
+  },
+  "Early Extra 02":{
+    "connects_to": ["Middle Extra 02"]
+  },
+  "Middle Extra 02":{
+    "connects_to": ["Late Extra 02"]
+  },
+  "Late Extra 02":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 03":{
+    "requires": "{OptOne(|Extra 03 Recipe|)}",
+    "connects_to": ["Early Extra 03"]
+  },
+  "Early Extra 03":{
+    "connects_to": ["Middle Extra 03"]
+  },
+  "Middle Extra 03":{
+    "connects_to": ["Late Extra 03"]
+  },
+  "Late Extra 03":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 04":{
+    "requires": "{OptOne(|Extra 04 Recipe|)}",
+    "connects_to": ["Early Extra 04"]
+  },
+  "Early Extra 04":{
+    "connects_to": ["Middle Extra 04"]
+  },
+  "Middle Extra 04":{
+    "connects_to": ["Late Extra 04"]
+  },
+  "Late Extra 04":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 05":{
+    "requires": "{OptOne(|Extra 05 Recipe|)}",
+    "connects_to": ["Early Extra 05"]
+  },
+  "Early Extra 05":{
+    "connects_to": ["Middle Extra 05"]
+  },
+  "Middle Extra 05":{
+    "connects_to": ["Late Extra 05"]
+  },
+  "Late Extra 05":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 06":{
+    "requires": "{OptOne(|Extra 06 Recipe|)}",
+    "connects_to": ["Early Extra 06"]
+  },
+  "Early Extra 06":{
+    "connects_to": ["Middle Extra 06"]
+  },
+  "Middle Extra 06":{
+    "connects_to": ["Late Extra 06"]
+  },
+  "Late Extra 06":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 07":{
+    "requires": "{OptOne(|Extra 07 Recipe|)}",
+    "connects_to": ["Early Extra 07"]
+  },
+  "Early Extra 07":{
+    "connects_to": ["Middle Extra 07"]
+  },
+  "Middle Extra 07":{
+    "connects_to": ["Late Extra 07"]
+  },
+  "Late Extra 07":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 08":{
+    "requires": "{OptOne(|Extra 08 Recipe|)}",
+    "connects_to": ["Early Extra 08"]
+  },
+  "Early Extra 08":{
+    "connects_to": ["Middle Extra 08"]
+  },
+  "Middle Extra 08":{
+    "connects_to": ["Late Extra 08"]
+  },
+  "Late Extra 08":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 09":{
+    "requires": "{OptOne(|Extra 09 Recipe|)}",
+    "connects_to": ["Early Extra 09"]
+  },
+  "Early Extra 09":{
+    "connects_to": ["Middle Extra 09"]
+  },
+  "Middle Extra 09":{
+    "connects_to": ["Late Extra 09"]
+  },
+  "Late Extra 09":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  },
+  "Extra 10":{
+    "requires": "{OptOne(|Extra 10 Recipe|)}",
+    "connects_to": ["Early Extra 10"]
+  },
+  "Early Extra 10":{
+    "connects_to": ["Middle Extra 10"]
+  },
+  "Middle Extra 10":{
+    "connects_to": ["Late Extra 10"]
+  },
+  "Late Extra 10":{
+    "requires": "|Research Desk| and (|Counter Upgrades| or |Sink Upgrades|)",
+    "connects_to": []
+  }
+}
