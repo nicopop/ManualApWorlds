@@ -30,7 +30,6 @@
 *.apsave
 *.BIN
 *.puml
-*.py.bak
 
 setups
 build
@@ -199,9 +198,3 @@ minecraft_versions.json
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
-
-/worlds/*.apworld
-/SymbolicLinks.bat
-/TestResults
-/worlds/*.zip
-/worlds/tracker
