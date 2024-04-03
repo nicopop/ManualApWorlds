@@ -30,7 +30,6 @@
 *.apsave
 *.BIN
 *.puml
-*.py.bak
 
 setups
 build
@@ -205,3 +204,4 @@ Thumbs.db
 /TestResults
 /worlds/*.zip
 /worlds/tracker
+/worlds/tmp
