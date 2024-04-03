@@ -1,0 +1,87 @@
+{
+    "level_01":{
+        "hidden": true
+    },
+    "level_02":{
+        "hidden": true
+    },
+    "level_03":{
+        "hidden": true
+    },
+    "level_04":{
+        "hidden": true
+    },
+    "level_05":{
+        "hidden": true
+    },
+    "level_06":{
+        "hidden": true
+    },
+    "level_07":{
+        "hidden": true
+    },
+    "level_08":{
+        "hidden": true
+    },
+    "level_09":{
+        "hidden": true
+    },
+    "level_10":{
+        "hidden": true
+    },
+    "level_11":{
+        "hidden": true
+    },
+    "level_12":{
+        "hidden": true
+    },
+    "level_13":{
+        "hidden": true
+    },
+    "level_14":{
+        "hidden": true
+    },
+    "level_15":{
+        "hidden": true
+    },
+    "01 - Steak":{},
+    "02 - Salad":{},
+    "03 - Pizza":{},
+    "04a - Dumplings":{},
+    "04b - Coffee":{},
+    "05 - Burger":{},
+    "06 - Turkey":{},
+    "07a - Pie":{},
+    "07b - Cakes":{},
+    "08 - Spaghetti":{},
+    "09 - Fish":{},
+    "11 - Hot Dog":{},
+    "13 - Breakfast":{},
+    "15 - Stir Fry":{},
+    "99 - Extra Recipe 01":{},
+    "99 - Extra Recipe 02":{},
+    "99 - Extra Recipe 03":{},
+    "99 - Extra Recipe 04":{},
+    "99 - Extra Recipe 05":{},
+    "99 - Extra Recipe 06":{},
+    "99 - Extra Recipe 07":{},
+    "99 - Extra Recipe 08":{},
+    "99 - Extra Recipe 09":{},
+    "99 - Extra Recipe 10":{},
+    "Extras":{
+        "hidden": true
+    },
+    "NormalSettings":{
+        "hidden": true
+    },
+    "floorplans":{
+        "hidden": true
+    },
+    "Basefloorplans":{
+        "hidden": true
+    },
+    "overtimes": {
+        "hidden": true,
+        "yaml_option": [ "do_overtime" ]
+    }
+}

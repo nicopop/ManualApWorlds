@@ -1,0 +1,270 @@
+[
+  {
+    "name": "Victory Token",
+    "progression": true,
+    "count": 30,
+    "category": [ "1 Important", "0 Everything" ]
+  },
+  {
+    "name": "Final Victory",
+    "progression": true,
+    "category": [ "1 Important", "0 Everything" ]
+  },
+  {
+    "name": "Steak Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_01" ]
+  },
+  {
+    "name": "Salad Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_02" ]
+  },
+  {
+    "name": "Pizza Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_03" ]
+  },
+  {
+    "name": "Dumplings Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_04" ]
+  },
+  {
+    "name": "Coffee Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_04" ]
+  },
+  {
+    "name": "Burger Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_05" ]
+  },
+  {
+    "name": "Turkey Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_06" ]
+  },
+  {
+    "name": "Pie Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_07" ]
+  },
+  {
+    "name": "Cakes Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_07" ]
+  },
+  {
+    "name": "Spaghetti Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_08" ]
+  },
+  {
+    "name": "Fish Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_09" ]
+  },
+  {
+    "name": "Hot Dog Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_11" ]
+  },
+  {
+    "name": "Breakfast Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_13" ]
+  },
+  {
+    "name": "Stir Fry Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_15" ]
+  },
+  {
+    "name": "Extra 01 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 02 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 03 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 04 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 05 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 06 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 07 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 08 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 09 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Extra 10 Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "Extras" ]
+  },
+  {
+    "name": "Basic floorplans",
+    "progression": true,
+    "category": [ "3 Restaurant", "floorplans", "Basefloorplans", "0 Everything", "level_01" ]
+  },
+  {
+    "name": "Diner floorplans",
+    "progression": true,
+    "category": [ "3 Restaurant", "floorplans", "Basefloorplans", "0 Everything", "level_04" ]
+  },
+  {
+    "name": "Medium floorplans",
+    "progression": true,
+    "category": [ "3 Restaurant", "floorplans", "Basefloorplans", "0 Everything", "level_04" ]
+  },
+  {
+    "name": "Extended floorplans",
+    "progression": true,
+    "category": [ "3 Restaurant", "floorplans", "Basefloorplans", "0 Everything" ]
+  },
+  {
+    "name": "Huge floorplans",
+    "progression": true,
+    "category": [ "3 Restaurant", "floorplans", "Basefloorplans", "0 Everything" ]
+  },
+  {
+    "name": "Daily floorplans",
+    "useful": true,
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_06" ]
+  },
+  {
+    "name": "Weekly floorplans",
+    "useful": true,
+    "category": [ "3 Restaurant", "floorplans", "0 Everything", "level_06" ]
+  },
+  {
+    "name": "Custom Seeded Run",
+    "useful": true,
+    "category": [ "3 Restaurant", "0 Everything", "level_06" ]
+  },
+
+  {
+    "name": "Research Desk",
+    "progression": true,
+    "early": true,
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Discount Desk",
+    "useful": true,
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Copying Desk",
+    "useful": true,
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Blueprint Desk",
+    "useful": true,
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Booking Desk",
+    "progression": true,
+    "category": [ "4 Appliances", "0 Everything", "level_02" ]
+  },
+  {
+    "name": "Conveyors",
+    "useful": true,
+    "category": [ "4 Appliances", "0 Everything" ]
+  },
+  {
+    "name": "Microwave",
+    "useful": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Frozen Prep Station",
+    "progression": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Table Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Hob Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Bin Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Counter Upgrades",
+    "progression": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Sink Upgrades",
+    "progression": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "Mixer Upgrades",
+    "useful": true,
+    "category": [ "4 Upgrades", "0 Everything" ]
+  },
+  {
+    "name": "City Setting",
+    "progression": true,
+    "category": [ "4 Settings", "NormalSettings", "0 Everything", "level_01" ]
+  },
+  {
+    "name": "Country Setting",
+    "progression": true,
+    "category": [ "4 Settings", "NormalSettings", "0 Everything", "level_03" ]
+  },
+  {
+    "name": "Alpine Setting",
+    "progression": true,
+    "category": [ "4 Settings", "NormalSettings", "0 Everything", "level_04" ]
+  },
+  {
+    "name": "Autumn Setting",
+    "useful": true,
+    "category": [ "4 Settings", "0 Everything", "level_05" ]
+  },
+  {
+    "name": "Turbo Setting",
+    "useful": true,
+    "category": [ "4 Settings", "0 Everything", "level_05" ]
+  }
+]
