@@ -47,5 +47,13 @@
   "DLC - Spooky": {
     "yaml_option": [ "enable_spooks" ],
     "hidden": true
+  },
+  "do_place_item_category": {
+    "yaml_option": [ "do_place_item_category" ],
+    "hidden": true
+  },
+  "no_place_item_category": {
+    "yaml_option": [ "!do_place_item_category" ],
+    "hidden": true
   }
 }

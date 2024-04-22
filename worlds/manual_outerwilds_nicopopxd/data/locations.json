@@ -21,9 +21,16 @@
 	{
 		"name": "Get in the ship for the first time",
 		"region": "Tutorial",
-		"category": [ "0 - Beginning" ],
+		"category": [ "0 - Beginning", "do_place_item_category" ],
 		"requires": [ "Launch Codes" ],
 		"place_item_category": [ "3b Signals" ],
+		"dont_place_item_category": [ "2b Trap" ]
+	},
+	{
+		"name": "Get in the ship for the first time.",
+		"region": "Tutorial",
+		"category": [ "0 - Beginning", "no_place_item_category" ],
+		"requires": [ "Launch Codes" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
@@ -135,7 +142,7 @@
 		"category": [ "1 - Ember Twin", "Base Game" ]
 	},
 	{
-		"name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai childrens",
+		"name": "1 - Reach the Anglerfish Fossil and read the text left by the Nomai children",
 		"region": "Ember Twin",
 		"category": [ "1 - Ember Twin", "Base Game" ],
 		"requires": [ "Signaloscope", "Signal > Distress", "Scout" ]
@@ -741,7 +748,7 @@
 		"requires": "|DreamWorld Grabbing Hands| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|)"
 	},
 	{
-		"name": "93 - [Lights out] Get the 1 / 900 achivement",
+		"name": "93 - [Lights out] Get the 1 / 900 achievement",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
 		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]

@@ -1,17 +1,19 @@
 from base64 import b64encode
-import os
 import logging
+import os
 import json
 from typing import Callable, Optional
 
+import Utils
 from worlds.generic.Rules import forbid_items_for_player
 from worlds.LauncherComponents import Component, SuffixIdentifier, components, Type, launch_subprocess
 
-from .Data import item_table, location_table, region_table, category_table
+from .Data import item_table, location_table, region_table, category_table, meta_table
 from .Game import game_name, filler_item_name, starting_items
-from .Locations import location_id_to_name, location_name_to_id, location_name_to_location, location_name_groups
+from .Meta import world_description, world_webworld, enable_region_diagram
+from .Locations import location_id_to_name, location_name_to_id, location_name_to_location, location_name_groups, victory_names
 from .Items import item_id_to_name, item_name_to_id, item_name_to_item, item_name_groups
-from .DataValidation import runGenerationDataValidation
+from .DataValidation import runGenerationDataValidation, runPreFillDataValidation
 
 from .Regions import create_regions
 from .Items import ManualItem
@@ -20,8 +22,8 @@ from .Options import manual_options_data
 from .Helpers import is_option_enabled, is_item_enabled, get_option_value
 
 from BaseClasses import ItemClassification, Tutorial, Item
+from Options import PerGameCommonOptions
 from worlds.AutoWorld import World, WebWorld
-from copy import copy
 
 from .hooks.World import \
     before_create_regions, after_create_regions, \
@@ -32,58 +34,10 @@ from .hooks.World import \
     before_fill_slot_data, after_fill_slot_data, before_write_spoiler
 from .hooks.Data import hook_interpret_slot_data
 
-
-class ManualWeb(WebWorld):
-    options_presets = {
-        "Short":{
-            "require_solanum": False,
-            "require_prisoner": False,
-            "do_place_item_category": True,
-            "randomized_content": "both",
-            "goal": "standard"
-            },
-        "Long":{
-            "require_solanum": True,
-            "require_prisoner": True,
-            "do_place_item_category": True,
-            "randomized_content": "both",
-            "goal": "standard"
-            },
-        "Short (BaseGame)":{
-            "require_solanum": False,
-            "require_prisoner": False,
-            "do_place_item_category": True,
-            "randomized_content": "base_game",
-            "goal": "standard"
-            },
-        "Long (BaseGame)":{
-            "require_solanum": True,
-            "require_prisoner": False,
-            "do_place_item_category": True,
-            "randomized_content": "base_game",
-            "goal": "standard"
-            }
-        }
-    theme = "ocean"
-    tutorials = [Tutorial(
-        "Multiworld Setup Guide",
-        "A guide to setting up manual game integration for Archipelago multiworld games.",
-        "English",
-        "setup_en.md",
-        "setup/en",
-        ["Nicopopxd"]
-    )]
-    bug_report_page = "https://discord.com/channels/1097532591650910289/1101289500602286161"
-
-
 class ManualWorld(World):
-    """
-    Manual games allow you to set custom check locations and custom item names that will be rolled into a multiworld.
-    In this case a game from 2019: OuterWilds
-    the player must manually refrain from using these gathered items until the tracker shows that they have been acquired or sent.
-    """
+    __doc__ = world_description
     game: str = game_name
-    web = ManualWeb()
+    web = world_webworld
 
     options_dataclass = manual_options_data
     data_version = 2
@@ -106,10 +60,19 @@ class ManualWorld(World):
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
     location_name_groups = location_name_groups
+    victory_names = victory_names
 
     def interpret_slot_data(self, slot_data: dict[str, any]):
         #this is called by tools like UT
-        hook_interpret_slot_data(self, self.player, slot_data)
+
+        regen = False
+        for key, value in slot_data.items():
+            if key in self.options_dataclass.type_hints:
+                getattr(self.options, key).value = value
+                regen = True
+
+        regen = hook_interpret_slot_data(self, self.player, slot_data) or regen
+        return regen
 
     @classmethod
     def stage_assert_generate(cls, multiworld) -> None:
@@ -121,8 +84,11 @@ class ManualWorld(World):
 
         create_regions(self, self.multiworld, self.player)
 
-        location_game_complete = self.multiworld.get_location("__Manual Game Complete__", self.player)
+        location_game_complete = self.multiworld.get_location(victory_names[get_option_value(self.multiworld, self.player, 'goal')], self.player)
         location_game_complete.address = None
+
+        for unused_goal in [self.multiworld.get_location(name, self.player) for name in victory_names if name != location_game_complete.name]:
+            unused_goal.parent_region.locations.remove(unused_goal)
 
         location_game_complete.place_locked_item(
             ManualItem("__Victory__", ItemClassification.progression, None, player=self.player))
@@ -130,7 +96,6 @@ class ManualWorld(World):
         after_create_regions(self, self.multiworld, self.player)
 
     def create_items(self):
-        logger = logging.getLogger()
         # Generate item pool
         pool = []
         traps = []
@@ -158,7 +123,7 @@ class ManualWorld(World):
 
             if item.get("early"): # only early
                 self.multiworld.early_items[self.player][name] = item_count
-            if item.get("local", None) != None: # only local
+            if item.get("local", None) is not None: # only local
                 if item.get("local"):
                     if name not in self.options.local_items.value:
                         self.options.local_items.value.add(name)
@@ -206,7 +171,7 @@ class ManualWorld(World):
         self.start_inventory = {i.name: items_started.count(i) for i in items_started}
 
         pool = before_create_items_filler(pool, self, self.multiworld, self.player)
-        pool = self.add_filler_items(pool, traps)
+        pool = self.adjust_filler_items(pool, traps)
         pool = after_create_items(pool, self, self.multiworld, self.player)
 
         # need to put all of the items in the pool so we can have a full state for placement
@@ -255,16 +220,10 @@ class ManualWorld(World):
             manual_location = manual_locations_with_forbid[location.name]
             forbidden_item_names = []
 
-            if "dont_place_item" in manual_location:
-                if len(manual_location["dont_place_item"]) == 0:
-                    continue
-
+            if manual_location.get("dont_place_item"):
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if i["name"] in manual_location["dont_place_item"]])
 
-            if "dont_place_item_category" in manual_location:
-                if len(manual_location["dont_place_item_category"]) == 0:
-                    continue
-
+            if manual_location.get("dont_place_item_category"):
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])])
 
             if len(forbidden_item_names) > 0:
@@ -306,10 +265,7 @@ class ManualWorld(World):
                 if len(eligible_items) == 0:
                     raise Exception("Could not find a suitable item to place at %s. No items that match placed_items(_category) because of forbidden %s." % (manual_location["name"], ", ".join(manual_location["dont_place_item"])))
 
-            if "dont_place_item_category" in manual_location:
-                if len(manual_location["dont_place_item_category"]) == 0:
-                    continue
-
+            if manual_location.get("dont_place_item_category"):
                 forbidden_item_names = [i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])]
 
                 eligible_items = [item for item in eligible_items if item.name not in forbidden_item_names]
@@ -331,15 +287,25 @@ class ManualWorld(World):
 
 
         after_generate_basic(self, self.multiworld, self.player)
-        # Uncomment these to generate a diagram of your manual.  Only works on 0.4.4+
 
-        # from Utils import visualize_regions
-        # visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
+        # Enable this in Meta.json to generate a diagram of your manual.  Only works on 0.4.4+
+        if enable_region_diagram:
+            from Utils import visualize_regions
+            visualize_regions(self.multiworld.get_region("Menu", self.player), f"{self.game}_{self.player}.puml")
+
+    def pre_fill(self):
+        # DataValidation after all the hooks are done but before fill
+        runPreFillDataValidation(self, self.multiworld)
 
     def fill_slot_data(self):
         slot_data = before_fill_slot_data({}, self, self.multiworld, self.player)
 
         # slot_data["DeathLink"] = bool(self.multiworld.death_link[self.player].value)
+        common_options = set(PerGameCommonOptions.type_hints.keys())
+        for option_key, _ in self.options_dataclass.type_hints.items():
+            if option_key in common_options:
+                continue
+            slot_data[option_key] = get_option_value(self.multiworld, self.player, option_key)
 
         slot_data = after_fill_slot_data(slot_data, self, self.multiworld, self.player)
 
@@ -359,7 +325,10 @@ class ManualWorld(World):
     ###
 
     def add_filler_items(self, item_pool, traps):
-        # no longer subtracting 1 because of Victory; this was likely a convenient crutch
+        Utils.deprecate("Use adjust_filler_items instead.")
+        return self.adjust_filler_items(item_pool, traps)
+
+    def adjust_filler_items(self, item_pool, traps):
         extras = len(self.multiworld.get_unfilled_locations(player=self.player)) - len(item_pool)
 
         if extras > 0:
@@ -370,21 +339,41 @@ class ManualWorld(World):
             trap_count = extras * trap_percent // 100
             filler_count = extras - trap_count
 
-            for i in range(0, trap_count):
+            for _ in range(0, trap_count):
                 extra_item = self.create_item(self.random.choice(traps))
                 item_pool.append(extra_item)
 
-            for i in range(0, filler_count):
+            for _ in range(0, filler_count):
                 extra_item = self.create_item(filler_item_name)
                 item_pool.append(extra_item)
+        elif extras < 0:
+            logging.warning(f"{self.game} has more items than locations. {abs(extras)} non-progression items will be removed at random.")
+            fillers = [item for item in item_pool if item.classification == ItemClassification.filler]
+            traps = [item for item in item_pool if item.classification == ItemClassification.trap]
+            useful = [item for item in item_pool if item.classification == ItemClassification.useful]
+            self.random.shuffle(fillers)
+            self.random.shuffle(traps)
+            self.random.shuffle(useful)
+            for _ in range(0, abs(extras)):
+                popped = None
+                if fillers:
+                    popped = fillers.pop()
+                elif traps:
+                    popped = traps.pop()
+                elif useful:
+                    popped = useful.pop()
+                else:
+                    logging.warning("Could not remove enough non-progression items from the pool.")
+                    break
+                item_pool.remove(popped)
 
         return item_pool
 
     def get_item_counts(self, player: Optional[int] = None, reset: bool = False) -> dict[str, int]:
         """returns the player real item count"""
-        if player == None:
+        if player is None:
             player = self.player
-        if player not in self.item_counts or reset:
+        if not self.item_counts.get(player, {}) or reset:
             real_pool = self.multiworld.get_items()
             self.item_counts[player] = {i.name: real_pool.count(i) for i in real_pool if i.player == player}
         return self.item_counts.get(player)
@@ -396,7 +385,7 @@ class ManualWorld(World):
             'player_id': self.player,
             'items': self.item_name_to_item,
             'locations': self.location_name_to_location,
-            # todo: extract connections out of mutliworld.get_regions() instead, in case hooks have modified the regions.
+            # todo: extract connections out of multiworld.get_regions() instead, in case hooks have modified the regions.
             'regions': region_table,
             'categories': category_table
         }
@@ -415,7 +404,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 20240128 # YYYYMMDD
+    version = 2024_04_10 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":

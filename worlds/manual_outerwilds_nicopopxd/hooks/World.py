@@ -25,11 +25,6 @@ logger = logging.getLogger()
 APMiscData = {}
 """Miscellaneous shared data"""
 APMiscData["KnownPlayers"] = []
-APOptions = {}
-"""
-Player options:
-To access option value: APOptions[player]["optionName"]
-"""
 APWorkingData = {}
 """
 Copy of any changed world item/locations
@@ -54,7 +49,6 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         world.hasOptionsManager = True
     else:
         raise Exception("Sorry I no longer support AP before the Options Manager")
-
     # Set version in yaml and log
     if not APMiscData.get('version'):
         APMiscData['version'] = "Unknown"
@@ -72,40 +66,38 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 #Init Options
 #region
     APMiscData["KnownPlayers"].append(player)
-    APOptions[player] = {}
     APMiscData[player] = {}
 
-    if world.hasOptionsManager:
-        #Options Check for imposibities
-        if world.options.randomized_content.value == RandomContent.option_base_game:
-            world.options.require_prisoner.value = 0
-            goal = world.options.goal.value
-            if goal == Goal.option_prisoner: world.options.goal.value = Goal.default #imposible option
-            elif goal == Goal.option_visit_all_archive: world.options.goal.value = Goal.default #imposible option
-            elif goal == Goal.option_stuck_in_stranger: world.options.goal.value = Goal.default #imposible option
-            elif goal == Goal.option_stuck_in_dream: world.options.goal.value = Goal.default #imposible option
-            world.options.enable_spooks.value = 1 #Set to True to skip some code later
-            world.options.dlc_access_items.value = 0
+    #Options Check for impossibilities
+    if world.options.randomized_content.value == RandomContent.option_base_game:
+        world.options.require_prisoner.value = 0
+        goal = world.options.goal
+        if goal == Goal.option_prisoner: goal.value = Goal.default #impossible option
+        elif goal == Goal.option_visit_all_archive: goal.value = Goal.default #impossible option
+        elif goal == Goal.option_stuck_in_stranger: goal.value = Goal.default #impossible option
+        elif goal == Goal.option_stuck_in_dream: goal.value = Goal.default #impossible option
+        world.options.enable_spooks.value = 1 #Set to True to skip some code later
+        world.options.dlc_access_items.value = 0
 
-        #Is it safe to skip some code
-        APMiscData[player]["SafeGen"] = False #value for first run
-        index = APMiscData["KnownPlayers"].index(player)
-        if index > 0:
-            index = APMiscData["KnownPlayers"][index - 1]
-            LastOptions = multiworld.worlds[index].options
-            CurOptions = world.options
-            APMiscData[player]["SafeGen"] = True
-            if CurOptions.randomized_content.value != LastOptions.randomized_content.value:
-                APMiscData[player]["SafeGen"] = False
-            elif CurOptions.do_place_item_category.value != LastOptions.do_place_item_category:
-                APMiscData[player]["SafeGen"] = False
-            elif CurOptions.goal.value != LastOptions.goal.value:
-                APMiscData[player]["SafeGen"] = False
-            logger.debug(f'SafeGen for player {player} set to {APMiscData[player]["SafeGen"]}')
-        APOptions.pop(player)
+    # #Is it safe to skip some code
+    # APMiscData[player]["SafeGen"] = False #value for first run
+    # index = APMiscData["KnownPlayers"].index(player)
+    # if index > 0:
+    #     index = APMiscData["KnownPlayers"][index - 1]
+    #     LastOptions = multiworld.worlds[index].options
+    #     CurOptions = world.options
+    #     APMiscData[player]["SafeGen"] = True
+    #     if CurOptions.randomized_content.value != LastOptions.randomized_content.value:
+    #         APMiscData[player]["SafeGen"] = False
+    #     elif CurOptions.do_place_item_category.value != LastOptions.do_place_item_category:
+    #         APMiscData[player]["SafeGen"] = False
+    #     elif CurOptions.goal.value != LastOptions.goal.value:
+    #         APMiscData[player]["SafeGen"] = False
+    #     logger.debug(f'SafeGen for player {player} set to {APMiscData[player]["SafeGen"]}')
 
     InitCategories(multiworld, player)
-    #endregion
+#endregion
+
 # Called after regions and locations are created, in case you want to see or modify that information.
 def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     solanum = world.options.require_solanum.value
@@ -211,10 +203,14 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     if early_launch == EarlyLaunchCode.option_anywhere:
         world.options.local_items.value.discard("Launch Codes")
         multiworld.early_items[player].pop("Launch Codes", "")
+    elif early_launch == EarlyLaunchCode.option_startswith:
+        world.options.local_items.value.discard("Launch Codes")
+        multiworld.early_items[player].pop("Launch Codes", "")
+        world.options.start_inventory["Launch Codes"] = 1
     elif early_launch == EarlyLaunchCode.option_global:
         world.options.local_items.value.discard("Launch Codes")
 #endregion
-# Personnal Item counts adjustment
+# Personal Item counts adjustment
 #region
     location_count = len(multiworld.get_unfilled_locations(player)) - 1
     item_counts= {}
@@ -389,61 +385,61 @@ def after_create_item(item: ManualItem, world: World, multiworld: MultiWorld, pl
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
 def before_generate_basic(world: World, multiworld: MultiWorld, player: int) -> list:
-#Restore location placed items
-#region
-    if APMiscData["KnownPlayers"][0] != player and APMiscData[player]["SafeGen"] == False:
-        RemovedPlacedItems = APWorkingData.get('RM_place_item', {})
-        RemovedPlacedItemsCategory = APWorkingData.get('RM_place_item_cat', {})
-        if RemovedPlacedItems or RemovedPlacedItemsCategory:
-            readded_place_item_Count = 0
-            locationstoCheck = {}
-            locationstoCheck.update(RemovedPlacedItems)
-            locationstoCheck.update(RemovedPlacedItemsCategory)
-            for location in locationstoCheck:
-                if location in world.location_names:
-                    worldlocation = world.location_name_to_location[location]
-                    if location in RemovedPlacedItemsCategory:
-                        worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
-                        APWorkingData['RM_place_item_cat'].pop(location)
-                    if location in RemovedPlacedItems:
-                        worldlocation["place_item"] = RemovedPlacedItems[location]
-                        APWorkingData['RM_place_item'].pop(location)
-                    if "place_item" in worldlocation or "place_item_category" in worldlocation:
-                        readded_place_item_Count += 1
-            if readded_place_item_Count > 0:
-                if APMiscData["043Compatible"]:
-                    multiworld.clear_location_cache()
-                logger.debug(f"ReAdded placed item info to {readded_place_item_Count} locations.")
-#endregion
-    randomContent = world.options.randomized_content
-    if randomContent == RandomContent.option_dlc:
-        if not APMiscData[player]["SafeGen"]:
-            if not APWorkingData.get('RM_place_item_cat', {}):
-                APWorkingData['RM_place_item_cat'] = {}
-            worldlocation = world.location_name_to_location["Get in the ship for the first time"]
-            APWorkingData['RM_place_item_cat'][worldlocation['name']] = copy(worldlocation["place_item_category"])
-            worldlocation.pop("place_item_category", "")
+# #Restore location placed items
+# #region
+#     if APMiscData["KnownPlayers"][0] != player and APMiscData[player]["SafeGen"] == False:
+#         RemovedPlacedItems = APWorkingData.get('RM_place_item', {})
+#         RemovedPlacedItemsCategory = APWorkingData.get('RM_place_item_cat', {})
+#         if RemovedPlacedItems or RemovedPlacedItemsCategory:
+#             reAdded_place_item_Count = 0
+#             locations_to_check = {}
+#             locations_to_check.update(RemovedPlacedItems)
+#             locations_to_check.update(RemovedPlacedItemsCategory)
+#             for location in locations_to_check:
+#                 if location in world.location_names:
+#                     worldlocation = world.location_name_to_location[location]
+#                     if location in RemovedPlacedItemsCategory:
+#                         worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
+#                         APWorkingData['RM_place_item_cat'].pop(location)
+#                     if location in RemovedPlacedItems:
+#                         worldlocation["place_item"] = RemovedPlacedItems[location]
+#                         APWorkingData['RM_place_item'].pop(location)
+#                     if "place_item" in worldlocation or "place_item_category" in worldlocation:
+#                         reAdded_place_item_Count += 1
+#             if reAdded_place_item_Count > 0:
+#                 if APMiscData["043Compatible"]:
+#                     multiworld.clear_location_cache()
+#                 logger.debug(f"ReAdded placed item info to {reAdded_place_item_Count} locations.")
+# #endregion
+#     randomContent = world.options.randomized_content
+#     if randomContent == RandomContent.option_dlc:
+#         if not APMiscData[player]["SafeGen"]:
+#             if not APWorkingData.get('RM_place_item_cat', {}):
+#                 APWorkingData['RM_place_item_cat'] = {}
+#             worldlocation = world.location_name_to_location["Get in the ship for the first time"]
+#             APWorkingData['RM_place_item_cat'][worldlocation['name']] = copy(worldlocation["place_item_category"])
+#             worldlocation.pop("place_item_category", "")
 
-# Remove place category if required
-#region
-    do_place_item_category = world.options.do_place_item_category.value
-    if not APMiscData[player]["SafeGen"]:
-        if not do_place_item_category:
-            extra_data = load_data_file("extra.json")
-            if 'RM_place_item_cat' not in APWorkingData:
-                APWorkingData["RM_place_item_cat"] = {}
-            if 'RM_place_item' not in APWorkingData:
-                APWorkingData["RM_place_item"] = {}
-            for location in list(extra_data["no_place_item_category"]["locations"]):
-                if location in world.location_name_to_location:
-                    worldlocation = world.location_name_to_location[location]
-                    if "place_item_category" in worldlocation:
-                        APWorkingData['RM_place_item_cat'][location] = copy(worldlocation["place_item_category"])
-                        worldlocation.pop("place_item_category", "")
-            if APMiscData["043Compatible"]:
-                multiworld.clear_location_cache()
+# # Remove place category if required
+# #region
+#     do_place_item_category = world.options.do_place_item_category.value
+#     if not APMiscData[player]["SafeGen"]:
+#         if not do_place_item_category:
+#             extra_data = load_data_file("extra.json")
+#             if 'RM_place_item_cat' not in APWorkingData:
+#                 APWorkingData["RM_place_item_cat"] = {}
+#             if 'RM_place_item' not in APWorkingData:
+#                 APWorkingData["RM_place_item"] = {}
+#             for location in list(extra_data["no_place_item_category"]["locations"]):
+#                 if location in world.location_name_to_location:
+#                     worldlocation = world.location_name_to_location[location]
+#                     if "place_item_category" in worldlocation:
+#                         APWorkingData['RM_place_item_cat'][location] = copy(worldlocation["place_item_category"])
+#                         worldlocation.pop("place_item_category", "")
+#             if APMiscData["043Compatible"]:
+#                 multiworld.clear_location_cache()
 
-#endregion
+# #endregion
     pass
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs

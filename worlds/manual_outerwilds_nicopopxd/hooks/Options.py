@@ -72,6 +72,7 @@ class EarlyLaunchCode(Choice):
     option_local = 1
     option_global = 2
     option_anywhere = 0
+    option_startswith = 3
     default = 1
 
 
@@ -103,6 +104,7 @@ class Goal(Choice):
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
+    default = "Should Be Detected"
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
