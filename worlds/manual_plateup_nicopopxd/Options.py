@@ -1,7 +1,9 @@
-from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, PerGameCommonOptions
+from Options import FreeText, NumericOption, Toggle, DefaultOnToggle, Choice, TextChoice, Range, NamedRange, PerGameCommonOptions, DeathLink
 from dataclasses import make_dataclass
 from .hooks.Options import before_options_defined, after_options_defined
-from .Data import category_table
+from .Data import category_table, game_table
+from .Locations import victory_names
+from .Items import item_table
 
 
 class FillerTrapPercent(Range):
@@ -10,7 +12,26 @@ class FillerTrapPercent(Range):
 
 manual_options = before_options_defined({})
 
-manual_options["filler_traps"] = FillerTrapPercent
+if len(victory_names) > 1:
+    goal = {'option_' + v: i for i, v in enumerate(victory_names)}
+    docstring = "Choose your victory condition."
+    defaultvalue = 0
+    if manual_options.get('goal'): 
+    #Grab existing Goal option and make alias out of it's values
+        for alias, value in manual_options.get('goal').options.items():
+            goal[f"alias_{alias}"] = value
+        docstring = manual_options.get('goal').__doc__
+        defaultvalue = manual_options.get('goal').default
+    manual_options['goal'] = type('goal', (Choice,), goal)
+    manual_options['goal'].__doc__ = docstring
+    manual_options['goal'].default = defaultvalue
+
+
+if any(item.get('trap') for item in item_table):
+    manual_options["filler_traps"] = FillerTrapPercent
+
+if game_table.get("death_link"):
+    manual_options["death_link"] = DeathLink
 
 for category in category_table:
     for option_name in category_table[category].get("yaml_option", []):
