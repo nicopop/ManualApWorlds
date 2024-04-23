@@ -284,7 +284,7 @@
 		"region": "Giant's Deep",
 		"CreateEvent": true,
 		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
-		"requires": [ "Counter-Clockwise Tornadoes", "Jellyfishes" ],
+		"requires":  "|Counter-Clockwise Tornadoes| and |Jellyfishes|",
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
@@ -744,7 +744,7 @@
 		"name": "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
 		"CreateEvent": true,
-		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
+		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|EYE > Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
 		"category": [ "94 - Subterranean Lake", "DLC - Eye" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
@@ -759,7 +759,7 @@
 		"category": [ "0 - Finale"]
 	},
 	{
-		"name": "Any%",
+		"name": "Vanilla%",
 		"region": "Dark Bramble",
 		"victory": true,
 		"requires": "[5 - Get to the Vessel] and [4 - See the Coords] and |@Base Need For End:2|",
@@ -768,7 +768,7 @@
 	{
 		"name": "Prisoner%",
 		"region": "Subterranean Lake",
-		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
+		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|EYE > Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
 		"category": [ "94 - Subterranean Lake"],
 		"victory": true
 	},

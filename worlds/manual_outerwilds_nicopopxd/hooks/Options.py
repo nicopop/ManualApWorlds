@@ -79,7 +79,7 @@ class EarlyLaunchCode(Choice):
 class Goal(Choice):
     """Where do you want to end,
     standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
-    Any% aka eye: Will require going to the eye.
+    Vanilla% aka eye: Will require going to the eye.
     Prisoner% aka prisoner: Will end after talking to the prisoner
     GhostsInTheMachine% aka visit_all_archive: Will End by visiting all the archive in a single loop without being caught
     BreakSpaceTimeInATP% aka ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.

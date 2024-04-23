@@ -69,23 +69,22 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     APMiscData[player] = {}
     goal = world.options.goal
     randomcontent = world.options.randomized_content.value
+    #Options Check for impossibilities
     if randomcontent == RandomContent.option_both:
         if goal == Goal.option_standard: goal.value = Goal.option_eye
 
-    #Options Check for impossibilities
     elif randomcontent == RandomContent.option_base_game:
         world.options.require_prisoner.value = 0
         if goal == Goal.option_standard: goal.value = Goal.option_eye
-        if goal == Goal.option_prisoner: goal.value = Goal.default #impossible option
-        elif goal == Goal.option_visit_all_archive: goal.value = Goal.default #impossible option
-        elif goal == Goal.option_stuck_in_stranger: goal.value = Goal.default #impossible option
-        elif goal == Goal.option_stuck_in_dream: goal.value = Goal.default #impossible option
+        elif goal == Goal.option_prisoner: goal.value = Goal.option_eye #impossible option
+        elif goal == Goal.option_visit_all_archive: goal.value = Goal.option_eye #impossible option
+        elif goal == Goal.option_stuck_in_stranger: goal.value = Goal.option_eye #impossible option
+        elif goal == Goal.option_stuck_in_dream: goal.value = Goal.option_eye #impossible option
         world.options.enable_spooks.value = 1 #Set to True to skip some code later
         world.options.dlc_access_items.value = 0
 
     elif randomcontent == RandomContent.option_dlc:
-        if goal == Goal.option_standard:
-            goal.value = Goal.option_prisoner
+        if goal == Goal.option_standard: goal.value = Goal.option_prisoner
 
     # #Is it safe to skip some code
     # APMiscData[player]["SafeGen"] = False #value for first run
@@ -163,6 +162,7 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
         locations_to_be_removed.append('9 - In a loop visit all 3 archive without getting caught')
 
     if goal == Goal.option_prisoner:
+
         locations_to_be_removed.append('94 - Enter the Sealed Vault in the Subterranean Lake Dream')
 
     #endregion
@@ -340,7 +340,7 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
             if solanum:
                 add_rule(location,
                          lambda state: state.has("[Event] 6 - Communicate with Solanum", player))
-            if owlguy:
+            if owlguy and goal != Goal.option_prisoner:
                 add_rule(location,
                          lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
 #endregion
