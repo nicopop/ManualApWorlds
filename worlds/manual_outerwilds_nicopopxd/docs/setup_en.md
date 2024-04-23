@@ -8,6 +8,8 @@
     <p align="center">v6.2.0</p>
 </p>
 
+Last-Updated 2024-04-23 (yyyy-mm-dd)
+
 ***A star/asterisk (\*) next to a line mean recommended.***
 
 ## Required Software
