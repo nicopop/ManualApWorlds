@@ -22,7 +22,7 @@
 		"name": "Get in the ship for the first time",
 		"region": "Tutorial",
 		"category": [ "0 - Beginning", "do_place_item_category" ],
-		"requires": [ "Launch Codes" ],
+		"requires": "|Launch Codes|",
 		"place_item_category": [ "3b Signals" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
@@ -30,7 +30,7 @@
 		"name": "Get in the ship for the first time.",
 		"region": "Tutorial",
 		"category": [ "0 - Beginning", "no_place_item_category" ],
-		"requires": [ "Launch Codes" ],
+		"requires": "|Launch Codes|",
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
@@ -58,30 +58,18 @@
 	},
 
 	{
-		"name": "1 - Visit > Get in the Ash Twin Project",
+		"name": "1 - Get in the Ash Twin Project",
 		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
 		"requires": [ "Teleporters" ],
-		"place_item": [ "Seen Adv. warp core" ]
-	},
-	{
-		"name": "1 - Item > Get in the Ash Twin Project",
-		"region": "Ash Twin",
-		"category": [ "1 - Ash Twin", "Base Game", "need_warpdrive" ],
-		"requires": [ "Seen Adv. warp core" ],
+		"CreateEvent": true,
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
 		"name": "1 - Break Space-Time in the Ash Twin Project",
 		"region": "Ash Twin",
 		"category": [ "1 - Ash Twin", "Base Game" ],
-		"requires": "|Seen Adv. warp core|"
-	},
-	{
-		"name": "FINAL > Break Space-Time in the Ash Twin Project",
-		"region": "Ash Twin",
-		"category": [ "0 - Finale", "1 - Ash Twin", "Win_ATP_break_spacetime" ],
-		"requires": "|Seen Adv. warp core|"
+		"requires": "[1 - Get in the Ash Twin Project]"
 	},
 	{
 		"name": "1 - Get to the sun station",
@@ -112,12 +100,6 @@
 		"name": "1 - Break space time in the lab",
 		"region": "Ember Twin",
 		"category": [ "1 - Ember Twin", "Base Game" ],
-		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
-	},
-	{
-		"name": "FINAL > Break space time in the lab",
-		"region": "Ember Twin",
-		"category": [ "0 - Finale", "1 - Ember Twin", "Win_HEL_break_spacetime" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
 	},
 	{
@@ -172,9 +154,9 @@
 		"requires": [ "Signaloscope" ]
 	},
 	{
-		"name": "2 - Bring an artifact back to the museum",
+		"name": "2 - Bring a core back to the museum",
 		"region": "Timber Hearth",
-		"requires": "(|Seen Adv. warp core| and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
+		"requires": "([1 - Get in the Ash Twin Project] and |Adv. warp core|) or (|Signaloscope| and |Signal > Distress|)",
 		"category": [ "2 - Timber Hearth", "Base Game" ]
 	},
 	{
@@ -298,17 +280,11 @@
 		"requires": [ "Counter-Clockwise Tornadoes", "Jellyfishes" ]
 	},
 	{
-		"name": "4 - Reveal the Coords in the probe tracking module",
+		"name": "4 - See the Coords",
 		"region": "Giant's Deep",
+		"CreateEvent": true,
 		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
 		"requires": [ "Counter-Clockwise Tornadoes", "Jellyfishes" ],
-		"place_item": [ "Seen Coords" ]
-	},
-	{
-		"name": "4 - See the Coords to the eye",
-		"region": "Giant's Deep",
-		"category": [ "4 - Giant's Deep", "Base Game", "Win_Eye" ],
-		"requires": [ "Seen Coords" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
@@ -327,6 +303,7 @@
 	{
 		"name": "5 - Get to the Vessel",
 		"region": "Dark Bramble",
+		"CreateEvent": true,
 		"category": [ "5 - Dark Bramble", "Base Game", "Win_Eye" ],
 		"requires": "|Signaloscope| and |Signal > Distress| and |Scout| and |Scout Photos| and |Anglerfish Biology|"
 	},
@@ -351,17 +328,11 @@
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos" ]
 	},
 	{
-		"name": "6 - Communicate with Solanum > visit",
+		"name": "6 - Communicate with Solanum",
 		"region": "Quantum Trials",
+		"CreateEvent": true,
 		"category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
 		"requires": [ "Quantum Rule > imaging", "Scout", "Scout Photos", "Quantum Rule > entanglement", "Quantum Rule > sixth location" ],
-		"place_item": [ "Seen Solanum" ]
-	},
-	{
-		"name": "6 - Communicate with Solanum > item",
-		"region": "Quantum Trials",
-		"category": [ "6 - Quantum Moon", "Base Game", "require_solanum" ],
-		"requires": [ "Seen Solanum" ],
 		"dont_place_item_category": [ "2b Trap" ]
 	},
 	{
@@ -421,39 +392,8 @@
 	},
 
 	{
-		"name": "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye",
-		"region": "Dark Bramble",
-		"requires": "|@Base Need For End:7| and |@Base Game Main Progression:4|",
-		"category": [ "0 - Finale", "Base Game", "Win_Eye"]
-	},
-	{
-		"name": "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon",
-		"region": "Quantum Trials",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core| and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
-		"category": [ "0 - Finale", "6 - Quantum Moon", "Win_solanum" ]
-	},
-	{
-		"name": "FINAL > Get the Adv. warp core to the Stranger and wait until Credits",
-		"region": "The Stranger",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core|",
-		"category": ["0 - Finale", "8 - The Stranger"]
-	},
-	{
-		"name": "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld",
-		"region": "DreamWorld General",
-		"requires": "|Adv. warp core| and |Seen Adv. warp core|",
-		"category": ["0 - Finale", "9 - DreamWorld General"]
-	},
-
-	{
-		"name": "Credits",
-		"victory": true,
-		"region": "Tutorial",
-		"requires": [ "Victory Token" ]
-	},
-
-	{
 		"name": "8 - Get in the stranger",
+		"CreateEvent": true,
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger", "DLC - Eye" ]
 	},
@@ -541,13 +481,13 @@
 		"name": "8 - Get in Abandoned temple's secret basement",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger", "DLC - Eye" ],
-		"requires": [ "EYE > Abandoned temple code", "Visited CodeVault" ]
+		"requires": "|EYE > Abandoned temple code| and [8 - Get in the Code Vault]"
 	},
 	{
 		"name": "8 - Find the broken connection diagram in the reservoir area",
 		"region": "The Stranger",
 		"category": [ "8 - The Stranger", "DLC - Eye" ],
-		"requires": "|EYE > Broken Interface room code| and ((|Scout| and |Scout Photos|) or |Visited CodeVault|)"
+		"requires": "|EYE > Broken Interface room code| and ((|Scout| and |Scout Photos|) or [8 - Get in the Code Vault])"
 	},
 	{
 		"name": "8 - Find the stranger trajectory diagram in the reservoir area",
@@ -620,15 +560,9 @@
 	},
 	{
 		"name": "9 - In a loop visit all 3 archive without getting caught",
-		"region": "DreamWorld General",
-		"requires": "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|",
+		"region": "All Archive",
+		"requires": "",
 		"category": [ "9 - DreamWorld General", "DLC - Eye" ]
-	},
-	{
-		"name": "FINAL > In a loop visit all 3 archive without getting caught",
-		"region": "DreamWorld General",
-		"requires": "|Visited Shrouded Woodlands Archive| and |Visited Starlit Cove Archive| and |Visited Endless Canyon Archive|",
-		"category": [ "0 - Finale", "9 - DreamWorld General", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Enter the Shrouded Woodlands Dream",
@@ -647,20 +581,19 @@
 	},
 	{
 		"name": "91 - Get in the Forbidden Archive of the Shrouded Woodlands",
-		"region": "Shrouded Woodlands Archive",
-		"place_item": [ "Visited Shrouded Woodlands Archive" ],
+		"region": "Shrouded Woodlands",
+		"CreateEvent": true,
+		"requires": "(|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|EYE > River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Watch the Loading Glitch Slide",
 		"region": "Shrouded Woodlands Archive",
-		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
 	{
 		"name": "91 - Discover the burned code",
 		"region": "Shrouded Woodlands Archive",
-		"requires": "|Visited Shrouded Woodlands Archive|",
 		"category": [ "91 - Shrouded Woodlands", "DLC - Eye" ]
 	},
 	{
@@ -680,49 +613,46 @@
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
-		"name": "8 - Get in the Code Vault and see the codes > visit",
+		"name": "8 - Get in the Code Vault",
 		"region": "Starlit Cove",
+		"CreateEvent": true,
 		"requires": "|DreamWorld Door Candles|",
-		"place_item": [ "Visited CodeVault" ],
+		"dont_place_item_category": [ "2b Trap" ],
 		"category": [ "8 - The Stranger", "DLC - Eye" ]
 	},
 	{
-		"name": "8 - Get in the Code Vault and see the codes > item",
+		"name": "92 - Lights on - Get in the Forbidden Archive of the Starlit Cove",
 		"region": "Starlit Cove",
-		"requires": "|Visited CodeVault|",
-		"category": [ "8 - The Stranger", "DLC - Eye" ]
-	},
-	{
-		"name": "92 - [Lights on] Get in the Forbidden Archive of the Starlit Cove",
-		"region": "Starlit Cove Archive",
+		"CreateEvent": true,
 		"requires": "|DreamWorld Door Candles| and |DreamWorld Death Glitch|",
-		"place_item": [ "Visited Starlit Cove Archive" ],
+		"dont_place_item_category": [ "2b Trap" ],
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
-		"name": "92 - [Lights out] Sneak in the Forbidden Archive of the Starlit Cove",
-		"region": "Starlit Cove Archive",
+		"name": "92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove",
+		"region": "Starlit Cove",
+		"CreateEvent": true,
 		"requires": "|DreamWorld Door Candles| and |DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|",
-		"place_item": [ "Visited Starlit Cove Archive" ],
+		"dont_place_item_category": [ "2b Trap" ],
 		"category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
 	},
 	{
 		"name": "92 - Bonus item if you go in both ways to the Forbidden Archive of the Starlit Cove",
 		"region": "Starlit Cove Archive",
-		"requires": "|Visited Starlit Cove Archive:2|",
+		"requires": "[92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] and [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]",
 		"category": [ "92 - Starlit Cove", "DLC - Eye", "DLC - Spooky" ]
 	},
 
 	{
 		"name": "92 - Watch the Death Glitch Slide",
 		"region": "Starlit Cove Archive",
-		"requires": "|Visited Starlit Cove Archive|",
+		"requires": "",
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
 		"name": "92 - Discover the burned code",
 		"region": "Starlit Cove Archive",
-		"requires": "|Visited Starlit Cove Archive|",
+		"requires": "",
 		"category": [ "92 - Starlit Cove", "DLC - Eye" ]
 	},
 	{
@@ -736,53 +666,55 @@
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
-		"name": "93 - [Lights on] Make the bridge appear inside the mansion",
+		"name": "93 - Lights on - Make the bridge appear inside the mansion",
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ],
 		"requires": "|DreamWorld Grabbing Hands|"
 	},
 	{
-		"name": "93 - [Lights out] Make the bridge appear inside the mansion",
+		"name": "93 - Lights out - Make the bridge appear inside the mansion",
 		"region": "Endless Canyon",
 		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ],
 		"requires": "|DreamWorld Grabbing Hands| and (|DreamWorld Render Glitch| or |DreamWorld Fake Wall|)"
 	},
 	{
-		"name": "93 - [Lights out] Get the 1 / 900 achievement",
+		"name": "93 - Lights out - Get the 1 / 900 achievement",
 		"region": "Endless Canyon",
 		"requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
 		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
 	},
 	{
 		"name": "93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon",
-		"region": "Endless Canyon Archive",
+		"region": "Endless Canyon",
+		"CreateEvent": true,
 		"requires": "|DreamWorld Render Glitch|",
-		"place_item": [ "Visited Endless Canyon Archive" ],
+		"dont_place_item_category": [ "2b Trap" ],
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
 		"name": "93 - Sneak the long way in the Forbidden Archive of the Endless Canyon",
 		"region": "Endless Canyon Archive",
+		"CreateEvent": true,
 		"requires": "(|DreamWorld Render Glitch| or |DreamWorld Fake Wall|) and |DreamWorld Grabbing Hands|",
-		"place_item": [ "Visited Endless Canyon Archive" ],
+		"dont_place_item_category": [ "2b Trap" ],
 		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
 	},
 	{
 		"name": "93 - Bonus item if you go in both ways to the Forbidden Archive of the Endless Canyon",
 		"region": "Endless Canyon Archive",
-		"requires": "|Visited Endless Canyon Archive:2|",
+		"requires": "[93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] and [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon]",
 		"category": [ "93 - Endless Canyon", "DLC - Eye", "DLC - Spooky" ]
 	},
 	{
 		"name": "93 - Watch the Render Glitch Slide",
 		"region": "Endless Canyon Archive",
-		"requires": "|Visited Endless Canyon Archive|",
+		"requires": "",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
 		"name": "93 - Discover the burned code",
 		"region": "Endless Canyon Archive",
-		"requires": "|Visited Endless Canyon Archive| and |DreamWorld Render Glitch|",
+		"requires": "|DreamWorld Render Glitch|",
 		"category": [ "93 - Endless Canyon", "DLC - Eye" ]
 	},
 	{
@@ -811,14 +743,75 @@
 	{
 		"name": "94 - Enter the Sealed Vault in the Subterranean Lake Dream",
 		"region": "Subterranean Lake",
+		"CreateEvent": true,
 		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
 		"category": [ "94 - Subterranean Lake", "DLC - Eye" ],
-		"place_item": [ "Seen Prisoner" ]
+		"dont_place_item_category": [ "2b Trap" ]
+	},
+
+
+
+	{
+		"name": "Standard",
+		"_comment": "Only there so its an option, it will get changed to Any% or Prisoner% automatically",
+		"victory": true,
+		"requires": "[5 - Get to the Vessel] and [4 - See the Coords] and |@Base Need For End:2|",
+		"category": [ "0 - Finale"]
 	},
 	{
-		"name": "94 - Communicate with the prisoner in the Subterranean Lake Dream",
+		"name": "Any%",
+		"region": "Dark Bramble",
+		"victory": true,
+		"requires": "[5 - Get to the Vessel] and [4 - See the Coords] and |@Base Need For End:2|",
+		"category": [ "0 - Finale"]
+	},
+	{
+		"name": "Prisoner%",
 		"region": "Subterranean Lake",
-		"requires": "|Seen Prisoner|",
-		"category": [ "94 - Subterranean Lake", "DLC - Eye" ]
+		"requires": "(|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|) or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)",
+		"category": [ "94 - Subterranean Lake"],
+		"victory": true
+	},
+	{
+		"name": "Ghosts_In_The_Machine%",
+		"victory": true,
+		"region": "All Archive",
+		"requires": "",
+		"category": [ "0 - Finale", "9 - DreamWorld General"]
+	},
+	{
+		"name": "Break_Space-Time_In_ATP%",
+		"region": "Ash Twin",
+		"category": [ "0 - Finale", "1 - Ash Twin"],
+		"victory": true,
+		"requires": "[1 - Get in the Ash Twin Project]"
+	},
+	{
+		"name": "Break_Space-Time_In_Lab%",
+		"region": "Ember Twin",
+		"victory": true,
+		"category": [ "0 - Finale", "1 - Ember Twin"],
+		"requires": "|Signaloscope| and |Signal > Distress| and |Scout|"
+	},
+	{
+		"name": "Quantum_Stuck%",
+		"victory": true,
+		"region": "Quantum Trials",
+		"requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project] and |Quantum Rule > imaging| and |Scout| and |Scout Photos| and |Quantum Rule > entanglement| and |Quantum Rule > sixth location|",
+		"category": [ "0 - Finale", "6 - Quantum Moon"]
+	},
+	{
+		"name": "Stranger_Stuck%",
+		"victory": true,
+		"region": "The Stranger",
+		"requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project]",
+		"category": ["0 - Finale", "8 - The Stranger"]
+	},
+	{
+		"name": "Dream_Stuck%",
+		"victory": true,
+		"region": "DreamWorld General",
+		"requires": "|Adv. warp core| and [1 - Get in the Ash Twin Project]",
+		"category": ["0 - Finale", "9 - DreamWorld General"]
 	}
 ]

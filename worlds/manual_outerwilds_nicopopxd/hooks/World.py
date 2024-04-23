@@ -67,17 +67,25 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 #region
     APMiscData["KnownPlayers"].append(player)
     APMiscData[player] = {}
+    goal = world.options.goal
+    randomcontent = world.options.randomized_content.value
+    if randomcontent == RandomContent.option_both:
+        if goal == Goal.option_standard: goal.value = Goal.option_eye
 
     #Options Check for impossibilities
-    if world.options.randomized_content.value == RandomContent.option_base_game:
+    elif randomcontent == RandomContent.option_base_game:
         world.options.require_prisoner.value = 0
-        goal = world.options.goal
+        if goal == Goal.option_standard: goal.value = Goal.option_eye
         if goal == Goal.option_prisoner: goal.value = Goal.default #impossible option
         elif goal == Goal.option_visit_all_archive: goal.value = Goal.default #impossible option
         elif goal == Goal.option_stuck_in_stranger: goal.value = Goal.default #impossible option
         elif goal == Goal.option_stuck_in_dream: goal.value = Goal.default #impossible option
         world.options.enable_spooks.value = 1 #Set to True to skip some code later
         world.options.dlc_access_items.value = 0
+
+    elif randomcontent == RandomContent.option_dlc:
+        if goal == Goal.option_standard:
+            goal.value = Goal.option_prisoner
 
     # #Is it safe to skip some code
     # APMiscData[player]["SafeGen"] = False #value for first run
@@ -144,26 +152,19 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
         message = "Both"
     #logger.info(message)
     APMiscData[player]['contentmsg'] = message
-    if goal != Goal.option_stuck_with_solanum:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon")
-    if goal != Goal.option_stuck_in_stranger:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and wait until Credits")
-    if goal != Goal.option_stuck_in_dream:
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld")
-    if (goal != Goal.option_eye and not (goal == Goal.option_standard and randomContent != RandomContent.option_dlc)):
-        locations_to_be_removed.append("FINAL > Get the Adv. warp core to the vessel and Warp to the Eye")
-    if goal != Goal.option_ash_twin_project_break_spacetime:
-        locations_to_be_removed.append('FINAL > Break Space-Time in the Ash Twin Project')
+
     if goal == Goal.option_ash_twin_project_break_spacetime:
         locations_to_be_removed.append('1 - Break Space-Time in the Ash Twin Project')
-    if goal != Goal.option_high_energy_lab_break_spacetime:
-        locations_to_be_removed.append('FINAL > Break space time in the lab')
-    if goal == Goal.option_ash_twin_project_break_spacetime:
+
+    if goal == Goal.option_high_energy_lab_break_spacetime:
         locations_to_be_removed.append('1 - Break space time in the lab')
-    if goal != Goal.option_visit_all_archive:
-        locations_to_be_removed.append('FINAL > In a loop visit all 3 archive without getting caught')
+
     if goal == Goal.option_visit_all_archive:
         locations_to_be_removed.append('9 - In a loop visit all 3 archive without getting caught')
+
+    if goal == Goal.option_prisoner:
+        locations_to_be_removed.append('94 - Enter the Sealed Vault in the Subterranean Lake Dream')
+
     #endregion
 
     #Removing Locations
@@ -206,7 +207,11 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     elif early_launch == EarlyLaunchCode.option_startswith:
         world.options.local_items.value.discard("Launch Codes")
         multiworld.early_items[player].pop("Launch Codes", "")
-        world.options.start_inventory["Launch Codes"] = 1
+
+        item = next((i for i in item_pool if i.player == player and i.name == "Launch Codes"), None)
+        multiworld.push_precollected(item)
+        item_pool.remove(item),
+        world.start_inventory["Launch Codes"] = 1
     elif early_launch == EarlyLaunchCode.option_global:
         world.options.local_items.value.discard("Launch Codes")
 #endregion
@@ -254,41 +259,34 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     if owlguy: VictoryInfoToAdd += " + 'Seen Prisoner'"
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-        victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
         victory_base_message = "Eye"
     elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
-        victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
         victory_base_message = "Prisoner"
     elif goal == Goal.option_visit_all_archive:
-        victory_name = "FINAL > In a loop visit all 3 archive without getting caught"
         victory_base_message = "Visit all archive"
     elif goal == Goal.option_ash_twin_project_break_spacetime:
-        victory_name = "FINAL > Break Space-Time in the Ash Twin Project"
         victory_base_message = "Ash Twin Project"
     elif goal == Goal.option_high_energy_lab_break_spacetime:
-        victory_name = "FINAL > Break space time in the lab"
         victory_base_message = "High Energy Lab"
     elif goal == Goal.option_stuck_with_solanum:
-        victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
         victory_base_message = "Stuck with Solanum"
     elif goal == Goal.option_stuck_in_stranger:
-        victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
         victory_base_message = "Stuck in Stranger"
     elif goal == Goal.option_stuck_in_dream:
-        victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
         victory_base_message = "Stuck in Dreamworld"
     victory_message = victory_base_message + VictoryInfoToAdd
 
-    for item in item_pool:
-        if item.player != player:
-            continue
-        if item.name == "Victory Token":
-            victory_item = item
-            break
-    for location in multiworld.get_unfilled_locations(player):
-        if location.name == victory_name:
-            location.place_locked_item(victory_item)
-    item_pool.remove(victory_item)
+    # for item in item_pool:
+    #     if item.player != player:
+    #         continue
+    #     if item.name == "Victory Token":
+    #         victory_item = item
+    #         break
+    # for location in multiworld.get_unfilled_locations(player):
+    #     if location.name == victory_name:
+    #         location.place_locked_item(victory_item)
+    #         break
+    # item_pool.remove(victory_item)
 
     contentmsg = APMiscData[player]['contentmsg']
     logger.info(f"{world.game}:{multiworld.get_player_name(player)} ({player}):({contentmsg}) {len(item_pool)} items | {location_count} locations")
@@ -321,30 +319,30 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
 #region
 
     if goal == Goal.option_eye or (goal == Goal.option_standard and ( randomContent == RandomContent.option_both or randomContent == RandomContent.option_base_game)):
-        victory_name = "FINAL > Get the Adv. warp core to the vessel and Warp to the Eye"
+        victory_name = "Any%"
     elif goal == Goal.option_prisoner or (goal == Goal.option_standard and randomContent == RandomContent.option_dlc):
-        victory_name = "94 - Communicate with the prisoner in the Subterranean Lake Dream"
+        victory_name = "Prisoner%"
     elif goal == Goal.option_visit_all_archive:
-        victory_name = "FINAL > In a loop visit all 3 archive without getting caught"
+        victory_name = "Ghosts_In_The_Machine%"
     elif goal == Goal.option_ash_twin_project_break_spacetime:
-        victory_name = "FINAL > Break Space-Time in the Ash Twin Project"
+        victory_name = "Break_Space-Time_In_ATP%"
     elif goal == Goal.option_high_energy_lab_break_spacetime:
-        victory_name = "FINAL > Break space time in the lab"
+        victory_name = "Break_Space-Time_In_Lab%"
     elif goal == Goal.option_stuck_with_solanum:
-        victory_name = "FINAL > Get the Adv. warp core and get stuck with Solanum on the Quantum Moon"
+        victory_name = "Quantum_Stuck%"
     elif goal == Goal.option_stuck_in_stranger:
-        victory_name = "FINAL > Get the Adv. warp core to the Stranger and wait until Credits"
+        victory_name = "Stranger_Stuck%"
     elif goal == Goal.option_stuck_in_dream:
-        victory_name = "FINAL > Get the Adv. warp core to the Stranger and die to get in the dreamworld"
+        victory_name = "Dream_Stuck%"
 
-    for location in multiworld.get_unfilled_locations(player):
+    for location in multiworld.get_locations(player):
         if location.name == victory_name:
             if solanum:
                 add_rule(location,
-                         lambda state: state.has("Seen Solanum", player))
+                         lambda state: state.has("[Event] 6 - Communicate with Solanum", player))
             if owlguy:
                 add_rule(location,
-                         lambda state: state.has("Seen Prisoner", player))
+                         lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
 #endregion
 # Add Stranger if required
 #region
@@ -361,7 +359,7 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     #             _add_region_rule(region, "DreamWorld Access")
 #endregion
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
-
+    pass
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
 def after_generate_basic(world: World, multiworld: MultiWorld, player: int):

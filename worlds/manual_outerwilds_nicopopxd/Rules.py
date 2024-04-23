@@ -235,9 +235,10 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
             continue
 
         locFromWorld = multiworld.get_location(location["name"], player)
-        # if location.get("CreateEvent"):
-        #     EventLoc = multiworld.get_location(f"[{location["name"]}]", player)
-        EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
+        EventLoc = None
+        if location.get("CreateEvent"):
+            EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
+        # EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
 
         locationRegion = regionMap[location["region"]] if "region" in location else None
 

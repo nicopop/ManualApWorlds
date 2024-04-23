@@ -43,7 +43,7 @@ class RequirePrisoner(Toggle):
 class do_spooks(DefaultOnToggle):
     """Do you want to enable some of the Spookier DLC locations?"""
     display_name = "ReduceSpooks"
-class MainDlcKnowledge(DefaultOnToggle):
+class MainDlcKnowledge(Toggle):
     """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
     display_name = "Enable Main 2 Dlc Access Items"
 class LocalPlacedItems(DefaultOnToggle):
@@ -52,8 +52,8 @@ class LocalPlacedItems(DefaultOnToggle):
 
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
-    Base Game: disable the dlc and set require_prisoner to false
-    DLC: disable every optionnal location but allows require_solanum
+    Base Game: disable the dlc
+    DLC: disable every base game locations except for those needed by the goal
     both(default): everything's allowed
     """
     display_name = "Randomized content"
@@ -79,14 +79,14 @@ class EarlyLaunchCode(Choice):
 class Goal(Choice):
     """Where do you want to end,
     standard(default): for dlc only will end on prisoner, for base and base+dlc will end at the eye.
-    eye: Will require going to the eye.
-    prisoner: Will end after talking to the prisonner
-    visit_all_archive: Will End by visiting all the archive in a single loop without being caught
-    ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.
-    high_energy_lab_break_spacetime: Require going to the high energy lab and break spacetime there.
-    stuck_with_solanum: Get the Adv. warp core to Solanum and wait for Credits.
-    stuck_in_stranger: Get the Adv. warp core to the Stranger and wait for Credits.
-    stuck_in_dream: Get the Adv. warp core to the Stranger and die to get to the Dreamworld.
+    Any% aka eye: Will require going to the eye.
+    Prisoner% aka prisoner: Will end after talking to the prisoner
+    GhostsInTheMachine% aka visit_all_archive: Will End by visiting all the archive in a single loop without being caught
+    BreakSpaceTimeInATP% aka ash_twin_project_break_spacetime: Require going to the ash twin project and break spacetime there.
+    BreakSpaceTimeInLab% aka high_energy_lab_break_spacetime: Require going to the high energy lab and break spacetime there.
+    QuantumStuck% aka stuck_with_solanum: Get the Adv. warp core to Solanum and wait for Credits.
+    StrangerStuck% aka stuck_in_stranger: Get the Adv. warp core to the Stranger and wait for Credits.
+    DreamStuck% aka stuck_in_dream: Get the Adv. warp core to the Stranger and die to get to the Dreamworld.
     """
     display_name = "Goal"
     option_standard = 0

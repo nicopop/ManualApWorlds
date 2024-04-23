@@ -6,7 +6,7 @@
     "starting": true
   },
   "Space": {
-    "requires": [ "Launch Codes" ],
+    "requires": "|Launch Codes|",
     "connects_to": [ "Ember Twin", "Ash Twin", "Timber Hearth", "Brittle Hollow", "Giant's Deep", "Dark Bramble", "Quantum Trials", "Interloper", "The Stranger" ]
   },
   "Ash Twin": {
@@ -35,7 +35,7 @@
   },
   "Quantum Trials": {
     "_comment": "Contains everything Quantum related",
-    "requires": [ "Signal > Quantum", "Signaloscope" ],
+    "requires": "|Signal > Quantum| and |Signaloscope|",
     "connects_to": []
   },
   "Interloper": {
@@ -49,7 +49,7 @@
     "connects_to": ["DreamWorld General"]
   },
   "DreamWorld General": {
-    "_comment": "Contains locations that doesnt belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
+    "_comment": "Contains locations that doesn't belong to any specific Dreamworld (like the river or just entering the dreamworld in general)",
     "requires": "|@DLC Flame:1| and {OptOne(|DreamWorld Access|)}",
     "connects_to": [ "Subterranean Lake", "Shrouded Woodlands Archive", "Shrouded Woodlands", "Starlit Cove", "Endless Canyon" ]
   },
@@ -58,23 +58,27 @@
     "connects_to": ["Shrouded Woodlands Archive", "Subterranean Lake", "Starlit Cove", "Endless Canyon" ]
   },
   "Shrouded Woodlands Archive": {
-    "requires": "(|DreamWorld Loading Glitch| and (|EYE > River Lowlands Flame| or (|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|)) )) or (|EYE > River Lowlands Flame| and |DreamWorld Fake Fireplace| and ((|EYE > Cinder Isles Flame| and |DreamWorld Door Candles|) or (|EYE > Hidden Gorge Flame| and (|DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))))",
-    "connects_to": []
+    "requires": "[91 - Get in the Forbidden Archive of the Shrouded Woodlands]",
+    "connects_to": ["All Archive"]
   },
   "Starlit Cove": {
     "requires": "|EYE > Cinder Isles Flame|",
     "connects_to": ["Starlit Cove Archive", "Subterranean Lake", "Shrouded Woodlands", "Endless Canyon" ]
   },
   "Starlit Cove Archive": {
-    "requires": "|DreamWorld Door Candles| and (|DreamWorld Death Glitch| or (|DreamWorld Grabbing Hands| and |DreamWorld Hidden Hand|))",
-    "connects_to": []
+    "requires": "[92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] or [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]",
+    "connects_to": ["All Archive"]
   },
   "Endless Canyon": {
     "requires": "|EYE > Hidden Gorge Flame|",
     "connects_to": ["Endless Canyon Archive",  "Subterranean Lake", "Shrouded Woodlands", "Starlit Cove" ]
   },
   "Endless Canyon Archive": {
-    "requires": "|DreamWorld Render Glitch| or (|DreamWorld Fake Wall| and ( |DreamWorld Render Glitch| or |DreamWorld Grabbing Hands|))",
+    "requires": "[93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] or [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon]",
+    "connects_to": ["All Archive"]
+  },
+  "All Archive": {
+    "requires": "[91 - Get in the Forbidden Archive of the Shrouded Woodlands] and ([92 - Lights on - Get in the Forbidden Archive of the Starlit Cove] or [92 - Lights out - Sneak in the Forbidden Archive of the Starlit Cove]) and ([93 - Sneak the easy way in the Forbidden Archive of the Endless Canyon] or [93 - Sneak the long way in the Forbidden Archive of the Endless Canyon])",
     "connects_to": []
   },
   "Subterranean Lake": {
