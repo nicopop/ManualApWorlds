@@ -18,7 +18,7 @@ def locality_needed(world: MultiWorld) -> bool:
     for player in world.player_ids:
         if world.worlds[player].options.local_items.value:
             return True
-        if world.worlds[player].options.local_items.value:
+        if world.worlds[player].options.non_local_items.value:
             return True
 
     # Group
@@ -90,7 +90,7 @@ def exclusion_rules(multiworld: MultiWorld, player: int, exclude_locations: typi
             if loc_name not in multiworld.worlds[player].location_name_to_id:
                 raise Exception(f"Unable to exclude location {loc_name} in player {player}'s world.") from e
         else:
-            if not location.event:
+            if not location.advancement:
                 location.progress_type = LocationProgressType.EXCLUDED
             else:
                 logging.warning(f"Unable to exclude location {loc_name} in player {player}'s world.")
