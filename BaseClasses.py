@@ -1025,6 +1025,10 @@ class Location:
         return self.item is not None and self.item.advancement
 
     @property
+    def event(self) -> bool:
+        return self.advancement
+
+    @property
     def is_event(self) -> bool:
         """Returns True if the address of this location is None, denoting it is an Event Location."""
         return self.address is None
