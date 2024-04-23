@@ -14,7 +14,7 @@ from ..Data import load_data_file
 from ..Data import game_table, item_table, location_table, region_table
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
-from ..Helpers import is_option_enabled, get_option_value
+from ..Helpers import is_option_enabled, get_option_value, get_items_with_value
 
 import logging
 import math
@@ -24,11 +24,6 @@ logger = logging.getLogger()
 APMiscData = {}
 """Miscellaneous shared data"""
 APMiscData["KnownPlayers"] = []
-APOptions = {}
-"""
-Player options:
-To access option value: PPOptions[player]["optionName"]
-"""
 APWorkingData = {}
 """
 Copy of any changed world item/locations
@@ -53,7 +48,7 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     if hasattr(world, 'options'):
         world.hasOptionsManager = True
     else:
-        world.hasOptionsManager = False
+        raise Exception("Sorry I no longer support AP before the Options Manager")
     # Set version in yaml and log
     if not APMiscData.get('version'):
         APMiscData['version'] = "Unknown"
@@ -66,19 +61,16 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
             APMiscData['043Compatible'] = True
 
         logger.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
-    if world.hasOptionsManager:
-        world.options.game_version.value = APMiscData["version"]
-    else:
-        multiworld.game_version[player].value = APMiscData["version"]
+
+    world.options.game_version.value = APMiscData["version"]
 #Init Options
 #region
     APMiscData["KnownPlayers"].append(player)
-    # APOptions[player] = {}
     APMiscData[player] = {}
     APMiscData[player]['name'] = multiworld.get_player_name(player)
 
     if world.hasOptionsManager:
-        #Options Check for imposibities
+        #Options Check for impossibilities
         for i in range(world.options.host_level.value + 1, 16):
             recipes = extra_data.get("Options").get(f"level_{i}", [])
             for recipe in recipes:
@@ -97,7 +89,6 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
         #     CurOptions = world.options
         #     APMiscData[player]["SafeGen"] = True
         #     logger.debug(f'SafeGen for player {player} set to {APMiscData[player]["SafeGen"]}')
-        # APOptions.pop(player)
 
 #endregion
 
