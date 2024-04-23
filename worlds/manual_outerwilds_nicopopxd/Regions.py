@@ -63,11 +63,13 @@ def create_region(world: World, multiworld: MultiWorld, player: int, name: str, 
             loc_id = world.location_name_to_id.get(location, 0)
             locationObj = ManualLocation(player, location, loc_id, ret)
             ret.locations.append(locationObj)
-            eventLocationObj = ManualLocation(player,"[Event] "+location,None,ret)
-            eventLocationObj.show_in_spoiler = False
-            eventItemOjb = ManualItem("[Event] "+location,ItemClassification.progression, None, player)
-            eventLocationObj.place_locked_item(eventItemOjb)
-            ret.locations.append(eventLocationObj)
+
+            if loc_id and world.location_name_to_location[location].get("CreateEvent", False):
+                eventLocationObj = ManualLocation(player,"[Event] "+location,None,ret)
+                eventLocationObj.show_in_spoiler = False
+                eventItemOjb = ManualItem("[Event] "+location,ItemClassification.progression, None, player)
+                eventLocationObj.place_locked_item(eventItemOjb)
+                ret.locations.append(eventLocationObj)
     if exits:
         for exit in exits:
             ret.exits.append(Entrance(player, getConnectionName(name, exit), ret))

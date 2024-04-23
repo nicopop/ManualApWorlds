@@ -16,7 +16,8 @@ if len(victory_names) > 1:
     goal = {'option_' + v: i for i, v in enumerate(victory_names)}
     docstring = "Choose your victory condition."
     defaultvalue = 0
-    if manual_options.get('goal'):
+    if manual_options.get('goal'): 
+    #Grab existing Goal option and make alias out of it's values
         for alias, value in manual_options.get('goal').options.items():
             goal[f"alias_{alias}"] = value
         docstring = manual_options.get('goal').__doc__
