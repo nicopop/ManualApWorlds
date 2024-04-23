@@ -16,9 +16,9 @@ else:
 
 def locality_needed(world: MultiWorld) -> bool:
     for player in world.player_ids:
-        if world.local_items[player].value:
+        if world.worlds[player].options.local_items.value:
             return True
-        if world.non_local_items[player].value:
+        if world.worlds[player].options.non_local_items.value:
             return True
 
     # Group

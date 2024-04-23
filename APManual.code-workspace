@@ -4,7 +4,12 @@
 			"path": "."
 		},
 		{
-			"path": "../Manual-Main"
+			"path": "../Manual-Main",
+			"name": "Manual"
+		},
+		{
+			"path": "../Manual-Alternate",
+			"name": "Manual-branch"
 		},
 		{
 			"path": "../Arch-Manual-PlateUp"
@@ -13,5 +18,79 @@
 			"path": "../Arch-Manual-OuterWilds"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground": "#184f1e",
+			"folderPathColor.custom1": "#dc8552",
+			"folderPathColor.custom2": "#8d64ca",
+			"folderPathColor.custom3": "#6ba0fd",
+			"folderPathColor.custom4": "#fcffe8",
+		},
+		"dotnet.defaultSolution": "disable",
+		"python.analysis.extraPaths": [
+			"B:\\modsPrograms\\Archipelago"
+		],
+		"json.schemas": [
+			{
+				"name": "Manual items.json",
+				"description": "items.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/items.json" ],
+				"url": "./../Manual-Alternate/schemas/Manual.items.schema.json"
+			},
+			{
+				"name": "Manual game.json",
+				"description": "game.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/game.json" ],
+				"url": "./../Manual-Main/schemas/Manual.game.schema.json"
+			},
+			{
+				"name": "Manual locations.json",
+				"description": "locations.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/locations.json" ],
+				"url": "./../Manual-Main/schemas/Manual.locations.schema.json"
+			},
+			{
+				"name": "Manual regions.json",
+				"description": "regions.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/regions.json" ],
+				"url": "./../Manual-Main/schemas/Manual.regions.schema.json"
+			},
+			{
+				"name": "Manual categories.json",
+				"description": "categories.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/categories.json" ],
+				"url": "./../Manual-Main/schemas/Manual.categories.schema.json"
+			},
+			{
+				"name": "Manual meta.json",
+				"description": "meta.json schema file for the manual Archipelago Apworld",
+				"fileMatch": [ "**/src/data/meta.json" ],
+				"url": "./../Manual-Main/schemas/Manual.meta.schema.json"
+			}
+		],
+		"folder-path-color.folders": [
+		 // { "path": "./../Arch-Manual-PlateUpArch-Manual-PlateUp/worlds/manual_plateup_nicopopxd", "symbol": "PU", "tooltip": "PlateUp" },
+        { "path": "worlds/manual_plateup_nicopopxd", "symbol": "Pp", "tooltip": "PlateUp", "color": "custom1" },
+        { "path": "worlds/manual_outerwilds_nicopopxd", "symbol": "Ow", "tooltip": "OuterWilds", "color": "custom2" },
+        { "path": "worlds/manual", "symbol": "Ma", "tooltip": "Manual", "color": "custom3" },
+        { "path": "./../Manual-Main/src/", "symbol": "Ma", "tooltip": "Manual", "color": "custom3" },
+        { "path": "./../Manual-Alternate/src/", "symbol": "Ma", "tooltip": "Manual", "color": "custom3" },
+        { "path": "worlds/tracker", "symbol": "T", "tooltip": "tracker", "color": "custom4" },
+		],
+		"cSpell.words": [
+			"itempool",
+			"Viewtiful"
+		],
+	},
+	"extensions": {
+		"recommendations": [
+			"aaron-bond.better-comments",
+			"jebbs.plantuml",
+			"davidanson.vscode-markdownlint",
+			"eamodio.gitlens",
+			"dmitrydorofeev.empty-indent",
+			"kevinrose.vsc-python-indent",
+			"visbydev.folder-path-color"
+		]
+	}
 }

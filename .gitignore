@@ -198,10 +198,3 @@ minecraft_versions.json
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
-
-/worlds/*.apworld
-/SymbolicLinks.bat
-/TestResults
-/worlds/*.zip
-/worlds/tracker
-/worlds/tmp
