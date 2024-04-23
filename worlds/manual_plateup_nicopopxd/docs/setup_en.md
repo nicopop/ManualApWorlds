@@ -8,7 +8,9 @@
     <p align="center">v1.0.0</p>
 </p>
 
-***A star/asterix (\*) next to a line mean recommended.***
+Last-Updated 2024-04-23 (yyyy-mm-dd)
+
+***A star/asterisk (\*) next to a line mean recommended.***
 
 ## Required Software
 
@@ -19,9 +21,9 @@
 
 ## Optional Software
 
-- [Ultimate tracker](https://discord.com/channels/731205301247803413/1170094879142051912)*
+- [Universal tracker](https://discord.com/channels/731205301247803413/1170094879142051912)*
   - A WIP apworld that shows you what location you can go to in real time
-  
+
 ## ↑ Recommended* and Optional mods from Steam Workshop↑
 
 Install those from the Steam Workshop:
@@ -36,9 +38,9 @@ Install those from the Steam Workshop:
 - [Visible Upgrade Chains](https://steamcommunity.com/sharedfiles/filedetails/?id=2925133454)*
   - Shows while holding a blueprint, what it can be upgraded to.
 - [Toggle-able Follow Camera](https://steamcommunity.com/sharedfiles/filedetails/?id=2946027459)*
-  - It allows you to toggle an follow camera that follows you or other players.  
+  - It allows you to toggle an follow camera that follows you or other players.
 - [Those Were The Days](https://steamcommunity.com/sharedfiles/filedetails/?id=2989592788)
-  - ReAdd limited time kichen to the available settings
+  - ReAdd limited time kitchen to the available settings
   - Will add probably support for those later
 - [CountUp!](https://steamcommunity.com/sharedfiles/filedetails/?id=2927654156)
   - Displays a number over portionable foods, bins, and providers!
@@ -52,6 +54,7 @@ Install those from the Steam Workshop:
 ## Installation Procedures
 
 Make sure a copy of the Manual world is in the lib/world directory of your client-side installation.
+For more general information on this Apworld check the [Guide (Webhost)](/games/Manual_PlateUp_Nicopopxd/info/en)/ [Guide (Github)](en_Manual_PlateUp_Nicopopxd.md)
 
 ### Optional installs
 
@@ -63,14 +66,14 @@ Make sure a copy of the Manual world is in the lib/world directory of your clien
 2. Make sure you are logged in on Steam
 3. Press the green "Subscribe" button
 4. If a popup open saying there are dependencies press the blue 'Subscribe to All' button
-5. Wait for Steam to download the workshop content or start the game if it didnt.
+5. Wait for Steam to download the workshop content or start the game if it didn't.
 
-#### Ultimate Tracker install
+#### Universal Tracker install
 
 1. Open the link in [Optional Software](#optional-software) or using this [direct link](https://discord.com/channels/731205301247803413/1170094879142051912)
 2. Check the pins for the download of the version of archipelago you use, at the time of writing its 0.4.4. (March 17 2024)
 3. Place the tracker.apworld in the *worlds* folder of your archipelago install.
-    1. ([ArchipellagoFolder]\lib\worlds or \worlds if using dev version of archipelago)
+    1. ([ArchipelagoFolder]\lib\worlds or \worlds if using dev version of archipelago)
 4. Also place the manual_outerwilds_nicopopxd.apworld in the world folder if its not there already.
 5. Make sure a copy of your current player.yaml is in the *Players* folder of your archipelago install.
 
@@ -91,10 +94,10 @@ Without a .apmanual file:
 5. In Manual Game ID put "Manual_OuterWilds_Nicopopxd" then press the Connect button on the top right.
 6. In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.
 
-### Ultimate Tracker
+### Universal Tracker
 
 1. Open the Archipelago Launcher
-2. Click on the Ultimate Tracker button
+2. Click on the Universal Tracker button
 3. At the top enter your server's ip with the port provided (by default archipelago.gg:38281).
 4. In the command field at the bottom enter the name of your slot you chose in your Player.yaml then press enter.
 
@@ -102,7 +105,7 @@ Without a .apmanual file:
 
 In the "Tracker and Locations" tab you'll find buttons corresponding with all the available locations in the Randomizer.
 Since this is a manual game its built on trust™ you press the locations when you get to them,
-hopefully in the futur only what you can access will be visible but at the moment
+hopefully in the future only what you can access will be visible but at the moment
 you could press victory and it would accept it.
 
 ## Main Game

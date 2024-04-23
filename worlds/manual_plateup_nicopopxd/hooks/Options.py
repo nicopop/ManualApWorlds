@@ -33,18 +33,13 @@ from ..Helpers import is_option_enabled, get_option_value
 #    range_end = 50
 #    default = 50
 
-class ApWorldVersion(FreeText):
-    """Do not change this, it will get set to the apworld version"""
-    display_name = "Game Version (Detected)"
-    default = "unknown"
-
 class HostLevel(Range):
     """What level is your host player?"""
     display_name = "Host Level"
     range_start = 2
     range_end = 15
     default = 10
-class AdditionnalRecipe(NamedRange):
+class AdditionalRecipe(NamedRange):
     """Add extra X number of unnamed recipe for modded recipe support?"""
     display_name = "Modded Recipes"
     range_start = 0
@@ -107,6 +102,12 @@ class EnableBreakfast(DefaultOnToggle):
 class EnableStirFry(DefaultOnToggle):
     """Enable the Stir Fry Main recipe"""
     display_name = "Enable Stir Fry (lvl15)"
+
+class ApWorldVersion(FreeText):
+    """Do not change this, it will get set to the apworld version"""
+    display_name = "Game Version (Detected)"
+    default = "Should Be Detected"
+
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
     options["game_version"] = ApWorldVersion
@@ -127,7 +128,7 @@ def before_options_defined(options: dict) -> dict:
     options["recipe_hotdog"] = EnableHotDog
     options["recipe_breakfast"] = EnableBreakfast
     options["recipe_stirfry"] = EnableStirFry
-    options["more_recipes"] = AdditionnalRecipe
+    options["more_recipes"] = AdditionalRecipe
 
     return options
 

@@ -808,13 +808,6 @@
 		"name": "Hit your Quota {Win}",
 		"region": "Lobby",
 		"requires": "|Victory Token:75%|",
-		"goal": true,
-		"place_item": [ "Final Victory" ]
-	},
-	{
-		"name": "Credits",
-		"victory": true,
-		"region": "Lobby",
-		"requires": "|Final Victory|"
+		"victory": true
 	}
 ]
