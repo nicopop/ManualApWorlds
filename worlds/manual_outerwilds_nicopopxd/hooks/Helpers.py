@@ -8,8 +8,6 @@ from ..Items import ManualItem
 # Return True to enable the category, False to disable it, or None to use the default behavior
 def before_is_category_enabled(multiworld: MultiWorld, player: int, category_name: str) -> Optional[bool]:
     world = multiworld.worlds.get(player)
-    if not hasattr(world, 'categoryInit'):
-        InitCategories(world, player)
     category_data = world.category_table.get(category_name, {})
 
     return category_data.get('enabled', {}).get(player, None)
@@ -30,7 +28,7 @@ def checkobject(multiworld: MultiWorld, player: int, obj: object) -> Optional[bo
     """Check if a Manual object as any category enabled/disabled
 
     Args:
-        world (MultiWorld): Multiworld or World it doesn't matter
+        multiworld: Multiworld
         player (int): Player id
         obj (object): Manual Object to test
 

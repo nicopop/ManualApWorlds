@@ -1,38 +1,73 @@
 {
+  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/Schemas-in-json/schemas/Manual.categories.schema.json",
   "2b Trap": {
     "hidden": true
   },
   "Base Game Main Progression": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "Base Need For End": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "Base Game":{
     "hidden": true,
-    "yaml_option_off": [ "Enable_Base_game"]
+    "yaml_option_off": [ "Enable_Base_game"],
+    "item_group": false
   },
   "Win_Eye": {
+    "hidden": true,
+    "item_group": false
+  },
+  "Goal Eye": {
+    "hidden": true
+  },
+  "Goal Prisoner": {
+    "hidden": true
+  },
+  "Goal GitM": {
+    "hidden": true
+  },
+  "Goal ATP BST": {
+    "hidden": true
+  },
+  "Goal Lab BST": {
+    "hidden": true
+  },
+  "Goal Quantum_Stuck": {
+    "hidden": true
+  },
+  "Goal Stranger_Stuck": {
+    "hidden": true
+  },
+  "Goal Dream_Stuck": {
     "hidden": true
   },
   "Win_ATP_break_spacetime": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "Win_HEL_break_spacetime": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "Win_solanum": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "require_solanum": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "need_warpdrive": {
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "DLC - Eye": {
     "hidden": true,
-    "yaml_option_off": [ "Enable_EotE_DLC"]
+    "yaml_option_off": [ "Enable_EotE_DLC"],
+    "item_group": false
   },
   "DLC - Stranger Entrance": {
     "hidden": true
@@ -40,20 +75,27 @@
   "DLC Flame": {
     "hidden": true
   },
+  "DLC Glitch": {
+    "hidden": true
+  },
   "DLC - Reduced Knowledge": {
     "yaml_option": [ "dlc_access_items" ],
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "DLC - Spooky": {
     "yaml_option": [ "enable_spooks" ],
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "do_place_item_category": {
     "yaml_option": [ "do_place_item_category" ],
-    "hidden": true
+    "hidden": true,
+    "item_group": false
   },
   "no_place_item_category": {
     "yaml_option": [ "!do_place_item_category" ],
-    "hidden": true
+    "hidden": true,
+    "item_item_group": false
   }
 }
