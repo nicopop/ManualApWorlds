@@ -103,7 +103,7 @@ def OptOne(world: World, multiworld: MultiWorld, state: CollectionState, player:
         return f"|{item_name}:{item_count}|"
 
 # OptAll check the passed require string and loop every item to check if they're enabled,
-# then returns the require string with counts ajusted using OptOne
+# then returns the require string with counts adjusted using OptOne
 # eg. requires: "{OptAll(|ItemThatMightBeDisabled| and |@itemCategoryWithCountThatMightBeModifedViaHook:10|)} and |other items|"
 # become this if the item is disabled -> "|ItemThatMightBeDisabled:0| and |@itemCategoryWithCountThatMightBeModifedViaHook:2| and |other items|"
 def OptAll(world: World, multiworld: MultiWorld, state: CollectionState, player: int, requires: str):
@@ -116,7 +116,7 @@ def OptAll(world: World, multiworld: MultiWorld, state: CollectionState, player:
     if requires_list == "":
         return True
     for item in re.findall(r'\{(\w+)\(([^)]*)\)\}', requires_list):
-        #so this function doesnt try to get item from other functions, in theory.
+        #so this function doesn't try to get item from other functions, in theory.
         func_name = item[0]
         functions[func_name] = item[1]
         requires_list = requires_list.replace("{" + func_name + "(" + item[1] + ")}", "{" + func_name + "(temp)}")
