@@ -296,18 +296,18 @@ class DataValidation():
             if region.player != player:
                 continue
 
-            Manualregion = DataValidation.region_table.get(region.name, {})
-            if "requires" in Manualregion and Manualregion["requires"]:
-                region_requires = json.dumps(Manualregion["requires"])
+            manualregion = DataValidation.region_table.get(region.name, {})
+            if "requires" in manualregion and manualregion["requires"]:
+                region_requires = json.dumps(manualregion["requires"])
 
                 DataValidation._checkLocationRequiresForItemValueWithRegex(values_requested, region_requires)
 
             for location in region.locations:
-                ManualLocation = world.location_name_to_location.get(location.name, {})
-                if "requires" in ManualLocation and ManualLocation["requires"]:
-                    DataValidation._checkLocationRequiresForItemValueWithRegex(values_requested, ManualLocation["requires"])
+                manualLocation = world.location_name_to_location.get(location.name, {})
+                if "requires" in manualLocation and manualLocation["requires"]:
+                    DataValidation._checkLocationRequiresForItemValueWithRegex(values_requested, manualLocation["requires"])
 
-        # compare whats available vs requested but only if there'S anything requested
+        # compare whats available vs requested but only if there's anything requested
         if values_requested:
             errors = []
             existing_items = [item for item in get_items_for_player(multiworld, player) if item.code is not None and
@@ -404,7 +404,10 @@ class DataValidation():
     @staticmethod
     def checkPlacedItemsAndCategoriesForBadSyntax():
         for location in DataValidation.location_table:
-            if not (place_item := location.get("place_item", False)) and not (place_item_category := location.get("place_item_category", False)):
+            place_item = location.get("place_item", False)
+            place_item_category = location.get("place_item_category", False)
+
+            if not place_item and not place_item_category:
                 continue
 
             if place_item and type(place_item) is not list:

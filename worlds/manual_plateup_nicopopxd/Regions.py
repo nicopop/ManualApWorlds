@@ -66,7 +66,7 @@ def create_region(world: World, multiworld: MultiWorld, player: int, name: str, 
                 multiworld.start_location_hints[player].value.add(location)
             ret.locations.append(locationObj)
 
-            if loc_id and world.location_name_to_location[location].get("CreateEvent", False):
+            if loc_id and world.location_name_to_location[location].get("create_event", False):
                 eventLocationObj = ManualLocation(player,"[Event] "+location,None,ret)
                 eventLocationObj.show_in_spoiler = False
                 eventItemOjb = ManualItem("[Event] "+location,ItemClassification.progression, None, player)

@@ -56,6 +56,18 @@ class TotalTokenForWin(Range):
     range_end = 100
     default = 75
 
+class Goal(Choice):
+    """What is your goal?
+    Hit your Quota: Beat day 15 of >= number of recipes than what you chose in 'Recipe % needed to Win'
+    Get Every Enabled Tokens: Beat every enabled recipes's day 15
+    Randomly chosen Recipes: Out of every Enabled recipes, 'Recipe % needed to Win'% will have a Victory Token
+    """
+    default = 2
+    option_quota = 0
+    option_enabled_tokens = 1
+    option_random_recipes_quota = 2
+    option_randomly_placed_tokens = 3
+
 class OverTimeEnabled(DefaultOnToggle):
     """Do you want to enable the 'overtime - X' locations"""
     display_name = "Overtime"
@@ -134,4 +146,17 @@ def before_options_defined(options: dict) -> dict:
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options
 def after_options_defined(options: dict) -> dict:
+    # the generated goal option will not keep your defined values or documentation string you'll need to add them here:
+    # To automatically convert your own goal to alias of the generated goal uncomment this below and replace 'Goal' with your own option of type Choice
+    your_goal_class = Goal #Your Goal class here
+    generated_goal = options.get('goal', {})
+    if generated_goal and issubclass(your_goal_class, Choice) and not issubclass(generated_goal, your_goal_class):
+        goals = {'option_' + i: v for i, v in generated_goal.options.items() if i != 'default'}
+        for option, value in your_goal_class.options.items():
+            if option == 'default':
+                continue
+            goals[f"alias_{option}"] = value
+        options['goal'] = type('goal', (Choice,), goals)
+        options['goal'].default = your_goal_class.options.get('default', generated_goal.default)
+        options['goal'].__doc__ = your_goal_class.__doc__ or options['goal'].__doc__
     return options
