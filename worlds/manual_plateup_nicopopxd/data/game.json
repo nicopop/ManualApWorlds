@@ -4,7 +4,7 @@
     "creator": "Nicopopxd",
 
     "filler_item_name": "Customer spillage",
-    "version": "1.1.0",
+    "version": "1.2.0-Async",
     "starting_items": [
         {
             "item_categories": [ "2 Recipes" ],

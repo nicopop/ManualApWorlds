@@ -58,15 +58,19 @@ class TotalTokenForWin(Range):
 
 class Goal(Choice):
     """What is your goal?
-    Hit your Quota: Beat day 15 of >= number of recipes than what you chose in 'Recipe % needed to Win'
-    Get Every Enabled Tokens: Beat every enabled recipes's day 15
-    Randomly chosen Recipes: Out of every Enabled recipes, 'Recipe % needed to Win'% will have a Victory Token
+    Hit your Quota: Beat day 15 of >= number of recipes than what you chose in 'Recipe % needed to Win'\n
+    Get Every Enabled Tokens: Beat every enabled recipes's day 15\n
+    Randomly chosen Recipes: Out of every Enabled recipes, 'Recipe % needed to Win'% will have a Victory Token\n
+    Randomly placed tokens: a token for every enabled recipes can be found anywhere local. Aka McGuffin mode.\n
+    Chaos McGuffin Mode: like Randomly placed tokens but double the amount and can be non local only 'Recipe % needed to Win'% is required
     """
     default = 2
     option_quota = 0
     option_enabled_tokens = 1
     option_random_recipes_quota = 2
     option_randomly_placed_tokens = 3
+    option_chaos_mcguffin = 4
+    alias_mcguffin_mode = option_randomly_placed_tokens
 
 class OverTimeEnabled(DefaultOnToggle):
     """Do you want to enable the 'overtime - X' locations"""

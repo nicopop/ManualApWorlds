@@ -1,48 +1,78 @@
 {
     "level_01":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_02":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_03":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_04":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_05":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_06":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_07":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_08":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_09":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_10":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_11":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_12":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_13":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_14":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "level_15":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "01 - Steak":{},
     "02 - Salad":{},
@@ -68,20 +98,47 @@
     "99 - Extra Recipe 08":{},
     "99 - Extra Recipe 09":{},
     "99 - Extra Recipe 10":{},
+    "00 - Victory": {"create_location_group": false},
     "Extras":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "NormalSettings":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false
     },
     "floorplans":{
         "hidden": true
     },
     "Basefloorplans":{
-        "hidden": true
+        "hidden": true,
+        "create_item_group": false
+    },
+    "has_token":{
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
+    },
+    "no_token":{
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     },
     "overtimes": {
         "hidden": true,
-        "yaml_option": [ "do_overtime" ]
+        "yaml_option": [ "do_overtime" ],
+        "create_item_group": false,
+        "create_location_group": false
+    },
+    "normal_tokens": {
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
+    },
+    "chaos_token": {
+        "hidden": true,
+        "create_item_group": false,
+        "create_location_group": false
     }
 }
