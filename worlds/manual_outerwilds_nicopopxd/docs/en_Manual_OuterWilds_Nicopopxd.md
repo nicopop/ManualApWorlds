@@ -8,7 +8,7 @@
     <p align="center">v6.2.0</p>
 </p>
 
-Last-Updated 2024-04-23 (yyyy-mm-dd)
+Last-Updated 2024-05-21 (yyyy-mm-dd)
 
 ## Where is the options page?
 
@@ -87,17 +87,16 @@ For more info on the location of the goal: check [here](#stuck-in-the-dream-requ
 
 ## Which items can be in another player's world?
 
-Most item can be in another player's world except for all the "Seen X" items or the "Visited Y" items  
-3 random local item that are not traps are set but they can be disabled using the no local compatible option.
+Every Items can be in other player's worlds.
 
 ## What if I have items, unlocks, or locations that I'd like to not have randomized?
 
-It's all manual. Just exclude them from either the item or location list. Just make sure not to exclude items  
-that starts with either "seen X" or "Visited X" and do not exclude the location that give those.
+It's all manual. Just exclude them from either the item or location list. ~~Just make sure not to exclude items
+that starts with either "seen X" or "Visited X" and do not exclude the location that give those.~~ This is not the case anymore since those items were replaced by Events in the Async build.
 
 ## How do I install the mod for a Manual game?
 
-There is no mandatory mods for this game. For more info look at the [setup guide (Webhost)](/tutorial/Manual_OuterWilds_Nicopopxd/setup/en) /
+There is no mandatory mods for this game. Unless you Enable 2 way teleporters logic, then you will need a mod (LOGIC NOT TESTED). For more info look at the [setup guide (Webhost)](/tutorial/Manual_OuterWilds_Nicopopxd/setup/en) /
 [setup guide (Github)](setup_en.md).
 
 ## Game Troubleshooting
@@ -129,8 +128,8 @@ There is no mandatory mods for this game. For more info look at the [setup guide
 - "DreamWorld Fake Fireplace": allow you to go through the fake fireplace in Shrouded Woodlands.
 - "DreamWorld Fake Wall": allow you to go through the fake wall in Endless Canyon.
 - "DreamWorld Hidden Hand": this and DreamWorld Grabbing Hands allows you to go and turn off the light in Starlit Cove.
-- "EYE > Progressive Slide burning room": unlocks going in the burning rooms, the order is from the main entrance follow the water.
-- "EYE > Progressive Datamined Sealed Vault Code": replace the last 2 glitch to open the vault, counts from left to right with the vault behind you, first one is useless.
+- "Progressive Slide burning room": unlocks going in the burning rooms, the order is from the main entrance follow the water.
+- "Progressive Datamined Sealed Vault Code": replace the last 2 glitch to open the vault, counts from left to right with the vault behind you, first one is useless.
 
 ### Goal Items
 
@@ -138,8 +137,6 @@ There is no mandatory mods for this game. For more info look at the [setup guide
 
 - "Coords to the eye"
 - "Adv. warp core"
-- "Seen Coords"
-- "Seen Adv. warp core"
 - "Signaloscope"
 - "Scout"
 - "Signal > Distress"
@@ -151,9 +148,9 @@ There is no mandatory mods for this game. For more info look at the [setup guide
 - "Stranger Access"
 - "DreamWorld Access"
 - "DreamWorld Render Glitch" + "DreamWorld Death Glitch" + "DreamWorld Loading Glitch"
-  - but the last 2 can be replaced by "EYE > Progressive Datamined Sealed Vault Code" 2 and 3
+  - but the last 2 can be replaced by "Progressive Datamined Sealed Vault Code" 2 and 3
 - and one of the multiple way to get to the Subterranean Lake:
-  - "EYE > Submerged Structure Flame"
+  - "Submerged Structure Flame"
   - or any other flame + any item required to get to their boat access + "DreamWorld Loading Glitch"
 
 ### Other items
@@ -197,8 +194,8 @@ There is no mandatory mods for this game. For more info look at the [setup guide
 - "Prisoner%"
   - **Region**: Subterranean Lake,
   - requires: Getting in the vault
-    - AKA (|EYE > Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|)
-    - or (|EYE > Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)
+    - AKA (|Progressive Datamined Sealed Vault Code:3| and |DreamWorld Render Glitch|)
+    - or (|Progressive Datamined Sealed Vault Code:2| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)
     - or (|DreamWorld Loading Glitch| and |DreamWorld Render Glitch| and |DreamWorld Death Glitch|)
 
 #### Visit All Archives Requirement

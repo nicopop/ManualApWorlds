@@ -16,7 +16,7 @@ from .Helpers import InitCategories
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
 #
 from ..Data import game_table, item_table, location_table, region_table
-from .Options import EarlyLaunchCode, RandomContent, Goal
+from .Options import EarlyShipKey, RandomContent, Goal
 
 # These helper methods allow you to determine if an option has been set, or what its value is, for any player in the multiworld
 from ..Helpers import is_option_enabled, is_item_enabled, get_option_value
@@ -197,31 +197,62 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     goal = world.options.goal
     do_spooks = world.options.enable_spooks
     DlcMainItemsRequired = world.options.dlc_access_items
+    StartItems = {}
+# SuitShuffle
+    if not world.options.shuffle_spacesuit.value:
+        StartItems["SpaceSuit"] = 1
 
+# Reverse Teleporters:
+    if world.options.reverse_teleporters.value:
+        multiworld.push_precollected(world.create_item("Reverse Teleporters"))
+
+# Ship Key logic
+# region
+    # option_local_early = 0 default in items.json
+    # option_local_anywhere = 1
+    # option_global_early = 2
+    # option_global_anywhere = 3
+    # option_startswith = 4 default option value
+    early_Ship = world.options.ship_key_logic.value
+    shipitem = "Ship Key"
+    if early_Ship == EarlyShipKey.option_startswith:
+        world.options.local_items.value.discard(shipitem)
+        multiworld.early_items[player].pop(shipitem, "")
+        StartItems[shipitem] = 1
+    elif early_Ship == EarlyShipKey.option_local_early:
+        pass
+    elif early_Ship == EarlyShipKey.option_local_anywhere:
+        multiworld.early_items[player].pop(shipitem, "")
+    elif early_Ship == EarlyShipKey.option_global_early:
+        world.options.local_items.value.discard(shipitem)
+    elif early_Ship == EarlyShipKey.option_global_anywhere:
+        world.options.local_items.value.discard(shipitem)
+        multiworld.early_items[player].pop(shipitem, "")
+
+
+#endregion
 # Early Launch Codes
 #region
-    early_launch = world.options.early_launch_codes.value
-    if early_launch == EarlyLaunchCode.option_anywhere:
-        world.options.local_items.value.discard("Launch Codes")
-        multiworld.early_items[player].pop("Launch Codes", "")
-    elif early_launch == EarlyLaunchCode.option_startswith:
-        world.options.local_items.value.discard("Launch Codes")
-        multiworld.early_items[player].pop("Launch Codes", "")
-
-        item = next((i for i in item_pool if i.player == player and i.name == "Launch Codes"), None)
-        multiworld.push_precollected(item)
-        item_pool.remove(item),
-        world.start_inventory["Launch Codes"] = 1
-    elif early_launch == EarlyLaunchCode.option_global:
-        world.options.local_items.value.discard("Launch Codes")
+    if world.options.remove_launch_codes.value:
+        StartItems["Launch Codes"] = 1
 #endregion
+# Loop item and apply as requested
+    for item in item_pool:
+        if item.player != player:
+            continue
+        if item.name in StartItems.keys() and world.start_inventory.get(item.name, 0) < StartItems[item.name]:
+            multiworld.push_precollected(item)
+            item_pool.remove(item),
+            world.start_inventory[item.name] = world.start_inventory.get(item.name, 0) + 1
+
+
 # Personal Item counts adjustment
 #region
     location_count = len(multiworld.get_unfilled_locations(player)) - 1
     item_counts= {}
     if randomContent == RandomContent.option_base_game:
         item_counts["Forced Meditation"] = 2
-        item_counts["Musical Instrument"] = 6
+        item_counts["Musical Instrument"] = 5
         item_counts["Ticket for (1) free death"] = 4
 
     elif randomContent == RandomContent.option_dlc:
@@ -234,9 +265,9 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
         #if either only base game or only dlc
         #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
 
-    if not do_spooks:
-        item_counts['Visited Starlit Cove Archive'] = 1
-        item_counts['Visited Endless Canyon Archive'] = 1
+    # if not do_spooks:
+    #     item_counts['Visited Starlit Cove Archive'] = 1
+    #     item_counts['Visited Endless Canyon Archive'] = 1
 
     for item in APWorkingData['items_to_be_removed'][player]:
         item_counts[item] = 0
@@ -339,7 +370,7 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
         if location.name == victory_name:
             if solanum:
                 add_rule(location,
-                         lambda state: state.has("[Event] 6 - Communicate with Solanum", player))
+                         lambda state: state.has("[Event] 6 - Explore the Sixth Location", player))
             if owlguy and goal != Goal.option_prisoner:
                 add_rule(location,
                          lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
@@ -450,8 +481,11 @@ def before_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld,
 
 # This is called after slot data is set and provides the slot data at the time, in case you want to check and modify it after Manual is done with it
 def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, player: int) -> dict:
+    # slot_data["item_counts"] = world.item_counts[player]
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
+    #spoiler_handle.log("test")
+    #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
     pass

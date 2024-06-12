@@ -46,9 +46,31 @@ class do_spooks(DefaultOnToggle):
 class MainDlcKnowledge(Toggle):
     """Should The main 2 dlc Progression items (stranger access and dreamworld access) be enabled?"""
     display_name = "Enable Main 2 Dlc Access Items"
+
 class LocalPlacedItems(DefaultOnToggle):
     """Do you want some items to be predetermined to help with the flow of the game"""#todo find a better way to phrase this
     display_name = "Predetermined Local Items"
+
+class ShuffleSpacesuit(Toggle):
+    """Puts the spacesuit into the Archipelago item pool, forcing you to play suitless until it's found.
+    This is a HIGHLY EXPERIMENTAL setting. Expect logic bugs. Feedback encouraged."""
+    display_name = "Shuffle SpaceSuit"
+
+# class ShipKey(DefaultOnToggle):
+#     """Lock being able to move the ship behind this item, you still can grab the SpaceSuit and use it's jetpack but you can't take off with the ship"""
+#     display_name = "Ship Key Logic"
+
+class EarlyShipKey(Choice):
+    """Do you want the Ship Key to be located in the early game
+    Leave it as startswith to disable the Ship Key logic"""
+    display_name = "Ship Key Logic"
+    option_local_early = 0
+    option_local_anywhere = 1
+    option_global_early = 2
+    alias_global = option_global_early
+    option_global_anywhere = 3
+    option_startswith = 4
+    default = 4
 
 class RandomContent(Choice):
     """What part of the game do you want to play + minimum content for your goal,
@@ -66,15 +88,15 @@ class RandomContent(Choice):
     alias_only_dlc = 2
     default = 0
 
-class EarlyLaunchCode(Choice):
-    """Do you want the launch codes to be located in the early game"""
-    display_name = "Early Launch Codes"
-    option_local = 1
-    option_global = 2
-    option_anywhere = 0
-    option_startswith = 3
-    default = 1
+class BiggerSphere1(Toggle):
+    """when true remove the launch codes logic so Sphere 1 is bigger
+    You will still need to talk to Hornfels to start the loop"""
+    display_name = "Remove Launch codes"
 
+class ReverseTeleporter(Toggle):
+    """Turn this on if you want and use a mod to enable reverse teleporters,
+    Warning No such mod exist as of writing this, and thus the logic is untested"""
+    display_name = "Enable Reverse Teleporters Logic"
 
 class Goal(Choice):
     """Where do you want to end,
@@ -113,11 +135,13 @@ def before_options_defined(options: dict) -> dict:
     options["require_solanum"] = RequireSolanum
     options["require_prisoner"] = RequirePrisoner
     options["enable_spooks"] = do_spooks #we'll need to talk on what need to be disabled/modified when this is enabled
-    options["early_launch_codes"] = EarlyLaunchCode
+    options["remove_launch_codes"] = BiggerSphere1
+    options["ship_key_logic"] = EarlyShipKey
+    options["shuffle_spacesuit"] = ShuffleSpacesuit
     options["do_place_item_category"] = LocalPlacedItems
     options["randomized_content"] = RandomContent
     options["dlc_access_items"] = MainDlcKnowledge
-    options["goal"] = Goal
+    options["reverse_teleporters"] = ReverseTeleporter
     return options
 
 # This is called after any manual options are defined, in case you want to see what options are defined or want to modify the defined options
