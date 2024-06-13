@@ -86,22 +86,6 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     elif randomcontent == RandomContent.option_dlc:
         if goal == Goal.option_standard: goal.value = Goal.option_prisoner
 
-    # #Is it safe to skip some code
-    # APMiscData[player]["SafeGen"] = False #value for first run
-    # index = APMiscData["KnownPlayers"].index(player)
-    # if index > 0:
-    #     index = APMiscData["KnownPlayers"][index - 1]
-    #     LastOptions = multiworld.worlds[index].options
-    #     CurOptions = world.options
-    #     APMiscData[player]["SafeGen"] = True
-    #     if CurOptions.randomized_content.value != LastOptions.randomized_content.value:
-    #         APMiscData[player]["SafeGen"] = False
-    #     elif CurOptions.do_place_item_category.value != LastOptions.do_place_item_category:
-    #         APMiscData[player]["SafeGen"] = False
-    #     elif CurOptions.goal.value != LastOptions.goal.value:
-    #         APMiscData[player]["SafeGen"] = False
-    #     logger.debug(f'SafeGen for player {player} set to {APMiscData[player]["SafeGen"]}')
-
     InitCategories(multiworld, player)
 #endregion
 
@@ -139,14 +123,6 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
             if solanum and goal != Goal.option_stuck_with_solanum:
                 message += " + Solanum"
 
-            # for item in list(world.item_name_to_item):
-            #     if item not in valid_items:
-            #         APWorkingData['items_to_be_removed'][player].append(item)
-
-            # for location in list(world.location_name_to_location):
-            #     if location not in valid_locations:
-            #         locations_to_be_removed.append(location)
-
     else:
         message = "Both"
     #logger.info(message)
@@ -155,13 +131,13 @@ def after_create_regions(world: World, multiworld: MultiWorld, player: int):
     if goal == Goal.option_ash_twin_project_break_spacetime:
         locations_to_be_removed.append('1 - Break Space-Time in the Ash Twin Project')
 
-    if goal == Goal.option_high_energy_lab_break_spacetime:
+    elif goal == Goal.option_high_energy_lab_break_spacetime:
         locations_to_be_removed.append('1 - Break space time in the lab')
 
-    if goal == Goal.option_visit_all_archive:
+    elif goal == Goal.option_visit_all_archive:
         locations_to_be_removed.append('9 - In a loop visit all 3 archive without getting caught')
 
-    if goal == Goal.option_prisoner:
+    elif goal == Goal.option_prisoner:
 
         locations_to_be_removed.append('94 - Enter the Sealed Vault in the Subterranean Lake Dream')
 
@@ -265,10 +241,6 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
         #if either only base game or only dlc
         #world.item_name_to_item["Ticket for (1) free death"]["count"] = 10
 
-    # if not do_spooks:
-    #     item_counts['Visited Starlit Cove Archive'] = 1
-    #     item_counts['Visited Endless Canyon Archive'] = 1
-
     for item in APWorkingData['items_to_be_removed'][player]:
         item_counts[item] = 0
 
@@ -306,18 +278,6 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     elif goal == Goal.option_stuck_in_dream:
         victory_base_message = "Stuck in Dreamworld"
     victory_message = victory_base_message + VictoryInfoToAdd
-
-    # for item in item_pool:
-    #     if item.player != player:
-    #         continue
-    #     if item.name == "Victory Token":
-    #         victory_item = item
-    #         break
-    # for location in multiworld.get_unfilled_locations(player):
-    #     if location.name == victory_name:
-    #         location.place_locked_item(victory_item)
-    #         break
-    # item_pool.remove(victory_item)
 
     contentmsg = APMiscData[player]['contentmsg']
     logger.info(f"{world.game}:{multiworld.get_player_name(player)} ({player}):({contentmsg}) {len(item_pool)} items | {location_count} locations")
@@ -375,20 +335,6 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
                 add_rule(location,
                          lambda state: state.has("[Event] 94 - Enter the Sealed Vault in the Subterranean Lake Dream", player))
 #endregion
-# Add Stranger if required
-#region
-    # def _add_region_rule(region, item: str):
-    #     for entrance in region.entrances:
-    #         add_rule(entrance,
-    #             lambda state: state.has(item, player))
-    # if world.options.dlc_access_items.value:
-    #     for region in multiworld.regions:
-    #         if region.name == "The Stranger":
-    #             _add_region_rule(region, "Stranger Access")
-    #         elif (region.name == "DreamWorld General" or region.name == "Shrouded Woodlands" or region.name == "Starlit Cove"
-    #               or region.name == "Endless Canyon" or region.name == "Subterranean Lake"):
-    #             _add_region_rule(region, "DreamWorld Access")
-#endregion
 # The complete item pool prior to being set for generation is provided here, in case you want to make changes to it
     pass
 
@@ -414,61 +360,6 @@ def after_create_item(item: ManualItem, world: World, multiworld: MultiWorld, pl
 
 # This method is run towards the end of pre-generation, before the place_item options have been handled and before AP generation occurs
 def before_generate_basic(world: World, multiworld: MultiWorld, player: int) -> list:
-# #Restore location placed items
-# #region
-#     if APMiscData["KnownPlayers"][0] != player and APMiscData[player]["SafeGen"] == False:
-#         RemovedPlacedItems = APWorkingData.get('RM_place_item', {})
-#         RemovedPlacedItemsCategory = APWorkingData.get('RM_place_item_cat', {})
-#         if RemovedPlacedItems or RemovedPlacedItemsCategory:
-#             reAdded_place_item_Count = 0
-#             locations_to_check = {}
-#             locations_to_check.update(RemovedPlacedItems)
-#             locations_to_check.update(RemovedPlacedItemsCategory)
-#             for location in locations_to_check:
-#                 if location in world.location_names:
-#                     worldlocation = world.location_name_to_location[location]
-#                     if location in RemovedPlacedItemsCategory:
-#                         worldlocation["place_item_category"] = RemovedPlacedItemsCategory[location]
-#                         APWorkingData['RM_place_item_cat'].pop(location)
-#                     if location in RemovedPlacedItems:
-#                         worldlocation["place_item"] = RemovedPlacedItems[location]
-#                         APWorkingData['RM_place_item'].pop(location)
-#                     if "place_item" in worldlocation or "place_item_category" in worldlocation:
-#                         reAdded_place_item_Count += 1
-#             if reAdded_place_item_Count > 0:
-#                 if APMiscData["043Compatible"]:
-#                     multiworld.clear_location_cache()
-#                 logger.debug(f"ReAdded placed item info to {reAdded_place_item_Count} locations.")
-# #endregion
-#     randomContent = world.options.randomized_content
-#     if randomContent == RandomContent.option_dlc:
-#         if not APMiscData[player]["SafeGen"]:
-#             if not APWorkingData.get('RM_place_item_cat', {}):
-#                 APWorkingData['RM_place_item_cat'] = {}
-#             worldlocation = world.location_name_to_location["Get in the ship for the first time"]
-#             APWorkingData['RM_place_item_cat'][worldlocation['name']] = copy(worldlocation["place_item_category"])
-#             worldlocation.pop("place_item_category", "")
-
-# # Remove place category if required
-# #region
-#     do_place_item_category = world.options.do_place_item_category.value
-#     if not APMiscData[player]["SafeGen"]:
-#         if not do_place_item_category:
-#             extra_data = load_data_file("extra.json")
-#             if 'RM_place_item_cat' not in APWorkingData:
-#                 APWorkingData["RM_place_item_cat"] = {}
-#             if 'RM_place_item' not in APWorkingData:
-#                 APWorkingData["RM_place_item"] = {}
-#             for location in list(extra_data["no_place_item_category"]["locations"]):
-#                 if location in world.location_name_to_location:
-#                     worldlocation = world.location_name_to_location[location]
-#                     if "place_item_category" in worldlocation:
-#                         APWorkingData['RM_place_item_cat'][location] = copy(worldlocation["place_item_category"])
-#                         worldlocation.pop("place_item_category", "")
-#             if APMiscData["043Compatible"]:
-#                 multiworld.clear_location_cache()
-
-# #endregion
     pass
 
 # This method is run at the very end of pre-generation, once the place_item options have been handled and before AP generation occurs
@@ -486,6 +377,5 @@ def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, 
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
-    #spoiler_handle.log("test")
     #spoiler_handle.write(f"\nIncluded in this Async: {world.game} version {APMiscData['version']}")
     pass
