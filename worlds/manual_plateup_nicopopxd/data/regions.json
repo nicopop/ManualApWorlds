@@ -134,7 +134,7 @@
     "connects_to": ["Late Cakes"]
   },
   "Late Cakes": {
-    "requires": "|Research Desk| and |Frozen Prep Station| and (|Counter Upgrades|)",
+    "requires": "|Research Desk| and (|Counter Upgrades|)",
     "connects_to": []
   },
   "Spaghetti": {

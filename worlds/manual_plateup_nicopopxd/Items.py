@@ -1,5 +1,5 @@
 from BaseClasses import Item
-from .Data import item_table
+from .Data import item_table, category_table
 from .Game import filler_item_name, starting_index
 from .hooks.Items import before_item_table_processed
 
@@ -38,9 +38,10 @@ for item in item_table:
         lastItemId = max(lastItemId, item["id"])
 
     for c in item.get("category", []):
-        if c not in item_name_groups:
-            item_name_groups[c] = []
-        item_name_groups[c].append(item_name)
+        if category_table.get(c,{}).get("item_group", True):
+            if c not in item_name_groups:
+                item_name_groups[c] = []
+            item_name_groups[c].append(item_name)
 
     for v in item.get("value", {}).keys():
         group_name = f"has_{v.lower().strip()}_value"

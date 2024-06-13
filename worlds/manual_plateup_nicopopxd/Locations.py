@@ -1,5 +1,5 @@
 from BaseClasses import Location
-from .Data import location_table
+from .Data import location_table, category_table
 from .Game import starting_index
 from .hooks.Locations import before_location_table_processed
 
@@ -44,10 +44,10 @@ for item in location_table:
     location_name_to_location[item["name"]] = item
 
     for c in item.get("category", []):
-        if c not in location_name_groups:
-            location_name_groups[c] = []
-        location_name_groups[c].append(item["name"])
-
+        if category_table.get(c,{}).get("create_location_group", True):
+            if c not in location_name_groups:
+                location_name_groups[c] = []
+            location_name_groups[c].append(item["name"])
 
 # location_id_to_name[None] = "__Manual Game Complete__"
 location_name_to_id = {name: id for id, name in location_id_to_name.items()}
