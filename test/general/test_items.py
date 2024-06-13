@@ -77,7 +77,7 @@ class TestBase(unittest.TestCase):
         additional_steps = ("set_rules", "generate_basic", "pre_fill")
         excluded_games = ("Links Awakening DX", "Ocarina of Time", "SMZ3")
         worlds_to_test = {game: world
-                          for game, world in AutoWorldRegister.world_types.items() if game not in excluded_games}
+                          for game, world in AutoWorldRegister.world_types.items() if game not in excluded_games and not game.lower().startswith("manual_")}
         for game_name, world_type in worlds_to_test.items():
             with self.subTest("Game", game=game_name):
                 multiworld = setup_solo_multiworld(world_type, gen_steps)

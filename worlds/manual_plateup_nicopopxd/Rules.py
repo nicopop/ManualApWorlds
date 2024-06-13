@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from worlds.generic.Rules import set_rule
+from worlds.generic.Rules import set_rule, add_rule
 from .Regions import regionMap
 from .hooks import Rules
 from BaseClasses import MultiWorld, CollectionState
@@ -68,18 +68,14 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
     # this is only called when the area (think, location or region) has a "requires" field that is a string
     def checkRequireStringForArea(state: CollectionState, area: dict):
         requires_list = area["requires"]
-        # Generate item_counts here so it can be access each time this is called
-        if player not in world.item_counts:
-            real_pool = multiworld.get_items()
-            world.item_counts[player] = {i.name: real_pool.count(i) for i in real_pool if i.player == player}
 
-        # fallback if items_counts[player] not present (will not be accurate to hooks item count)
-        items_counts = world.get_item_counts()
+        # Get the "real" item counts of item in the pool/placed/starting_items
+        items_counts = world.get_item_counts(player)
 
         if requires_list == "":
             return True
 
-        for item in re.findall(r'\{(\w+)\(([^)]*)\)\}', requires_list):
+        for item in re.findall(r'\{(\w+)\((.*?)\)\}', requires_list):
             func_name = item[0]
             func_args = item[1].split(",")
             if func_args == ['']:
@@ -106,14 +102,14 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
             item_base = item
             item = item.lstrip('|@$').rstrip('|')
 
-            item_parts = item.split(":")
+            item_parts = item.split(":")  # type: list[str]
             item_name = item
             item_count = "1"
 
 
             if len(item_parts) > 1:
-                item_name = item_parts[0]
-                item_count = item_parts[1]
+                item_name = item_parts[0].strip()
+                item_count = item_parts[1].strip()
 
             total = 0
 
@@ -128,7 +124,10 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                     percent = clamp(float(item_count[:-1]) / 100, 0, 1)
                     item_count = math.ceil(category_items_counts * percent)
                 else:
-                    item_count = int(item_count)
+                    try:
+                        item_count = int(item_count)
+                    except ValueError as e:
+                        raise ValueError(f"Invalid item count `{item_name}` in {area}.") from e
 
                 for category_item in category_items:
                     total += state.count(category_item["name"], player)
@@ -227,7 +226,12 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
                 def fullRegionCheck(state: CollectionState, region=regionMap[region]):
                     return fullLocationOrRegionCheck(state, region)
 
-                set_rule(multiworld.get_entrance(exitRegion.name, player), fullRegionCheck)
+                add_rule(multiworld.get_entrance(exitRegion.name, player), fullRegionCheck)
+
+            entrance_rules = regionMap[region].get("entrance_rules", [])
+            for e in entrance_rules:
+                entrance = multiworld.get_entrance(f'{e}To{region}', player)
+                add_rule(entrance, lambda state, rule={"requires": entrance_rules[e]}: fullLocationOrRegionCheck(state, rule))
 
     # Location access rules
     for location in world.location_table:
@@ -236,7 +240,7 @@ def set_rules(world: "ManualWorld", multiworld: MultiWorld, player: int):
 
         locFromWorld = multiworld.get_location(location["name"], player)
         EventLoc = None
-        if location.get("CreateEvent"):
+        if location.get("create_event"):
             EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
         # EventLoc = multiworld.get_location(f"[Event] {location['name']}", player)
 

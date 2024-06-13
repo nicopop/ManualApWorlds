@@ -56,4 +56,4 @@ def after_load_meta_file(meta_table: dict) -> dict:
 # use this if you want to restore more data
 # return True if you want to trigger a regeneration if you changed anything
 def hook_interpret_slot_data(world, player: int, slot_data: dict[str, any]) -> bool:
-    return False
+    return {player:{"valid_recipes": slot_data.get("valid_recipes", {}), "item_counts": slot_data.get("item_counts", {})}}

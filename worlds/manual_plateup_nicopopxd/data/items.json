@@ -1,15 +1,16 @@
 [
   {
     "name": "Victory Token",
-    "progression": true,
+    "progression_skip_balancing": true,
     "local": true,
     "count": 30,
-    "category": [ "1 Important", "0 Everything" ]
+    "category": [ "1 Important", "0 Everything", "normal_tokens" ]
   },
   {
-    "name": "Final Victory",
-    "progression": true,
-    "category": [ "1 Important", "0 Everything" ]
+    "name": "Chaos Token",
+    "progression_skip_balancing": true,
+    "count": 60,
+    "category": [ "1 Important", "0 Everything", "chaos_tokens" ]
   },
   {
     "name": "Steak Recipe",
