@@ -71,20 +71,20 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
     randomcontent = world.options.randomized_content.value
     #Options Check for impossibilities
     if randomcontent == RandomContent.option_both:
-        if goal == Goal.option_standard: goal.value = Goal.option_eye
+        if goal == Goal.option_standard: goal.value = Goal.option_eye #Dynamic Goal
 
     elif randomcontent == RandomContent.option_base_game:
         world.options.require_prisoner.value = 0
-        if goal == Goal.option_standard: goal.value = Goal.option_eye
-        elif goal == Goal.option_prisoner: goal.value = Goal.option_eye #impossible option
-        elif goal == Goal.option_visit_all_archive: goal.value = Goal.option_eye #impossible option
-        elif goal == Goal.option_stuck_in_stranger: goal.value = Goal.option_eye #impossible option
-        elif goal == Goal.option_stuck_in_dream: goal.value = Goal.option_eye #impossible option
+        if goal == Goal.option_standard: goal.value = Goal.option_eye #Dynamic Goal
+        elif (goal == Goal.option_prisoner or goal == Goal.option_visit_all_archive or
+            goal == Goal.option_stuck_in_stranger or goal == Goal.option_stuck_in_dream):
+            goal.value = Goal.option_eye
+            logger.warning(f"OW: Impossible goal for player '{multiworld.get_player_name(player)}'. Was changed to Default (Vanilla%)")
         world.options.enable_spooks.value = 1 #Set to True to skip some code later
         world.options.dlc_access_items.value = 0
 
     elif randomcontent == RandomContent.option_dlc:
-        if goal == Goal.option_standard: goal.value = Goal.option_prisoner
+        if goal == Goal.option_standard: goal.value = Goal.option_prisoner #Dynamic Goal
 
     InitCategories(multiworld, player)
 #endregion
