@@ -76,49 +76,6 @@ class OverTimeEnabled(DefaultOnToggle):
     """Do you want to enable the 'overtime - X' locations"""
     display_name = "Overtime"
 
-class EnableSteak(DefaultOnToggle):
-    """Enable the Steak Main recipe"""
-    display_name = "Enable Steak (lvl1)"
-class EnableSalad(DefaultOnToggle):
-    """Enable the Salad Main recipe"""
-    display_name = "Enable Salad (lvl2)"
-class EnablePizza(DefaultOnToggle):
-    """Enable the Pizza Main recipe"""
-    display_name = "Enable Pizza (lvl3)"
-class EnableDumplings(DefaultOnToggle):
-    """Enable the Dumplings Main recipe"""
-    display_name = "Enable Dumplings (lvl4)"
-class EnableCoffee(DefaultOnToggle):
-    """Enable the Coffee Main recipe"""
-    display_name = "Enable Coffee (lvl4)"
-class EnableBurger(DefaultOnToggle):
-    """Enable the Burger Main recipe"""
-    display_name = "Enable Burger (lvl5)"
-class EnableTurkey(DefaultOnToggle):
-    """Enable the Turkey Main recipe"""
-    display_name = "Enable Turkey (lvl6)"
-class EnablePie(DefaultOnToggle):
-    """Enable the Pie Main recipe"""
-    display_name = "Enable Pie (lvl7)"
-class EnableCakes(DefaultOnToggle):
-    """Enable the Cakes Main recipe"""
-    display_name = "Enable Cakes (lvl7)"
-class EnableSpaghetti(DefaultOnToggle):
-    """Enable the Spaghetti Main recipe"""
-    display_name = "Enable Spaghetti (lvl8)"
-class EnableFish(DefaultOnToggle):
-    """Enable the Fish Main recipe"""
-    display_name = "Enable Fish (lvl9)"
-class EnableHotDog(DefaultOnToggle):
-    """Enable the Hot Dog Main recipe"""
-    display_name = "Enable Hot Dog (lvl11)"
-class EnableBreakfast(DefaultOnToggle):
-    """Enable the Breakfast Main recipe"""
-    display_name = "Enable Breakfast (lvl13)"
-class EnableStirFry(DefaultOnToggle):
-    """Enable the Stir Fry Main recipe"""
-    display_name = "Enable Stir Fry (lvl15)"
-
 class ApWorldVersion(FreeText):
     """Do not change this, it will get set to the apworld version"""
     display_name = "Game Version (Detected)"
@@ -126,24 +83,19 @@ class ApWorldVersion(FreeText):
 
 # This is called before any manual options are defined, in case you want to define your own with a clean slate or let Manual define over them
 def before_options_defined(options: dict) -> dict:
+    from ..Data import item_table
+
     options["game_version"] = ApWorldVersion
     options["host_level"] = HostLevel
     options["win_percent"] = TotalTokenForWin
     options["do_overtime"] = OverTimeEnabled
-    options["recipe_steak"] = EnableSteak
-    options["recipe_salad"] = EnableSalad
-    options["recipe_pizza"] = EnablePizza
-    options["recipe_dumplings"] = EnableDumplings
-    options["recipe_coffee"] = EnableCoffee
-    options["recipe_burger"] = EnableBurger
-    options["recipe_turkey"] = EnableTurkey
-    options["recipe_pie"] = EnablePie
-    options["recipe_cakes"] = EnableCakes
-    options["recipe_fish"] = EnableFish
-    options["recipe_spaghetti"] = EnableSpaghetti
-    options["recipe_hotdog"] = EnableHotDog
-    options["recipe_breakfast"] = EnableBreakfast
-    options["recipe_stirfry"] = EnableStirFry
+
+    for item in [i for i in item_table if "2 Recipes" in i.get("category", []) and not i["name"].lower().startswith("extra")]:
+        recipe = item["name"].lower().rstrip("recipe").replace(' ', '')
+        level = next(iter(filter(lambda c: c.lower().startswith("level_"), item["category"]))).lstrip("level_")
+        options[f"recipe_{recipe}"] = type(f"recipe_{recipe}", (DefaultOnToggle,), {'display_name': f"Enable {item['name']} (lvl{level})"})
+        options[f"recipe_{recipe}"].__doc__ = f"Enable the {item['name']} Main recipe"
+
     options["more_recipes"] = AdditionalRecipe
 
     return options

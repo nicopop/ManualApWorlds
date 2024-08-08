@@ -26,7 +26,7 @@ from Options import PerGameCommonOptions
 from worlds.AutoWorld import World, WebWorld
 
 from .hooks.World import \
-    before_create_regions, after_create_regions, \
+    hook_get_filler_item_name, before_create_regions, after_create_regions, \
     before_create_items_starting, before_create_items_filler, after_create_items, \
     before_create_item, after_create_item, \
     before_set_rules, after_set_rules, \
@@ -61,6 +61,9 @@ class ManualWorld(World):
     location_name_to_location = location_name_to_location
     location_name_groups = location_name_groups
     victory_names = victory_names
+
+    def get_filler_item_name(self) -> str:
+        return hook_get_filler_item_name() or filler_item_name
 
     def interpret_slot_data(self, slot_data: dict[str, any]):
         #this is called by tools like UT
@@ -117,15 +120,34 @@ class ManualWorld(World):
 
             if item_count == 0: continue
 
-            for i in range(item_count):
+            for _ in range(item_count):
                 new_item = self.create_item(name)
                 pool.append(new_item)
 
-            if item.get("early"): # only early
-                self.multiworld.early_items[self.player][name] = item_count
-            if item.get("local"): # only local
-                if name not in self.multiworld.local_items[self.player].value:
+            if item.get("early"): # Some or all early
+                if isinstance(item["early"],int) or (isinstance(item["early"],str) and item["early"].isnumeric()):
+                    self.multiworld.early_items[self.player][name] = int(item["early"])
+
+                elif isinstance(item["early"],bool): #No need to deal with true vs false since false wont get here
+                    self.multiworld.early_items[self.player][name] = item_count
+
+                else:
+                    raise Exception(f"Item {name}'s 'early' has an invalid value of '{item['early']}'. \nA boolean or an integer was expected.")
+
+            if item.get("local"): # All local
+                if name not in self.options.local_items.value:
                     self.options.local_items.value.add(name)
+
+            if item.get("local_early"): # Some or all local and early
+                if isinstance(item["local_early"],int) or (isinstance(item["local_early"],str) and item["local_early"].isnumeric()):
+                    self.multiworld.local_early_items[self.player][name] = int(item["local_early"])
+
+                elif isinstance(item["local_early"],bool):
+                    self.multiworld.local_early_items[self.player][name] = item_count
+
+                else:
+                    raise Exception(f"Item {name}'s 'local_early' has an invalid value of '{item['local_early']}'. \nA boolean or an integer was expected.")
+
 
         pool = before_create_items_starting(pool, self, self.multiworld, self.player)
 
@@ -223,8 +245,7 @@ class ManualWorld(World):
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])])
 
             if forbidden_item_names:
-                forbid_items_for_player(location, forbidden_item_names, self.player)
-                forbidden_item_names.clear()
+                forbid_items_for_player(location, set(forbidden_item_names), self.player)
 
         # Handle specific item placements using fill_restrictive
         manual_locations_with_placements = {location['name']: location for location in location_name_to_location.values() if "place_item" in location or "place_item_category" in location}
@@ -385,8 +406,13 @@ class ManualWorld(World):
 ###
 
 def launch_client(*args):
+    import CommonClient
     from .ManualClient import launch as Main
-    launch_subprocess(Main, name="Manual client")
+
+    if CommonClient.gui_enabled:
+        launch_subprocess(Main, name="Manual client")
+    else:
+        Main()
 
 class VersionedComponent(Component):
     def __init__(self, display_name: str, script_name: Optional[str] = None, func: Optional[Callable] = None, version: int = 0, file_identifier: Optional[Callable[[str], bool]] = None):
@@ -394,7 +420,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 2024_05_05 # YYYYMMDD
+    version = 2024_07_17 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":

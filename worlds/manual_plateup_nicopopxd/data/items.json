@@ -3,7 +3,7 @@
     "name": "Victory Token",
     "progression_skip_balancing": true,
     "local": true,
-    "count": 30,
+    "count": 40,
     "category": [ "1 Important", "0 Everything", "normal_tokens" ]
   },
   {

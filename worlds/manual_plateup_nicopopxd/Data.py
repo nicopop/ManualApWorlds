@@ -22,14 +22,14 @@ def load_data_file(*args) -> dict:
 
     return filedata
 
-def backward_compatible_json(data, property) -> list:
+def convert_to_list(data, property_name: str) -> list:
     if isinstance(data, dict):
-        data = data.get(property, [])
+        data = data.get(property_name, [])
     return data
 
 game_table = load_data_file('game.json') #dict
-item_table = backward_compatible_json(load_data_file('items.json'), 'data') #list
-location_table = backward_compatible_json(load_data_file('locations.json'), 'data') #list
+item_table = convert_to_list(load_data_file('items.json'), 'data') #list
+location_table = convert_to_list(load_data_file('locations.json'), 'data') #list
 region_table = load_data_file('regions.json') #dict
 category_table = load_data_file('categories.json') or {} #dict
 meta_table = load_data_file('meta.json') or {} #dict

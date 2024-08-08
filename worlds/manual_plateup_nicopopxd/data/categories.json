@@ -137,7 +137,7 @@
         "create_item_group": false,
         "create_location_group": false
     },
-    "chaos_token": {
+    "chaos_tokens": {
         "hidden": true,
         "create_item_group": false,
         "create_location_group": false
