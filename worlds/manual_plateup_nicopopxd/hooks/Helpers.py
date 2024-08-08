@@ -40,26 +40,30 @@ def before_is_location_enabled(multiworld: MultiWorld, player: int, location: Ma
     check = checkobject(multiworld, player, location)
     if check is None:
         name = location.get('name', "")
+        if "inGame" not in location.get('category', []):
+            return check
         recipe = name.split('-')[0].replace(" ", "").lower()
         world = multiworld.worlds[player]
 
-        if recipe in world.valid_recipes.keys(): #if its a recipe location
-            if world.options.goal.value == Goal.option_random_recipes_quota:
-                result = _check_recipe(world, recipe)
-                if result is None:
-                    if "no_token" in location.get('category', []) or "has_token" in location.get('category', []):
-                        has_token = "has_token" in location.get('category', [])
-                        if world.valid_recipes.get(recipe, False):
-                            return has_token
-                        else:
-                            return not has_token
-            elif world.options.goal == Goal.option_randomly_placed_tokens:
-                if "has_token" in location.get('category', []):
-                    return False
-            else:
-                if "no_token" in location.get('category', []):
-                    return False
-            return _check_recipe(world, recipe)
+        if recipe not in world.valid_recipes.keys():
+            raise Exception(f"{recipe} is not a known recipe. Probably missing its '{recipe} recipe' item in item.json")
+        #if its a recipe location
+        if world.options.goal.value == Goal.option_random_recipes_quota:
+            result = _check_recipe(world, recipe)
+            if result is None:
+                if "no_token" in location.get('category', []) or "has_token" in location.get('category', []):
+                    has_token = "has_token" in location.get('category', [])
+                    if world.valid_recipes.get(recipe, False):
+                        return has_token
+                    else:
+                        return not has_token
+        elif world.options.goal == Goal.option_randomly_placed_tokens:
+            if "has_token" in location.get('category', []):
+                return False
+        else:
+            if "no_token" in location.get('category', []):
+                return False
+        return _check_recipe(world, recipe)
     return check
 
 def _check_recipe(base, recipe: str) -> Optional[bool]:

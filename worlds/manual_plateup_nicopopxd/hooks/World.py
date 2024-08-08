@@ -206,7 +206,7 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
         item_counts["Chaos Token"] = 0
         item_counts["Victory Token"] = clamp(totalRecipes, 2, 30)
         if loc_left < item_counts["Victory Token"]:
-            raise Exception(f"Before even creating filler items there's is not enough locations left for the Victory tokens. {item_counts['Victory Token'] - loc_left} locations missing \nTry enabling more recipes")
+            raise Exception(f"Before even creating filler items there's is not enough locations left for the Victory tokens. {item_counts['Victory Token'] - loc_left} location(s) missing \nTry enabling more recipes")
 
     counts = {}
     removeMe = []

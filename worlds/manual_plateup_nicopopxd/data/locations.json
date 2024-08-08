@@ -38,926 +38,926 @@
 	{
 		"name": "Steak - Beat Day 3",
 		"region": "Early Steak",
-		"category": [ "01 - Steak", "level_01" ]
+		"category": [ "01 - Steak", "level_01", "inGame" ]
 	},
 	{
 		"name": "Steak - Beat Day 6",
 		"region": "Early Steak",
-		"category": [ "01 - Steak", "level_01"]
+		"category": [ "01 - Steak", "level_01", "inGame"]
 	},
 	{
 		"name": "Steak - Beat Day 9",
 		"region": "Middle Steak",
-		"category": [ "01 - Steak", "level_01"]
+		"category": [ "01 - Steak", "level_01", "inGame"]
 	},
 	{
 		"name": "Steak - Beat Day 12",
 		"region": "Late Steak",
-		"category": [ "01 - Steak", "level_01"]
+		"category": [ "01 - Steak", "level_01", "inGame"]
 	},
 	{
 		"name": "Steak - Beat Day 15 {Token}",
 		"region": "Late Steak",
-		"category": [ "01 - Steak", "level_01", "has_token"],
+		"category": [ "01 - Steak", "level_01", "has_token", "inGame"],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Steak - Beat Day 15",
 		"region": "Late Steak",
-		"category": [ "01 - Steak", "level_01", "no_token"]
+		"category": [ "01 - Steak", "level_01", "no_token", "inGame"]
 	},
 	{
 		"name": "Steak - Beat Overtime 3",
 		"region": "Late Steak",
-		"category": [ "01 - Steak", "level_01", "overtimes"]
+		"category": [ "01 - Steak", "level_01", "overtimes", "inGame"]
 	},
 
 	{
 		"name": "Salad - Beat Day 3",
 		"region": "Early Salad",
-		"category": [ "02 - Salad", "level_02"]
+		"category": [ "02 - Salad", "level_02", "inGame"]
 	},
 	{
 		"name": "Salad - Beat Day 6",
 		"region": "Early Salad",
-		"category": [ "02 - Salad", "level_02"]
+		"category": [ "02 - Salad", "level_02", "inGame"]
 	},
 	{
 		"name": "Salad - Beat Day 9",
 		"region": "Middle Salad",
-		"category": [ "02 - Salad", "level_02"]
+		"category": [ "02 - Salad", "level_02", "inGame"]
 	},
 	{
 		"name": "Salad - Beat Day 12",
 		"region": "Late Salad",
-		"category": [ "02 - Salad", "level_02"]
+		"category": [ "02 - Salad", "level_02", "inGame"]
 	},
 	{
 		"name": "Salad - Beat Day 15 {Token}",
 		"region": "Late Salad",
-		"category": [ "02 - Salad", "level_02", "has_token"],
+		"category": [ "02 - Salad", "level_02", "has_token", "inGame"],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Salad - Beat Day 15",
 		"region": "Late Salad",
-		"category": [ "02 - Salad", "level_02", "no_token"]
+		"category": [ "02 - Salad", "level_02", "no_token", "inGame"]
 	},
 	{
 		"name": "Salad - Beat Overtime 3",
 		"region": "Late Salad",
-		"category": [ "02 - Salad", "level_02", "overtimes"]
+		"category": [ "02 - Salad", "level_02", "overtimes", "inGame"]
 	},
 
 	{
 		"name": "Pizza - Beat Day 3",
 		"region": "Early Pizza",
-		"category": [ "03 - Pizza", "level_03" ]
+		"category": [ "03 - Pizza", "level_03", "inGame" ]
 	},
 	{
 		"name": "Pizza - Beat Day 6",
 		"region": "Early Pizza",
-		"category": [ "03 - Pizza", "level_03" ]
+		"category": [ "03 - Pizza", "level_03", "inGame" ]
 	},
 	{
 		"name": "Pizza - Beat Day 9",
 		"region": "Middle Pizza",
-		"category": [ "03 - Pizza", "level_03" ]
+		"category": [ "03 - Pizza", "level_03", "inGame" ]
 	},
 	{
 		"name": "Pizza - Beat Day 12",
 		"region": "Late Pizza",
-		"category": [ "03 - Pizza", "level_03" ]
+		"category": [ "03 - Pizza", "level_03", "inGame" ]
 	},
 	{
 		"name": "Pizza - Beat Day 15 {Token}",
 		"region": "Late Pizza",
-		"category": [ "03 - Pizza", "level_03", "has_token" ],
+		"category": [ "03 - Pizza", "level_03", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Pizza - Beat Day 15",
 		"region": "Late Pizza",
-		"category": [ "03 - Pizza", "level_03", "no_token" ]
+		"category": [ "03 - Pizza", "level_03", "no_token", "inGame" ]
 	},
 	{
 		"name": "Pizza - Beat Overtime 3",
 		"region": "Late Pizza",
-		"category": [ "03 - Pizza", "level_03", "overtimes" ]
+		"category": [ "03 - Pizza", "level_03", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Dumplings - Beat Day 3",
 		"region": "Early Dumplings",
-		"category": [ "04a - Dumplings", "level_04" ]
+		"category": [ "04a - Dumplings", "level_04", "inGame" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 6",
 		"region": "Early Dumplings",
-		"category": [ "04a - Dumplings", "level_04" ]
+		"category": [ "04a - Dumplings", "level_04", "inGame" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 9",
 		"region": "Middle Dumplings",
-		"category": [ "04a - Dumplings", "level_04" ]
+		"category": [ "04a - Dumplings", "level_04", "inGame" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 12",
 		"region": "Late Dumplings",
-		"category": [ "04a - Dumplings", "level_04" ]
+		"category": [ "04a - Dumplings", "level_04", "inGame" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 15 {Token}",
 		"region": "Late Dumplings",
-		"category": [ "04a - Dumplings", "level_04", "has_token" ],
+		"category": [ "04a - Dumplings", "level_04", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Dumplings - Beat Day 15",
 		"region": "Late Dumplings",
-		"category": [ "04a - Dumplings", "level_04", "no_token" ]
+		"category": [ "04a - Dumplings", "level_04", "no_token", "inGame" ]
 	},
 	{
 		"name": "Dumplings - Beat Overtime 3",
 		"region": "Late Dumplings",
-		"category": [ "04a - Dumplings", "level_04", "overtimes" ]
+		"category": [ "04a - Dumplings", "level_04", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Coffee - Beat Day 3",
 		"region": "Early Coffee",
-		"category": [ "04b - Coffee", "level_04" ]
+		"category": [ "04b - Coffee", "level_04", "inGame" ]
 	},
 	{
 		"name": "Coffee - Beat Day 6",
 		"region": "Early Coffee",
-		"category": [ "04b - Coffee", "level_04" ]
+		"category": [ "04b - Coffee", "level_04", "inGame" ]
 	},
 	{
 		"name": "Coffee - Beat Day 9",
 		"region": "Middle Coffee",
-		"category": [ "04b - Coffee", "level_04" ]
+		"category": [ "04b - Coffee", "level_04", "inGame" ]
 	},
 	{
 		"name": "Coffee - Beat Day 12",
 		"region": "Late Coffee",
-		"category": [ "04b - Coffee", "level_04" ]
+		"category": [ "04b - Coffee", "level_04", "inGame" ]
 	},
 	{
 		"name": "Coffee - Beat Day 15 {Token}",
 		"region": "Late Coffee",
-		"category": [ "04b - Coffee", "level_04", "has_token" ],
+		"category": [ "04b - Coffee", "level_04", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Coffee - Beat Day 15",
 		"region": "Late Coffee",
-		"category": [ "04b - Coffee", "level_04", "no_token" ]
+		"category": [ "04b - Coffee", "level_04", "no_token", "inGame" ]
 	},
 	{
 		"name": "Coffee - Beat Overtime 3",
 		"region": "Late Coffee",
-		"category": [ "04b - Coffee", "level_04", "overtimes" ]
+		"category": [ "04b - Coffee", "level_04", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Burger - Beat Day 3",
 		"region": "Early Burger",
-		"category": [ "05 - Burger", "level_05" ]
+		"category": [ "05 - Burger", "level_05", "inGame" ]
 	},
 	{
 		"name": "Burger - Beat Day 6",
 		"region": "Early Burger",
-		"category": [ "05 - Burger", "level_05" ]
+		"category": [ "05 - Burger", "level_05", "inGame" ]
 	},
 	{
 		"name": "Burger - Beat Day 9",
 		"region": "Middle Burger",
-		"category": [ "05 - Burger", "level_05" ]
+		"category": [ "05 - Burger", "level_05", "inGame" ]
 	},
 	{
 		"name": "Burger - Beat Day 12",
 		"region": "Late Burger",
-		"category": [ "05 - Burger", "level_05" ]
+		"category": [ "05 - Burger", "level_05", "inGame" ]
 	},
 	{
 		"name": "Burger - Beat Day 15 {Token}",
 		"region": "Late Burger",
-		"category": [ "05 - Burger", "level_05", "has_token" ],
+		"category": [ "05 - Burger", "level_05", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Burger - Beat Day 15",
 		"region": "Late Burger",
-		"category": [ "05 - Burger", "level_05", "no_token" ]
+		"category": [ "05 - Burger", "level_05", "no_token", "inGame" ]
 	},
 	{
 		"name": "Burger - Beat Overtime 3",
 		"region": "Late Burger",
-		"category": [ "05 - Burger", "level_05", "overtimes" ]
+		"category": [ "05 - Burger", "level_05", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Turkey - Beat Day 3",
 		"region": "Early Turkey",
-		"category": [ "06a - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06", "inGame" ]
 	},
 	{
 		"name": "Turkey - Beat Day 6",
 		"region": "Early Turkey",
-		"category": [ "06a - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06", "inGame" ]
 	},
 	{
 		"name": "Turkey - Beat Day 9",
 		"region": "Middle Turkey",
-		"category": [ "06a - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06", "inGame" ]
 	},
 	{
 		"name": "Turkey - Beat Day 12",
 		"region": "Late Turkey",
-		"category": [ "06a - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06", "inGame" ]
 	},
 	{
 		"name": "Turkey - Beat Day 15 {Token}",
 		"region": "Late Turkey",
-		"category": [ "06a - Turkey", "level_06", "has_token" ],
+		"category": [ "06a - Turkey", "level_06", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Turkey - Beat Day 15",
 		"region": "Late Turkey",
-		"category": [ "06a - Turkey", "level_06", "no_token" ]
+		"category": [ "06a - Turkey", "level_06", "no_token", "inGame" ]
 	},
 	{
 		"name": "Turkey - Beat Overtime 3",
 		"region": "Late Turkey",
-		"category": [ "06a - Turkey", "level_06", "overtimes" ]
+		"category": [ "06a - Turkey", "level_06", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Tacos - Beat Day 3",
 		"region": "Early Tacos",
-		"category": [ "06b - Tacos", "level_06" ]
+		"category": [ "06b - Tacos", "level_06", "inGame" ]
 	},
 	{
 		"name": "Tacos - Beat Day 6",
 		"region": "Early Tacos",
-		"category": [ "06b - Tacos", "level_06" ]
+		"category": [ "06b - Tacos", "level_06", "inGame" ]
 	},
 	{
 		"name": "Tacos - Beat Day 9",
 		"region": "Middle Tacos",
-		"category": [ "06b - Tacos", "level_06" ]
+		"category": [ "06b - Tacos", "level_06", "inGame" ]
 	},
 	{
 		"name": "Tacos - Beat Day 12",
 		"region": "Late Tacos",
-		"category": [ "06b - Tacos", "level_06" ]
+		"category": [ "06b - Tacos", "level_06", "inGame" ]
 	},
 	{
 		"name": "Tacos - Beat Day 15 {Token}",
 		"region": "Late Tacos",
-		"category": [ "06b - Tacos", "level_06", "has_token" ],
+		"category": [ "06b - Tacos", "level_06", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Tacos - Beat Day 15",
 		"region": "Late Tacos",
-		"category": [ "06b - Tacos", "level_06", "no_token" ]
+		"category": [ "06b - Tacos", "level_06", "no_token", "inGame" ]
 	},
 	{
 		"name": "Tacos - Beat Overtime 3",
 		"region": "Late Tacos",
-		"category": [ "06b - Tacos", "level_06", "overtimes" ]
+		"category": [ "06b - Tacos", "level_06", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Pie - Beat Day 3",
 		"region": "Early Pie",
-		"category": [ "07a - Pie", "level_07" ]
+		"category": [ "07a - Pie", "level_07", "inGame" ]
 	},
 	{
 		"name": "Pie - Beat Day 6",
 		"region": "Early Pie",
-		"category": [ "07a - Pie", "level_07" ]
+		"category": [ "07a - Pie", "level_07", "inGame" ]
 	},
 	{
 		"name": "Pie - Beat Day 9",
 		"region": "Middle Pie",
-		"category": [ "07a - Pie", "level_07" ]
+		"category": [ "07a - Pie", "level_07", "inGame" ]
 	},
 	{
 		"name": "Pie - Beat Day 12",
 		"region": "Late Pie",
-		"category": [ "07a - Pie", "level_07" ]
+		"category": [ "07a - Pie", "level_07", "inGame" ]
 	},
 	{
 		"name": "Pie - Beat Day 15 {Token}",
 		"region": "Late Pie",
-		"category": [ "07a - Pie", "level_07", "has_token" ],
+		"category": [ "07a - Pie", "level_07", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Pie - Beat Day 15",
 		"region": "Late Pie",
-		"category": [ "07a - Pie", "level_07", "no_token" ]
+		"category": [ "07a - Pie", "level_07", "no_token", "inGame" ]
 	},
 	{
 		"name": "Pie - Beat Overtime 3",
 		"region": "Late Pie",
-		"category": [ "07a - Pie", "level_07", "overtimes" ]
+		"category": [ "07a - Pie", "level_07", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Cakes - Beat Day 3",
 		"region": "Early Cakes",
-		"category": [ "07b - Cakes", "level_07" ]
+		"category": [ "07b - Cakes", "level_07", "inGame" ]
 	},
 	{
 		"name": "Cakes - Beat Day 6",
 		"region": "Early Cakes",
-		"category": [ "07b - Cakes", "level_07" ]
+		"category": [ "07b - Cakes", "level_07", "inGame" ]
 	},
 	{
 		"name": "Cakes - Beat Day 9",
 		"region": "Middle Cakes",
-		"category": [ "07b - Cakes", "level_07" ]
+		"category": [ "07b - Cakes", "level_07", "inGame" ]
 	},
 	{
 		"name": "Cakes - Beat Day 12",
 		"region": "Late Cakes",
-		"category": [ "07b - Cakes", "level_07" ]
+		"category": [ "07b - Cakes", "level_07", "inGame" ]
 	},
 	{
 		"name": "Cakes - Beat Day 15 {Token}",
 		"region": "Late Cakes",
-		"category": [ "07b - Cakes", "level_07", "has_token" ],
+		"category": [ "07b - Cakes", "level_07", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Cakes - Beat Day 15",
 		"region": "Late Cakes",
-		"category": [ "07b - Cakes", "level_07", "no_token" ]
+		"category": [ "07b - Cakes", "level_07", "no_token", "inGame" ]
 	},
 	{
 		"name": "Cakes - Beat Overtime 3",
 		"region": "Late Cakes",
-		"category": [ "07b - Cakes", "level_07", "overtimes" ]
+		"category": [ "07b - Cakes", "level_07", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Spaghetti - Beat Day 3",
 		"region": "Early Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08" ]
+		"category": [ "08 - Spaghetti", "level_08", "inGame" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 6",
 		"region": "Early Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08" ]
+		"category": [ "08 - Spaghetti", "level_08", "inGame" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 9",
 		"region": "Middle Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08" ]
+		"category": [ "08 - Spaghetti", "level_08", "inGame" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 12",
 		"region": "Late Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08" ]
+		"category": [ "08 - Spaghetti", "level_08", "inGame" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 15 {Token}",
 		"region": "Late Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08", "has_token" ],
+		"category": [ "08 - Spaghetti", "level_08", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Spaghetti - Beat Day 15",
 		"region": "Late Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08", "no_token" ]
+		"category": [ "08 - Spaghetti", "level_08", "no_token", "inGame" ]
 	},
 	{
 		"name": "Spaghetti - Beat Overtime 3",
 		"region": "Late Spaghetti",
-		"category": [ "08 - Spaghetti", "level_08", "overtimes" ]
+		"category": [ "08 - Spaghetti", "level_08", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Fish - Beat Day 3",
 		"region": "Early Fish",
-		"category": [ "09 - Fish", "level_09" ]
+		"category": [ "09 - Fish", "level_09", "inGame" ]
 	},
 	{
 		"name": "Fish - Beat Day 6",
 		"region": "Early Fish",
-		"category": [ "09 - Fish", "level_09" ]
+		"category": [ "09 - Fish", "level_09", "inGame" ]
 	},
 	{
 		"name": "Fish - Beat Day 9",
 		"region": "Middle Fish",
-		"category": [ "09 - Fish", "level_09" ]
+		"category": [ "09 - Fish", "level_09", "inGame" ]
 	},
 	{
 		"name": "Fish - Beat Day 12",
 		"region": "Late Fish",
-		"category": [ "09 - Fish", "level_09" ]
+		"category": [ "09 - Fish", "level_09", "inGame" ]
 	},
 	{
 		"name": "Fish - Beat Day 15 {Token}",
 		"region": "Late Fish",
-		"category": [ "09 - Fish", "level_09", "has_token" ],
+		"category": [ "09 - Fish", "level_09", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Fish - Beat Day 15",
 		"region": "Late Fish",
-		"category": [ "09 - Fish", "level_09", "no_token" ]
+		"category": [ "09 - Fish", "level_09", "no_token", "inGame" ]
 	},
 	{
 		"name": "Fish - Beat Overtime 3",
 		"region": "Late Fish",
-		"category": [ "09 - Fish", "level_09", "overtimes" ]
+		"category": [ "09 - Fish", "level_09", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Hot Dog - Beat Day 3",
 		"region": "Early Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11" ]
+		"category": [ "11 - Hot Dog", "level_11", "inGame" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 6",
 		"region": "Early Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11" ]
+		"category": [ "11 - Hot Dog", "level_11", "inGame" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 9",
 		"region": "Middle Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11" ]
+		"category": [ "11 - Hot Dog", "level_11", "inGame" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 12",
 		"region": "Late Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11" ]
+		"category": [ "11 - Hot Dog", "level_11", "inGame" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 15 {Token}",
 		"region": "Late Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11", "has_token" ],
+		"category": [ "11 - Hot Dog", "level_11", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Hot Dog - Beat Day 15",
 		"region": "Late Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11", "no_token" ]
+		"category": [ "11 - Hot Dog", "level_11", "no_token", "inGame" ]
 	},
 	{
 		"name": "Hot Dog - Beat Overtime 3",
 		"region": "Late Hot Dog",
-		"category": [ "11 - Hot Dog", "level_11", "overtimes" ]
+		"category": [ "11 - Hot Dog", "level_11", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Breakfast - Beat Day 3",
 		"region": "Early Breakfast",
-		"category": [ "13 - Breakfast", "level_13" ]
+		"category": [ "13 - Breakfast", "level_13", "inGame" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 6",
 		"region": "Early Breakfast",
-		"category": [ "13 - Breakfast", "level_13" ]
+		"category": [ "13 - Breakfast", "level_13", "inGame" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 9",
 		"region": "Middle Breakfast",
-		"category": [ "13 - Breakfast", "level_13" ]
+		"category": [ "13 - Breakfast", "level_13", "inGame" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 12",
 		"region": "Late Breakfast",
-		"category": [ "13 - Breakfast", "level_13" ]
+		"category": [ "13 - Breakfast", "level_13", "inGame" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 15 {Token}",
 		"region": "Late Breakfast",
-		"category": [ "13 - Breakfast", "level_13", "has_token" ],
+		"category": [ "13 - Breakfast", "level_13", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Breakfast - Beat Day 15",
 		"region": "Late Breakfast",
-		"category": [ "13 - Breakfast", "level_13", "no_token" ]
+		"category": [ "13 - Breakfast", "level_13", "no_token", "inGame" ]
 	},
 	{
 		"name": "Breakfast - Beat Overtime 3",
 		"region": "Late Breakfast",
-		"category": [ "13 - Breakfast", "level_13", "overtimes" ]
+		"category": [ "13 - Breakfast", "level_13", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Stir Fry - Beat Day 3",
 		"region": "Early Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15" ]
+		"category": [ "15 - Stir Fry", "level_15", "inGame" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 6",
 		"region": "Early Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15" ]
+		"category": [ "15 - Stir Fry", "level_15", "inGame" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 9",
 		"region": "Middle Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15" ]
+		"category": [ "15 - Stir Fry", "level_15", "inGame" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 12",
 		"region": "Late Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15" ]
+		"category": [ "15 - Stir Fry", "level_15", "inGame" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 15 {Token}",
 		"region": "Late Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15", "has_token" ],
+		"category": [ "15 - Stir Fry", "level_15", "has_token", "inGame" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Stir Fry - Beat Day 15",
 		"region": "Late Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15", "no_token" ]
+		"category": [ "15 - Stir Fry", "level_15", "no_token", "inGame" ]
 	},
 	{
 		"name": "Stir Fry - Beat Overtime 3",
 		"region": "Late Stir Fry",
-		"category": [ "15 - Stir Fry", "level_15", "overtimes" ]
+		"category": [ "15 - Stir Fry", "level_15", "overtimes", "inGame" ]
 	},
 
 	{
 		"name": "Extra 01 - Beat Day 3",
 		"region": "Early Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 6",
 		"region": "Early Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 9",
 		"region": "Middle Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 12",
 		"region": "Late Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 15 {Token}",
 		"region": "Late Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 01 - Beat Day 15",
 		"region": "Late Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 01 - Beat Overtime 3",
 		"region": "Late Extra 01",
-		"category": [ "99 - Extra Recipe 01", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 01", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 02 - Beat Day 3",
 		"region": "Early Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 6",
 		"region": "Early Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 9",
 		"region": "Middle Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 12",
 		"region": "Late Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 15 {Token}",
 		"region": "Late Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 02 - Beat Day 15",
 		"region": "Late Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 02 - Beat Overtime 3",
 		"region": "Late Extra 02",
-		"category": [ "99 - Extra Recipe 02", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 02", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 03 - Beat Day 3",
 		"region": "Early Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 6",
 		"region": "Early Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 9",
 		"region": "Middle Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 12",
 		"region": "Late Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 15 {Token}",
 		"region": "Late Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 03 - Beat Day 15",
 		"region": "Late Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 03 - Beat Overtime 3",
 		"region": "Late Extra 03",
-		"category": [ "99 - Extra Recipe 03", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 03", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 04 - Beat Day 3",
 		"region": "Early Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 6",
 		"region": "Early Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 9",
 		"region": "Middle Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 12",
 		"region": "Late Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 15 {Token}",
 		"region": "Late Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 04 - Beat Day 15",
 		"region": "Late Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 04 - Beat Overtime 3",
 		"region": "Late Extra 04",
-		"category": [ "99 - Extra Recipe 04", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 04", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 05 - Beat Day 3",
 		"region": "Early Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 6",
 		"region": "Early Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 9",
 		"region": "Middle Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 12",
 		"region": "Late Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 15 {Token}",
 		"region": "Late Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 05 - Beat Day 15",
 		"region": "Late Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 05 - Beat Overtime 3",
 		"region": "Late Extra 05",
-		"category": [ "99 - Extra Recipe 05", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 05", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 06 - Beat Day 3",
 		"region": "Early Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 6",
 		"region": "Early Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 9",
 		"region": "Middle Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 12",
 		"region": "Late Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 15 {Token}",
 		"region": "Late Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 06 - Beat Day 15",
 		"region": "Late Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 06 - Beat Overtime 3",
 		"region": "Late Extra 06",
-		"category": [ "99 - Extra Recipe 06", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 06", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 07 - Beat Day 3",
 		"region": "Early Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 6",
 		"region": "Early Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 9",
 		"region": "Middle Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 12",
 		"region": "Late Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 15 {Token}",
 		"region": "Late Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 07 - Beat Day 15",
 		"region": "Late Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 07 - Beat Overtime 3",
 		"region": "Late Extra 07",
-		"category": [ "99 - Extra Recipe 07", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 07", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 08 - Beat Day 3",
 		"region": "Early Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 6",
 		"region": "Early Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 9",
 		"region": "Middle Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 12",
 		"region": "Late Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 15 {Token}",
 		"region": "Late Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 08 - Beat Day 15",
 		"region": "Late Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 08 - Beat Overtime 3",
 		"region": "Late Extra 08",
-		"category": [ "99 - Extra Recipe 08", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 08", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 09 - Beat Day 3",
 		"region": "Early Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 6",
 		"region": "Early Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 9",
 		"region": "Middle Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 12",
 		"region": "Late Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 15 {Token}",
 		"region": "Late Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 09 - Beat Day 15",
 		"region": "Late Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 09 - Beat Overtime 3",
 		"region": "Late Extra 09",
-		"category": [ "99 - Extra Recipe 09", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 09", "Extras", "inGame", "overtimes" ]
 	},
 
 	{
 		"name": "Extra 10 - Beat Day 3",
 		"region": "Early Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 6",
 		"region": "Early Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 9",
 		"region": "Middle Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 12",
 		"region": "Late Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 15 {Token}",
 		"region": "Late Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras", "has_token" ],
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Extra 10 - Beat Day 15",
 		"region": "Late Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras", "no_token" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame", "no_token" ]
 	},
 	{
 		"name": "Extra 10 - Beat Overtime 3",
 		"region": "Late Extra 10",
-		"category": [ "99 - Extra Recipe 10", "Extras", "overtimes" ]
+		"category": [ "99 - Extra Recipe 10", "Extras", "inGame", "overtimes" ]
 	},
 
 
