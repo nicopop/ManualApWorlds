@@ -48,6 +48,11 @@
     "category": [ "2 Recipes", "0 Everything", "level_06" ]
   },
   {
+    "name": "Tacos Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_06" ]
+  },
+  {
     "name": "Pie Recipe",
     "progression": true,
     "category": [ "2 Recipes", "0 Everything", "level_07" ]

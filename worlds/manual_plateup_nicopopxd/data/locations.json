@@ -260,38 +260,75 @@
 	{
 		"name": "Turkey - Beat Day 3",
 		"region": "Early Turkey",
-		"category": [ "06 - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 6",
 		"region": "Early Turkey",
-		"category": [ "06 - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 9",
 		"region": "Middle Turkey",
-		"category": [ "06 - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 12",
 		"region": "Late Turkey",
-		"category": [ "06 - Turkey", "level_06" ]
+		"category": [ "06a - Turkey", "level_06" ]
 	},
 	{
 		"name": "Turkey - Beat Day 15 {Token}",
 		"region": "Late Turkey",
-		"category": [ "06 - Turkey", "level_06", "has_token" ],
+		"category": [ "06a - Turkey", "level_06", "has_token" ],
 		"place_item": [ "Victory Token" ]
 	},
 	{
 		"name": "Turkey - Beat Day 15",
 		"region": "Late Turkey",
-		"category": [ "06 - Turkey", "level_06", "no_token" ]
+		"category": [ "06a - Turkey", "level_06", "no_token" ]
 	},
 	{
 		"name": "Turkey - Beat Overtime 3",
 		"region": "Late Turkey",
-		"category": [ "06 - Turkey", "level_06", "overtimes" ]
+		"category": [ "06a - Turkey", "level_06", "overtimes" ]
+	},
+
+	{
+		"name": "Tacos - Beat Day 3",
+		"region": "Early Tacos",
+		"category": [ "06b - Tacos", "level_06" ]
+	},
+	{
+		"name": "Tacos - Beat Day 6",
+		"region": "Early Tacos",
+		"category": [ "06b - Tacos", "level_06" ]
+	},
+	{
+		"name": "Tacos - Beat Day 9",
+		"region": "Middle Tacos",
+		"category": [ "06b - Tacos", "level_06" ]
+	},
+	{
+		"name": "Tacos - Beat Day 12",
+		"region": "Late Tacos",
+		"category": [ "06b - Tacos", "level_06" ]
+	},
+	{
+		"name": "Tacos - Beat Day 15 {Token}",
+		"region": "Late Tacos",
+		"category": [ "06b - Tacos", "level_06", "has_token" ],
+		"place_item": [ "Victory Token" ]
+	},
+	{
+		"name": "Tacos - Beat Day 15",
+		"region": "Late Tacos",
+		"category": [ "06b - Tacos", "level_06", "no_token" ]
+	},
+	{
+		"name": "Tacos - Beat Overtime 3",
+		"region": "Late Tacos",
+		"category": [ "06b - Tacos", "level_06", "overtimes" ]
 	},
 
 	{
