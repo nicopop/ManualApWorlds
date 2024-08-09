@@ -93,6 +93,13 @@ class WotWWorld(World):
 #            set_unsafe_rules(world, player)
 #            if world.glitches:
 #                set_unsafe_glitched_rules(world, player)
+
+        # Victory condition
+        add_rule(world.get_location("Victory", player),
+                 lambda state: state.can_reach_region("WillowsEnd.Upper", player)
+                 and state.has_any(("Sword", "Hammer"), player)
+                 and state.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch")))
+
         # from Utils import visualize_regions
         # visualize_regions(self.multiworld.get_region("Menu", self.player), "my_world.puml")
         # TODO remove debug comment
@@ -113,6 +120,8 @@ class WotWWorld(World):
             (parent, connected) = entrance.split("_to_")
             ent = Entrance(player, entrance, world.get_region(parent, player))
             ent.connect(world.get_region(connected, player))
+
+        world.completion_condition[player] = lambda state: state.has("Victory", player)
 
     def create_item(self, name):
         item_id = self.item_name_to_id[name]
@@ -180,7 +189,10 @@ class WotWWorld(World):
         for event in event_table:  # Create events and their item
             ev = WotWLocation(player, event, None)
             ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
-    # TODO: Config, spoiler, victory event
+
+        victory = WotWLocation(player, "Victory", None)
+        victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
+    # TODO: config tutorial, header file, infos with fill_slot_data, spoiler
 
 
 class WotWItem(Item):
