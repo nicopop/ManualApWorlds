@@ -119,8 +119,8 @@ header = ("\"\"\"\n"
           "\"\"\"\n\n"
           )
 
-lightM = ("    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n")
-lightG = ("    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n")
+lightM = "    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
+lightG = "    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
 
 # %% Functions for extracing rules
 
@@ -347,10 +347,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
             chain = elem.split(" OR ")
             temp = ""
             for s_elem in chain:
-                try:
-                    result = inter(s_elem, diff)
-                except ValueError:
-                    raise ValueError(f"{req}")
+                result = inter(s_elem, diff)
                 if result is not None:
                     if temp:
                         temp += " or " + result
@@ -419,7 +416,7 @@ def inter(text, diff):
                 if elem[1] == "x":
                     elem = elem[2:]
                 danger = ref_en[elem][1]
-                if type(danger) is str:
+                if isinstance(danger, str):
                     if danger not in dangers:
                         dangers.append(danger)
                 else:
@@ -472,8 +469,7 @@ def req_area(area, diff):
     if diff >= 1:
         if M_dat[area][1]:  # Kii, Gorlek
             return "state.has(\"Regenerate\", player)"
-        else:
-            return None
+        return None
 
     HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))
     if M_dat[area][1]:  # Moki

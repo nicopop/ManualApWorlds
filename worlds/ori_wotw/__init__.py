@@ -1,9 +1,7 @@
 """Initialisation file."""
 
 from collections import Counter
-from worlds.AutoWorld import World, WebWorld
-from worlds.generic.Rules import add_rule
-from BaseClasses import Region, Location, Entrance, Item, Tutorial, ItemClassification
+
 from .Rules import set_moki_rules
 # from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules, set_kii_glitched_rules,
 #                     set_unsafe_rules, set_unsafe_glitched_rules)
@@ -13,6 +11,10 @@ from .Options import WotWOptions  # add options_presets
 from .Events import event_table
 from .Regions import add_regions
 from .Entrances import entrance_table
+
+from worlds.AutoWorld import World, WebWorld
+from worlds.generic.Rules import add_rule
+from BaseClasses import Region, Location, Entrance, Item, Tutorial, ItemClassification
 
 spawn_names = {0: "MarshSpawn.Main",
                1: "MidnightBurrows.Teleporter",
@@ -101,7 +103,7 @@ class WotWWorld(World):
         options = self.options
 
         add_regions(player, world)  # Adds the anchors
-        menu_region = menu_region = Region("Menu", player, world)
+        menu_region = Region("Menu", player, world)
         world.regions += menu_region
 
         spawn_region = spawn_names[options.spawn]  # Links menu with spawn point
@@ -134,27 +136,27 @@ class WotWWorld(World):
             skipped_loc = world.get_location("WestPools.BurrowOre", player)
             skipped_loc.progress_type = 3
 
-        if options.sword[player]:
+        if options.sword:
             skipped_items.append("Sword")
             junk += 1
 
-        if not options.tp[player]:
+        if not options.tp:
             skipped_items.append(group_table["teleporters"])
             junk += 14
 
-        if not options.extratp[player]:
+        if not options.extratp:
             skipped_items.append(group_table["extratp"])
             junk += 2
 
-        if not options.bonus[player]:
+        if not options.bonus:
             skipped_items.append(group_table["bonus"])
             junk += 15
 
-        if not options.extra_bonus[player]:
+        if not options.extra_bonus:
             skipped_items.append(group_table["bonus+"])
             junk += 25
 
-        if not options.skill_upgrade[player]:
+        if not options.skill_upgrade:
             skipped_items.append(group_table["skillup"])
             junk += 6
 
@@ -167,9 +169,8 @@ class WotWWorld(World):
 
             if count <= 0:
                 continue
-            else:
-                for i in range(count):
-                    pool.append(self.create_item(item["name"]))
+            for _ in range(count):
+                pool.append(self.create_item(item["name"]))
 
         for _ in range(junk):
             pool.append(self.create_item("SpiritLight"))

@@ -69,7 +69,7 @@ def extract_events(override=False):
                 if name not in events:
                     events.append(name)
 
-    for i, event in enumerate(events):
+    for event in events:
         event_txt += f"    \"{event}\",\n"
     event_txt += "    ]\n"
 
