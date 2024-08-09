@@ -6,7 +6,6 @@ The data is extracted from an `areas.wotw` file and a `loc_data.csv` file.
 
 import re
 import os
-import numpy as np
 
 com = re.compile(" *#")  # Detects comments
 sp = re.compile("^ *")  # Used for indents
@@ -22,6 +21,58 @@ def extract_all(override=False):
     extract_regions(override)
 
 
+def extract_locations(override=False):
+    """Extracts the data and writes a file with the location table."""
+    if os.path.exists("./Locations.py"):
+        if override:
+            print("Warning: File replaced")
+        else:
+            raise FileExistsError("The file `Location.py` already exists. Use `override=True` to override it.")
+
+    header = ("\"\"\"\n"
+              "File generated with `extract_data.py` by running `extract_locations()` on an `areas.wotw` file.\n\n"
+              "You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .\n\n"
+              "Do not edit manually.\n"
+              "\"\"\"\n\n\n")
+
+    locations = []
+
+    location_txt = "location_table = [\n"
+
+    with open("./areas.wotw", "r") as file:
+        temp = file.readlines()
+
+    for p in temp:
+        m = com.search(p)  # Removes the comments
+        if m:
+            p = p[:m.start()]
+        m = tra.search(p)  # Removes the trailing spaces
+        if m:
+            p = p[:m.start()]
+        if p == "":
+            continue
+
+        m = sp.match(p)  # Counts the indents
+        if m is None:
+            ind = 0
+        else:
+            ind = (m.end()+1)//2
+
+        if ind == 1:
+            if "pickup" in p or "quest" in p:
+                name = col.search(p[2:]).group()[1:-1]
+                if name not in locations:
+                    locations.append(name)
+
+    for location in locations:
+        location_txt += f"    \"{location}\",\n"
+    location_txt += "    ]\n"
+
+    with open("Locations.py", "w") as file:
+        file.write(header + location_txt)
+        print("The file Location.py has been successfully created.")
+
+
 def extract_events(override=False):
     """Extracts the data and writes them as a table with the events."""
     if os.path.exists("./Events.py"):
@@ -32,6 +83,7 @@ def extract_events(override=False):
 
     header = ("\"\"\"\n"
               "File generated with `extract_data.py` by running `extract_events()` on an `areas.wotw` file.\n\n"
+              "You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .\n\n"
               "Do not edit manually.\n"
               "\"\"\"\n\n")
 
@@ -78,31 +130,6 @@ def extract_events(override=False):
         print("The file Events.py has been successfully created.")
 
 
-def extract_locations(override=False):
-    """Extracts the data and writes a file with the location table."""
-    if os.path.exists("./Locations.py"):
-        if override:
-            print("Warning: File replaced")
-        else:
-            raise FileExistsError("The file `Location.py` already exists. Use `override=True` to override it.")
-
-    header = ("\"\"\"\n"
-              "File generated with `extract_data.py` by running `extract_locations()` on a `loc_data.csv` file.\n\n"
-              "Do not edit manually.\n"
-              "\"\"\"\n\n\n")
-
-    data = np.loadtxt("./loc_data.csv", dtype=str, delimiter=",")
-
-    loc = header + "location_table = [\n"
-    for i in range(1, len(data)):
-        loc += "    {\"name\": \"" + str(data[i, 0]) + "\", \"game_id\": " + str(data[i, 7]) + "},\n"
-    loc += "    ]"
-
-    with open("Locations.py", "w") as file:
-        file.write(loc)
-        print("The file Location.py has been successfully created.")
-
-
 def extract_regions(override=False):
     """Extracts the data and writes a file with the regions."""
     if os.path.exists("./Regions.py"):
@@ -113,14 +140,11 @@ def extract_regions(override=False):
 
     header = ("\"\"\"\n"
               "File generated with `extract_data.py` by running `extract_regions()` on an `areas.wotw` file.\n\n"
+              "You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .\n\n"
               "Do not edit manually.\n"
-              "\"\"\"\n\n"
-              "from BaseClasses import Region\n\n\n"
-              "def add_regions(player, world):\n")
+              "\"\"\"\n\n\n")
 
     regions = []
-
-    region_txt = ""
 
     with open("./areas.wotw", "r") as file:
         temp = file.readlines()
@@ -150,17 +174,15 @@ def extract_regions(override=False):
                 else:
                     anc = name
                 if anc not in regions:
-                    regions.append(name)
-        elif ind == 1:
-            if "state" in p:
-                name = col.search(p[2:]).group()[1:-1]
-                if name not in regions:
-                    regions.append(name)
+                    regions.append(anc)
 
-    for i, region in enumerate(regions):
-        region_txt += f"    region{i} = Region(\"{region}\", player, world)\n"
-        region_txt += f"    world.regions.append(region{i})\n"
+    region_txt = header + "region_table = [\n"
+
+    for region in regions:
+        region_txt += f"    \"{region}\",\n"
+
+    region_txt += "    ]\n"
 
     with open("Regions.py", "w") as file:
-        file.write(header + region_txt)
+        file.write(region_txt)
         print("The file Regions.py has been successfully created.")

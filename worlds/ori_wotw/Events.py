@@ -1,6 +1,8 @@
 """
 File generated with `extract_data.py` by running `extract_events()` on an `areas.wotw` file.
 
+You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .
+
 Do not edit manually.
 """
 

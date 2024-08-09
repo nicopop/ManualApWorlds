@@ -11,7 +11,7 @@ from worlds.generic.Rules import add_rule
 
 def set_moki_rules(world, player):
     """Moki (or easy, default) rules."""
-    add_rule(world.get_region("DepthsLight", player), lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash"), player))
+    add_rule(world.get_location("DepthsLight", player), lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash"), player))
     add_rule(world.get_location("SkipKwolok", player), lambda state: state.can_reach_region("HeaderStates", player) and state.has("Impossible", player))
     add_rule(world.get_location("SkipMora1", player), lambda state: state.can_reach_region("HeaderStates", player) and state.has("Impossible", player))
     add_rule(world.get_location("SkipMora2", player), lambda state: state.can_reach_region("HeaderStates", player) and state.has("Impossible", player))

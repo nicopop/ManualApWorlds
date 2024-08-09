@@ -1,912 +1,324 @@
 """
 File generated with `extract_data.py` by running `extract_regions()` on an `areas.wotw` file.
 
+You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .
+
 Do not edit manually.
 """
 
-from BaseClasses import Region
 
-
-def add_regions(player, world):
-    region0 = Region("HeaderStates", player, world)
-    world.regions.append(region0)
-    region1 = Region("SkipKwolok", player, world)
-    world.regions.append(region1)
-    region2 = Region("SkipMora1", player, world)
-    world.regions.append(region2)
-    region3 = Region("SkipMora2", player, world)
-    world.regions.append(region3)
-    region4 = Region("Teleporters", player, world)
-    world.regions.append(region4)
-    region5 = Region("MarshSpawn.Main at -799, -4310", player, world)
-    world.regions.append(region5)
-    region6 = Region("NonGladesTeleporter", player, world)
-    world.regions.append(region6)
-    region7 = Region("MarshSpawn.ToOpherBarrier", player, world)
-    world.regions.append(region7)
-    region8 = Region("MarshSpawn.OpherBarrier at -681, -4309", player, world)
-    world.regions.append(region8)
-    region9 = Region("MarshSpawn.LogBroken", player, world)
-    world.regions.append(region9)
-    region10 = Region("MarshSpawn.BrokenBridge at -643, -4351", player, world)
-    world.regions.append(region10)
-    region11 = Region("MarshSpawn.CaveEntrance at -588, -4393", player, world)
-    world.regions.append(region11)
-    region12 = Region("MarshSpawn.KeystoneDoor", player, world)
-    world.regions.append(region12)
-    region13 = Region("MarshSpawn.TokkBarrier", player, world)
-    world.regions.append(region13)
-    region14 = Region("MarshSpawn.Cave at -707, -4419", player, world)
-    world.regions.append(region14)
-    region15 = Region("MarshSpawn.CaveFight", player, world)
-    world.regions.append(region15)
-    region16 = Region("MarshSpawn.BurrowFightArena at -959, -4406", player, world)
-    world.regions.append(region16)
-    region17 = Region("MarshSpawn.BurrowArena", player, world)
-    world.regions.append(region17)
-    region18 = Region("MarshSpawn.LifepactLedge at -931, -4399", player, world)
-    world.regions.append(region18)
-    region19 = Region("MarshSpawn.PoolsBurrowsSignpost at -898, -4436", player, world)
-    world.regions.append(region19)
-    region20 = Region("MarshSpawn.BeforeBurrows at -1006, -4497", player, world)
-    world.regions.append(region20)
-    region21 = Region("MarshSpawn.BurrowsEntry at -937, -4494", player, world)
-    world.regions.append(region21)
-    region22 = Region("MarshSpawn.BurrowsOpen", player, world)
-    world.regions.append(region22)
-    region23 = Region("MarshSpawn.DamageTreeOpen", player, world)
-    world.regions.append(region23)
-    region24 = Region("MarshSpawn.LeftSpawnSignpost at -954, -4296", player, world)
-    world.regions.append(region24)
-    region25 = Region("MarshSpawn.PoolsPath at -1070, -4275", player, world)
-    world.regions.append(region25)
-    region26 = Region("PoolsApproach.WheelFreed", player, world)
-    world.regions.append(region26)
-    region27 = Region("MarshSpawn.RegenDoor at -573, -4393", player, world)
-    world.regions.append(region27)
-    region28 = Region("MarshSpawn.HowlApproach at -500, -4395", player, world)
-    world.regions.append(region28)
-    region29 = Region("MarshSpawn.HowlBurnt", player, world)
-    world.regions.append(region29)
-    region30 = Region("MarshSpawn.MokkTheBrave at -376, -4413", player, world)
-    world.regions.append(region30)
-    region31 = Region("MarshSpawn.AboveHowlArena at -298, -4388", player, world)
-    world.regions.append(region31)
-    region32 = Region("MarshSpawn.FangPlatform at -218, -4406", player, world)
-    world.regions.append(region32)
-    region33 = Region("MarshSpawn.HowlsDenEntrance at -429, -4420", player, world)
-    world.regions.append(region33)
-    region34 = Region("HowlsDen.UpperLoopExit at -401, -4433", player, world)
-    world.regions.append(region34)
-    region35 = Region("HowlsDen.UpperLoopExitBarrier", player, world)
-    world.regions.append(region35)
-    region36 = Region("HowlsDen.AboveBoneBridge at -446, -4436", player, world)
-    world.regions.append(region36)
-    region37 = Region("HowlsDen.UpperLoopEntrance at -407, -4451", player, world)
-    world.regions.append(region37)
-    region38 = Region("HowlsDen.UpperLoopEntranceBarrier", player, world)
-    world.regions.append(region38)
-    region39 = Region("HowlsDen.BoneBridge at -371, -4468", player, world)
-    world.regions.append(region39)
-    region40 = Region("HowlsDen.KeystoneDoor", player, world)
-    world.regions.append(region40)
-    region41 = Region("HowlsDen.RainLifted", player, world)
-    world.regions.append(region41)
-    region42 = Region("HowlsDen.BoneBarrier", player, world)
-    world.regions.append(region42)
-    region43 = Region("HowlsDen.BoneBridgeDoor at -466, -4490", player, world)
-    world.regions.append(region43)
-    region44 = Region("HowlsDen.OutsideSecretRoom at -495, -4481", player, world)
-    world.regions.append(region44)
-    region45 = Region("HowlsDen.SecretRoomWall", player, world)
-    world.regions.append(region45)
-    region46 = Region("HowlsDen.MidwayBottomLoop at -492, -4459", player, world)
-    world.regions.append(region46)
-    region47 = Region("HowlsDen.SecretRoom at -515, -4479", player, world)
-    world.regions.append(region47)
-    region48 = Region("HowlsDen.LeftSecretRoom at -565, -4470", player, world)
-    world.regions.append(region48)
-    region49 = Region("HowlsDen.AboveTeleporter at -348, -4497", player, world)
-    world.regions.append(region49)
-    region50 = Region("HowlsDen.Teleporter at -328, -4536", player, world)
-    world.regions.append(region50)
-    region51 = Region("HowlsDen.DoubleJumpApproach at -436, -4528", player, world)
-    world.regions.append(region51)
-    region52 = Region("HowlsDen.DoubleJumpTreeCombat", player, world)
-    world.regions.append(region52)
-    region53 = Region("HowlsDen.DoubleJumpTreeLedge at -514, -4549", player, world)
-    world.regions.append(region53)
-    region54 = Region("HowlsDen.DoubleJumpTreeArea at -555, -4552", player, world)
-    world.regions.append(region54)
-    region55 = Region("MidnightBurrows.HowlsDenShortcut", player, world)
-    world.regions.append(region55)
-    region56 = Region("DenShrine at -328, -4569", player, world)
-    world.regions.append(region56)
-    region57 = Region("HowlsDen.CombatShrineCompleted", player, world)
-    world.regions.append(region57)
-    region58 = Region("MarshPastOpher.MillView at -596, -4293", player, world)
-    world.regions.append(region58)
-    region59 = Region("MarshPastOpher.OpherSkipBranch at -643, -4270", player, world)
-    world.regions.append(region59)
-    region60 = Region("MarshPastOpher.TrialStart at -602, -4316", player, world)
-    world.regions.append(region60)
-    region61 = Region("MarshPastOpher.TrunkWall", player, world)
-    world.regions.append(region61)
-    region62 = Region("MarshPastOpher.UnderTrunk at -573, -4339", player, world)
-    world.regions.append(region62)
-    region63 = Region("MarshPastOpher.TrialArea at -427, -4342", player, world)
-    world.regions.append(region63)
-    region64 = Region("MarshPastOpher.TrialActivation", player, world)
-    world.regions.append(region64)
-    region65 = Region("MarshShrine at -382, -4341", player, world)
-    world.regions.append(region65)
-    region66 = Region("MarshPastOpher.CombatShrineCompleted", player, world)
-    world.regions.append(region66)
-    region67 = Region("MarshPastOpher.BowPath at -494, -4294", player, world)
-    world.regions.append(region67)
-    region68 = Region("MarshPastOpher.BowApproach at -490, -4245", player, world)
-    world.regions.append(region68)
-    region69 = Region("MarshPastOpher.BowArea at -443, -4236", player, world)
-    world.regions.append(region69)
-    region70 = Region("MarshPastOpher.EyestoneDoor", player, world)
-    world.regions.append(region70)
-    region71 = Region("MarshPastOpher.UpperBowArea at -437, -4211", player, world)
-    world.regions.append(region71)
-    region72 = Region("MarshPastOpher.PoolsPathEast at -662, -4241", player, world)
-    world.regions.append(region72)
-    region73 = Region("MarshPastOpher.PoolsPathMiddle at -709, -4181", player, world)
-    world.regions.append(region73)
-    region74 = Region("MarshPastOpher.PoolsPathOneWayWall at -744, -4173", player, world)
-    world.regions.append(region74)
-    region75 = Region("MarshPastOpher.PoolsPathBellowOneWayWall at -754, -4187", player, world)
-    world.regions.append(region75)
-    region76 = Region("MarshPastOpher.PoolsPathWest at -803, -4187", player, world)
-    world.regions.append(region76)
-    region77 = Region("MidnightBurrows.Teleporter at -945, -4582", player, world)
-    world.regions.append(region77)
-    region78 = Region("MidnightBurrows.BelowLupo at -850, -4579", player, world)
-    world.regions.append(region78)
-    region79 = Region("MidnightBurrows.Central at -781, -4564", player, world)
-    world.regions.append(region79)
-    region80 = Region("MidnightBurrows.Lever", player, world)
-    world.regions.append(region80)
-    region81 = Region("MidnightBurrows.TabletRoom at -824, -4531", player, world)
-    world.regions.append(region81)
-    region82 = Region("MidnightBurrows.KeystoneDoor", player, world)
-    world.regions.append(region82)
-    region83 = Region("MidnightBurrows.PortalRoom at -706, -4588", player, world)
-    world.regions.append(region83)
-    region84 = Region("MidnightBurrows.LeverRoom at -685, -4616", player, world)
-    world.regions.append(region84)
-    region85 = Region("MidnightBurrows.East at -687, -4553", player, world)
-    world.regions.append(region85)
-    region86 = Region("MidnightBurrows.DenConnection at -597, -4549", player, world)
-    world.regions.append(region86)
-    region87 = Region("MidnightBurrows.PortalCorridor at -632, -4525", player, world)
-    world.regions.append(region87)
-    region88 = Region("MidnightBurrows.BelowUpperKS at -724, -4524", player, world)
-    world.regions.append(region88)
-    region89 = Region("WestHollow.Entrance at -303, -4238", player, world)
-    world.regions.append(region89)
-    region90 = Region("WestHollow.PurpleDoorOpen", player, world)
-    world.regions.append(region90)
-    region91 = Region("WestHollow.MokiByTwillen at -230, -4229", player, world)
-    world.regions.append(region91)
-    region92 = Region("WestHollow.UpperDrainLeverPulled", player, world)
-    world.regions.append(region92)
-    region93 = Region("WestHollow.InFrontPurpleDoor at -181, -4240", player, world)
-    world.regions.append(region93)
-    region94 = Region("WestHollow.InFrontPurpleDoorEnemyPaths at -181, -4240", player, world)
-    world.regions.append(region94)
-    region95 = Region("WestHollow.HollowDrainMiddle at -197, -4275", player, world)
-    world.regions.append(region95)
-    region96 = Region("WestHollow.UpperTongueExtended", player, world)
-    world.regions.append(region96)
-    region97 = Region("WestHollow.RockPuzzle at -249, -4275", player, world)
-    world.regions.append(region97)
-    region98 = Region("WestHollow.RockPuzzleSolved", player, world)
-    world.regions.append(region98)
-    region99 = Region("WestHollow.FarLeftRoom at -357, -4284", player, world)
-    world.regions.append(region99)
-    region100 = Region("WestHollow.FullyDrained", player, world)
-    world.regions.append(region100)
-    region101 = Region("WestHollow.SubmergedPlatform at -215, -4288", player, world)
-    world.regions.append(region101)
-    region102 = Region("WestHollow.UpperTongueRetracted", player, world)
-    world.regions.append(region102)
-    region103 = Region("WestHollow.LowerTongueExtended", player, world)
-    world.regions.append(region103)
-    region104 = Region("WestHollow.AboveJumppad at -207, -4304", player, world)
-    world.regions.append(region104)
-    region105 = Region("WestHollow.LowerTongueRetracted", player, world)
-    world.regions.append(region105)
-    region106 = Region("WestHollow.HollowDrainLower at -216, -4329", player, world)
-    world.regions.append(region106)
-    region107 = Region("WestHollow.TrialApproach at -155, -4298", player, world)
-    world.regions.append(region107)
-    region108 = Region("WestHollow.TrialStart at -120, -4260", player, world)
-    world.regions.append(region108)
-    region109 = Region("WestHollow.PolesPound at -123, -4377", player, world)
-    world.regions.append(region109)
-    region110 = Region("WestHollow.DashApproach at -111, -4429", player, world)
-    world.regions.append(region110)
-    region111 = Region("WestHollow.TrialActivation", player, world)
-    world.regions.append(region111)
-    region112 = Region("WestHollow.DoorLever", player, world)
-    world.regions.append(region112)
-    region113 = Region("WestHollow.DashArea at -88, -4423", player, world)
-    world.regions.append(region113)
-    region114 = Region("WestHollow.DashCrushers at -23, -4443", player, world)
-    world.regions.append(region114)
-    region115 = Region("WestHollow.DashRoomTopRight at -21, -4411", player, world)
-    world.regions.append(region115)
-    region116 = Region("WestHollow.AboveDashSemisolid at -81, -4411", player, world)
-    world.regions.append(region116)
-    region117 = Region("EastHollow.Teleporter at -150, -4238", player, world)
-    world.regions.append(region117)
-    region118 = Region("EastHollow.VoiceDoorOpen", player, world)
-    world.regions.append(region118)
-    region119 = Region("BeetleFight at -81, -4243", player, world)
-    world.regions.append(region119)
-    region120 = Region("EastHollow.BeetleDefeated", player, world)
-    world.regions.append(region120)
-    region121 = Region("EastHollow.VoiceDoorPlatform at -96, -4222", player, world)
-    world.regions.append(region121)
-    region122 = Region("EastHollow.MapMoki at -106, -4221", player, world)
-    world.regions.append(region122)
-    region123 = Region("EastHollow.OutsideGlades at -152, -4164", player, world)
-    world.regions.append(region123)
-    region124 = Region("GladesTown.GromsWall", player, world)
-    world.regions.append(region124)
-    region125 = Region("EastHollow.AfterBeetleFight at -41, -4231", player, world)
-    world.regions.append(region125)
-    region126 = Region("EastHollow.AboveBash at -10, -4244", player, world)
-    world.regions.append(region126)
-    region127 = Region("EastHollow.DepthsLever", player, world)
-    world.regions.append(region127)
-    region128 = Region("EastHollow.BashTreeCheckpoint at -7, -4325", player, world)
-    world.regions.append(region128)
-    region129 = Region("EastHollow.Kwolok at 177, -4215", player, world)
-    world.regions.append(region129)
-    region130 = Region("GladesTown.TuleySpawned", player, world)
-    world.regions.append(region130)
-    region131 = Region("EastHollow.AboveDepths at 47, -4302", player, world)
-    world.regions.append(region131)
-    region132 = Region("EastHollow.DepthsOpen", player, world)
-    world.regions.append(region132)
-    region133 = Region("GladesTown.Teleporter at -307, -4153", player, world)
-    world.regions.append(region133)
-    region134 = Region("GladesTown.BuildHuts", player, world)
-    world.regions.append(region134)
-    region135 = Region("GladesTown.RoofsOverHeads", player, world)
-    world.regions.append(region135)
-    region136 = Region("GladesTown.OnwardsAndUpwards", player, world)
-    world.regions.append(region136)
-    region137 = Region("GladesTown.ClearThorns", player, world)
-    world.regions.append(region137)
-    region138 = Region("GladesTown.CaveEntrance", player, world)
-    world.regions.append(region138)
-    region139 = Region("GladesTown.TwillenHome at -414, -4160", player, world)
-    world.regions.append(region139)
-    region140 = Region("GladesTown.West at -430, -4135", player, world)
-    world.regions.append(region140)
-    region141 = Region("GladesTown.MotayHut at -182, -4589", player, world)
-    world.regions.append(region141)
-    region142 = Region("GladesTown.UpperWest at -357, -4126", player, world)
-    world.regions.append(region142)
-    region143 = Region("GladesTown.AcornMoki at -347, -4182", player, world)
-    world.regions.append(region143)
-    region144 = Region("GladesTown.BelowBountyShard at -247, -4121", player, world)
-    world.regions.append(region144)
-    region145 = Region("GladesTown.LeftAboveCoals at -239, -4136", player, world)
-    world.regions.append(region145)
-    region146 = Region("GladesTown.AboveOpher at -212, -4133", player, world)
-    world.regions.append(region146)
-    region147 = Region("GladesTown.PlayfulMoki at -210, -4122", player, world)
-    world.regions.append(region147)
-    region148 = Region("GladesTown.LupoHouse at -207, -4161", player, world)
-    world.regions.append(region148)
-    region149 = Region("GladesTown.HoleHut at -214, -4111", player, world)
-    world.regions.append(region149)
-    region150 = Region("GladesTown.HoleHutEntrance at -229, -4094", player, world)
-    world.regions.append(region150)
-    region151 = Region("WestGlades.PastTown at -545, -4113", player, world)
-    world.regions.append(region151)
-    region152 = Region("WestGlades.LowerPool at -642, -4112", player, world)
-    world.regions.append(region152)
-    region153 = Region("WestGlades.Center at -612, -4083", player, world)
-    world.regions.append(region153)
-    region154 = Region("WestGlades.Upper at -618, -4054", player, world)
-    world.regions.append(region154)
-    region155 = Region("LowerReach.BearSneezed", player, world)
-    world.regions.append(region155)
-    region156 = Region("WestGlades.MillApproach at -705, -4065", player, world)
-    world.regions.append(region156)
-    region157 = Region("WestGlades.ShrineArea at -664, -4026", player, world)
-    world.regions.append(region157)
-    region158 = Region("GladesShrine at -635, -4020", player, world)
-    world.regions.append(region158)
-    region159 = Region("WestGlades.CombatShrineCompleted", player, world)
-    world.regions.append(region159)
-    region160 = Region("OuterWellspring.EntranceDoor at -856, -4058", player, world)
-    world.regions.append(region160)
-    region161 = Region("OuterWellspring.EntranceDoorOpen", player, world)
-    world.regions.append(region161)
-    region162 = Region("OuterWellspring.FallingWheel", player, world)
-    world.regions.append(region162)
-    region163 = Region("OuterWellspring.LifeHarvestWallBroken", player, world)
-    world.regions.append(region163)
-    region164 = Region("OuterWellspring.LifeHarvestEntry at -978, -4042", player, world)
-    world.regions.append(region164)
-    region165 = Region("OuterWellspring.LifeHarvestLeverPulled", player, world)
-    world.regions.append(region165)
-    region166 = Region("OuterWellspring.Basement at -939, -4114", player, world)
-    world.regions.append(region166)
-    region167 = Region("OuterWellspring.AboveEntranceDoor at -837, -4026", player, world)
-    world.regions.append(region167)
-    region168 = Region("OuterWellspring.WestDoor at -892, -3992", player, world)
-    world.regions.append(region168)
-    region169 = Region("OuterWellspring.WestDoorBlueMoonFree", player, world)
-    world.regions.append(region169)
-    region170 = Region("OuterWellspring.EastDoor at -814, -3973", player, world)
-    world.regions.append(region170)
-    region171 = Region("OuterWellspring.AboveWestDoor at -866, -3949", player, world)
-    world.regions.append(region171)
-    region172 = Region("OuterWellspring.TopDoor at -836, -3927", player, world)
-    world.regions.append(region172)
-    region173 = Region("OuterWellspring.TrialActivation", player, world)
-    world.regions.append(region173)
-    region174 = Region("OuterWellspring.RightWallMidpoint at -746, -4019", player, world)
-    world.regions.append(region174)
-    region175 = Region("OuterWellspring.TrialApproach at -727, -3961", player, world)
-    world.regions.append(region175)
-    region176 = Region("OuterWellspring.TrialRoom at -684, -3947", player, world)
-    world.regions.append(region176)
-    region177 = Region("OuterWellspring.TrialStart at -665, -3937", player, world)
-    world.regions.append(region177)
-    region178 = Region("InnerWellspring.EntranceDoor at -1263, -3952", player, world)
-    world.regions.append(region178)
-    region179 = Region("InnerWellspring.ThreeWheels", player, world)
-    world.regions.append(region179)
-    region180 = Region("InnerWellspring.ThornShardArea at -1317, -3933", player, world)
-    world.regions.append(region180)
-    region181 = Region("InnerWellspring.ShortcutLever at -1264, -3907", player, world)
-    world.regions.append(region181)
-    region182 = Region("InnerWellspring.ShortCutWheel", player, world)
-    world.regions.append(region182)
-    region183 = Region("InnerWellspring.DrainRoom at -1167, -3946", player, world)
-    world.regions.append(region183)
-    region184 = Region("InnerWellspring.DrainRoomBottomWheel", player, world)
-    world.regions.append(region184)
-    region185 = Region("InnerWellspring.DrainAreaEntrance at -1128, -3968", player, world)
-    world.regions.append(region185)
-    region186 = Region("InnerWellspring.DrainAreaEX at -1064, -3961", player, world)
-    world.regions.append(region186)
-    region187 = Region("InnerWellspring.DrainAreaExit at -1093, -3950", player, world)
-    world.regions.append(region187)
-    region188 = Region("InnerWellspring.DrainRoomCenter at -1116, -3924", player, world)
-    world.regions.append(region188)
-    region189 = Region("InnerWellspring.DrainRoomTopWheel", player, world)
-    world.regions.append(region189)
-    region190 = Region("InnerWellspring.DrainRoomTop at -1086, -3908", player, world)
-    world.regions.append(region190)
-    region191 = Region("InnerWellspring.BelowDrainLever at -1153, -3895", player, world)
-    world.regions.append(region191)
-    region192 = Region("InnerWellspring.DrainLever", player, world)
-    world.regions.append(region192)
-    region193 = Region("InnerWellspring.AbovePole at -1164, -3874", player, world)
-    world.regions.append(region193)
-    region194 = Region("InnerWellspring.UpperCorruption", player, world)
-    world.regions.append(region194)
-    region195 = Region("InnerWellspring.WestDoor at -1216, -3897", player, world)
-    world.regions.append(region195)
-    region196 = Region("InnerWellspring.MiddleDoorsOpen", player, world)
-    world.regions.append(region196)
-    region197 = Region("InnerWellspring.EastDoor at -1190, -3733", player, world)
-    world.regions.append(region197)
-    region198 = Region("InnerWellspring.SpinArena", player, world)
-    world.regions.append(region198)
-    region199 = Region("InnerWellspring.SpinningRoomOpen", player, world)
-    world.regions.append(region199)
-    region200 = Region("InnerWellspring.SpinPuzzle at -1193, -3806", player, world)
-    world.regions.append(region200)
-    region201 = Region("InnerWellspring.SpinPuzzleSolved", player, world)
-    world.regions.append(region201)
-    region202 = Region("InnerWellspring.PastSpinPuzzle at -1101, -3778", player, world)
-    world.regions.append(region202)
-    region203 = Region("InnerWellspring.GrappleThroughZigZagSpikes at -1100, -3725", player, world)
-    world.regions.append(region203)
-    region204 = Region("InnerWellspring.TopSecondRoom at -1141, -3698", player, world)
-    world.regions.append(region204)
-    region205 = Region("InnerWellspring.TopDoorOpen", player, world)
-    world.regions.append(region205)
-    region206 = Region("InnerWellspring.Teleporter at -1308, -3675", player, world)
-    world.regions.append(region206)
-    region207 = Region("InnerWellspring.EscapeSequence at -1240, -3642", player, world)
-    world.regions.append(region207)
-    region208 = Region("WoodsEntry.ShriekMeet at 391, -4198", player, world)
-    world.regions.append(region208)
-    region209 = Region("WoodsEntry.FirstMud at 478, -4205", player, world)
-    world.regions.append(region209)
-    region210 = Region("WoodsEntry.BelowTeleporter at 591, -4198", player, world)
-    world.regions.append(region210)
-    region211 = Region("WoodsEntry.Teleporter at 611, -4162", player, world)
-    world.regions.append(region211)
-    region212 = Region("WoodsEntry.TwoKeystoneRoom at 672, -4183", player, world)
-    world.regions.append(region212)
-    region213 = Region("WoodsEntry.KeystoneDoor", player, world)
-    world.regions.append(region213)
-    region214 = Region("WoodsMain.AfterKuMeet at 856, -4192", player, world)
-    world.regions.append(region214)
-    region215 = Region("WoodsMain.BelowFourKeystoneRoom at 951, -4210", player, world)
-    world.regions.append(region215)
-    region216 = Region("WoodsMain.WallOreLedge at 982, -4175", player, world)
-    world.regions.append(region216)
-    region217 = Region("WoodsMain.FourKeystoneRoom at 944, -4137", player, world)
-    world.regions.append(region217)
-    region218 = Region("WoodsMain.KeystoneDoor", player, world)
-    world.regions.append(region218)
-    region219 = Region("WoodsMain.KSRoomYellowBarrierBroken", player, world)
-    world.regions.append(region219)
-    region220 = Region("WoodsMain.GiantSkull at 957, -4138", player, world)
-    world.regions.append(region220)
-    region221 = Region("WoodsMain.BalloonLure at 1056, -4144", player, world)
-    world.regions.append(region221)
-    region222 = Region("WoodsMain.BalloonLureBlobDestroyed", player, world)
-    world.regions.append(region222)
-    region223 = Region("WoodsMain.BalloonLureYellowBarrierBroken", player, world)
-    world.regions.append(region223)
-    region224 = Region("WoodsMain.BelowHiddenOre at 1038, -4101", player, world)
-    world.regions.append(region224)
-    region225 = Region("WoodsMain.PetrifiedHowl at 910, -4071", player, world)
-    world.regions.append(region225)
-    region226 = Region("WoodsMain.BrokenOwl at 848, -4058", player, world)
-    world.regions.append(region226)
-    region227 = Region("WoodsMain.TrialStart at 820, -4047", player, world)
-    world.regions.append(region227)
-    region228 = Region("WoodsMain.MidwayTrial at 873, -3980", player, world)
-    world.regions.append(region228)
-    region229 = Region("WoodsMain.TrialEnd at 868, -3952", player, world)
-    world.regions.append(region229)
-    region230 = Region("WoodsMain.TrialActivation", player, world)
-    world.regions.append(region230)
-    region231 = Region("WoodsMain.AboveHowl at 916, -4046", player, world)
-    world.regions.append(region231)
-    region232 = Region("WoodsMain.BeforeLog at 967, -4008", player, world)
-    world.regions.append(region232)
-    region233 = Region("WoodsMain.LogBlobDestroyed", player, world)
-    world.regions.append(region233)
-    region234 = Region("WoodsMain.Teleporter at 1083, -4052", player, world)
-    world.regions.append(region234)
-    region235 = Region("WoodsMain.OrangeTree at 1030, -4010", player, world)
-    world.regions.append(region235)
-    region236 = Region("WoodsMain.AbovePit at 1234, -3985", player, world)
-    world.regions.append(region236)
-    region237 = Region("WoodsMain.FeedingGrounds at 1292, -3993", player, world)
-    world.regions.append(region237)
-    region238 = Region("WoodsShrine at 1361, -4068", player, world)
-    world.regions.append(region238)
-    region239 = Region("WoodsMain.CombatShrineCompleted", player, world)
-    world.regions.append(region239)
-    region240 = Region("LowerReach.Entry at -390, -4025", player, world)
-    world.regions.append(region240)
-    region241 = Region("LowerReach.ThawBaurFurnace", player, world)
-    world.regions.append(region241)
-    region242 = Region("LowerReach.FreezeBaurFurnace", player, world)
-    world.regions.append(region242)
-    region243 = Region("LowerReach.AboveEntry at -401, -4000", player, world)
-    world.regions.append(region243)
-    region244 = Region("LowerReach.Lever", player, world)
-    world.regions.append(region244)
-    region245 = Region("LowerReach.Icefall at -448, -3999", player, world)
-    world.regions.append(region245)
-    region246 = Region("LowerReach.BearBridgeBroken", player, world)
-    world.regions.append(region246)
-    region247 = Region("LowerReach.LeftFurnace", player, world)
-    world.regions.append(region247)
-    region248 = Region("LowerReach.CentralEnemyPaths at -335, -4009", player, world)
-    world.regions.append(region248)
-    region249 = Region("LowerReach.Central at -335, -4009", player, world)
-    world.regions.append(region249)
-    region250 = Region("LowerReach.OutsideTPRoom at -311, -3970", player, world)
-    world.regions.append(region250)
-    region251 = Region("LowerReach.BelowTokk at -296, -3944", player, world)
-    world.regions.append(region251)
-    region252 = Region("LowerReach.Teleporter at -259, -3962", player, world)
-    world.regions.append(region252)
-    region253 = Region("LowerReach.SecondSoup at -316, -4037", player, world)
-    world.regions.append(region253)
-    region254 = Region("LowerReach.ThawCentralFurnace", player, world)
-    world.regions.append(region254)
-    region255 = Region("LowerReach.WindLantern", player, world)
-    world.regions.append(region255)
-    region256 = Region("LowerReach.BelowLupo at -278, -4031", player, world)
-    world.regions.append(region256)
-    region257 = Region("LowerReach.FreezeCentralFurnace", player, world)
-    world.regions.append(region257)
-    region258 = Region("LowerReach.CentralFurnacePedestal at -256, -4035", player, world)
-    world.regions.append(region258)
-    region259 = Region("LowerReach.WindChannel at -223, -4043", player, world)
-    world.regions.append(region259)
-    region260 = Region("LowerReach.SoupMoki at -240, -3989", player, world)
-    world.regions.append(region260)
-    region261 = Region("LowerReach.EastEnemyPaths at -223, -3967", player, world)
-    world.regions.append(region261)
-    region262 = Region("LowerReach.East at -223, -3966", player, world)
-    world.regions.append(region262)
-    region263 = Region("LowerReach.TPLantern", player, world)
-    world.regions.append(region263)
-    region264 = Region("LowerReach.SnowballEnemyPaths at -182, -3968", player, world)
-    world.regions.append(region264)
-    region265 = Region("LowerReach.Snowball at -182, -3968", player, world)
-    world.regions.append(region265)
-    region266 = Region("LowerReach.RolledSnowball", player, world)
-    world.regions.append(region266)
-    region267 = Region("LowerReach.PastSnowball at -99, -3982", player, world)
-    world.regions.append(region267)
-    region268 = Region("LowerReach.IceCavern at -85, -3966", player, world)
-    world.regions.append(region268)
-    region269 = Region("LowerReach.HalfwayIceCavern at -44, -3955", player, world)
-    world.regions.append(region269)
-    region270 = Region("LowerReach.EastDoorLantern", player, world)
-    world.regions.append(region270)
-    region271 = Region("LowerReach.SwimmingPool at -44, -4001", player, world)
-    world.regions.append(region271)
-    region272 = Region("LowerReach.EastFurnace at -61, -3987", player, world)
-    world.regions.append(region272)
-    region273 = Region("LowerReach.ThawEastFurnace", player, world)
-    world.regions.append(region273)
-    region274 = Region("LowerReach.FreezeEastFurnace", player, world)
-    world.regions.append(region274)
-    region275 = Region("LowerReach.ArenaArea at 44, -3992", player, world)
-    world.regions.append(region275)
-    region276 = Region("LowerReach.ArenaBeaten", player, world)
-    world.regions.append(region276)
-    region277 = Region("LowerReach.WindSpinners at 73,-3929", player, world)
-    world.regions.append(region277)
-    region278 = Region("LowerReach.WispPathCheckpoint at 83, -3874", player, world)
-    world.regions.append(region278)
-    region279 = Region("LowerReach.BridgeWispPath at 67, -3808", player, world)
-    world.regions.append(region279)
-    region280 = Region("LowerReach.SnowEscape at 79, -3733", player, world)
-    world.regions.append(region280)
-    region281 = Region("LowerReach.VeralHome at -140, -4096", player, world)
-    world.regions.append(region281)
-    region282 = Region("LowerReach.TownEntry at -35, -4077", player, world)
-    world.regions.append(region282)
-    region283 = Region("LowerReach.TrialStart at 64, -4045", player, world)
-    world.regions.append(region283)
-    region284 = Region("LowerReach.KeystoneDoor", player, world)
-    world.regions.append(region284)
-    region285 = Region("LowerReach.TrialActivation", player, world)
-    world.regions.append(region285)
-    region286 = Region("UpperReach.BurrowArea at -369, -3917", player, world)
-    world.regions.append(region286)
-    region287 = Region("UpperReach.KeystoneRoom at -256, -3914", player, world)
-    world.regions.append(region287)
-    region288 = Region("UpperReach.ThawFurnace", player, world)
-    world.regions.append(region288)
-    region289 = Region("UpperReach.FreezeFurnace", player, world)
-    world.regions.append(region289)
-    region290 = Region("UpperReach.KeystoneSnapPlant at -231, -3865", player, world)
-    world.regions.append(region290)
-    region291 = Region("UpperReach.KeystoneSnapPlantThawed at -231, -3865", player, world)
-    world.regions.append(region291)
-    region292 = Region("UpperReach.KeystoneSnapPlantPaths at -231, -3865", player, world)
-    world.regions.append(region292)
-    region293 = Region("UpperReach.KeystoneSnapPlantThawedPaths at -231, -3865", player, world)
-    world.regions.append(region293)
-    region294 = Region("UpperReach.UpperSoup at -215, -3877", player, world)
-    world.regions.append(region294)
-    region295 = Region("UpperReach.UpperSoupFrozen at -215, -3877", player, world)
-    world.regions.append(region295)
-    region296 = Region("UpperReach.UpperSoupThawed at -215, -3877", player, world)
-    world.regions.append(region296)
-    region297 = Region("UpperReach.UpperSoupPaths at -215, -3877", player, world)
-    world.regions.append(region297)
-    region298 = Region("UpperReach.UpperSoupFrozenPaths at -215, -3877", player, world)
-    world.regions.append(region298)
-    region299 = Region("UpperReach.UpperSoupThawedPaths at -215, -3877", player, world)
-    world.regions.append(region299)
-    region300 = Region("UpperReach.OutsideTreeRoom at -169, -3911", player, world)
-    world.regions.append(region300)
-    region301 = Region("UpperReach.KeystoneDoor", player, world)
-    world.regions.append(region301)
-    region302 = Region("UpperReach.TreeRoomLedge at -136, -3911", player, world)
-    world.regions.append(region302)
-    region303 = Region("UpperReach.TreeRoom at -107, -3933", player, world)
-    world.regions.append(region303)
-    region304 = Region("UpperDepths.Entry at 161, -4340", player, world)
-    world.regions.append(region304)
-    region305 = Region("UpperDepths.FirstFirefly at 211, -4391", player, world)
-    world.regions.append(region305)
-    region306 = Region("UpperDepths.FirstKSRoom at 223, -4420", player, world)
-    world.regions.append(region306)
-    region307 = Region("UpperDepths.KeydoorLedge at 281, -4408", player, world)
-    world.regions.append(region307)
-    region308 = Region("UpperDepths.LightPuzzle", player, world)
-    world.regions.append(region308)
-    region309 = Region("UpperDepths.EntryKeystoneDoor", player, world)
-    world.regions.append(region309)
-    region310 = Region("UpperDepths.RightKeystonePath at 305, -4426", player, world)
-    world.regions.append(region310)
-    region311 = Region("UpperDepths.BelowHive at 422, -4402", player, world)
-    world.regions.append(region311)
-    region312 = Region("UpperDepths.Teleporter at 513, -4361", player, world)
-    world.regions.append(region312)
-    region313 = Region("UpperDepths.Central at 464, -4484", player, world)
-    world.regions.append(region313)
-    region314 = Region("UpperDepths.CentralKeystoneDoor", player, world)
-    world.regions.append(region314)
-    region315 = Region("UpperDepths.SecondKSRoom at 542, -4466", player, world)
-    world.regions.append(region315)
-    region316 = Region("UpperDepths.MoraPath at 572, -4431", player, world)
-    world.regions.append(region316)
-    region317 = Region("UpperDepths.OutsideMoraFight at 595, -4376", player, world)
-    world.regions.append(region317)
-    region318 = Region("MoraFirstPhase at 674, -4385", player, world)
-    world.regions.append(region318)
-    region319 = Region("MoraEscape at 712, -4482", player, world)
-    world.regions.append(region319)
-    region320 = Region("MoraSecondPhase at 690, -4386", player, world)
-    world.regions.append(region320)
-    region321 = Region("UpperDepths.LowerConnection at 423, -4475", player, world)
-    world.regions.append(region321)
-    region322 = Region("LowerDepths.West at 322, -4510", player, world)
-    world.regions.append(region322)
-    region323 = Region("DepthsShrine at 213, -4515", player, world)
-    world.regions.append(region323)
-    region324 = Region("LowerDepths.CombatShrineCompleted", player, world)
-    world.regions.append(region324)
-    region325 = Region("LowerDepths.Central at 482, -4536", player, world)
-    world.regions.append(region325)
-    region326 = Region("LowerDepths.East at 570, -4550", player, world)
-    world.regions.append(region326)
-    region327 = Region("LowerDepths.BeforeTree at 693, -4515", player, world)
-    world.regions.append(region327)
-    region328 = Region("LowerDepths.TrialActivation", player, world)
-    world.regions.append(region328)
-    region329 = Region("LowerDepths.TreeArea at 776, -4542", player, world)
-    world.regions.append(region329)
-    region330 = Region("PoolsApproach.MillPathCheckpoint at -826, -4130", player, world)
-    world.regions.append(region330)
-    region331 = Region("PoolsApproach.MillPath at -873, -4146", player, world)
-    world.regions.append(region331)
-    region332 = Region("PoolsApproach.UnderwaterWallBroken", player, world)
-    world.regions.append(region332)
-    region333 = Region("PoolsApproach.MarshBreakableWall at -820, -4185", player, world)
-    world.regions.append(region333)
-    region334 = Region("PoolsApproach.OnTopOfWheel at -971, -4164", player, world)
-    world.regions.append(region334)
-    region335 = Region("EastPools.LeverRoom at -1160, -4152", player, world)
-    world.regions.append(region335)
-    region336 = Region("EastPools.EntryLever", player, world)
-    world.regions.append(region336)
-    region337 = Region("EastPools.BelowEntryLeverBubble", player, world)
-    world.regions.append(region337)
-    region338 = Region("EastPools.BehindEntryDoor at -1239, -4162", player, world)
-    world.regions.append(region338)
-    region339 = Region("EastPools.TokkBubble at -1276, -4175", player, world)
-    world.regions.append(region339)
-    region340 = Region("EastPools.TokkBubbleFree", player, world)
-    world.regions.append(region340)
-    region341 = Region("EastPools.TokkBubblePurpleWall", player, world)
-    world.regions.append(region341)
-    region342 = Region("EastPools.LowerWaterDrained", player, world)
-    world.regions.append(region342)
-    region343 = Region("EastPools.TPArea at -1297, -4143", player, world)
-    world.regions.append(region343)
-    region344 = Region("EastPools.Teleporter at -1316, -4153", player, world)
-    world.regions.append(region344)
-    region345 = Region("EastPools.ArenaWall", player, world)
-    world.regions.append(region345)
-    region346 = Region("EastPools.FishingPool at -1278, -4124", player, world)
-    world.regions.append(region346)
-    region347 = Region("EastPools.AboveFishingPool at -1300, -4102", player, world)
-    world.regions.append(region347)
-    region348 = Region("EastPools.NextToLupoOre at -1373, -4166", player, world)
-    world.regions.append(region348)
-    region349 = Region("EastPools.LupoArea at -1409, -4163", player, world)
-    world.regions.append(region349)
-    region350 = Region("EastPools.LupoPurpleFloor", player, world)
-    world.regions.append(region350)
-    region351 = Region("EastPools.WaterdashArena at -1348, -4139", player, world)
-    world.regions.append(region351)
-    region352 = Region("EastPools.FightArenas", player, world)
-    world.regions.append(region352)
-    region353 = Region("EastPools.MissilePuzzle at -1425, -4144", player, world)
-    world.regions.append(region353)
-    region354 = Region("EastPools.CentralRoomPurpleWall", player, world)
-    world.regions.append(region354)
-    region355 = Region("EastPools.CentralRoom at -1485, -4148", player, world)
-    world.regions.append(region355)
-    region356 = Region("EastPools.CentralRoomBubbleFree", player, world)
-    world.regions.append(region356)
-    region357 = Region("UpperPools.KeystoneRoomEntrance at -1535, -4115", player, world)
-    world.regions.append(region357)
-    region358 = Region("UpperPools.KeystoneRoomBubbleFree", player, world)
-    world.regions.append(region358)
-    region359 = Region("UpperPools.KeystoneRoomBubbleSpawner at -1566, -4115", player, world)
-    world.regions.append(region359)
-    region360 = Region("UpperPools.KeystoneRoom at -1540, -4095", player, world)
-    world.regions.append(region360)
-    region361 = Region("UpperPools.BeforeKeystoneDoor at -1506, -4068", player, world)
-    world.regions.append(region361)
-    region362 = Region("UpperPools.KeystoneDoor", player, world)
-    world.regions.append(region362)
-    region363 = Region("UpperPools.TrialActivation", player, world)
-    world.regions.append(region363)
-    region364 = Region("UpperPools.TreeRoomEntrance at -1467, -4075", player, world)
-    world.regions.append(region364)
-    region365 = Region("UpperPools.TreeRoomLeftBubbleFree", player, world)
-    world.regions.append(region365)
-    region366 = Region("UpperPools.TreeRoom at -1429, -4081", player, world)
-    world.regions.append(region366)
-    region367 = Region("UpperPools.TreeRoomRightBubbleFree", player, world)
-    world.regions.append(region367)
-    region368 = Region("UpperPools.ButtonDoorAboveTree", player, world)
-    world.regions.append(region368)
-    region369 = Region("UpperPools.AboveTree at -1450, -4053", player, world)
-    world.regions.append(region369)
-    region370 = Region("UpperPools.DrainPuzzleEntrance at -1386, -4062", player, world)
-    world.regions.append(region370)
-    region371 = Region("UpperPools.UpperWaterDrained", player, world)
-    world.regions.append(region371)
-    region372 = Region("UpperPools.DrainPuzzleRight at -1324, -4060", player, world)
-    world.regions.append(region372)
-    region373 = Region("UpperPools.DrainRoomPurpleWall", player, world)
-    world.regions.append(region373)
-    region374 = Region("UpperPools.DrainPuzzleExit at -1318, -4081", player, world)
-    world.regions.append(region374)
-    region375 = Region("UpperPools.RightBubbleSpamRoom at -1586, -4052", player, world)
-    world.regions.append(region375)
-    region376 = Region("UpperPools.BubbleSpamLever", player, world)
-    world.regions.append(region376)
-    region377 = Region("UpperPools.LeftBubbleSpamRoom at -1634, -4052", player, world)
-    world.regions.append(region377)
-    region378 = Region("WestPools.Teleporter at -1656, -4171", player, world)
-    world.regions.append(region378)
-    region379 = Region("WestPools.LeftKwolokPlatform at -1668, -4127", player, world)
-    world.regions.append(region379)
-    region380 = Region("WestPools.RightKwolokPlatform at -1637, -4127", player, world)
-    world.regions.append(region380)
-    region381 = Region("KwolokEscape at -1650, -4125", player, world)
-    world.regions.append(region381)
-    region382 = Region("KwolokFight at -1978, -4135", player, world)
-    world.regions.append(region382)
-    region383 = Region("LowerWastes.WestTP at 1456, -3997", player, world)
-    world.regions.append(region383)
-    region384 = Region("LowerWastes.SunsetView at 1552, -3984", player, world)
-    world.regions.append(region384)
-    region385 = Region("LowerWastes.Shovel at 1635, -3981", player, world)
-    world.regions.append(region385)
-    region386 = Region("LowerWastes.MuncherTunnel at 1681, -4002", player, world)
-    world.regions.append(region386)
-    region387 = Region("LowerWastes.SandPot at 1726, -3990", player, world)
-    world.regions.append(region387)
-    region388 = Region("LowerWastes.WoodenBridge at 1796, -3977", player, world)
-    world.regions.append(region388)
-    region389 = Region("LowerWastes.BeforeMinesEntrance at 1849, -3986", player, world)
-    world.regions.append(region389)
-    region390 = Region("LowerWastes.MinesEntranceEnemyPaths at 1921, -4001", player, world)
-    world.regions.append(region390)
-    region391 = Region("LowerWastes.MinesEntrance at 1921, -4001", player, world)
-    world.regions.append(region391)
-    region392 = Region("LowerWastes.LeverArea at 1833, -3959", player, world)
-    world.regions.append(region392)
-    region393 = Region("LowerWastes.SandPlatformLever", player, world)
-    world.regions.append(region393)
-    region394 = Region("LowerWastes.MuncherClimb at 1791, -3953", player, world)
-    world.regions.append(region394)
-    region395 = Region("LowerWastes.LastStandArea at 1794, -3938", player, world)
-    world.regions.append(region395)
-    region396 = Region("LowerWastes.SkeetoHive at 1715, -3935", player, world)
-    world.regions.append(region396)
-    region397 = Region("LowerWastes.ThirstyGorlek at 1681, -3923", player, world)
-    world.regions.append(region397)
-    region398 = Region("LowerWastes.TrialActivation", player, world)
-    world.regions.append(region398)
-    region399 = Region("LowerWastes.UpperPath at 1761, -3898", player, world)
-    world.regions.append(region399)
-    region400 = Region("LowerWastes.EastTP at 1992, -3902", player, world)
-    world.regions.append(region400)
-    region401 = Region("UpperWastes.KeystoneRoom at 1900, -3831", player, world)
-    world.regions.append(region401)
-    region402 = Region("UpperWastes.KeystoneDoor", player, world)
-    world.regions.append(region402)
-    region403 = Region("UpperWastes.MissilePuzzleLeft at 1937, -3794", player, world)
-    world.regions.append(region403)
-    region404 = Region("UpperWastes.MissilePuzzleMiddle at 2005, -3802", player, world)
-    world.regions.append(region404)
-    region405 = Region("UpperWastes.LeverDoor", player, world)
-    world.regions.append(region405)
-    region406 = Region("UpperWastes.MissilePuzzleRight at 2058, -3813", player, world)
-    world.regions.append(region406)
-    region407 = Region("UpperWastes.RuinsApproach at 2002, -3698", player, world)
-    world.regions.append(region407)
-    region408 = Region("UpperWastes.NorthTP at 2044, -3679", player, world)
-    world.regions.append(region408)
-    region409 = Region("UpperWastes.OutsideRuins at 2014, -3609", player, world)
-    world.regions.append(region409)
-    region410 = Region("WindtornRuins.UpperRuinsDoor at 2163, -3835", player, world)
-    world.regions.append(region410)
-    region411 = Region("WindtornRuins.RuinsLever", player, world)
-    world.regions.append(region411)
-    region412 = Region("WindtornRuins.BrokenMural at 2108, -3959", player, world)
-    world.regions.append(region412)
-    region413 = Region("WindtornRuins.FallenPillar at 2090, -4012", player, world)
-    world.regions.append(region413)
-    region414 = Region("WindtornRuins.HeartBarrier", player, world)
-    world.regions.append(region414)
-    region415 = Region("WindtornRuins.RuinsTP at 2130, -3984", player, world)
-    world.regions.append(region415)
-    region416 = Region("WindtornRuins.Escape at 2021, -4026", player, world)
-    world.regions.append(region416)
-    region417 = Region("WindtornRuins.LowerRuins at 1969, -4024", player, world)
-    world.regions.append(region417)
-    region418 = Region("WeepingRidge.Bottom at 1210, -3830", player, world)
-    world.regions.append(region418)
-    region419 = Region("WeepingRidge.ElevatorFightCompleted", player, world)
-    world.regions.append(region419)
-    region420 = Region("WeepingRidge.LaunchArea at 1189, -3716", player, world)
-    world.regions.append(region420)
-    region421 = Region("WeepingRidge.AboveTree at 1344, -3791", player, world)
-    world.regions.append(region421)
-    region422 = Region("WillowsEnd.Entry at 495, -3951", player, world)
-    world.regions.append(region422)
-    region423 = Region("WillowsEnd.GrappleWheelsHeart", player, world)
-    world.regions.append(region423)
-    region424 = Region("WillowsEnd.GrappleHeartMidPoint at 335, -3887", player, world)
-    world.regions.append(region424)
-    region425 = Region("WillowsEnd.GrappleHeart at 399, -3928", player, world)
-    world.regions.append(region425)
-    region426 = Region("WillowsEnd.BoulderHeartPath at 555, -3939", player, world)
-    world.regions.append(region426)
-    region427 = Region("WillowsEnd.InnerTP at 422, -3864", player, world)
-    world.regions.append(region427)
-    region428 = Region("WillowsEnd.PortalShortcut", player, world)
-    world.regions.append(region428)
-    region429 = Region("WillowsEnd.AboveInnerTP at 530, -3844", player, world)
-    world.regions.append(region429)
-    region430 = Region("WillowsEnd.East at 547, -3805", player, world)
-    world.regions.append(region430)
-    region431 = Region("WillowsEnd.RedirectHeartPath at 584, -3814", player, world)
-    world.regions.append(region431)
-    region432 = Region("WillowsEnd.RedirectHeartPuzzle at 614, -3836", player, world)
-    world.regions.append(region432)
-    region433 = Region("WillowsEnd.Upper at 499, -3748", player, world)
-    world.regions.append(region433)
-    region434 = Region("WillowsEnd.West at 437, -3840", player, world)
-    world.regions.append(region434)
-    region435 = Region("WillowsEnd.GlideHeartPath at 374, -3824", player, world)
-    world.regions.append(region435)
-    region436 = Region("WillowsEnd.GlideRooms at 360, -3861", player, world)
-    world.regions.append(region436)
-    region437 = Region("WillowsEnd.UpperHeartPath at 506, -3711", player, world)
-    world.regions.append(region437)
-    region438 = Region("WillowsEnd.UpperHeartCheckpoint at 514, -3638", player, world)
-    world.regions.append(region438)
-    region439 = Region("WillowsEnd.SpinPortalsHeart", player, world)
-    world.regions.append(region439)
-    region440 = Region("Tokk", player, world)
-    world.regions.append(region440)
-    region441 = Region("TwillenShop", player, world)
-    world.regions.append(region441)
-    region442 = Region("OpherShop", player, world)
-    world.regions.append(region442)
-    region443 = Region("TuleyShop at -173, -4139", player, world)
-    world.regions.append(region443)
-    region444 = Region("TuleyShop.LastTreeBranchRejected", player, world)
-    world.regions.append(region444)
-    region445 = Region("TuleyShop.SelaFlowers", player, world)
-    world.regions.append(region445)
-    region446 = Region("TuleyShop.StickyGrass", player, world)
-    world.regions.append(region446)
-    region447 = Region("TuleyShop.Lightcatchers", player, world)
-    world.regions.append(region447)
-    region448 = Region("TuleyShop.BlueMoon", player, world)
-    world.regions.append(region448)
-    region449 = Region("TuleyShop.SpringPlants", player, world)
-    world.regions.append(region449)
-    region450 = Region("TuleyShop.LastTree", player, world)
-    world.regions.append(region450)
+region_table = [
+    "HeaderStates",
+    "Teleporters",
+    "MarshSpawn.Main",
+    "MarshSpawn.OpherBarrier",
+    "MarshSpawn.BrokenBridge",
+    "MarshSpawn.CaveEntrance",
+    "MarshSpawn.Cave",
+    "MarshSpawn.BurrowFightArena",
+    "MarshSpawn.LifepactLedge",
+    "MarshSpawn.PoolsBurrowsSignpost",
+    "MarshSpawn.BeforeBurrows",
+    "MarshSpawn.BurrowsEntry",
+    "MarshSpawn.LeftSpawnSignpost",
+    "MarshSpawn.PoolsPath",
+    "MarshSpawn.RegenDoor",
+    "MarshSpawn.HowlApproach",
+    "MarshSpawn.MokkTheBrave",
+    "MarshSpawn.AboveHowlArena",
+    "MarshSpawn.FangPlatform",
+    "MarshSpawn.HowlsDenEntrance",
+    "HowlsDen.UpperLoopExit",
+    "HowlsDen.AboveBoneBridge",
+    "HowlsDen.UpperLoopEntrance",
+    "HowlsDen.BoneBridge",
+    "HowlsDen.BoneBridgeDoor",
+    "HowlsDen.OutsideSecretRoom",
+    "HowlsDen.MidwayBottomLoop",
+    "HowlsDen.SecretRoom",
+    "HowlsDen.LeftSecretRoom",
+    "HowlsDen.AboveTeleporter",
+    "HowlsDen.Teleporter",
+    "HowlsDen.DoubleJumpApproach",
+    "HowlsDen.DoubleJumpTreeLedge",
+    "HowlsDen.DoubleJumpTreeArea",
+    "DenShrine",
+    "MarshPastOpher.MillView",
+    "MarshPastOpher.OpherSkipBranch",
+    "MarshPastOpher.TrialStart",
+    "MarshPastOpher.UnderTrunk",
+    "MarshPastOpher.TrialArea",
+    "MarshShrine",
+    "MarshPastOpher.BowPath",
+    "MarshPastOpher.BowApproach",
+    "MarshPastOpher.BowArea",
+    "MarshPastOpher.UpperBowArea",
+    "MarshPastOpher.PoolsPathEast",
+    "MarshPastOpher.PoolsPathMiddle",
+    "MarshPastOpher.PoolsPathOneWayWall",
+    "MarshPastOpher.PoolsPathBellowOneWayWall",
+    "MarshPastOpher.PoolsPathWest",
+    "MidnightBurrows.Teleporter",
+    "MidnightBurrows.BelowLupo",
+    "MidnightBurrows.Central",
+    "MidnightBurrows.TabletRoom",
+    "MidnightBurrows.PortalRoom",
+    "MidnightBurrows.LeverRoom",
+    "MidnightBurrows.East",
+    "MidnightBurrows.DenConnection",
+    "MidnightBurrows.PortalCorridor",
+    "MidnightBurrows.BelowUpperKS",
+    "WestHollow.Entrance",
+    "WestHollow.MokiByTwillen",
+    "WestHollow.InFrontPurpleDoor",
+    "WestHollow.InFrontPurpleDoorEnemyPaths",
+    "WestHollow.HollowDrainMiddle",
+    "WestHollow.RockPuzzle",
+    "WestHollow.FarLeftRoom",
+    "WestHollow.SubmergedPlatform",
+    "WestHollow.AboveJumppad",
+    "WestHollow.HollowDrainLower",
+    "WestHollow.TrialApproach",
+    "WestHollow.TrialStart",
+    "WestHollow.PolesPound",
+    "WestHollow.DashApproach",
+    "WestHollow.DashArea",
+    "WestHollow.DashCrushers",
+    "WestHollow.DashRoomTopRight",
+    "WestHollow.AboveDashSemisolid",
+    "EastHollow.Teleporter",
+    "BeetleFight",
+    "EastHollow.VoiceDoorPlatform",
+    "EastHollow.MapMoki",
+    "EastHollow.OutsideGlades",
+    "EastHollow.AfterBeetleFight",
+    "EastHollow.AboveBash",
+    "EastHollow.BashTreeCheckpoint",
+    "EastHollow.Kwolok",
+    "EastHollow.AboveDepths",
+    "GladesTown.Teleporter",
+    "GladesTown.TwillenHome",
+    "GladesTown.West",
+    "GladesTown.MotayHut",
+    "GladesTown.UpperWest",
+    "GladesTown.AcornMoki",
+    "GladesTown.BelowBountyShard",
+    "GladesTown.LeftAboveCoals",
+    "GladesTown.AboveOpher",
+    "GladesTown.PlayfulMoki",
+    "GladesTown.LupoHouse",
+    "GladesTown.HoleHut",
+    "GladesTown.HoleHutEntrance",
+    "WestGlades.PastTown",
+    "WestGlades.LowerPool",
+    "WestGlades.Center",
+    "WestGlades.Upper",
+    "WestGlades.MillApproach",
+    "WestGlades.ShrineArea",
+    "GladesShrine",
+    "OuterWellspring.EntranceDoor",
+    "OuterWellspring.LifeHarvestEntry",
+    "OuterWellspring.Basement",
+    "OuterWellspring.AboveEntranceDoor",
+    "OuterWellspring.WestDoor",
+    "OuterWellspring.EastDoor",
+    "OuterWellspring.AboveWestDoor",
+    "OuterWellspring.TopDoor",
+    "OuterWellspring.RightWallMidpoint",
+    "OuterWellspring.TrialApproach",
+    "OuterWellspring.TrialRoom",
+    "OuterWellspring.TrialStart",
+    "InnerWellspring.EntranceDoor",
+    "InnerWellspring.ThornShardArea",
+    "InnerWellspring.ShortcutLever",
+    "InnerWellspring.DrainRoom",
+    "InnerWellspring.DrainAreaEntrance",
+    "InnerWellspring.DrainAreaEX",
+    "InnerWellspring.DrainAreaExit",
+    "InnerWellspring.DrainRoomCenter",
+    "InnerWellspring.DrainRoomTop",
+    "InnerWellspring.BelowDrainLever",
+    "InnerWellspring.AbovePole",
+    "InnerWellspring.WestDoor",
+    "InnerWellspring.EastDoor",
+    "InnerWellspring.SpinPuzzle",
+    "InnerWellspring.PastSpinPuzzle",
+    "InnerWellspring.GrappleThroughZigZagSpikes",
+    "InnerWellspring.TopSecondRoom",
+    "InnerWellspring.Teleporter",
+    "InnerWellspring.EscapeSequence",
+    "WoodsEntry.ShriekMeet",
+    "WoodsEntry.FirstMud",
+    "WoodsEntry.BelowTeleporter",
+    "WoodsEntry.Teleporter",
+    "WoodsEntry.TwoKeystoneRoom",
+    "WoodsMain.AfterKuMeet",
+    "WoodsMain.BelowFourKeystoneRoom",
+    "WoodsMain.WallOreLedge",
+    "WoodsMain.FourKeystoneRoom",
+    "WoodsMain.GiantSkull",
+    "WoodsMain.BalloonLure",
+    "WoodsMain.BelowHiddenOre",
+    "WoodsMain.PetrifiedHowl",
+    "WoodsMain.BrokenOwl",
+    "WoodsMain.TrialStart",
+    "WoodsMain.MidwayTrial",
+    "WoodsMain.TrialEnd",
+    "WoodsMain.AboveHowl",
+    "WoodsMain.BeforeLog",
+    "WoodsMain.Teleporter",
+    "WoodsMain.OrangeTree",
+    "WoodsMain.AbovePit",
+    "WoodsMain.FeedingGrounds",
+    "WoodsShrine",
+    "LowerReach.Entry",
+    "LowerReach.AboveEntry",
+    "LowerReach.Icefall",
+    "LowerReach.CentralEnemyPaths",
+    "LowerReach.Central",
+    "LowerReach.OutsideTPRoom",
+    "LowerReach.BelowTokk",
+    "LowerReach.Teleporter",
+    "LowerReach.SecondSoup",
+    "LowerReach.BelowLupo",
+    "LowerReach.CentralFurnacePedestal",
+    "LowerReach.WindChannel",
+    "LowerReach.SoupMoki",
+    "LowerReach.EastEnemyPaths",
+    "LowerReach.East",
+    "LowerReach.SnowballEnemyPaths",
+    "LowerReach.Snowball",
+    "LowerReach.PastSnowball",
+    "LowerReach.IceCavern",
+    "LowerReach.HalfwayIceCavern",
+    "LowerReach.SwimmingPool",
+    "LowerReach.EastFurnace",
+    "LowerReach.ArenaArea",
+    "LowerReach.WindSpinners",
+    "LowerReach.WispPathCheckpoint",
+    "LowerReach.BridgeWispPath",
+    "LowerReach.SnowEscape",
+    "LowerReach.VeralHome",
+    "LowerReach.TownEntry",
+    "LowerReach.TrialStart",
+    "UpperReach.BurrowArea",
+    "UpperReach.KeystoneRoom",
+    "UpperReach.KeystoneSnapPlant",
+    "UpperReach.KeystoneSnapPlantThawed",
+    "UpperReach.KeystoneSnapPlantPaths",
+    "UpperReach.KeystoneSnapPlantThawedPaths",
+    "UpperReach.UpperSoup",
+    "UpperReach.UpperSoupFrozen",
+    "UpperReach.UpperSoupThawed",
+    "UpperReach.UpperSoupPaths",
+    "UpperReach.UpperSoupFrozenPaths",
+    "UpperReach.UpperSoupThawedPaths",
+    "UpperReach.OutsideTreeRoom",
+    "UpperReach.TreeRoomLedge",
+    "UpperReach.TreeRoom",
+    "UpperDepths.Entry",
+    "UpperDepths.FirstFirefly",
+    "UpperDepths.FirstKSRoom",
+    "UpperDepths.KeydoorLedge",
+    "UpperDepths.RightKeystonePath",
+    "UpperDepths.BelowHive",
+    "UpperDepths.Teleporter",
+    "UpperDepths.Central",
+    "UpperDepths.SecondKSRoom",
+    "UpperDepths.MoraPath",
+    "UpperDepths.OutsideMoraFight",
+    "MoraFirstPhase",
+    "MoraEscape",
+    "MoraSecondPhase",
+    "UpperDepths.LowerConnection",
+    "LowerDepths.West",
+    "DepthsShrine",
+    "LowerDepths.Central",
+    "LowerDepths.East",
+    "LowerDepths.BeforeTree",
+    "LowerDepths.TreeArea",
+    "PoolsApproach.MillPathCheckpoint",
+    "PoolsApproach.MillPath",
+    "PoolsApproach.MarshBreakableWall",
+    "PoolsApproach.OnTopOfWheel",
+    "EastPools.LeverRoom",
+    "EastPools.BehindEntryDoor",
+    "EastPools.TokkBubble",
+    "EastPools.TPArea",
+    "EastPools.Teleporter",
+    "EastPools.FishingPool",
+    "EastPools.AboveFishingPool",
+    "EastPools.NextToLupoOre",
+    "EastPools.LupoArea",
+    "EastPools.WaterdashArena",
+    "EastPools.MissilePuzzle",
+    "EastPools.CentralRoom",
+    "UpperPools.KeystoneRoomEntrance",
+    "UpperPools.KeystoneRoomBubbleSpawner",
+    "UpperPools.KeystoneRoom",
+    "UpperPools.BeforeKeystoneDoor",
+    "UpperPools.TreeRoomEntrance",
+    "UpperPools.TreeRoom",
+    "UpperPools.AboveTree",
+    "UpperPools.DrainPuzzleEntrance",
+    "UpperPools.DrainPuzzleRight",
+    "UpperPools.DrainPuzzleExit",
+    "UpperPools.RightBubbleSpamRoom",
+    "UpperPools.LeftBubbleSpamRoom",
+    "WestPools.Teleporter",
+    "WestPools.LeftKwolokPlatform",
+    "WestPools.RightKwolokPlatform",
+    "KwolokEscape",
+    "KwolokFight",
+    "LowerWastes.WestTP",
+    "LowerWastes.SunsetView",
+    "LowerWastes.Shovel",
+    "LowerWastes.MuncherTunnel",
+    "LowerWastes.SandPot",
+    "LowerWastes.WoodenBridge",
+    "LowerWastes.BeforeMinesEntrance",
+    "LowerWastes.MinesEntranceEnemyPaths",
+    "LowerWastes.MinesEntrance",
+    "LowerWastes.LeverArea",
+    "LowerWastes.MuncherClimb",
+    "LowerWastes.LastStandArea",
+    "LowerWastes.SkeetoHive",
+    "LowerWastes.ThirstyGorlek",
+    "LowerWastes.UpperPath",
+    "LowerWastes.EastTP",
+    "UpperWastes.KeystoneRoom",
+    "UpperWastes.MissilePuzzleLeft",
+    "UpperWastes.MissilePuzzleMiddle",
+    "UpperWastes.MissilePuzzleRight",
+    "UpperWastes.RuinsApproach",
+    "UpperWastes.NorthTP",
+    "UpperWastes.OutsideRuins",
+    "WindtornRuins.UpperRuinsDoor",
+    "WindtornRuins.BrokenMural",
+    "WindtornRuins.FallenPillar",
+    "WindtornRuins.RuinsTP",
+    "WindtornRuins.Escape",
+    "WindtornRuins.LowerRuins",
+    "WeepingRidge.Bottom",
+    "WeepingRidge.LaunchArea",
+    "WeepingRidge.AboveTree",
+    "WillowsEnd.Entry",
+    "WillowsEnd.GrappleHeartMidPoint",
+    "WillowsEnd.GrappleHeart",
+    "WillowsEnd.BoulderHeartPath",
+    "WillowsEnd.InnerTP",
+    "WillowsEnd.AboveInnerTP",
+    "WillowsEnd.East",
+    "WillowsEnd.RedirectHeartPath",
+    "WillowsEnd.RedirectHeartPuzzle",
+    "WillowsEnd.Upper",
+    "WillowsEnd.West",
+    "WillowsEnd.GlideHeartPath",
+    "WillowsEnd.GlideRooms",
+    "WillowsEnd.UpperHeartPath",
+    "WillowsEnd.UpperHeartCheckpoint",
+    "Tokk",
+    "TwillenShop",
+    "OpherShop",
+    "TuleyShop",
+    ]

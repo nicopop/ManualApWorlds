@@ -1,7 +1,7 @@
 """Options for Ori and the Will of the Wisps Randomizer."""
 
 from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions
-
+from dataclasses import dataclass
 
 class LogicDifficulty(Choice):
     """Difficulty of the logic."""
@@ -85,6 +85,7 @@ class SkillUpgrades(Toggle):
 
 # TODO open world, shops, combat, hearts, wellspring, quests, trials
 
+@dataclass
 class WotWOptions(PerGameCommonOptions):
     difficulty: LogicDifficulty
     glitches: Glitches

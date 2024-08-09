@@ -119,8 +119,8 @@ header = ("\"\"\"\n"
           "\"\"\"\n\n"
           )
 
-lightM = "    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
-lightG = "    add_rule(world.get_region(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
+lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
+lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
 
 # %% Functions for extracing rules
 
@@ -368,21 +368,21 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
         if p_name not in entrances:
             entrances.append(p_name)
         if area_req and text_req:
-            tot_req = "lambda state: " + area_req + " and " + text_req
+            tot_req = area_req + " and " + text_req
         elif text_req:
-            tot_req = "lambda state: " + text_req
+            tot_req = text_req
         elif area_req:
-            tot_req = "lambda state: " + area_req
+            tot_req = area_req
         else:
             tot_req = True
     else:
-        tot_req = f"lambda state: state.can_reach_region(\"{anc}\", player)"
+        tot_req = f"state.can_reach_region(\"{anc}\", player)"
         if area_req:
             tot_req += " and " + area_req
         if text_req:
             tot_req += " and " + text_req
 
-    text = f"    add_rule(world.get_{p_type}(\"{p_name}\", player), {tot_req})\n"
+    text = f"    add_rule(world.get_{p_type}(\"{p_name}\", player), lambda state: {tot_req})\n"
     if diff == 0:
         L_rules[0] += text
     else:   # TODO Other difficulties not implemented yet

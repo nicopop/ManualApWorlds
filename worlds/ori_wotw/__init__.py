@@ -9,7 +9,7 @@ from .Items import item_table, group_table, base_id
 from .Locations import location_table
 from .Options import WotWOptions  # add options_presets
 from .Events import event_table
-from .Regions import add_regions
+from .Regions import region_table
 from .Entrances import entrance_table
 
 from worlds.AutoWorld import World, WebWorld
@@ -53,8 +53,7 @@ class WotWWorld(World):
     web = WotWWeb()
 
     item_name_to_id = {item["name"]: (base_id + index) for index, item in enumerate(item_table)}
-    location_name_to_id = {loc["name"]: (base_id + index) for index, loc in enumerate(location_table)}
-    location_name_to_game_id = {loc["name"]: loc["game_id"] for loc in location_table}
+    location_name_to_id = {loc: (base_id + index) for index, loc in enumerate(location_table)}
 
     item_name_groups = group_table
 
@@ -109,17 +108,39 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
-        add_regions(player, world)  # Adds the anchors
-        menu_region = Region("Menu", player, world)
-        world.regions += menu_region
+        for region_name in region_table:
+            region = Region(region_name, player, world)
+            world.regions.append(region)
 
-        spawn_region = spawn_names[options.spawn]  # Links menu with spawn point
+        menu_region = Region("Menu", player, world)
+        world.regions.append(menu_region)
+
+        spawn_region = world.get_region(spawn_names[options.spawn], self.player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
 
-        for entrance in entrance_table:  # Creates and connects the entrances
-            (parent, connected) = entrance.split("_to_")
-            ent = Entrance(player, entrance, world.get_region(parent, player))
-            ent.connect(world.get_region(connected, player))
+        for entrance_name in entrance_table:  # Creates and connects the entrances
+            (parent, connected) = entrance_name.split("_to_")
+            parent_region = world.get_region(parent, player)
+            entrance = WotWEntrance(player, entrance_name, parent_region)
+            world.regions.entrance_cache[player].setdefault(entrance_name, entrance)  # TODO Probably use something else
+            entrance.connect(world.get_region(connected, player))
+
+        for loc_name in location_table:  # Create regions on locations and attach locations
+            region = Region(loc_name, player, world)
+            world.regions.append(region)
+            region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
+
+        for event in event_table:  # Create events, their item, and a region to attach them
+            ev = WotWLocation(player, event, None)
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            region = Region(event, player, world)
+            world.regions.append(region)
+            region.locations.append(ev)
+        victory = WotWLocation(player, "Victory", None)
+        victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
+        region = Region("Victory", player, world)
+        world.regions.append(region)
+        region.locations.append(victory)
 
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 
@@ -141,36 +162,36 @@ class WotWWorld(World):
                 skipped_items.append(item)
                 junk += 1
 
-        if options.difficulty == 0:  # Exclude a location that is inaccessible in the lowest difficulty.
-            skipped_loc = world.get_location("WestPools.BurrowOre", player)
-            skipped_loc.progress_type = 3
-
         if options.sword:
             skipped_items.append("Sword")
             junk += 1
 
         if not options.tp:
-            skipped_items.append(group_table["teleporters"])
+            for item in group_table["teleporters"]:
+                skipped_items.append(item)
             junk += 14
 
         if not options.extratp:
-            skipped_items.append(group_table["extratp"])
+            for item in group_table["extratp"]:
+                skipped_items.append(item)
             junk += 2
 
         if not options.bonus:
-            skipped_items.append(group_table["bonus"])
+            for item in group_table["bonus"]:
+                skipped_items.append(item)
             junk += 15
 
         if not options.extra_bonus:
-            skipped_items.append(group_table["bonus+"])
+            for item in group_table["bonus+"]:
+                skipped_items.append(item)
             junk += 25
 
         if not options.skill_upgrade:
-            skipped_items.append(group_table["skillup"])
+            for item in group_table["skillup"]:
+                skipped_items.append(item)
             junk += 6
 
         counter = Counter(skipped_items)
-
         pool = []
 
         for item in item_table:
@@ -186,12 +207,10 @@ class WotWWorld(World):
 
         world.itempool += pool
 
-        for event in event_table:  # Create events and their item
-            ev = WotWLocation(player, event, None)
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+        if options.difficulty == 0:  # Exclude a location that is inaccessible in the lowest difficulty.
+            skipped_loc = world.get_location("WestPools.BurrowOre", player)
+            skipped_loc.progress_type = 3
 
-        victory = WotWLocation(player, "Victory", None)
-        victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
     # TODO: config tutorial, header file, infos with fill_slot_data, spoiler
 
 
@@ -200,4 +219,8 @@ class WotWItem(Item):
 
 
 class WotWLocation(Location):
+    game: str = "Ori and the Will of the Wisps"
+
+
+class WotWEntrance(Entrance):
     game: str = "Ori and the Will of the Wisps"
