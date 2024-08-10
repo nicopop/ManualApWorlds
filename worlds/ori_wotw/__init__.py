@@ -3,10 +3,10 @@
 from collections import Counter
 
 from .Rules import set_moki_rules
-# from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules, set_kii_glitched_rules,
-#                     set_unsafe_rules, set_unsafe_glitched_rules)
+# from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
+#                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
 from .Items import item_table, group_table, base_id
-from .Locations import location_table
+from .Locations import location_table, quest_table
 from .Options import WotWOptions  # add options_presets
 from .Events import event_table
 from .Regions import region_table
@@ -129,6 +129,11 @@ class WotWWorld(World):
             region = Region(loc_name, player, world)
             world.regions.append(region)
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
+            if loc_name in quest_table:  # Quests also have to be tracked like events
+                quest_name = loc_name + ".quest"
+                quest_loc = WotWLocation(player, quest_name, None)
+                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression, None, player))
+                region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
             ev = WotWLocation(player, event, None)
@@ -140,7 +145,7 @@ class WotWWorld(World):
         victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
         region = Region("Victory", player, world)
         world.regions.append(region)
-        region.locations.append(victory)
+        region.locations.append(victory)  # possible to add victory to event_table, but somehow breaks
 
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 

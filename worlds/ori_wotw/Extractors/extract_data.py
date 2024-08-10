@@ -22,7 +22,7 @@ def extract_all(override=False):
 
 
 def extract_locations(override=False):
-    """Extracts the data and writes a file with the location table."""
+    """Extracts the data and writes a file with the location table and the quest table."""
     if os.path.exists("./Locations.py"):
         if override:
             print("Warning: File replaced")
@@ -36,8 +36,10 @@ def extract_locations(override=False):
               "\"\"\"\n\n\n")
 
     locations = []
+    quests = []
 
     location_txt = "location_table = [\n"
+    quest_txt = "quest_table = [\n"
 
     with open("./areas.wotw", "r") as file:
         temp = file.readlines()
@@ -63,13 +65,20 @@ def extract_locations(override=False):
                 name = col.search(p[2:]).group()[1:-1]
                 if name not in locations:
                     locations.append(name)
+                if "quest" in p and name not in quests:
+                    quests.append(name)
 
     for location in locations:
         location_txt += f"    \"{location}\",\n"
     location_txt += "    ]\n"
 
+    for quest in quests:
+        quest_txt += f"    \"{quest}\",\n"
+    quest_txt += "    ]\n"
+
     with open("Locations.py", "w") as file:
         file.write(header + location_txt)
+        file.write("\n" + quest_txt)
         print("The file Location.py has been successfully created.")
 
 

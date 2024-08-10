@@ -503,7 +503,6 @@ def req_area(area, diff):
 
 def max_health(state, player):
     """Compute and returns the current max health."""
-    # TODO: add items to quest locations so it works
     wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir")
     return 30 + state.count("Health", player)*5 + 10*wisps
@@ -511,7 +510,6 @@ def max_health(state, player):
 
 def max_energy(state, player):
     """Returns the max energy."""
-    # TODO: add items to quest locations so it works
     wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir")
     return 30 + state.count("Energy", player)*5 + 10*wisps
