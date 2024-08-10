@@ -9,7 +9,6 @@ import re
 import numpy as np
 
 # TODO : fix line 271 in areas.wotw and 10803 (TwoCrushersEX)
-# TODO: change to all regions
 
 # %% Data and global variables
 
@@ -40,34 +39,34 @@ e_blaze = 1
 e = np.array([e_grenade, e_shuriken, e_bow, e_flash, e_sentry, e_spear, e_blaze])
 
 # Enemy data
-ref_en = {"Mantis": (32, ("Free")),
-          "Slug": (13, ("Free")),
-          "WeakSlug": (12, ("Free")),
-          "BombSlug": (1, ("Ranged")),
-          "CorruptSlug": (1, ("Ranged")),
-          "SneezeSlug": (32, ("Dangerous")),
-          "ShieldSlug": (24, ("Free")),
-          "Lizard": (24, ("Free")),
+ref_en = {"Mantis": (32, "Free"),
+          "Slug": (13, "Free"),
+          "WeakSlug": (12, "Free"),
+          "BombSlug": (1, "Ranged"),
+          "CorruptSlug": (1, "Ranged"),
+          "SneezeSlug": (32, "Dangerous"),
+          "ShieldSlug": (24, "Free"),
+          "Lizard": (24, "Free"),
           "Bat": (32, ("Bat", "Aerial", "Ranged")),
           "Hornbug": (40, ("Dangerous", "Shielded")),
-          "Skeeto": (20, ("Aerial")),
-          "SmallSkeeto": (8, ("Aerial")),
-          "Bee": (24, ("Aerial")),
-          "Nest": (25, ("Aerial")),
-          "Fish": (10, ("Free")),
-          "Waterworm": (20, ("Free")),
-          "Crab": (32, ("Dangerous")),
-          "SpinCrab": (32, ("Dangerous")),
-          "Tentacle": (40, ("Ranged")),
-          "Balloon": (1, ("Free")),
-          "Miner": (40, ("Dangerous")),
-          "MaceMiner": (60, ("Dangerous")),
+          "Skeeto": (20, "Aerial"),
+          "SmallSkeeto": (8, "Aerial"),
+          "Bee": (24, "Aerial"),
+          "Nest": (25, "Aerial"),
+          "Fish": (10, "Free"),
+          "Waterworm": (20, "Free"),
+          "Crab": (32, "Dangerous"),
+          "SpinCrab": (32, "Dangerous"),
+          "Tentacle": (40, "Ranged"),
+          "Balloon": (1, "Free"),
+          "Miner": (40, "Dangerous"),
+          "MaceMiner": (60, "Dangerous"),
           "ShieldMiner": (60, ("Dangerous", "Shielded")),
-          "CrystalMiner": (80, ("Dangerous")),
+          "CrystalMiner": (80, "Dangerous"),
           "ShieldCrystalMiner": (50, ("Dangerous", "Shielded")),
-          "Sandworm": (20, ("Sand")),
-          "Spiderling": (12, ("Free")),
-          "EnergyRefill": (1, ("Free"))}  # TODO : remove EnergyRefill and Boss
+          "Sandworm": (20, "Sand"),
+          "Spiderling": (12, "Free"),
+          "EnergyRefill": (1, "Free")}  # TODO : remove EnergyRefill and Boss
 
 # Requirements for enemies
 ref_rule = {"Aerial": ("state.has_any((\"DoubleJump\", \"Launch\"), player)",
@@ -122,7 +121,7 @@ header = ("\"\"\"\n"
 lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
 lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
 
-# %% Functions for extracing rules
+# %% Functions for extracting rules
 
 
 def parsing(override=False):
@@ -390,14 +389,37 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
     return L_rules, entrances
 
 
-def inter(text, diff):
+def inter(text, diff):  # TODO add a return (bool) for glitch or not
     """Converts the isolated requirement (single keyword, or a chain of OR) into a rule function."""
+    # Skills that do not use energy
     inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
                   "Burrow", "Launch", "Water", "WaterBreath", "Hammer")
-    Glitches = ("ShurikenBreak", "SentryJump", "SwordSJump", "HammerSJump", "SentryBurn", "RemoveKillPlane",
-                "SentryBreak", "HammerBreak", "SpearBreak", "LaunchSwap", "FlashSwap", "SentrySwap", "BlazeSwap",
-                "WaveDash", "GrenadeJump", "GrenadeCancel", "BowCancel", "HammerJump", "SwordJump", "GrenadeRedirect",
-                "SentryRedirect", "PauseHover", "GlideJump", "GlideHammerJump", "SpearJump")
+    glitches = {"ShurikenBreak": "Shuriken",  # TODO separate the ones with an =
+                "SentryJump": "Sentry",
+                "SwordSJump": "Sword, Sentry",
+                "HammerSJump": "Hammer, Sentry",
+                "SentryBurn": "Sentry",
+                "RemoveKillPlane": "free",
+                "SentryBreak": "Sentry",
+                "HammerBreak": "Hammer",
+                "SpearBreak": "Spear",
+                "LaunchSwap": "Launch",
+                "FlashSwap": "Flash",
+                "SentrySwap": "Sentry",
+                "BlazeSwap": "Blaze",
+                "WaveDash": "Dash, Regenerate",
+                "GrenadeJump": "Grenade",
+                "GrenadeCancel": "Grenade",
+                "BowCancel": "Bow",
+                "HammerJump": "Hammer, DoubleJump",
+                "SwordJump": "Sword, DoubleJump",
+                "GrenadeRedirect": "Grenade",
+                "SentryRedirect": "Sentry",
+                "PauseHover": "free",
+                "GlideJump": "Glide",
+                "GlideHammerJump": "Glide, Hammer",
+                "SpearJump": "Spear"}
+
     if text in inf_skills:
         return f"state.has(\"{text}\", player)"
     if text == "free":
@@ -442,13 +464,13 @@ def inter(text, diff):
         if need == "BreakWall":
             return "state.has_any((\"Sword\", \"Hammer\"), player)"  # TODO : count for energy weapons
         if need == "Keystone":
-            return "state.count(\"Keystone\", player) >= 12"  # TODO count KS with accessibles doors
+            return "state.count(\"Keystone\", player) >= 12"  # TODO count KS with accessible doors
         if need == "SpiritLight":
             return f"state.count(\"SpiritLight\", player) >= {value//100}"
         if need == "Ore":
             return f"state.count(\"Ore\", player) >= {value}"
-        if need in Glitches:
-            return None
+        if need in glitches.keys():
+            return None  # TODO associate requirement
         raise ValueError(f"Invalid input: {text}.")
     return f"state.has(\"{text}\", player)"
 
@@ -471,7 +493,65 @@ def req_area(area, diff):
             return "state.has(\"Regenerate\", player)"
         return None
 
-    HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))
+    HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))  # TODO change
     if M_dat[area][1]:  # Moki
-        return f"state.has(\"Regenerate\", player) and state.count(\"Health\", player) >= {HC}"
+        return f"state.has(\"Regenerate\", player) and state.count(\"Health\", player) >= {HC}"  # TODO change
     return f"state.count(\"Health\", player) >= {HC}"
+
+
+# %% Functions to put in another file, to import for set_rules
+
+def max_health(state, player):
+    """Compute and returns the current max health."""
+    # TODO: add items to quest locations so it works
+    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
+                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
+    return 30 + state.count("Health", player)*5 + 10*wisps
+
+
+def max_energy(state, player):
+    """Returns the max energy."""
+    # TODO: add items to quest locations so it works
+    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
+                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
+    return 30 + state.count("Energy", player)*5 + 10*wisps
+
+
+def total_keystones(state, player):
+    """Returns the total amount of Keystones on accessible doors."""
+    count = 0
+    if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
+            or state.can_reach_region("MarshSpawn.RegenDoor", player)):
+        count += 2
+    if (state.can_reach_region("HowlsDen.BoneBridge", player)
+            or state.can_reach_region("HowlsDen.BoneBridgeDoor", player)):
+        count += 2
+    if (state.can_reach_region("MarshPastOpher.BowArea", player)
+            or state.can_reach_region("WestHollow.Entrance", player)):
+        count += 2
+    if state.can_reach_region("MidnightBurrows.TabletRoom", player):
+        count += 4
+    if (state.can_reach_region("WoodsEntry.TwoKeystoneRoom", player)
+            or state.can_reach_region("WoodsMain.AfterKuMeet", player)):
+        count += 2
+    if (state.can_reach_region("WoodsMain.FourKeystoneRoom", player)
+            or state.can_reach_region("WoodsMain.GiantSkull", player)):
+        count += 4
+    if state.can_reach_region("LowerReach.TrialStart", player):
+        count += 4
+    if (state.can_reach_region("UpperReach.OutsideTreeRoom", player)
+            or state.can_reach_region("UpperReach.TreeRoomLedge", player)):
+        count += 4
+    if (state.can_reach_region("UpperDepths.KeydoorLedge", player)
+            or state.can_reach_region("UpperDepths.BelowHive", player)):
+        count += 2
+    if (state.can_reach_region("UpperDepths.Central", player)
+            or state.can_reach_region("UpperDepths.LowerConnection", player)):
+        count += 2
+    if (state.can_reach_region("UpperPools.BeforeKeystoneDoor", player)
+            or state.can_reach_region("UpperPools.TreeRoomEntrance", player)):
+        count += 4
+    if (state.can_reach_region("UpperWastes.KeystoneRoom", player)
+            or state.can_reach_region("UpperWastes.MissilePuzzleLeft", player)):
+        count += 2
+    return count

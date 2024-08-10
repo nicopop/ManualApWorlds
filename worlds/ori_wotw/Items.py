@@ -26,12 +26,12 @@ item_table = [
     {"name": "Shuriken", "count": 1, "classification": ItemClassification.progression},
     {"name": "Spear", "count": 1, "classification": ItemClassification.progression},
     {"name": "Blaze", "count": 1, "classification": ItemClassification.progression},
-    {"name": "WaterBreath", "count": 1, "classification": ItemClassification.useful},
+    {"name": "WaterBreath", "count": 1, "classification": ItemClassification.progression},
     {"name": "AncestralLight", "count": 2, "classification": ItemClassification.useful},
-    # Collectibles, 125 in total
+    # Collectibles, 127 in total
     {"name": "Health", "count": 24, "classification": ItemClassification.progression_skip_balancing},
     {"name": "Energy", "count": 24, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "Keystone", "count": 32, "classification": ItemClassification.progression_skip_balancing},
+    {"name": "Keystone", "count": 34, "classification": ItemClassification.progression_skip_balancing},
     {"name": "Ore", "count": 40, "classification": ItemClassification.progression_skip_balancing},
     {"name": "ShardSlot", "count": 5, "classification": ItemClassification.useful},
     # Shards, 31 in total
@@ -63,7 +63,7 @@ item_table = [
     {"name": "Finesse", "count": 1, "classification": ItemClassification.useful},
     {"name": "SpiritSurge", "count": 1, "classification": ItemClassification.useful},
     {"name": "Lifeforce", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Deflector", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Deflector", "count": 1, "classification": ItemClassification.progression},
     {"name": "Fracture", "count": 1, "classification": ItemClassification.useful},
     {"name": "Arcing", "count": 1, "classification": ItemClassification.useful},
     # TP, 14 in total
@@ -118,7 +118,7 @@ item_table = [
     {"name": "Jumpgrade", "count": 3, "classification": ItemClassification.useful},
     {"name": "SkillVelocity", "count": 3, "classification": ItemClassification.useful},
     # SpiritLight, complete for 389 locations
-    {"name": "SpiritLight", "count": 148, "classification": ItemClassification.filler},
+    {"name": "SpiritLight", "count": 146, "classification": ItemClassification.filler},
     ]
 
 
@@ -131,10 +131,10 @@ group_table = {
                "Resilience", "LightHarvest", "Vitality", "LifeHarvest", "EnergyHarvest", "EnergyShard", "LifePact",
                "LastStand", "Sense", "UltraBash", "UltraGrapple", "Overflow", "Thorn", "Catalyst", "Turmoil", "Sticky",
                "Finesse", "SpiritSurge", "Lifeforce", "Deflector", "Fracture", "Arcing"],
-    "teleporters": ["MidnightBurrowsTP", "HowlsDenTP", "EastLumaTP", "WellspringTP", "ReachTP", "HollowTP",
+    "teleporters": ["BurrowsTP", "DenTP", "EastPoolsTP", "WellspringTP", "ReachTP", "HollowTP",
                     "WestWoodsTP", "EastWoodsTP", "WestWastesTP", "EastWastesTP", "OuterRuinsTP", "WillowTP",
                     "MarshTP", "GladesTP"],
-    "extratp": ["WestLumaTP", "InnerRuinsTP"],
+    "extratp": ["WestPoolsTP", "InnerRuinsTP"],
     "bonus": ["HealthRegeneration", "EnergyRegeneration", "ExtraDoubleJump", "ExtraAirDash", "BlazeEfficiency",
               "SpearEfficiency", "ShurikenEfficiency", "SentryEfficiency", "BowEfficiency", "RegenerateEfficiency",
               "FlashEfficiency", "GrenadeEfficiency"],
