@@ -9,7 +9,10 @@ import re
 import numpy as np
 
 # TODO : fix line 271 in areas.wotw and 10803 (TwoCrushersEX)
-
+# TODO 1: group the indents: reduces redundancies, helps for ordering
+# TODO 2: Order by increasing damage, then energy cost, so that the bool eval is nice (handle difficulties ?)
+# TODO 3: Reevaluate when state evolves
+# TODO 4: Create syntax analysis for areas.wotw
 # %% Data and global variables
 
 skills = ("Sword", "DoubleJump", "Regenerate", "Bow", "Dash", "Bash", "Grapple", "Glide", "Flap", "Grenade",
@@ -329,6 +332,8 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
     words = {"conn": "entrance", "pickup": "location", "state": "location", "quest": "location"}
     area_req = ""
     text_req = ""
+    glitch_path = False
+
     if "." in anc:  # Gets the requirements when entering a new area.
         s = anc.find(".")
         i_area = anc[:s]
@@ -346,21 +351,23 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
             chain = elem.split(" OR ")
             temp = ""
             for s_elem in chain:
-                result = inter(s_elem, diff)
-                if result is not None:
+                result, glitch = inter(s_elem, diff)
+                if result:
                     if temp:
                         temp += " or " + result
                     else:
                         temp += "(" + result
             temp += ")"
         else:
-            temp = inter(elem, diff)
+            temp, glitch = inter(elem, diff)
 
-        if temp is not None:
+        if temp:
             if text_req:
                 text_req += " and " + temp
             else:
                 text_req += temp
+        if glitch:
+            glitch_path = True
 
     if p_type == "entrance":
         p_name = f"{anc}_to_{p_name}"
@@ -382,6 +389,11 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
             tot_req += " and " + text_req
 
     text = f"    add_rule(world.get_{p_type}(\"{p_name}\", player), lambda state: {tot_req})\n"
+
+    if glitch_path:
+        diff += 1
+
+    # L_rules[diff] += text TODO decomment
     if diff == 0:
         L_rules[0] += text
     else:   # TODO Other difficulties not implemented yet
@@ -389,7 +401,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
     return L_rules, entrances
 
 
-def inter(text, diff):  # TODO add a return (bool) for glitch or not
+def inter(text, diff):
     """Converts the isolated requirement (single keyword, or a chain of OR) into a rule function."""
     # Skills that do not use energy
     inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
@@ -421,9 +433,9 @@ def inter(text, diff):  # TODO add a return (bool) for glitch or not
                 "SpearJump": "Spear"}
 
     if text in inf_skills:
-        return f"state.has(\"{text}\", player)"
+        return f"state.has(\"{text}\", player)", False
     if text == "free":
-        return None
+        return "", False
 
     if "=" in text:
         s = text.find("=")
@@ -450,29 +462,29 @@ def inter(text, diff):  # TODO add a return (bool) for glitch or not
                 out_t = ref_rule[elem][0]  # TODO : implement other difficulties
                 if out_t != "free":
                     out += " and " + out_t
-            return out
+            return out, False
         if need == "Boss":
-            return "state.has_any((\"Sword\", \"Hammer\"), player)"
+            return "state.has_any((\"Sword\", \"Hammer\"), player)", False
 
         value = int(text[s+1:])
         # TODO: compute cost (now : 5 energy)
         if need in ("Grenade", "Sentry", "Shuriken", "Bow", "Flash", "Spear", "Blaze"):
-            return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4"
+            return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", False
         if need == "Damage":  # TODO : route refills, and use game difficulty
             HC = int(max(0, np.ceil((value-29)/5)))
-            return f"state.count(\"Health\", player) >= {HC}"
+            return f"state.count(\"Health\", player) >= {HC}", False
         if need == "BreakWall":
-            return "state.has_any((\"Sword\", \"Hammer\"), player)"  # TODO : count for energy weapons
+            return "state.has_any((\"Sword\", \"Hammer\"), player)", False  # TODO : count for energy weapons
         if need == "Keystone":
-            return "state.count(\"Keystone\", player) >= 12"  # TODO count KS with accessible doors
+            return "state.count(\"Keystone\", player) >= 12", False  # TODO count KS with accessible doors
         if need == "SpiritLight":
-            return f"state.count(\"SpiritLight\", player) >= {value//100}"
+            return f"state.count(\"SpiritLight\", player) >= {value//100}", False
         if need == "Ore":
-            return f"state.count(\"Ore\", player) >= {value}"
+            return f"state.count(\"Ore\", player) >= {value}", False
         if need in glitches.keys():
-            return None  # TODO associate requirement
+            return "", True  # TODO associate requirement
         raise ValueError(f"Invalid input: {text}.")
-    return f"state.has(\"{text}\", player)"
+    return f"state.has(\"{text}\", player)", False
 
 
 def req_area(area, diff):
@@ -493,63 +505,7 @@ def req_area(area, diff):
             return "state.has(\"Regenerate\", player)"
         return None
 
-    HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))  # TODO change
+    HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))  # TODO change, just put the health amount
     if M_dat[area][1]:  # Moki
         return f"state.has(\"Regenerate\", player) and state.count(\"Health\", player) >= {HC}"  # TODO change
     return f"state.count(\"Health\", player) >= {HC}"
-
-
-# %% Functions to put in another file, to import for set_rules
-
-def max_health(state, player):
-    """Compute and returns the current max health."""
-    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
-                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
-    return 30 + state.count("Health", player)*5 + 10*wisps
-
-
-def max_energy(state, player):
-    """Returns the max energy."""
-    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
-                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
-    return 30 + state.count("Energy", player)*5 + 10*wisps
-
-
-def total_keystones(state, player):
-    """Returns the total amount of Keystones on accessible doors."""
-    count = 0
-    if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
-            or state.can_reach_region("MarshSpawn.RegenDoor", player)):
-        count += 2
-    if (state.can_reach_region("HowlsDen.BoneBridge", player)
-            or state.can_reach_region("HowlsDen.BoneBridgeDoor", player)):
-        count += 2
-    if (state.can_reach_region("MarshPastOpher.BowArea", player)
-            or state.can_reach_region("WestHollow.Entrance", player)):
-        count += 2
-    if state.can_reach_region("MidnightBurrows.TabletRoom", player):
-        count += 4
-    if (state.can_reach_region("WoodsEntry.TwoKeystoneRoom", player)
-            or state.can_reach_region("WoodsMain.AfterKuMeet", player)):
-        count += 2
-    if (state.can_reach_region("WoodsMain.FourKeystoneRoom", player)
-            or state.can_reach_region("WoodsMain.GiantSkull", player)):
-        count += 4
-    if state.can_reach_region("LowerReach.TrialStart", player):
-        count += 4
-    if (state.can_reach_region("UpperReach.OutsideTreeRoom", player)
-            or state.can_reach_region("UpperReach.TreeRoomLedge", player)):
-        count += 4
-    if (state.can_reach_region("UpperDepths.KeydoorLedge", player)
-            or state.can_reach_region("UpperDepths.BelowHive", player)):
-        count += 2
-    if (state.can_reach_region("UpperDepths.Central", player)
-            or state.can_reach_region("UpperDepths.LowerConnection", player)):
-        count += 2
-    if (state.can_reach_region("UpperPools.BeforeKeystoneDoor", player)
-            or state.can_reach_region("UpperPools.TreeRoomEntrance", player)):
-        count += 4
-    if (state.can_reach_region("UpperWastes.KeystoneRoom", player)
-            or state.can_reach_region("UpperWastes.MissilePuzzleLeft", player)):
-        count += 2
-    return count
