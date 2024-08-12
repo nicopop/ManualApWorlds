@@ -108,8 +108,9 @@ col = re.compile(" .*:")  # name between space and colon
 tra = re.compile(" *$")  # Trailing space
 sep = re.compile(" at ")
 typ = re.compile("^  [a-z]+ ")  # Detects the type of the path
-nam = re.compile(" [a-zA-Z.0-9]+:")  # Name of the object
+nam = re.compile(" [a-zA-Z.=0-9]+:")  # Name of the object
 dif = re.compile("^[a-z]+, ")  # extracts the difficulty of the path
+ref = re.compile("[a-zA-Z=0-9]+$")  # Extracts the refill type if it has no colon
 
 
 # %% Text initialisations
@@ -139,6 +140,11 @@ def parsing(override=False):
             print("Warning: File `Entrances.py` replaced")
         else:
             raise FileExistsError("The file `Entrances.py` already exists. Use `override=True` to override it.")
+    if os.path.exists("./Refills.py"):
+        if override:
+            print("Warning: File `Refills.py` replaced")
+        else:
+            raise FileExistsError("The file `Refills.py` already exists. Use `override=True` to override it.")
 
     with open("./areas.wotw", "r") as file:
         temp = file.readlines()
@@ -168,6 +174,8 @@ def parsing(override=False):
 
     L_rules = [M, G, Gg, K, Kg, U, Ug]
     entrances = []
+    refills = {}  # Contains the refill info per region as a list: [health, energy, type]
+    refill_events = []  # Stores all the names given to the refill events.
 
     # Variables
     anc = ""  # Name of the current anchor
@@ -175,6 +183,7 @@ def parsing(override=False):
     req2 = ""  # Requirements from second indent
     req3 = ""  # Requirements from third indent
     req4 = ""  # Requirements from fourth indent
+    ref_type = ""  # Refill type (energy, health, checkpoint or full)
 
     c_diff = {"moki": 0, "gorlek": 1, "kii": 3, "unsafe": 5}
 
@@ -202,6 +211,7 @@ def parsing(override=False):
                     anc = name[:s.start()]
                 else:
                     anc = name
+                refills.setdefault(anc, [0, 0, 0])
             else:
                 anc = ""
 
@@ -214,21 +224,21 @@ def parsing(override=False):
             if p_type not in ("conn", "state", "pickup", "refill", "quest"):
                 raise ValueError(f"{p_type} (line {i}) is not an appropriate path type.\n\"{p}\"")
             if p_type == "refill":
-                continue
-            if not nam.search(p):
-                raise ValueError(f"{i}\n{p}")
-            p_name = nam.search(p).group()[1:-1]  # Name
-
-            # if p_name not in done:
-            #     done.setdefault(name, [False, False, False, False, False, False, p_type])
+                if ":" in p:
+                    p_name = nam.search(p).group()[1:-1]
+                    ref_type, refills, refill_events = conv_refill(p_name, anc, refills, refill_events)
+                else:
+                    p_name = ref.search(p).group()
+                    ref_type, refills, refill_events = conv_refill(p_name, anc, refills, refill_events)
+                    convert(anc, p_type, p_name, L_rules, entrances, ref_type, 0, "free")
+            else:
+                p_name = nam.search(p).group()[1:-1]  # Name
 
             if "free" in p:
-                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, 0, "free")
+                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, 0, "free")
 
         elif ind == 2:
             if not anc:
-                continue
-            if p_type == "refill":  # TODO: implement refills
                 continue
             if p[-1] == ":":
                 if p[4:] in ("moki:", "gorlek:", "kii:", "unsafe:"):
@@ -246,20 +256,18 @@ def parsing(override=False):
                     start = p.find(": ")
                     diff = c_diff[p[4:start]]
                     req = p[start + 2:]
-                    L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, diff, req)
+                    L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff, req)
                 else:
                     s = dif.search(p[4:])
                     diff = c_diff[s.group()[:-2]]
                     req = p[s.end()+4:]
                     req = req.replace(":", ",")
-                    L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, diff, req)
+                    L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff, req)
             else:
                 raise ValueError(f"Input on line {i} is invalid.\n\"{p}\"")
 
         elif ind == 3:
             if not anc:
-                continue
-            if p_type == "refill":  # TODO: implement refills
                 continue
             if p[-1] == ":":
                 req3 = p[6:-1]
@@ -269,12 +277,10 @@ def parsing(override=False):
                     req = req2 + ", " + p[6:]
                 else:
                     req = p[6:]
-                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, diff, req)
+                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff, req)
 
         elif ind == 4:
             if not anc:
-                continue
-            if p_type == "refill":  # TODO: implement refills
                 continue
             if p[-1] == ":":
                 req4 = p[8:-1]
@@ -286,12 +292,10 @@ def parsing(override=False):
                 if req3:
                     req += req3 + ", "
                 req += p[8:]
-                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, diff, req)
+                L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff, req)
 
         elif ind == 5:
             if not anc:
-                continue
-            if p_type == "refill":  # TODO: implement refills
                 continue
             req = ""
             if req2:
@@ -301,7 +305,7 @@ def parsing(override=False):
             if req4:
                 req += req4 + ", "
             req += p[10:]
-            L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, diff, req)
+            L_rules, entrances = convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff, req)
 
         else:
             raise NotImplementedError(f"Too many indents ({ind}) on line {i}.\n{p}")
@@ -311,15 +315,27 @@ def parsing(override=False):
         ent_txt += f"    \"{entrance}\",\n"
     ent_txt += "    ]\n"
 
+    ref_txt = header + "\n" + "refills = {\n"
+    for region, info in refills.items():
+        ref_txt += f"    \"{region}\": {info},\n"
+    ref_txt += ("    }\n\n"
+                "refill_events = [\n")
+    for name in refill_events:
+        ref_txt += f"    \"{name}\",\n"
+    ref_txt += "    ]\n"
+
     with open("Rules.py", "w") as file:
         file.write(L_rules[0])
         print("The file `Rules.py` has been successfully created.")
     with open("Entrances.py", "w") as file:
         file.write(ent_txt)
         print("The file `Entrances.py` has been successfully created.")
+    with open("Refills.py", "w") as file:
+        file.write(ref_txt)
+        print("The file `Refills.py` has been successfully created.")
 
 
-def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
+def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free"):
     """
     Converts the data given by the arguments into an add_rule function, and adds it to the right difficulty.
 
@@ -329,7 +345,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
     diff: difficulty of the path (str)
     req: requirements to access the element
     """
-    words = {"conn": "entrance", "pickup": "location", "state": "location", "quest": "location"}
+    words = {"conn": "entrance", "pickup": "location", "state": "location", "quest": "location", "refill": "location"}
     area_req = ""
     text_req = ""
     glitch_path = False
@@ -342,8 +358,6 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
             f_area = p_name[:s]
             if i_area != f_area:
                 area_req = req_area(f_area, diff)
-
-    p_type = words[p_type]
 
     s_req = req.split(", ")
     for elem in s_req:
@@ -369,7 +383,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
         if glitch:
             glitch_path = True
 
-    if p_type == "entrance":
+    if p_type == "conn":
         p_name = f"{anc}_to_{p_name}"
         if p_name not in entrances:
             entrances.append(p_name)
@@ -381,6 +395,12 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
             tot_req = area_req
         else:
             tot_req = True
+    elif p_type == "refill":
+        p_name = ref_type + anc
+        if text_req:
+            tot_req = text_req
+        else:
+            tot_req = True
     else:
         tot_req = f"state.can_reach_region(\"{anc}\", player)"
         if area_req:
@@ -388,6 +408,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, diff=0, req="free"):
         if text_req:
             tot_req += " and " + text_req
 
+    p_type = words[p_type]
     text = f"    add_rule(world.get_{p_type}(\"{p_name}\", player), lambda state: {tot_req})\n"
 
     if glitch_path:
@@ -475,6 +496,8 @@ def inter(text, diff):
             return f"state.count(\"Health\", player) >= {HC}", False
         if need == "BreakWall":
             return "state.has_any((\"Sword\", \"Hammer\"), player)", False  # TODO : count for energy weapons
+        if need == "BreakCrystal":  # TODO: fix this (currently gives an event instead of the function) -> DEDENT and import
+            return "BreakCrystal(state, player)", False
         if need == "Keystone":
             return "state.count(\"Keystone\", player) >= 12", False  # TODO count KS with accessible doors
         if need == "SpiritLight":
@@ -485,6 +508,30 @@ def inter(text, diff):
             return "", True  # TODO associate requirement
         raise ValueError(f"Invalid input: {text}.")
     return f"state.has(\"{text}\", player)", False
+
+
+def conv_refill(p_name, anc, refills, refill_events):
+    """Retruns the refill type (to add before the region name) and updates the data tables."""
+    current = refills[anc]
+    if "=" in p_name:
+        value = int(p_name[-1])
+        if p_name[:-2] == "Health":
+            refills.update({anc: [value, current[1], current[2]]})
+            refill_events.append(f"H.{anc}")
+            return "H.", refills, refill_events
+        if p_name[:-2] == "Energy":
+            refills.update({anc: [current[0], value, current[2]]})
+            refill_events.append(f"E.{anc}")
+            return "E.", refills, refill_events
+    if p_name == "Checkpoint":
+        refills.update({anc: [current[0], current[1], 1]})
+        refill_events.append(f"C.{anc}")
+        return "C.", refills, refill_events
+    if p_name == "Full":
+        refills.update({anc: [current[0], current[1], 2]})
+        refill_events.append(f"F.{anc}")
+        return "F.", refills, refill_events
+    raise ValueError(f"{p_name} is not a valid refill type (at anchor {anc}).")
 
 
 def req_area(area, diff):
