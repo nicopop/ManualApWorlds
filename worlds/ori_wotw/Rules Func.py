@@ -1,9 +1,10 @@
 from math import floor, ceil
 from .Regions import region_table
+from .Refills import refills
 import numpy as np
 
 
-# Damage of each weapon
+# Damage of each weapon  TODO: remove numpy ?
 d_grenade = 8
 d_shuriken = 5
 d_bow = 4
@@ -59,7 +60,7 @@ def update_maxE(state, player):
 def update_refill():
     """Updates the refill values."""
     global refillH, refillE, maxH, maxE
-    refillH = max(40, 40)  # TODO: get formulas
+    refillH = max(40, 40)  # TODO: get formulas. Also, do not go above max H/E
     refillE = max(10, 10)
 
 
@@ -148,7 +149,7 @@ def change_ref(resource, arrival):
 def cost_boss(hp, state, player, diff_g=1):
     """Energy cost for the boss with current state."""
     # TODO: implement game difficulty as option, and get diff_g from there
-    # TODO: implement for enemies
+    # TODO: merge this with cost_damage
     if state.has("Sword", player) or state.has("Hammer", player):
         return 0
 
@@ -179,6 +180,42 @@ def cost_boss(hp, state, player, diff_g=1):
     return np.min(c)
 
 
+def cost_damage(hp_list, state, player, diff_g=1):
+    """Energy cost for the enemies/wall/boss with current state."""
+    # TODO: implement game difficulty as option, and get diff_g from there
+    global d, e  # TODO: rename
+    if state.has("Sword", player) or state.has("Hammer", player):
+        return 0
+
+    if diff_g == 0:  # TODO: verify the values
+        mod = 0.5
+    elif diff_g == 2:
+        mod = 1.8
+    else:
+        mod = 1
+
+    c = np.zeros(7)
+    for hp in hp_list:
+        c += e * np.ceil(hp * mod / d)
+
+    if not state.has("Grenade"):
+        c[0] = np.inf
+    if not state.has("Shuriken"):
+        c[1] = np.inf
+    if not state.has("Bow"):
+        c[2] = np.inf
+    if not state.has("Flash"):
+        c[3] = np.inf
+    if not state.has("Sentry"):
+        c[4] = np.inf
+    if not state.has("Spear"):
+        c[5] = np.inf
+    if not state.has("Blaze"):
+        c[6] = np.inf
+
+    return np.min(c)  # TODO: rework as returning a bool and updating the resource. Make separate function for trials (that use refills, and do not update)
+
+
 def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options
     """Returns a bool, stating if the player can break energy crystals."""
     if diff == 0:
@@ -186,3 +223,19 @@ def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options
     if diff == 1 or diff == 2:
         return state.has_any("Shuriken", "Grenade", player)
     return state.has("Spear", player)
+
+
+def apply_refill(region, state, player):
+    global refillH, refillE, maxH, maxE
+    en, hp, tr = refills[region]
+    if tr == 2 and state.has("F." + region, player):
+        ref_resource[region] = [maxH, maxE]
+    else:
+        resource = ref_resource[region]
+        if tr == 1 and state.has("C." + region, player):
+            resource = [max(resource[0], refillH), max(resource[1], refillE)]
+        if hp != 0 and state.has("H." + region, player):
+            resource[0] = max(maxH, resource[0] + hp*10)
+        if en != 0 and state.has("E." + region, player):
+            resource[1] += max(maxE, resource[1] + en*10)
+        ref_resource[region] = resource

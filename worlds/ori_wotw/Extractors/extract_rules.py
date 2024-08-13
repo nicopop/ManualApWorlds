@@ -122,9 +122,10 @@ header = ("\"\"\"\n"
           "\"\"\"\n\n"
           )
 
+imports = "from .Rules Func import total_keystones, BreakCrystal\n\n"
+
 lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
 lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
-
 # %% Functions for extracting rules
 
 
@@ -150,25 +151,25 @@ def parsing(override=False):
         temp = file.readlines()
 
     # Moki, Gorlek, Kii and Unsafe rules respectively
-    M = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    M = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
          "def set_moki_rules(world, player):\n"
          "    \"\"\"Moki (or easy, default) rules.\"\"\"\n" + lightM)
-    G = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    G = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
          "def set_gorlek_rules(world, player):\n"
          "    \"\"\"Gorlek (or medium) rules.\"\"\"\n" + lightM + lightG)
-    Gg = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    Gg = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
           "def set_gorlek_glitched_rules(world, player):\n"
           "    \"\"\"Gorlek (or medium) rules with glitches\"\"\"\n" + lightM + lightG)
-    K = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    K = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
          "def set_kii_rules(world, player):\n"
          "    \"\"\"Kii (or hard) rules\"\"\"\n" + lightM + lightG)
-    Kg = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    Kg = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
           "def set_kii_glitched_rules(world, player):\n"
           "    \"\"\"Kii (or hard) rules with glitches.\"\"\"\n" + lightM + lightG)
-    U = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    U = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
          "def set_unsafe_rules(world, player):\n"
          "    \"\"\"Unsafe rules.\"\"\"\n" + lightM + lightG)
-    Ug = (header + "from worlds.generic.Rules import add_rule\n\n\n"
+    Ug = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
           "def set_unsafe_glitched_rules(world, player):\n"
           "    \"\"\"Unsafe rules with glitches.\"\"\"\n" + lightM + lightG)
 
@@ -472,14 +473,14 @@ def inter(text, diff):
                 if elem[1] == "x":
                     elem = elem[2:]
                 danger = ref_en[elem][1]
-                if isinstance(danger, str):
+                if isinstance(danger, str):  # Case when only one danger type for all the enemies
                     if danger not in dangers:
                         dangers.append(danger)
                 else:
                     for dan in danger:
                         if dan not in dangers:
                             dangers.append(dan)
-            out = "state.has_any((\"Sword\", \"Hammer\"), player)"
+            out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # TODO: gives damage required, gives energy for shrines
             for elem in dangers:
                 out_t = ref_rule[elem][0]  # TODO : implement other difficulties
                 if out_t != "free":
@@ -500,9 +501,9 @@ def inter(text, diff):
         if need == "BreakCrystal":  # TODO: fix this (currently gives an event instead of the function) -> DEDENT and import
             return "BreakCrystal(state, player)", False
         if need == "Keystone":
-            return "state.count(\"Keystone\", player) >= 12", False  # TODO count KS with accessible doors
+            return "state.count(\"Keystone\", player) >= total_keystones(state, player)", False
         if need == "SpiritLight":
-            return f"state.count(\"SpiritLight\", player) >= {value//100}", False
+            return f"state.count(\"SpiritLight\", player) >= {np.ceil(value/100)}", False
         if need == "Ore":
             return f"state.count(\"Ore\", player) >= {value}", False
         if need in glitches.keys():
