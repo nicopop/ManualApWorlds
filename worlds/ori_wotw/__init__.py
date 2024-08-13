@@ -11,6 +11,7 @@ from .Options import WotWOptions  # add options_presets
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
+from .Refills import refill_events
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule
@@ -140,6 +141,11 @@ class WotWWorld(World):
             ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             region = Region(event, player, world)
             world.regions.append(region)
+            region.locations.append(ev)
+        for event in refill_events:  # Create refill events, their item, and attach to their region
+            ev = WotWLocation(player, event, None)
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            region = world.get_region(event[2:], player)
             region.locations.append(ev)
         victory = WotWLocation(player, "Victory", None)
         victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))

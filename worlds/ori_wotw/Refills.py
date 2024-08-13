@@ -7,7 +7,8 @@ Do not edit manually.
 """
 
 
-refills = {
+refills = {  # key: region name. List: [health restored, energy restored, refill type]
+    # For refill type: 0 is no refill, 1 is Checkpoint, 2 is Full refill.
     "HeaderStates": [0, 0, 0],
     "Teleporters": [0, 0, 0],
     "MarshSpawn.Main": [0, 0, 2],
@@ -73,7 +74,7 @@ refills = {
     "WestHollow.InFrontPurpleDoor": [0, 0, 0],
     "WestHollow.InFrontPurpleDoorEnemyPaths": [0, 0, 0],
     "WestHollow.HollowDrainMiddle": [0, 3, 1],
-    "WestHollow.RockPuzzle": [1, 1, 1],
+    "WestHollow.RockPuzzle": [1, 3, 1],
     "WestHollow.FarLeftRoom": [0, 3, 0],
     "WestHollow.SubmergedPlatform": [0, 1, 0],
     "WestHollow.AboveJumppad": [0, 0, 0],
@@ -391,7 +392,6 @@ refill_events = [
     "C.WestHollow.RockPuzzle",
     "H.WestHollow.RockPuzzle",
     "E.WestHollow.RockPuzzle",
-    "E.WestHollow.RockPuzzle",
     "E.WestHollow.FarLeftRoom",
     "E.WestHollow.SubmergedPlatform",
     "C.WestHollow.HollowDrainLower",
@@ -550,7 +550,6 @@ refill_events = [
     "F.DepthsShrine",
     "C.LowerDepths.Central",
     "C.LowerDepths.East",
-    "E.LowerDepths.East",
     "E.LowerDepths.East",
     "C.LowerDepths.BeforeTree",
     "C.LowerDepths.TreeArea",

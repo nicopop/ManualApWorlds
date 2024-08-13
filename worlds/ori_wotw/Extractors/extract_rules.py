@@ -315,7 +315,8 @@ def parsing(override=False):
         ent_txt += f"    \"{entrance}\",\n"
     ent_txt += "    ]\n"
 
-    ref_txt = header + "\n" + "refills = {\n"
+    ref_txt = header + "\n" + "refills = {  # key: region name. List: [health restored, energy restored, refill type]\n"
+    ref_txt += "    # For refill type: 0 is no refill, 1 is Checkpoint, 2 is Full refill.\n"
     for region, info in refills.items():
         ref_txt += f"    \"{region}\": {info},\n"
     ref_txt += ("    }\n\n"
@@ -511,17 +512,19 @@ def inter(text, diff):
 
 
 def conv_refill(p_name, anc, refills, refill_events):
-    """Retruns the refill type (to add before the region name) and updates the data tables."""
+    """Returns the refill type (to add before the region name) and updates the data tables."""
     current = refills[anc]
     if "=" in p_name:
         value = int(p_name[-1])
         if p_name[:-2] == "Health":
-            refills.update({anc: [value, current[1], current[2]]})
-            refill_events.append(f"H.{anc}")
+            if current[0] == 0:
+                refills.update({anc: [value, current[1], current[2]]})
+                refill_events.append(f"H.{anc}")
             return "H.", refills, refill_events
         if p_name[:-2] == "Energy":
-            refills.update({anc: [current[0], value, current[2]]})
-            refill_events.append(f"E.{anc}")
+            if current[1] == 0:
+                refills.update({anc: [current[0], value, current[2]]})
+                refill_events.append(f"E.{anc}")
             return "E.", refills, refill_events
     if p_name == "Checkpoint":
         refills.update({anc: [current[0], current[1], 1]})
