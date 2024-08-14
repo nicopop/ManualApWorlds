@@ -1,72 +1,41 @@
-from math import floor, ceil
+from math import ceil, floor
 from .Regions import region_table
 from .Refills import refills
-import numpy as np
 
-
-# Damage of each weapon  TODO: remove numpy ?
-d_grenade = 8
-d_shuriken = 5
-d_bow = 4
-d_flash = 1
-d_sentry = 10
-d_spear = 20
-d_blaze = 8
-d = np.array([d_grenade, d_shuriken, d_bow, d_flash, d_sentry, d_spear, d_blaze])
-
-# Energy cost of each weapon TODO use integers
-e_grenade = 1
-e_shuriken = 0.5
-e_bow = 0.25
-e_flash = 0.25
-e_sentry = 1
-e_spear = 2
-e_blaze = 1
-e = np.array([e_grenade, e_shuriken, e_bow, e_flash, e_sentry, e_spear, e_blaze])
+# TODO: get exact values
+weapon_data = {  # The list contains the damage, and its energy cost
+    "Grenade": [13, 10],  # Can be 17 damage if charged
+    "Shuriken": [7, 5],
+    "Bow": [4, 2.5],
+    "Flash": [12, 10],
+    "Sentry": [8, 10],  # 8.8, rounded down here
+    "Spear": [20, 20],
+    "Blaze": [13, 10],  # 13.8, rounded down here
+    }
 
 ref_resource = {region: [0, 0] for region in region_table}
-maxH = 30
-maxE = 30
-refillH = 40
-refillE = 10
-regen = False
 
 
-def update_ref(state, player):
-    """Updates the values in ref_resource and the cached values."""
-    # TODO
-    update_maxH(state, player)
-    update_maxE(state, player)
-    update_refill()
-    update_regen(state, player)
-
-
-def get_maxH(state, player):
-    """Returns the current max health."""
+def has_health(amount, state, player):
+    """Returns if the player has enough max health to enter the area."""
     wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir")
-    return 30 + state.count("Health", player)*5 + 10*wisps
+    return amount < 30 + state.count("Health", player)*5 + 10*wisps
 
 
-def get_maxE(state, player):
-    """Returns the max energy."""
+def get_max(state, player):
+    """Returns the current max health and energy."""
     wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir")
-    return 30 + state.count("Energy", player)*5 + 10*wisps
+    return 30 + state.count("Health", player)*5 + 10*wisps, 30 + state.count("Energy", player)*5 + 10*wisps
 
 
-def update_refill():
-    """Updates the refill values."""
-    global refillH, refillE, maxH, maxE
-    refillH = max(40, 40)  # TODO: get formulas. Also, do not go above max H/E
-    refillE = max(10, 10)
-
-
-def update_regen(state, player):
-    """Updates if regenerate is collected."""
-    global regen
-    if state.has("Regenerate", player):
-        regen = True
+def get_refill(max_resource):
+    """Returns the refill values."""
+    maxH, maxE = max_resource
+    refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
+    refillE = maxE/5+10
+    return refillH, refillE
 
 
 def total_keystones(state, player):
@@ -109,16 +78,17 @@ def total_keystones(state, player):
     return count
 
 
+# TODO: multiply energy cost by 2 if not in unsafe
 def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[]):
     """
-    Returns a bool stating if the path can be taken, and updates ref_resource if a connection.
+    Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
     damages (list) contains the dboost values (if several elements, Regenerate can be used inbetween).
     en_and (list of list) contains as elements the skill name, and the amount used. All must be satisfied.
     en_or (list of list) is the same, but anty is required (the lowest cost will be applied).
     """
     health, energy = ref_resource[region]
-    maxH, maxE = get_maxH(state, player), get_maxE(state, player)
+    maxH, maxE = get_max(state, player)
 
     for damage in damages:  # This part deals with the damage boosts
         health -= damage
@@ -132,115 +102,69 @@ def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[])
             else:
                 return False
 
-    cost_and = 0
+    cost_and = 0  # This computes the energy cost for weapons
     for source in en_and:
         if not state.has(source[0], player):
             return False
-        cost_and += E_cost[source[0]]*source[1]
+        cost_and += weapon_data[source[0]][1]*source[1]
 
-    cost_or = 10000  # Arbitrary value, must be high
-    invalid = True
-    for source in en_or:  # TODO: create E_cost, deal with empty requirements
-        if not state.has(source[0], player):
-            continue
-        invalid = False
-        cost_or = min(cost_or, E_cost[source[0]]*source[1])
+    cost_or = 0
+    if en_or:
+        cost_or = 1000  # Arbitrary value, must be higher than 200
+        for source in en_or:
+            if not state.has(source[0], player):
+                continue
+            cost_or = min(cost_or, weapon_data[source[0]][1]*source[1])
 
     energy -= cost_and + cost_or
 
-    if energy < 0 or invalid:
+    if energy < 0:
         return False
     if arrival:
-        apply_refill(arrival, state, player, [health, energy], [maxH, maxE])
+        update_ref(arrival, state, player, [health, energy], [maxH, maxE])
         return True
     return True
 
 
-def change_ref(resource, arrival):
-    """Change the resource amount of the arrival region if a better path is found."""
-    if resource > ref_resource[arrival]:  # Lexical order, so greater health, then greater energy.
-        ref_resource[arrival] = resource  # TODO: refills, and change comparison if regen
+def Damage(hp_list, state, player, region, weapons, arrival="", diff_g=1):  # TODO: hard/easy: damage modifier
+    """
+    Energy cost for the enemies/wall/boss with current state.
 
-
-def cost_boss(hp, state, player, diff_g=1):
-    """Energy cost for the boss with current state."""
+    `weapons` indicates the list of energy weapons that can be used in the situation.
+    """
     # TODO: implement game difficulty as option, and get diff_g from there
-    # TODO: merge this with cost_damage
     if state.has("Sword", player) or state.has("Hammer", player):
-        return 0
+        tot_cost = 0
 
-    if diff_g == 0:
-        mod = 0.5
-    elif diff_g == 2:
-        mod = 1.8
     else:
-        mod = 1
+        if diff_g == 0:  # TODO: verify the values
+            mod = 0.5
+        elif diff_g == 2:
+            mod = 1.8
+        else:
+            mod = 1
 
-    c = e*np.ceil(hp*mod/d)
+        tot_cost = 0
+        for hp in hp_list:
+            for weapon in weapons:
+                cost = 1000  # Arbitrary value, higher than 200
+                if state.has(weapon, player):
+                    cost = min(cost, weapon_data[weapon][1] * ceil(hp*mod / weapon_data[weapon][0]))
+            tot_cost += cost
 
-    if not state.has("Grenade"):
-        c[0] = np.inf
-    if not state.has("Shuriken"):
-        c[1] = np.inf
-    if not state.has("Bow"):
-        c[2] = np.inf
-    if not state.has("Flash"):
-        c[3] = np.inf
-    if not state.has("Sentry"):
-        c[4] = np.inf
-    if not state.has("Spear"):
-        c[5] = np.inf
-    if not state.has("Blaze"):
-        c[6] = np.inf
-
-    return np.min(c)
-
-
-def Damage(hp_list, state, player, region, arrival=None, diff_g=1):
-    """Energy cost for the enemies/wall/boss with current state."""
-    # TODO: implement game difficulty as option, and get diff_g from there
-    global d, e  # TODO: rename
-    if state.has("Sword", player) or state.has("Hammer", player):
+    health, energy = ref_resource[region]
+    energy -= tot_cost
+    if energy < 0:
+        return False
+    if arrival:
+        maxH, maxE = get_max(state, player)
+        update_ref(arrival, state, player, [health, energy], [maxH, maxE])
         return True
-
-    if diff_g == 0:  # TODO: verify the values
-        mod = 0.5
-    elif diff_g == 2:
-        mod = 1.8
-    else:
-        mod = 1
-
-    cost = np.zeros(7)
-    for hp in hp_list:
-        cost += e * np.ceil(hp * mod / d)
-
-    if not state.has("Grenade"):
-        cost[0] = np.inf
-    if not state.has("Shuriken"):
-        cost[1] = np.inf
-    if not state.has("Bow"):
-        cost[2] = np.inf
-    if not state.has("Flash"):
-        cost[3] = np.inf
-    if not state.has("Sentry"):
-        cost[4] = np.inf
-    if not state.has("Spear"):
-        cost[5] = np.inf
-    if not state.has("Blaze"):
-        cost[6] = np.inf
-
-    cost = np.min(cost)
-    remain = ref_resource[region] - cost
-    if remain >= 0:
-        if arrival:
-            ref_resource[arrival][1] = remain
-            return True
-        return True
-    return False
-    # TODO: rework as returning a bool and updating the resource. Make separate function for trials (that use refills, and do not update)
+    return True
+    # TODO: implement trials (that use refills in middle, and do not update)
 
 
-def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options
+def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options. Maybe merge with damage=1 ? Or get cost then use it to correct refills
     """Returns a bool, stating if the player can break energy crystals."""
     if diff == 0:
         return state.has_any("Sword", "Hammer", "Bow", player)
@@ -249,10 +173,10 @@ def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options
     return state.has("Spear", player)
 
 
-def apply_refill(region, state, player, resource, max_res):
+def update_ref(region, state, player, resource, max_res):
     """Updates the resource table for the arrival region, using the resource and the refills."""
     maxH, maxE = max_res
-    global refillH, refillE
+    refillH, refillE = get_refill(max_res)
     en, hp, tr = refills[region]
     if tr == 2 and state.has("F." + region, player):
         ref_resource[region] = [maxH, maxE]
@@ -263,4 +187,6 @@ def apply_refill(region, state, player, resource, max_res):
             resource[0] = max(maxH, resource[0] + hp*10)
         if en != 0 and state.has("E." + region, player):
             resource[1] += max(maxE, resource[1] + en*10)
-        ref_resource[region] = resource
+
+        if resource > ref_resource[region]:  # Updates if bigger (lexical order, so health takes priority)
+            ref_resource[region] = resource

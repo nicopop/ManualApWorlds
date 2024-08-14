@@ -6,40 +6,15 @@ Run `parsing()` to extract the rules (the `areas.wotw` file must be in the same 
 
 import os
 import re
-import numpy as np
+from math import ceil
 
 # TODO : fix line 271 in areas.wotw and 10803 (TwoCrushersEX)
-# TODO 1: group the indents: reduces redundancies, helps for ordering
-# TODO 2: Order by increasing damage, then energy cost, so that the bool eval is nice (handle difficulties ?)
-# TODO 3: Reevaluate when state evolves
 # TODO 4: Create syntax analysis for areas.wotw
 # %% Data and global variables
 
 skills = ("Sword", "DoubleJump", "Regenerate", "Bow", "Dash", "Bash", "Grapple", "Glide", "Flap", "Grenade",
           "Flash", "WaterDash", "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "Sentry", "Shuriken",
           "Spear", "Blaze")
-
-# Damage of each weapon
-# TODO: get exact values
-d_grenade = 10
-d_shuriken = 5
-d_bow = 4
-d_flash = 1
-d_sentry = 10
-d_spear = 20
-d_blaze = 10
-d = np.array([d_grenade, d_shuriken, d_bow, d_flash, d_sentry, d_spear, d_blaze])
-
-# TODO: get exact values
-# Energy cost of each weapon
-e_grenade = 1
-e_shuriken = 0.5
-e_bow = 0.25
-e_flash = 0.25
-e_sentry = 1
-e_spear = 2
-e_blaze = 1
-e = np.array([e_grenade, e_shuriken, e_bow, e_flash, e_sentry, e_spear, e_blaze])
 
 # Enemy data
 ref_en = {"Mantis": (32, "Free"),
@@ -122,7 +97,7 @@ header = ("\"\"\"\n"
           "\"\"\"\n\n"
           )
 
-imports = "from .Rules Func import total_keystones, BreakCrystal\n\n"
+imports = "from .Rules Func import *\n\n"
 
 lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
 lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
@@ -361,13 +336,17 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
             if i_area != f_area:
                 area_req = req_area(f_area, diff)
 
+    arrival = ""
+    if p_type == "conn":
+        arrival = p_name
+
     s_req = req.split(", ")
     for elem in s_req:
         if " OR " in elem:
             chain = elem.split(" OR ")
             temp = ""
             for s_elem in chain:
-                result, glitch = inter(s_elem, diff)
+                result, glitch = inter(s_elem, diff, anc, arrival)
                 if result:
                     if temp:
                         temp += " or " + result
@@ -375,7 +354,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
                         temp += "(" + result
             temp += ")"
         else:
-            temp, glitch = inter(elem, diff)
+            temp, glitch = inter(elem, diff, anc, arrival)
 
         if temp:
             if text_req:
@@ -424,7 +403,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     return L_rules, entrances
 
 
-def inter(text, diff):
+def inter(text, diff, anc, arrival):
     """Converts the isolated requirement (single keyword, or a chain of OR) into a rule function."""
     # Skills that do not use energy
     inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
@@ -464,7 +443,6 @@ def inter(text, diff):
         s = text.find("=")
         need = text[:s]
 
-        # TODO : compute the energy cost, and remove the base weapon requirement.
         if need == "Combat":
             value = text[s+1:]
             enemies = value.split("+")
@@ -485,10 +463,10 @@ def inter(text, diff):
                     for dan in danger:
                         if dan not in dangers:
                             dangers.append(dan)
-            if diff == 0:
+            if diff == 0:  # TODO handle here or in Damage ?
                 out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # require non energy weapon for moki
             else:
-                out = f"Damage({damage}, state, player, {anc}, {arrival}, diff_g)"  # TODO: complete region, arrival ?
+                out = f"Damage({damage}, state, player, {anc}, {weapons}, {arrival}, diff_g)"  # TODO Weapons
             for elem in dangers:
                 out_t = ref_rule[elem][(diff+1)//2]  # This gives 0->0, 1->1, 3->2, 5->3 (it maps diff to the index)
                 if out_t != "free":
@@ -502,14 +480,14 @@ def inter(text, diff):
         if need in ("Grenade", "Sentry", "Shuriken", "Bow", "Flash", "Spear", "Blaze"):
             return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", False
         if need == "Damage":  # TODO : route refills, and use game difficulty
-            HC = int(max(0, np.ceil((value-29)/5)))
+            HC = int(max(0, ceil((value-29)/5)))
             return f"state.count(\"Health\", player) >= {HC}", False  # TODO: change
         if need == "BreakWall":
-            return f"Damage({value}, state, player, {anc}, {arrival}, diff_g)", False  # TODO fix
+            return f"Damage({value}, state, player, {anc}, {weapons}, {arrival}, diff_g)", False  # TODO fix
         if need == "Keystone":
             return "state.count(\"Keystone\", player) >= total_keystones(state, player)", False
         if need == "SpiritLight":
-            return f"state.count(\"SpiritLight\", player) >= {np.ceil(value/100)}", False
+            return f"state.count(\"SpiritLight\", player) >= {ceil(value/100)}", False
         if need == "Ore":
             return f"state.count(\"Ore\", player) >= {value}", False
         if need in glitches.keys():
@@ -564,7 +542,6 @@ def req_area(area, diff):
             return "state.has(\"Regenerate\", player)"
         return None
 
-    HC = int(max(0, np.ceil((M_dat[area][0]-29)/5)))  # TODO change, just put the health amount
     if M_dat[area][1]:  # Moki
-        return f"state.has(\"Regenerate\", player) and state.count(\"Health\", player) >= {HC}"  # TODO change
-    return f"state.count(\"Health\", player) >= {HC}"
+        return f"state.has(\"Regenerate\", player) and has_health({M_dat[area]}, state, player)"
+    return f"has_health({M_dat[area]}, state, player)"
