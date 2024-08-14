@@ -469,10 +469,15 @@ def inter(text, diff):
             value = text[s+1:]
             enemies = value.split("+")
             dangers = []
+            damage = []
             for elem in enemies:
+                amount = 1
                 if elem[1] == "x":
                     elem = elem[2:]
+                    damage.append([elem])
+                    amount = int(elem[-1])
                 danger = ref_en[elem][1]
+                damage.append([ref_en[elem][0]] * amount)
                 if isinstance(danger, str):  # Case when only one danger type for all the enemies
                     if danger not in dangers:
                         dangers.append(danger)
@@ -480,9 +485,12 @@ def inter(text, diff):
                     for dan in danger:
                         if dan not in dangers:
                             dangers.append(dan)
-            out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # TODO: gives damage required, gives energy for shrines
+            if diff == 0:
+                out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # require non energy weapon for moki
+            else:
+                out = f"Damage({damage}, state, player, {anc}, {arrival}, diff_g)"  # TODO: complete region, arrival ?
             for elem in dangers:
-                out_t = ref_rule[elem][0]  # TODO : implement other difficulties
+                out_t = ref_rule[elem][(diff+1)//2]  # This gives 0->0, 1->1, 3->2, 5->3 (it maps diff to the index)
                 if out_t != "free":
                     out += " and " + out_t
             return out, False
@@ -495,11 +503,9 @@ def inter(text, diff):
             return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", False
         if need == "Damage":  # TODO : route refills, and use game difficulty
             HC = int(max(0, np.ceil((value-29)/5)))
-            return f"state.count(\"Health\", player) >= {HC}", False
+            return f"state.count(\"Health\", player) >= {HC}", False  # TODO: change
         if need == "BreakWall":
-            return "state.has_any((\"Sword\", \"Hammer\"), player)", False  # TODO : count for energy weapons
-        if need == "BreakCrystal":  # TODO: fix this (currently gives an event instead of the function) -> DEDENT and import
-            return "BreakCrystal(state, player)", False
+            return f"Damage({value}, state, player, {anc}, {arrival}, diff_g)", False  # TODO fix
         if need == "Keystone":
             return "state.count(\"Keystone\", player) >= total_keystones(state, player)", False
         if need == "SpiritLight":
@@ -509,6 +515,8 @@ def inter(text, diff):
         if need in glitches.keys():
             return "", True  # TODO associate requirement
         raise ValueError(f"Invalid input: {text}.")
+    if text == "BreakCrystal":
+        return "BreakCrystal(state, player, diff)", False
     return f"state.has(\"{text}\", player)", False
 
 
