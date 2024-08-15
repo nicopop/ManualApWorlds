@@ -2,7 +2,6 @@ from math import ceil, floor
 from .Regions import region_table
 from .Refills import refills
 
-# TODO: get exact values
 weapon_data = {  # The list contains the damage, and its energy cost
     "Grenade": [13, 10],  # Can be 17 damage if charged
     "Shuriken": [7, 5],
@@ -34,7 +33,7 @@ def get_refill(max_resource):
     """Returns the refill values."""
     maxH, maxE = max_resource
     refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
-    refillE = maxE/5+10
+    refillE = 10*floor(maxE/50+1)
     return refillH, refillE
 
 
@@ -137,9 +136,9 @@ def Damage(hp_list, state, player, region, weapons, arrival="", diff_g=1):  # TO
         tot_cost = 0
 
     else:
-        if diff_g == 0:  # TODO: verify the values
-            mod = 0.5
-        elif diff_g == 2:
+        if not weapons:
+            return False
+        if diff_g == 2:
             mod = 1.8
         else:
             mod = 1

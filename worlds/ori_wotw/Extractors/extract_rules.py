@@ -44,8 +44,7 @@ ref_en = {"Mantis": (32, "Free"),
           "ShieldCrystalMiner": (50, ("Dangerous", "Shielded")),
           "Sandworm": (20, "Sand"),
           "Spiderling": (12, "Free"),
-          "EnergyRefill": (1, "Free")}  # TODO : remove EnergyRefill and Boss
-
+          }
 # Requirements for enemies
 ref_rule = {"Aerial": ("state.has_any((\"DoubleJump\", \"Launch\"), player)",
                        "state.has(\"Bash\", player)",
@@ -398,7 +397,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     # L_rules[diff] += text TODO decomment
     if diff == 0:
         L_rules[0] += text
-    else:   # TODO Other difficulties not implemented yet
+    else:
         pass
     return L_rules, entrances
 
@@ -408,36 +407,45 @@ def inter(text, diff, anc, arrival):
     # Skills that do not use energy
     inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
                   "Burrow", "Launch", "Water", "WaterBreath", "Hammer")
-    glitches = {"ShurikenBreak": "Shuriken",  # TODO separate the ones with an =
+
+    glitches = {"ShurikenBreak": "Shuriken",
                 "SentryJump": "Sentry",
                 "SwordSJump": "Sword, Sentry",
                 "HammerSJump": "Hammer, Sentry",
                 "SentryBurn": "Sentry",
-                "RemoveKillPlane": "free",
                 "SentryBreak": "Sentry",
-                "HammerBreak": "Hammer",
                 "SpearBreak": "Spear",
-                "LaunchSwap": "Launch",
-                "FlashSwap": "Flash",
                 "SentrySwap": "Sentry",
                 "BlazeSwap": "Blaze",
-                "WaveDash": "Dash, Regenerate",
-                "GrenadeJump": "Grenade",
-                "GrenadeCancel": "Grenade",
-                "BowCancel": "Bow",
-                "HammerJump": "Hammer, DoubleJump",
-                "SwordJump": "Sword, DoubleJump",
                 "GrenadeRedirect": "Grenade",
                 "SentryRedirect": "Sentry",
-                "PauseHover": "free",
-                "GlideJump": "Glide",
-                "GlideHammerJump": "Glide, Hammer",
                 "SpearJump": "Spear"}
+
+    inf_glitches = {"RemoveKillPlane": "",
+                    "HammerBreak": "state.has(Hammer, player)",
+                    "LaunchSwap": "state.has(Launch, player)",
+                    "FlashSwap": "state.has(Flash, player)",
+                    "WaveDash": "state.has_all((Dash, Regenerate), player)",
+                    "GrenadeJump": "state.has(Grenade, player)",
+                    "GrenadeCancel": "state.has(Grenade, player)",
+                    "BowCancel": "state.has(Bow, player)",
+                    "HammerJump": "state.has_all((Hammer, DoubleJump), player)",
+                    "SwordJump": "state.has_all((Sword, DoubleJump), player)",
+                    "PauseHover": "",
+                    "GlideJump": "state.has(Glide, player)",
+                    "GlideHammerJump": "state.has_all((Glide, Hammer), player)"}
+
+    glitched = False
+    if text in inf_glitches.keys():
+        return inf_glitches[text], True
+
+    if text in glitched.keys():
+        
 
     if text in inf_skills:
         return f"state.has(\"{text}\", player)", False
     if text == "free":
-        return "", False
+        return "", glitched
 
     if "=" in text:
         s = text.find("=")
@@ -450,6 +458,8 @@ def inter(text, diff, anc, arrival):
             damage = []
             for elem in enemies:
                 amount = 1
+                if "EnergyRefill" in elem:  # TODO: account for this, but does not affect logic at this point
+                    continue
                 if elem[1] == "x":
                     elem = elem[2:]
                     damage.append([elem])
@@ -466,36 +476,39 @@ def inter(text, diff, anc, arrival):
             if diff == 0:  # TODO handle here or in Damage ?
                 out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # require non energy weapon for moki
             else:
-                out = f"Damage({damage}, state, player, {anc}, {weapons}, {arrival}, diff_g)"  # TODO Weapons
+                weapons = ["Grenade", "Shuriken", "Bow", "Flash", "Sentry", "Spear", "Blaze"]
+                out = f"Damage({damage}, state, player, {anc}, {weapons}, {arrival}, diff_g)"
             for elem in dangers:
                 out_t = ref_rule[elem][(diff+1)//2]  # This gives 0->0, 1->1, 3->2, 5->3 (it maps diff to the index)
                 if out_t != "free":
                     out += " and " + out_t
-            return out, False
+            return out, glitched
         if need == "Boss":
-            return "state.has_any((\"Sword\", \"Hammer\"), player)", False
+            return "state.has_any((\"Sword\", \"Hammer\"), player)", glitched
 
         value = int(text[s+1:])
         # TODO: compute cost (now : 5 energy)
         if need in ("Grenade", "Sentry", "Shuriken", "Bow", "Flash", "Spear", "Blaze"):
-            return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", False
+            return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", glitched
         if need == "Damage":  # TODO : route refills, and use game difficulty
             HC = int(max(0, ceil((value-29)/5)))
-            return f"state.count(\"Health\", player) >= {HC}", False  # TODO: change
+            return f"state.count(\"Health\", player) >= {HC}", glitched  # TODO: change
         if need == "BreakWall":
-            return f"Damage({value}, state, player, {anc}, {weapons}, {arrival}, diff_g)", False  # TODO fix
+            if diff == 0:
+                weapons = ["Bow"]
+            else:
+                weapons = ["Grenade", "Shuriken", "Bow", "Sentry", "Spear", "Blaze"]
+            return f"Damage({value}, state, player, {anc}, {weapons}, {arrival}, diff_g)", glitched
         if need == "Keystone":
-            return "state.count(\"Keystone\", player) >= total_keystones(state, player)", False
+            return "state.count(\"Keystone\", player) >= total_keystones(state, player)", glitched
         if need == "SpiritLight":
-            return f"state.count(\"SpiritLight\", player) >= {ceil(value/100)}", False
+            return f"state.count(\"SpiritLight\", player) >= {ceil(value/100)}", glitched
         if need == "Ore":
-            return f"state.count(\"Ore\", player) >= {value}", False
-        if need in glitches.keys():
-            return "", True  # TODO associate requirement
+            return f"state.count(\"Ore\", player) >= {value}", glitched
         raise ValueError(f"Invalid input: {text}.")
     if text == "BreakCrystal":
-        return "BreakCrystal(state, player, diff)", False
-    return f"state.has(\"{text}\", player)", False
+        return "BreakCrystal(state, player, diff)", glitched
+    return f"state.has(\"{text}\", player)", glitched
 
 
 def conv_refill(p_name, anc, refills, refill_events):
