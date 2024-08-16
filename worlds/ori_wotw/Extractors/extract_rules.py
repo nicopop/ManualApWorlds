@@ -14,33 +14,33 @@ from collections import Counter
 # %% Data and global variables
 
 # Enemy data
-ref_en = {"Mantis": (32, ("Free")),
-          "Slug": (13, ("Free")),
-          "WeakSlug": (12, ("Free")),
-          "BombSlug": (1, ("Ranged")),
-          "CorruptSlug": (1, ("Ranged")),
-          "SneezeSlug": (32, ("Dangerous")),
-          "ShieldSlug": (24, ("Free")),
-          "Lizard": (24, ("Free")),
-          "Bat": (32, ("Bat", "Aerial", "Ranged")),
-          "Hornbug": (40, ("Dangerous", "Shielded")),
-          "Skeeto": (20, ("Aerial")),
-          "SmallSkeeto": (8, ("Aerial")),
-          "Bee": (24, ("Aerial")),
-          "Nest": (25, ("Aerial")),
-          "Fish": (10, ("Free")),
-          "Waterworm": (20, ("Free")),
-          "Crab": (32, ("Dangerous")),
-          "SpinCrab": (32, ("Dangerous")),
-          "Tentacle": (40, ("Ranged")),
-          "Balloon": (1, ("Free")),
-          "Miner": (40, ("Dangerous")),
-          "MaceMiner": (60, ("Dangerous")),
-          "ShieldMiner": (60, ("Dangerous", "Shielded")),
-          "CrystalMiner": (80, ("Dangerous")),
-          "ShieldCrystalMiner": (50, ("Dangerous", "Shielded")),
-          "Sandworm": (20, ("Sand")),
-          "Spiderling": (12, ("Free")),
+ref_en = {"Mantis": (32, ["Free"]),
+          "Slug": (13, ["Free"]),
+          "WeakSlug": (12, ["Free"]),
+          "BombSlug": (1, ["Ranged"]),
+          "CorruptSlug": (1, ["Ranged"]),
+          "SneezeSlug": (32, ["Dangerous"]),
+          "ShieldSlug": (24, ["Free"]),
+          "Lizard": (24, ["Free"]),
+          "Bat": (32, ["Bat", "Aerial", "Ranged"]),
+          "Hornbug": (40, ["Dangerous", "Shielded"]),
+          "Skeeto": (20, ["Aerial"]),
+          "SmallSkeeto": (8, ["Aerial"]),
+          "Bee": (24, ["Aerial"]),
+          "Nest": (25, ["Aerial"]),
+          "Fish": (10, ["Free"]),
+          "Waterworm": (20, ["Free"]),
+          "Crab": (32, ["Dangerous"]),
+          "SpinCrab": (32, ["Dangerous"]),
+          "Tentacle": (40, ["Ranged"]),
+          "Balloon": (1, ["Free"]),
+          "Miner": (40, ["Dangerous"]),
+          "MaceMiner": (60, ["Dangerous"]),
+          "ShieldMiner": (60, ["Dangerous", "Shielded"]),
+          "CrystalMiner": (80, ["Dangerous"]),
+          "ShieldCrystalMiner": (50, ["Dangerous", "Shielded"]),
+          "Sandworm": (20, ["Sand"]),
+          "Spiderling": (12, ["Free"]),
           }
 
 # Regular expressions used for parsing
@@ -54,14 +54,14 @@ nam = re.compile(" [a-zA-Z.=0-9]+:")  # Name of the object
 dif = re.compile("^[a-z]+, ")  # extracts the difficulty of the path
 ref = re.compile("[a-zA-Z=0-9]+$")  # Extracts the refill type if it has no colon
 
-en_skills = ("Bow", "Grenade", "Flash", "Sentry", "Shuriken", "Spear", "Blaze")  # Skills that require energy
+en_skills = ["Bow", "Grenade", "Flash", "Sentry", "Shuriken", "Spear", "Blaze"]  # Skills that require energy
 
 # Things that require a specific treatment
-combat_name = ("BreakWall", "Combat", "Boss")
+combat_name = ["BreakWall", "Combat", "Boss"]
 
 # Skills that can be used infinitly (note: Regenerate is here because of how the logic is written)
-inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
-              "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free")
+inf_skills = ["Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
+              "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free"]
 
 # Glitches that use resources
 glitches = {"ShurikenBreak": ["Shuriken"],
@@ -89,7 +89,7 @@ inf_glitches = {"RemoveKillPlane": "free",
                 "GlideJump": "Glide"}
 
 # Glitches that can be used infinitly, and use two skills
-other_glitches = ("WaveDash", "HammerJump", "SwordJump", "GlideHammerJump")
+other_glitches = ["WaveDash", "HammerJump", "SwordJump", "GlideHammerJump"]
 
 
 # %% Text initialisations
@@ -348,6 +348,9 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
         if conn_name not in entrances:
             entrances.append(conn_name)
 
+    if p_type == "refill":
+        p_name = ref_type + anc
+
     s_req = req.split(", ")
     for elem in s_req:
         if " OR " in elem:
@@ -355,10 +358,30 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
         else:
             and_req.append(elem)
 
-    if len(or_req) > 2:
-        raise ValueError(f"{req}\n{or_req}")  # TODO debug, remove
+    if len(or_req) == 0:
+        and_requirements, glitched = parse_and(and_req, diff)
+        L_rules = append_rule(and_requirements, "", "", "", health_req, diff, glitched, anc,
+                              p_name, arrival, L_rules)
 
-    if len(or_req) == 2:
+    elif len(or_req) == 1:
+        or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
+
+        for req in or_glitch0:
+            and_req.append(req)
+            and_requirements, glitched = parse_and(and_req, diff)
+            and_req.remove(req)
+            L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
+                                  L_rules)
+        if or_skills0:
+            and_requirements, glitched = parse_and(and_req, diff)
+            L_rules = append_rule(and_requirements, or_skills0, "", "", health_req, diff, glitched, anc,
+                                  p_name, arrival, L_rules)
+        if or_resource0:
+            and_requirements, glitched = parse_and(and_req, diff)
+            L_rules = append_rule(and_requirements, "", "", or_resource0, health_req, diff, glitched, anc,
+                                  p_name, arrival, L_rules)
+
+    elif len(or_req) == 2:
         or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
         or_skills1, or_glitch1, or_resource1 = order_or(or_req[1])
 
@@ -551,6 +574,7 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
                 L_rules):
     """Adds the text to the rules list."""  # TODO: complete docstring
     and_skills, and_other, damage_and, combat_and, en_and = and_requirements
+    energy = []
 
     if not arrival and not p_name:
         raise ValueError("p_name or arrival must be non empty.")
@@ -560,16 +584,19 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
         req_txt = ""
     else:
         start_txt = f"    add_rule(world.get_location(\"{p_name}\", player), lambda s: "
-        req_txt = "s.can_reach_region(\"{anc}\")"
+        req_txt = f"s.can_reach_region(\"{anc}\")"
 
     if and_skills:
         temp_txt = ""
-        for elem in and_skills:
-            if temp_txt:
-                temp_txt += f", \"{elem}\""
-            else:
-                temp_txt += f"s.has_all((\"{elem}\""
-        temp_txt += "), player)"
+        if len(and_skills) == 1:
+            temp_txt = f"s.has(\"{and_skills[0]}\", player)"
+        else:
+            for elem in and_skills:
+                if temp_txt:
+                    temp_txt += f", \"{elem}\""
+                else:
+                    temp_txt += f"s.has_all((\"{elem}\""
+            temp_txt += "), player)"
         if req_txt:
             req_txt += " and " + temp_txt
         else:
@@ -590,18 +617,21 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
             else:
                 temp_txt = f"s.has(\"{elem}\", player)"
             if req_txt:
-                req_txt += "and" + temp_txt
+                req_txt += " and " + temp_txt
             else:
                 req_txt += temp_txt
 
     if or_skills0:
         temp_txt = ""
-        for elem in or_skills0:
-            if temp_txt:
-                temp_txt += f", \"{elem}\""
-            else:
-                temp_txt += f"s.has_any((\"{elem}\""
-        temp_txt += "), player)"
+        if len(or_skills0) == 1:
+            temp_txt = f"s.has(\"{or_skills0[0]}\", player)"
+        else:
+            for elem in or_skills0:
+                if temp_txt:
+                    temp_txt += f", \"{elem}\""
+                else:
+                    temp_txt += f"s.has_any((\"{elem}\""
+            temp_txt += "), player)"
         if req_txt:
             req_txt += " and " + temp_txt
         else:
@@ -609,12 +639,15 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
 
     if or_skills1:
         temp_txt = ""
-        for elem in or_skills1:
-            if temp_txt:
-                temp_txt += f", \"{elem}\""
-            else:
-                temp_txt += f"s.has_any((\"{elem}\""
-        temp_txt += "), player)"
+        if len(or_skills1) == 1:
+            temp_txt = f"s.has(\"{or_skills1[0]}\", player)"
+        else:
+            for elem in or_skills1:
+                if temp_txt:
+                    temp_txt += f", \"{elem}\""
+                else:
+                    temp_txt += f"s.has_any((\"{elem}\""
+            temp_txt += "), player)"
         if req_txt:
             req_txt += " and " + temp_txt
         else:
@@ -622,13 +655,12 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
 
     if health:
         if req_txt:
-            req_txt += "and" + f"has_health(\"{health}\", s, player)"
+            req_txt += " and " + f"has_health(\"{health}\", s, player)"
         else:
             temp_txt += f"has_health(\"{health}\", s, player)"
 
     if en_and:
         counter = Counter(en_and)
-        energy = []
         for weapon in en_skills:
             amount = counter[weapon]
             if amount != 0:
@@ -650,10 +682,10 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
             or_costs.append([2, value])
 
     if damage_and or combat_and or en_and or or_costs:
-        temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {en_and}, {combat_and}, "
-                    f"{or_costs}):")
+        temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, {combat_and}, "
+                    f"{or_costs})")
         if req_txt:
-            req_txt += "and" + temp_txt
+            req_txt += " and " + temp_txt
         else:
             temp_txt += temp_txt
 
