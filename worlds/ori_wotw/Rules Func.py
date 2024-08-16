@@ -77,7 +77,7 @@ def total_keystones(state, player):
     return count
 
 
-# TODO: multiply energy cost by 2 if not in unsafe
+# TODO: multiply energy cost by 2 if not in unsafe. Also add combat_and, combat_or, damages_or
 def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[]):
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.

@@ -17,63 +17,56 @@ skills = ("Sword", "DoubleJump", "Regenerate", "Bow", "Dash", "Bash", "Grapple",
           "Spear", "Blaze")
 
 # Enemy data
-ref_en = {"Mantis": (32, "Free"),
-          "Slug": (13, "Free"),
-          "WeakSlug": (12, "Free"),
-          "BombSlug": (1, "Ranged"),
-          "CorruptSlug": (1, "Ranged"),
-          "SneezeSlug": (32, "Dangerous"),
-          "ShieldSlug": (24, "Free"),
-          "Lizard": (24, "Free"),
+ref_en = {"Mantis": (32, ("Free")),
+          "Slug": (13, ("Free")),
+          "WeakSlug": (12, ("Free")),
+          "BombSlug": (1, ("Ranged")),
+          "CorruptSlug": (1, ("Ranged")),
+          "SneezeSlug": (32, ("Dangerous")),
+          "ShieldSlug": (24, ("Free")),
+          "Lizard": (24, ("Free")),
           "Bat": (32, ("Bat", "Aerial", "Ranged")),
           "Hornbug": (40, ("Dangerous", "Shielded")),
-          "Skeeto": (20, "Aerial"),
-          "SmallSkeeto": (8, "Aerial"),
-          "Bee": (24, "Aerial"),
-          "Nest": (25, "Aerial"),
-          "Fish": (10, "Free"),
-          "Waterworm": (20, "Free"),
-          "Crab": (32, "Dangerous"),
-          "SpinCrab": (32, "Dangerous"),
-          "Tentacle": (40, "Ranged"),
-          "Balloon": (1, "Free"),
-          "Miner": (40, "Dangerous"),
-          "MaceMiner": (60, "Dangerous"),
+          "Skeeto": (20, ("Aerial")),
+          "SmallSkeeto": (8, ("Aerial")),
+          "Bee": (24, ("Aerial")),
+          "Nest": (25, ("Aerial")),
+          "Fish": (10, ("Free")),
+          "Waterworm": (20, ("Free")),
+          "Crab": (32, ("Dangerous")),
+          "SpinCrab": (32, ("Dangerous")),
+          "Tentacle": (40, ("Ranged")),
+          "Balloon": (1, ("Free")),
+          "Miner": (40, ("Dangerous")),
+          "MaceMiner": (60, ("Dangerous")),
           "ShieldMiner": (60, ("Dangerous", "Shielded")),
-          "CrystalMiner": (80, "Dangerous"),
+          "CrystalMiner": (80, ("Dangerous")),
           "ShieldCrystalMiner": (50, ("Dangerous", "Shielded")),
-          "Sandworm": (20, "Sand"),
-          "Spiderling": (12, "Free"),
+          "Sandworm": (20, ("Sand")),
+          "Spiderling": (12, ("Free")),
           }
 # Requirements for enemies
-ref_rule = {"Aerial": ("state.has_any((\"DoubleJump\", \"Launch\"), player)",
-                       "state.has(\"Bash\", player)",
-                       "free",
-                       "free"),
-            "Dangerous": ("state.has_any((\"DoubleJump\", \"Dash\", \"Bash\", \"Launch\"), player)",
-                          "state.has_any((\"DoubleJump\", \"Dash\", \"Bash\", \"Launch\"), player)",
-                          "free",
-                          "free"),
-            "Ranged": ("state.has_any((\"Bow\", \"Spear\"), player)",
-                       "state.has_any((\"Grenade\", \"Shuriken\", \"Sentry\"), player)",
-                       "state.has_any((\"Grenade\", \"Shuriken\", \"Sentry\"), player)",
-                       "state.has_any((\"Flash\", \"Blaze\"), player)"),
-            "Shielded": ("state.has_any((\"Hammer\", \"Launch\", \"Grenade\", \"Spear\"), player)",
-                         "state.has_any((\"Hammer\", \"Launch\", \"Grenade\", \"Spear\"), player)",
-                         "state.has_any((\"Hammer\", \"Launch\", \"Grenade\", \"Spear\"), player)",
-                         "state.has_any((\"Hammer\", \"Launch\", \"Grenade\", \"Spear\"), player)"),
-            "Bat": ("state.has(\"Bash\", player)",
-                    "state.has(\"Bash\", player)",
-                    "free",
-                    "free"),
-            "Sand": ("state.has(\"Burrow\", player)",
-                     "state.has(\"Burrow\", player)",
-                     "state.has(\"Burrow\", player)",
-                     "state.has(\"Burrow\", player)"),
-            "Free": ("free",
-                     "free",
-                     "free",
-                     "free")}
+ref_rule = {"Aerial": (("DoubleJump", "Launch"),
+                       ("Bash"),
+                       ("free"),
+                       ("free")),
+            "Dangerous": (("DoubleJump", "Dash", "Bash", "Launch"),
+                          ("DoubleJump", "Dash", "Bash", "Launch"),
+                          ("free"),
+                          ("free")),
+            "Shielded": (("Hammer", "Launch", "Grenade", "Spear"),
+                         ("Hammer", "Launch", "Grenade", "Spear"),
+                         ("Hammer", "Launch", "Grenade", "Spear"),
+                         ("Hammer", "Launch", "Grenade", "Spear")),
+            "Bat": (("Bash"),
+                    ("Bash"),
+                    ("free"),
+                    ("free")),
+            "Sand": (("Burrow"),
+                     ("Burrow"),
+                     ("Burrow"),
+                     ("Burrow"))
+            }
 
 # Regular expressions used for parsing
 com = re.compile(" *#")  # Detects comments
@@ -85,6 +78,43 @@ typ = re.compile("^  [a-z]+ ")  # Detects the type of the path
 nam = re.compile(" [a-zA-Z.=0-9]+:")  # Name of the object
 dif = re.compile("^[a-z]+, ")  # extracts the difficulty of the path
 ref = re.compile("[a-zA-Z=0-9]+$")  # Extracts the refill type if it has no colon
+
+en_skills = ("Bow", "Grenade", "Flash", "Sentry", "Shuriken", "Spear", "Blaze")  # Skills that require energy
+
+# Things that require a specific treatment
+combat_name = ("BreakWall", "Combat", "Boss")
+
+# Skills that can be used infinitly (note: Regenerate is here because of how the logic is written)
+inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
+              "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free")
+
+# Glitches that use resources
+glitches = {"ShurikenBreak": ("Shuriken"),
+            "SentryJump": ("Sentry"),
+            "SwordSJump": ("Sword", "Sentry"),
+            "HammerSJump": ("Hammer", "Sentry"),
+            "SentryBurn": ("Sentry"),
+            "SentryBreak": ("Sentry"),
+            "SpearBreak": ("Spear"),
+            "SentrySwap": ("Sentry"),
+            "BlazeSwap": ("Blaze"),
+            "GrenadeRedirect": ("Grenade"),
+            "SentryRedirect": ("Sentry"),
+            "SpearJump": ("Spear")}
+
+# Glitches that can be used infinitly (and only use one skill)
+inf_glitches = {"RemoveKillPlane": "free",
+                "HammerBreak": "Hammer",
+                "LaunchSwap": "Launch",
+                "FlashSwap": "Flash",
+                "GrenadeJump": "Grenade",
+                "GrenadeCancel": "Grenade",
+                "BowCancel": "Bow",
+                "PauseHover": "free",
+                "GlideJump": "Glide"}
+
+# Glitches that can be used infinitly, and use two skills
+other_glitches = ("WaveDash", "HammerJump", "SwordJump", "GlideHammerJump")
 
 
 # %% Text initialisations
@@ -100,6 +130,8 @@ imports = "from .Rules Func import *\n\n"
 
 lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
 lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
+# TODO add rue for glitches, and their event
+
 # %% Functions for extracting rules
 
 
@@ -318,22 +350,26 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     Returns the updated lists.
     anc: name of the starting anchor
     p_type: type of the element accessed by the rules (anchor, state, refill or item)
+    p_name: name of the element accessed by the rules
     diff: difficulty of the path (str)
     req: requirements to access the element
     """
-    words = {"conn": "entrance", "pickup": "location", "state": "location", "quest": "location", "refill": "location"}
-    area_req = ""
-    text_req = ""
-    glitch_path = False
+    glitched = False
+    health_req = 0  # Requirement when entering a new area
+
+    and_req = []
+    or_req = []
 
     if "." in anc:  # Gets the requirements when entering a new area.
         s = anc.find(".")
-        i_area = anc[:s]
+        i_area = anc[:s]  # Extracts the name of the area
         if p_type == "anchor" and "." in p_name:
             s = p_name.find(".")
             f_area = p_name[:s]
             if i_area != f_area:
-                area_req = req_area(f_area, diff)
+                regen, health_req = req_area(f_area, diff)
+                if regen:
+                    and_req.append("Regenerate")
 
     arrival = ""
     if p_type == "conn":
@@ -342,173 +378,161 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     s_req = req.split(", ")
     for elem in s_req:
         if " OR " in elem:
-            chain = elem.split(" OR ")
-            temp = ""
-            for s_elem in chain:
-                result, glitch = inter(s_elem, diff, anc, arrival)
-                if result:
-                    if temp:
-                        temp += " or " + result
-                    else:
-                        temp += "(" + result
-            temp += ")"
+            or_req.append(elem.split(" OR "))
         else:
-            temp, glitch = inter(elem, diff, anc, arrival)
+            and_req.append(elem)
 
-        if temp:
-            if text_req:
-                text_req += " and " + temp
+    if len(or_req) > 2:
+        raise ValueError(f"{req}\n{or_req}")  # TODO debug, remove
+
+    if len(or_req) == 2:
+        or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
+        or_skills1, or_glitch1, or_resource1 = order_or(or_req[1])
+
+        splits0 = len(or_glitch0) + len(or_resource0)
+        splits1 = len(or_glitch1) + len(or_resource1)
+        # Swaps the two chains if it is more efficient to split the second chain
+        if splits0 > splits1:
+            (or_skills0, or_glitch0, or_resource0, or_skills1, or_glitch1,
+             or_resource1) = (or_skills1, or_glitch1, or_resource1, or_skills0, or_glitch0, or_resource0)
+        or_req1 = or_skills1, or_glitch1, or_resource1
+
+        for req in or_glitch0:
+            and_req.append(req)
+            and_requirements, glitched = parse_and(and_req, diff)
+            and_req.remove(req)
+            append_rule(and_requirements, "", or_req1, health_req, diff, True, anc, arrival)
+        for req in or_resource0:
+            and_req.append(req)
+            and_requirements, glitched = parse_and(and_req, diff)
+            and_req.remove(req)
+            append_rule(and_requirements, "", or_req1, health_req, diff, glitched, anc, arrival)
+        and_requirements, glitched = parse_and(and_req, diff)
+        append_rule(and_requirements, or_skills0, or_req1, health_req, diff, glitched, anc, arrival)
+
+
+def combat_req(need, value):
+    """Parse the combat requirement with the given enemies."""
+    damage = []
+
+    if need == "Combat":
+        enemies = value.split("+")
+        dangers = []
+
+        for elem in enemies:
+            amount = 1
+            if "EnergyRefill" in elem:  # TODO: account for this, but does not affect logic at this point
+                continue
+            if elem[1] == "x":
+                amount = int(elem[0])
+                elem = elem[2:]
+            danger = ref_en[elem][1]
+            if "Ranged" in danger:
+                damage_type = "Ranged"
             else:
-                text_req += temp
-        if glitch:
-            glitch_path = True
+                damage_type = "Combat"
+            damage.append([[ref_en[elem][0]], damage_type] * amount)
+            for dan in danger:
+                if dan not in dangers and dan not in ("Free", "Ranged"):
+                    dangers.append("Combat." + dan)
 
-    if p_type == "conn":
-        p_name = f"{anc}_to_{p_name}"
-        if p_name not in entrances:
-            entrances.append(p_name)
-        if area_req and text_req:
-            tot_req = area_req + " and " + text_req
-        elif text_req:
-            tot_req = text_req
-        elif area_req:
-            tot_req = area_req
+    elif need == "Boss":
+        damage.append([int(value), "Combat"])
+
+    elif need == "BreakWall":
+        damage.append([int(value), "Wall"])
+
+    return damage, dangers
+
+
+def parse_and(and_req, diff):
+    """Parse the list of requirements in the `and` chain, and returns the processed information."""
+    and_skills = []  # Stores inf_skills
+    and_other = []  # Stores other requirements (that often have their own event)
+    damage_and = []  # Stores damage boosts
+    combat_and = []  # Stores combat damage to inflict, as a list of each damage to do + the type of combat
+    # The type of combat can be ranged, wall
+    en_and = []  # Stores energy weapon used
+
+    for requirement in and_req:
+        if "=" in requirement:
+            elem, value = requirement.split("=")
         else:
-            tot_req = True
-    elif p_type == "refill":
-        p_name = ref_type + anc
-        if text_req:
-            tot_req = text_req
-        else:
-            tot_req = True
-    else:
-        tot_req = f"state.can_reach_region(\"{anc}\", player)"
-        if area_req:
-            tot_req += " and " + area_req
-        if text_req:
-            tot_req += " and " + text_req
+            elem = requirement
+            value = 0
 
-    p_type = words[p_type]
-    text = f"    add_rule(world.get_{p_type}(\"{p_name}\", player), lambda state: {tot_req})\n"
-
-    if glitch_path:
-        diff += 1
-
-    # L_rules[diff] += text TODO decomment
-    if diff == 0:
-        L_rules[0] += text
-    else:
-        pass
-    return L_rules, entrances
-
-
-def inter(text, diff, anc, arrival):
-    """Converts the isolated requirement (single keyword, or a chain of OR) into a rule function."""
-    # Skills that do not use energy
-    inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
-                  "Burrow", "Launch", "Water", "WaterBreath", "Hammer")
-
-    glitches = {"ShurikenBreak": "Shuriken",
-                "SentryJump": "Sentry",
-                "SwordSJump": "Sword, Sentry",
-                "HammerSJump": "Hammer, Sentry",
-                "SentryBurn": "Sentry",
-                "SentryBreak": "Sentry",
-                "SpearBreak": "Spear",
-                "SentrySwap": "Sentry",
-                "BlazeSwap": "Blaze",
-                "GrenadeRedirect": "Grenade",
-                "SentryRedirect": "Sentry",
-                "SpearJump": "Spear"}
-
-    inf_glitches = {"RemoveKillPlane": "",
-                    "HammerBreak": "state.has(Hammer, player)",
-                    "LaunchSwap": "state.has(Launch, player)",
-                    "FlashSwap": "state.has(Flash, player)",
-                    "WaveDash": "state.has_all((Dash, Regenerate), player)",
-                    "GrenadeJump": "state.has(Grenade, player)",
-                    "GrenadeCancel": "state.has(Grenade, player)",
-                    "BowCancel": "state.has(Bow, player)",
-                    "HammerJump": "state.has_all((Hammer, DoubleJump), player)",
-                    "SwordJump": "state.has_all((Sword, DoubleJump), player)",
-                    "PauseHover": "",
-                    "GlideJump": "state.has(Glide, player)",
-                    "GlideHammerJump": "state.has_all((Glide, Hammer), player)"}
-
-    glitched = False
-    if text in inf_glitches.keys():
-        return inf_glitches[text], True
-
-    if text in glitched.keys():
-        
-
-    if text in inf_skills:
-        return f"state.has(\"{text}\", player)", False
-    if text == "free":
-        return "", glitched
-
-    if "=" in text:
-        s = text.find("=")
-        need = text[:s]
-
-        if need == "Combat":
-            value = text[s+1:]
-            enemies = value.split("+")
-            dangers = []
-            damage = []
-            for elem in enemies:
-                amount = 1
-                if "EnergyRefill" in elem:  # TODO: account for this, but does not affect logic at this point
-                    continue
-                if elem[1] == "x":
-                    elem = elem[2:]
-                    damage.append([elem])
-                    amount = int(elem[-1])
-                danger = ref_en[elem][1]
-                damage.append([ref_en[elem][0]] * amount)
-                if isinstance(danger, str):  # Case when only one danger type for all the enemies
-                    if danger not in dangers:
-                        dangers.append(danger)
+        if elem in other_glitches:  # Handle the glitches
+            glitched = True
+            and_other.append(elem)
+        elif elem in inf_glitches.keys():
+            glitched = True
+            req = inf_glitches[elem]
+            if req not in and_skills and req != "free":
+                and_skills.append(req)
+        elif elem in glitches.keys():
+            glitched = True
+            value = int(value)
+            req = glitches[elem]
+            for i, skill in enumerate(req):
+                if elem == "ShurikenBreak" and diff == 5:
+                    combat_and.append((value*2, "Shuriken"))  # TODO: define ranged combat... as add_rules + event
+                elif elem == "ShurikenBreak":
+                    combat_and.append((value*3, "Shuriken"))
+                elif elem == "SentryBreak":
+                    combat_and.append((value*6.25, "Shuriken"))
+                elif i == len(req)-1:
+                    en_and.append([skill] * value)  # TODO: use Counter at the end
                 else:
-                    for dan in danger:
-                        if dan not in dangers:
-                            dangers.append(dan)
-            if diff == 0:  # TODO handle here or in Damage ?
-                out = "state.has_any((\"Sword\", \"Hammer\"), player)"  # require non energy weapon for moki
-            else:
-                weapons = ["Grenade", "Shuriken", "Bow", "Flash", "Sentry", "Spear", "Blaze"]
-                out = f"Damage({damage}, state, player, {anc}, {weapons}, {arrival}, diff_g)"
-            for elem in dangers:
-                out_t = ref_rule[elem][(diff+1)//2]  # This gives 0->0, 1->1, 3->2, 5->3 (it maps diff to the index)
-                if out_t != "free":
-                    out += " and " + out_t
-            return out, glitched
-        if need == "Boss":
-            return "state.has_any((\"Sword\", \"Hammer\"), player)", glitched
+                    if req not in and_skills and req != "free":
+                        and_skills.append(req)
 
-        value = int(text[s+1:])
-        # TODO: compute cost (now : 5 energy)
-        if need in ("Grenade", "Sentry", "Shuriken", "Bow", "Flash", "Spear", "Blaze"):
-            return f"state.has(\"{need}\", player) and state.count(\"Energy\", player) >= 4", glitched
-        if need == "Damage":  # TODO : route refills, and use game difficulty
-            HC = int(max(0, ceil((value-29)/5)))
-            return f"state.count(\"Health\", player) >= {HC}", glitched  # TODO: change
-        if need == "BreakWall":
-            if diff == 0:
-                weapons = ["Bow"]
-            else:
-                weapons = ["Grenade", "Shuriken", "Bow", "Sentry", "Spear", "Blaze"]
-            return f"Damage({value}, state, player, {anc}, {weapons}, {arrival}, diff_g)", glitched
-        if need == "Keystone":
-            return "state.count(\"Keystone\", player) >= total_keystones(state, player)", glitched
-        if need == "SpiritLight":
-            return f"state.count(\"SpiritLight\", player) >= {ceil(value/100)}", glitched
-        if need == "Ore":
-            return f"state.count(\"Ore\", player) >= {value}", glitched
-        raise ValueError(f"Invalid input: {text}.")
-    if text == "BreakCrystal":
-        return "BreakCrystal(state, player, diff)", glitched
-    return f"state.has(\"{text}\", player)", glitched
+        elif elem in inf_skills:
+            if req not in and_skills and req != "free":
+                and_skills.append(req)
+        elif elem in en_skills:
+            value = int(value)
+            en_and.append([skill] * value)
+        elif elem == "Damage":
+            value = int(value)
+            damage_and.append(value)
+        elif elem in combat_name:
+            deal_damage, danger = combat_req(elem, value, diff)  # TODO fix in inter
+            combat_and += deal_damage
+            and_other += danger
+        else:  # Case of an event
+            and_other.append(elem)
+    return (and_skills, and_other, damage_and, combat_and, en_and), glitched
+
+
+def order_or(or_chain):
+    """Parse the list of requirements in the `or` chain, and categorize them."""
+    or_skills = []  # Stores inf_skills
+    or_glitch = []  # Stores the glitches
+    or_resource = []  # Stores requirements that need resources
+
+    for requirement in or_chain:
+        if "=" in requirement:
+            elem = requirement.split("=")[0]
+        else:
+            elem = requirement
+
+        if elem in other_glitches or elem in inf_glitches.keys() or elem in glitches.keys():  # Handle the glitches
+            or_glitch.append(requirement)
+
+        elif elem in inf_skills:
+            or_skills.append(requirement)
+        elif elem in en_skills or elem in combat_name or elem == "Damage":
+            or_resource.append(requirement)
+        else:  # Case of an event
+            or_skills.append(requirement)
+    return or_skills, or_glitch, or_resource
+
+
+def append_rule(and_requirements, or_skills0, or_requirements1, health, diff, glitched, anc, arrival):
+    """TODO."""
+    and_skills, and_other, damage_and, combat_and, en_and = and_requirements
+    or_skills, or_other, damage_or, combat_or, en_or = or_requirements1
+    # TODO: write this
 
 
 def conv_refill(p_name, anc, refills, refill_events):
@@ -547,14 +571,14 @@ def req_area(area, diff):
              "WindtornRuins": (50, True), "WeepingRidge": (60, True), "WillowsEnd": (60, True)}
 
     if area in (None, "MarshSpawn", "HowlsDen", "MarshPastOpher", "GladesTown"):
-        return None
+        return False, 0
     if diff >= 5:  # Unsafe
-        return None
+        return False, 0
     if diff >= 1:
         if M_dat[area][1]:  # Kii, Gorlek
-            return "state.has(\"Regenerate\", player)"
-        return None
+            return True, 0
+        return False, 0
 
     if M_dat[area][1]:  # Moki
-        return f"state.has(\"Regenerate\", player) and has_health({M_dat[area]}, state, player)"
-    return f"has_health({M_dat[area]}, state, player)"
+        return True, M_dat[area][0]
+    return False, M_dat[area][0]
