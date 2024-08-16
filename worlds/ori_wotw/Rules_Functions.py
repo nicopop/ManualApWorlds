@@ -37,7 +37,7 @@ def get_refill(max_resource):
     return refillH, refillE
 
 
-def total_keystones(state, player):
+def can_keystones(state, player):
     """Returns the total amount of Keystones on accessible doors."""
     count = 0
     if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
@@ -74,11 +74,11 @@ def total_keystones(state, player):
     if (state.can_reach_region("UpperWastes.KeystoneRoom", player)
             or state.can_reach_region("UpperWastes.MissilePuzzleLeft", player)):
         count += 2
-    return count
+    return state.count("Keystone", player) >= count
 
 
 # TODO: multiply energy cost by 2 if not in unsafe. Also add combat_and, combat_or, damages_or
-def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[]):
+def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, en_or):
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -88,7 +88,9 @@ def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[])
     """
     health, energy = ref_resource[region]
     maxH, maxE = get_max(state, player)
+    diff = options.difficulty
 
+    # TODO fix combat with ranged/wall/combat
     for damage in damages:  # This part deals with the damage boosts
         health -= damage
         if health <= 0:
@@ -125,20 +127,21 @@ def cost_all(state, player, region, arrival="", damages=[], en_and=[], en_or=[])
     return True
 
 
-def Damage(hp_list, state, player, region, weapons, arrival="", diff_g=1):  # TODO: hard/easy: damage modifier
+def damage(hp_list, state, player, region, weapons, arrival, options):
     """
     Energy cost for the enemies/wall/boss with current state.
 
     `weapons` indicates the list of energy weapons that can be used in the situation.
     """
-    # TODO: implement game difficulty as option, and get diff_g from there
+    # TODO merge with cost_all
+    hard = options.hard_mode
     if state.has("Sword", player) or state.has("Hammer", player):
         tot_cost = 0
 
     else:
         if not weapons:
             return False
-        if diff_g == 2:
+        if hard:
             mod = 1.8
         else:
             mod = 1
@@ -160,16 +163,6 @@ def Damage(hp_list, state, player, region, weapons, arrival="", diff_g=1):  # TO
         update_ref(arrival, state, player, [health, energy], [maxH, maxE])
         return True
     return True
-    # TODO: implement trials (that use refills in middle, and do not update)
-
-
-def BreakCrystal(state, player, diff=0):  # TODO get difficulty from options. Maybe merge with damage=1 ? Or get cost then use it to correct refills
-    """Returns a bool, stating if the player can break energy crystals."""
-    if diff == 0:
-        return state.has_any("Sword", "Hammer", "Bow", player)
-    if diff == 1 or diff == 2:
-        return state.has_any("Shuriken", "Grenade", player)
-    return state.has("Spear", player)
 
 
 def update_ref(region, state, player, resource, max_res):

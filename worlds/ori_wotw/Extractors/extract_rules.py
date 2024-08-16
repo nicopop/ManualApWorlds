@@ -7,14 +7,11 @@ Run `parsing()` to extract the rules (the `areas.wotw` file must be in the same 
 import os
 import re
 from math import ceil
+from collections import Counter
 
 # TODO : fix line 271 in areas.wotw and 10803 (TwoCrushersEX)
 # TODO 4: Create syntax analysis for areas.wotw
 # %% Data and global variables
-
-skills = ("Sword", "DoubleJump", "Regenerate", "Bow", "Dash", "Bash", "Grapple", "Glide", "Flap", "Grenade",
-          "Flash", "WaterDash", "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "Sentry", "Shuriken",
-          "Spear", "Blaze")
 
 # Enemy data
 ref_en = {"Mantis": (32, ("Free")),
@@ -45,28 +42,6 @@ ref_en = {"Mantis": (32, ("Free")),
           "Sandworm": (20, ("Sand")),
           "Spiderling": (12, ("Free")),
           }
-# Requirements for enemies
-ref_rule = {"Aerial": (("DoubleJump", "Launch"),
-                       ("Bash"),
-                       ("free"),
-                       ("free")),
-            "Dangerous": (("DoubleJump", "Dash", "Bash", "Launch"),
-                          ("DoubleJump", "Dash", "Bash", "Launch"),
-                          ("free"),
-                          ("free")),
-            "Shielded": (("Hammer", "Launch", "Grenade", "Spear"),
-                         ("Hammer", "Launch", "Grenade", "Spear"),
-                         ("Hammer", "Launch", "Grenade", "Spear"),
-                         ("Hammer", "Launch", "Grenade", "Spear")),
-            "Bat": (("Bash"),
-                    ("Bash"),
-                    ("free"),
-                    ("free")),
-            "Sand": (("Burrow"),
-                     ("Burrow"),
-                     ("Burrow"),
-                     ("Burrow"))
-            }
 
 # Regular expressions used for parsing
 com = re.compile(" *#")  # Detects comments
@@ -89,18 +64,18 @@ inf_skills = ("Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "G
               "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free")
 
 # Glitches that use resources
-glitches = {"ShurikenBreak": ("Shuriken"),
-            "SentryJump": ("Sentry"),
-            "SwordSJump": ("Sword", "Sentry"),
-            "HammerSJump": ("Hammer", "Sentry"),
-            "SentryBurn": ("Sentry"),
-            "SentryBreak": ("Sentry"),
-            "SpearBreak": ("Spear"),
-            "SentrySwap": ("Sentry"),
-            "BlazeSwap": ("Blaze"),
-            "GrenadeRedirect": ("Grenade"),
-            "SentryRedirect": ("Sentry"),
-            "SpearJump": ("Spear")}
+glitches = {"ShurikenBreak": ["Shuriken"],
+            "SentryJump": ["Sentry"],
+            "SwordSJump": ["Sword", "Sentry"],
+            "HammerSJump": ["Hammer", "Sentry"],
+            "SentryBurn": ["Sentry"],
+            "SentryBreak": ["Sentry"],
+            "SpearBreak": ["Spear"],
+            "SentrySwap": ["Sentry"],
+            "BlazeSwap": ["Blaze"],
+            "GrenadeRedirect": ["Grenade"],
+            "SentryRedirect": ["Sentry"],
+            "SpearJump": ["Spear"]}
 
 # Glitches that can be used infinitly (and only use one skill)
 inf_glitches = {"RemoveKillPlane": "free",
@@ -126,11 +101,11 @@ header = ("\"\"\"\n"
           "\"\"\"\n\n"
           )
 
-imports = "from .Rules Func import *\n\n"
+imports = "from .Rules_Functions import *\n\n"
 
 lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
 lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
-# TODO add rue for glitches, and their event
+# TODO add rule for glitches, and their event
 
 # %% Functions for extracting rules
 
@@ -158,26 +133,20 @@ def parsing(override=False):
 
     # Moki, Gorlek, Kii and Unsafe rules respectively
     M = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-         "def set_moki_rules(world, player):\n"
+         "def set_moki_rules(world, player, options):\n"
          "    \"\"\"Moki (or easy, default) rules.\"\"\"\n" + lightM)
-    G = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-         "def set_gorlek_rules(world, player):\n"
-         "    \"\"\"Gorlek (or medium) rules.\"\"\"\n" + lightM + lightG)
-    Gg = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-          "def set_gorlek_glitched_rules(world, player):\n"
-          "    \"\"\"Gorlek (or medium) rules with glitches\"\"\"\n" + lightM + lightG)
-    K = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-         "def set_kii_rules(world, player):\n"
-         "    \"\"\"Kii (or hard) rules\"\"\"\n" + lightM + lightG)
-    Kg = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-          "def set_kii_glitched_rules(world, player):\n"
-          "    \"\"\"Kii (or hard) rules with glitches.\"\"\"\n" + lightM + lightG)
-    U = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-         "def set_unsafe_rules(world, player):\n"
-         "    \"\"\"Unsafe rules.\"\"\"\n" + lightM + lightG)
-    Ug = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-          "def set_unsafe_glitched_rules(world, player):\n"
-          "    \"\"\"Unsafe rules with glitches.\"\"\"\n" + lightM + lightG)
+    G = ("\n\ndef set_gorlek_rules(world, player, options):\n"
+         "    \"\"\"Gorlek (or medium) rules.\"\"\"\n" + lightG)
+    Gg = ("\n\ndef set_gorlek_glitched_rules(world, player, options):\n"
+          "    \"\"\"Gorlek (or medium) rules with glitches\"\"\"\n")
+    K = ("\n\ndef set_kii_rules(world, player, options):\n"
+         "    \"\"\"Kii (or hard) rules\"\"\"\n")
+    Kg = ("\n\ndef set_kii_glitched_rules(world, player, options):\n"
+          "    \"\"\"Kii (or hard) rules with glitches.\"\"\"\n")
+    U = ("\n\ndef set_unsafe_rules(world, player, options):\n"
+         "    \"\"\"Unsafe rules.\"\"\"\n")
+    Ug = ("\n\ndef set_unsafe_glitched_rules(world, player, options):\n"
+          "    \"\"\"Unsafe rules with glitches.\"\"\"\n")
 
     L_rules = [M, G, Gg, K, Kg, U, Ug]
     entrances = []
@@ -333,7 +302,8 @@ def parsing(override=False):
     ref_txt += "    ]\n"
 
     with open("Rules.py", "w") as file:
-        file.write(L_rules[0])
+        for i in range(7):
+            file.write(L_rules[i])
         print("The file `Rules.py` has been successfully created.")
     with open("Entrances.py", "w") as file:
         file.write(ent_txt)
@@ -374,6 +344,9 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     arrival = ""
     if p_type == "conn":
         arrival = p_name
+        conn_name = f"{anc}_to_{p_name}"
+        if conn_name not in entrances:
+            entrances.append(conn_name)
 
     s_req = req.split(", ")
     for elem in s_req:
@@ -389,35 +362,80 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
         or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
         or_skills1, or_glitch1, or_resource1 = order_or(or_req[1])
 
-        splits0 = len(or_glitch0) + len(or_resource0)
-        splits1 = len(or_glitch1) + len(or_resource1)
-        # Swaps the two chains if it is more efficient to split the second chain
-        if splits0 > splits1:
+        # Swaps the two chains if it is more efficient to split the second resource chain
+        if len(or_resource0) > len(or_resource1):
             (or_skills0, or_glitch0, or_resource0, or_skills1, or_glitch1,
              or_resource1) = (or_skills1, or_glitch1, or_resource1, or_skills0, or_glitch0, or_resource0)
-        or_req1 = or_skills1, or_glitch1, or_resource1
 
         for req in or_glitch0:
-            and_req.append(req)
-            and_requirements, glitched = parse_and(and_req, diff)
-            and_req.remove(req)
-            append_rule(and_requirements, "", or_req1, health_req, diff, True, anc, arrival)
+            for req2 in or_glitch1:  # Case 0 glitched, 1 glitched
+                and_req.append(req)
+                and_req.append(req2)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                and_req.remove(req2)
+                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
+                                      L_rules)
+            if or_skills1:   # Case 0 glitched, 1 skill
+                and_req.append(req)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, True, anc, p_name,
+                                      arrival, L_rules)
+            if or_resource1:  # Case 0 glitched, 1 resource
+                and_req.append(req)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, True, anc, p_name,
+                                      arrival, L_rules)
+
         for req in or_resource0:
-            and_req.append(req)
+            for req2 in or_glitch1:  # Case 0 resource, 1 glitched
+                and_req.append(req)
+                and_req.append(req2)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                and_req.remove(req2)
+                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
+                                      L_rules)
+            if or_skills1:  # Case 0 resource, 1 skill
+                and_req.append(req)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, glitched, anc, p_name,
+                                      arrival, L_rules)
+            if or_resource1:  # Case 0 resource, 1 resource
+                and_req.append(req)
+                and_requirements, glitched = parse_and(and_req, diff)
+                and_req.remove(req)
+                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, glitched, anc, p_name,
+                                      arrival, L_rules)
+
+        for req2 in or_glitch1:  # Case 0 skill, 1 glitched
+            and_req.append(req2)
             and_requirements, glitched = parse_and(and_req, diff)
-            and_req.remove(req)
-            append_rule(and_requirements, "", or_req1, health_req, diff, glitched, anc, arrival)
-        and_requirements, glitched = parse_and(and_req, diff)
-        append_rule(and_requirements, or_skills0, or_req1, health_req, diff, glitched, anc, arrival)
+            and_req.remove(req2)
+            L_rules = append_rule(and_requirements, or_skills0, "", "", health_req, diff, True, anc, p_name, arrival,
+                                  L_rules)
+        if or_skills1:  # Case 0 skill, 1 skill
+            and_requirements, glitched = parse_and(and_req, diff)
+            L_rules = append_rule(and_requirements, or_skills0, or_skills1, "", health_req, diff, glitched, anc,
+                                  p_name, arrival, L_rules)
+        if or_resource1:  # Case 0 skill, 1 resource
+            and_requirements, glitched = parse_and(and_req, diff)
+            L_rules = append_rule(and_requirements, or_skills0, "", or_resource1, health_req, diff, glitched, anc,
+                                  p_name, arrival, L_rules)
+
+    return L_rules, entrances
 
 
 def combat_req(need, value):
     """Parse the combat requirement with the given enemies."""
     damage = []
+    dangers = []
 
     if need == "Combat":
         enemies = value.split("+")
-        dangers = []
 
         for elem in enemies:
             amount = 1
@@ -453,6 +471,7 @@ def parse_and(and_req, diff):
     combat_and = []  # Stores combat damage to inflict, as a list of each damage to do + the type of combat
     # The type of combat can be ranged, wall
     en_and = []  # Stores energy weapon used
+    glitched = False
 
     for requirement in and_req:
         if "=" in requirement:
@@ -475,31 +494,31 @@ def parse_and(and_req, diff):
             req = glitches[elem]
             for i, skill in enumerate(req):
                 if elem == "ShurikenBreak" and diff == 5:
-                    combat_and.append((value*2, "Shuriken"))  # TODO: define ranged combat... as add_rules + event
+                    combat_and.append((value*2, "Shuriken"))
                 elif elem == "ShurikenBreak":
                     combat_and.append((value*3, "Shuriken"))
                 elif elem == "SentryBreak":
                     combat_and.append((value*6.25, "Shuriken"))
                 elif i == len(req)-1:
-                    en_and.append([skill] * value)  # TODO: use Counter at the end
+                    en_and += [skill] * value
                 else:
                     if req not in and_skills and req != "free":
                         and_skills.append(req)
 
         elif elem in inf_skills:
-            if req not in and_skills and req != "free":
-                and_skills.append(req)
+            if elem not in and_skills and elem != "free":
+                and_skills.append(elem)
         elif elem in en_skills:
             value = int(value)
-            en_and.append([skill] * value)
+            en_and += [elem] * value
         elif elem == "Damage":
             value = int(value)
             damage_and.append(value)
         elif elem in combat_name:
-            deal_damage, danger = combat_req(elem, value, diff)  # TODO fix in inter
+            deal_damage, danger = combat_req(elem, value)
             combat_and += deal_damage
             and_other += danger
-        else:  # Case of an event
+        else:  # Case of an event, or keystone, or spirit light, or ore
             and_other.append(elem)
     return (and_skills, and_other, damage_and, combat_and, en_and), glitched
 
@@ -528,11 +547,126 @@ def order_or(or_chain):
     return or_skills, or_glitch, or_resource
 
 
-def append_rule(and_requirements, or_skills0, or_requirements1, health, diff, glitched, anc, arrival):
-    """TODO."""
+def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, diff, glitched, anc, p_name, arrival,
+                L_rules):
+    """Adds the text to the rules list."""  # TODO: complete docstring
     and_skills, and_other, damage_and, combat_and, en_and = and_requirements
-    or_skills, or_other, damage_or, combat_or, en_or = or_requirements1
-    # TODO: write this
+
+    if not arrival and not p_name:
+        raise ValueError("p_name or arrival must be non empty.")
+
+    if arrival:
+        start_txt = f"    add_rule(world.get_entrance(\"{anc}_to_{arrival}\", player), lambda s: "
+        req_txt = ""
+    else:
+        start_txt = f"    add_rule(world.get_location(\"{p_name}\", player), lambda s: "
+        req_txt = "s.can_reach_region(\"{anc}\")"
+
+    if and_skills:
+        temp_txt = ""
+        for elem in and_skills:
+            if temp_txt:
+                temp_txt += f", \"{elem}\""
+            else:
+                temp_txt += f"s.has_all((\"{elem}\""
+        temp_txt += "), player)"
+        if req_txt:
+            req_txt += " and " + temp_txt
+        else:
+            req_txt += temp_txt
+
+    if and_other:
+        for elem in and_other:
+            if "Keystone" in elem:
+                temp_txt = "can_keystones(s, player)"
+            elif "=" in elem:
+                name, amount = elem.split("=")
+                if name == "SpiritLight":
+                    temp_txt = f"s.count(\"SpiritLight\", player) >= {ceil(amount/100)}"
+                elif name == "Ore":
+                    temp_txt = f"s.count(\"Ore\", player) >= {amount}"
+                else:
+                    raise ValueError(f"Invalid input: {elem}")
+            else:
+                temp_txt = f"s.has(\"{elem}\", player)"
+            if req_txt:
+                req_txt += "and" + temp_txt
+            else:
+                req_txt += temp_txt
+
+    if or_skills0:
+        temp_txt = ""
+        for elem in or_skills0:
+            if temp_txt:
+                temp_txt += f", \"{elem}\""
+            else:
+                temp_txt += f"s.has_any((\"{elem}\""
+        temp_txt += "), player)"
+        if req_txt:
+            req_txt += " and " + temp_txt
+        else:
+            req_txt += temp_txt
+
+    if or_skills1:
+        temp_txt = ""
+        for elem in or_skills1:
+            if temp_txt:
+                temp_txt += f", \"{elem}\""
+            else:
+                temp_txt += f"s.has_any((\"{elem}\""
+        temp_txt += "), player)"
+        if req_txt:
+            req_txt += " and " + temp_txt
+        else:
+            req_txt += temp_txt
+
+    if health:
+        if req_txt:
+            req_txt += "and" + f"has_health(\"{health}\", s, player)"
+        else:
+            temp_txt += f"has_health(\"{health}\", s, player)"
+
+    if en_and:
+        counter = Counter(en_and)
+        energy = []
+        for weapon in en_skills:
+            amount = counter[weapon]
+            if amount != 0:
+                energy.append([weapon, amount])
+
+    or_costs = []  # List of list, each element is a possibility. The first element of the lists codes the type of cost.
+    for requirement in or_resource:
+        if "=" in requirement:
+            elem, value = requirement.split("=")
+        else:
+            elem = requirement
+            value = 0
+        if elem == "Combat":
+            deal_damage, danger = combat_req(elem, value)
+            or_costs.append([0, deal_damage, danger])
+        elif elem in en_skills:
+            or_costs.append([1, elem, value])
+        elif elem == "Damage":
+            or_costs.append([2, value])
+
+    if damage_and or combat_and or en_and or or_costs:
+        temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {en_and}, {combat_and}, "
+                    f"{or_costs}):")
+        if req_txt:
+            req_txt += "and" + temp_txt
+        else:
+            temp_txt += temp_txt
+
+    if req_txt:
+        tot_txt = start_txt + req_txt + ")\n"
+    else:
+        tot_txt = start_txt + "True)\n"
+    if glitched:
+        diff += 1
+
+    L_rules[diff] += tot_txt
+
+    return L_rules
 
 
 def conv_refill(p_name, anc, refills, refill_events):

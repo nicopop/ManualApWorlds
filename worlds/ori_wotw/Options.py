@@ -3,6 +3,7 @@
 from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions
 from dataclasses import dataclass
 
+
 class LogicDifficulty(Choice):
     """Difficulty of the logic."""
     display_name = "Logic difficulty"
@@ -19,6 +20,11 @@ class LogicDifficulty(Choice):
 class Glitches(Toggle):
     """Whether the logic includes paths using glitches."""
     display_name = "Glitches"
+
+
+class HardMode(Toggle):
+    """Play the game in hard difficulty."""
+    display_name = "Hard mode"
 
 
 class StartingLocation(Choice):
@@ -89,6 +95,7 @@ class SkillUpgrades(Toggle):
 class WotWOptions(PerGameCommonOptions):
     difficulty: LogicDifficulty
     glitches: Glitches
+    hard_mode: HardMode
     spawn: StartingLocation
     sword: SpawnSword
     tp: Teleporters
