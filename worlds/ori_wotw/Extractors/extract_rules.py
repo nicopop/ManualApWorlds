@@ -59,7 +59,7 @@ en_skills = ["Bow", "Grenade", "Flash", "Sentry", "Shuriken", "Spear", "Blaze"] 
 # Things that require a specific treatment
 combat_name = ["BreakWall", "Combat", "Boss"]
 
-# Skills that can be used infinitly (note: Regenerate is here because of how the logic is written)
+# Skills that can be used infinitely (note: Regenerate is here because of how the logic is written)
 inf_skills = ["Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
               "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free"]
 
@@ -77,7 +77,7 @@ glitches = {"ShurikenBreak": ["Shuriken"],
             "SentryRedirect": ["Sentry"],
             "SpearJump": ["Spear"]}
 
-# Glitches that can be used infinitly (and only use one skill)
+# Glitches that can be used infinitely (and only use one skill)
 inf_glitches = {"RemoveKillPlane": "free",
                 "HammerBreak": "Hammer",
                 "LaunchSwap": "Launch",
@@ -88,7 +88,7 @@ inf_glitches = {"RemoveKillPlane": "free",
                 "PauseHover": "free",
                 "GlideJump": "Glide"}
 
-# Glitches that can be used infinitly, and use two skills
+# Glitches that can be used infinitely, and use two skills
 other_glitches = ["WaveDash", "HammerJump", "SwordJump", "GlideHammerJump"]
 
 

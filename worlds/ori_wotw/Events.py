@@ -7,6 +7,17 @@ Do not edit manually.
 """
 
 event_table = [
+    "WaveDash",
+    "HammerJump",
+    "SwordJump",
+    "GlideHammerJump",
+    "Combat.Aerial",
+    "Combat.Dangerous",
+    "Combat.Shielded",
+    "Combat.Bat",
+    "Combat.Sand",
+    "BreakCrystal",
+    "Victory",
     "DepthsLight",
     "SkipKwolok",
     "SkipMora1",

@@ -96,7 +96,10 @@ def extract_events(override=False):
               "Do not edit manually.\n"
               "\"\"\"\n\n")
 
-    events = []
+    glitch_events = ["WaveDash", "HammerJump", "SwordJump", "GlideHammerJump"]
+    combat_events = ["Combat.Aerial", "Combat.Dangerous", "Combat.Shielded", "Combat.Bat", "Combat.Sand"]
+    other_events = ["BreakCrystal", "Victory"]
+    events = glitch_events + combat_events + other_events
 
     event_txt = "event_table = [\n"
 

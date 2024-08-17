@@ -125,7 +125,8 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
         hp_cost = False
         for req in or_req:
             if req[0] == 0:
-                min_cost = min(min_cost, combat_cost(state, player, options, req[1:]))
+                if all([state.has(danger) for danger in req[2]]):
+                    min_cost = min(min_cost, combat_cost(state, player, options, req[1]))
             if req[0] == 1:
                 if state.has(req[1]):
                     min_cost = min(min_cost, weapon_data[req[1]][1] * req[2])
@@ -185,8 +186,8 @@ def combat_cost(state, player, options, hp_list):
         else:  # ShurikenBreak or SentryBreak
             weapons = [category]
 
+        cost = 1000  # Arbitrary value, higher than 200
         for weapon in weapons:
-            cost = 1000  # Arbitrary value, higher than 200
             if state.has(weapon, player):
                 cost = min(cost, weapon_data[weapon][1] * ceil(damage / weapon_data[weapon][0]))
         tot_cost += cost

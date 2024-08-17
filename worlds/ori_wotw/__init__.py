@@ -2,12 +2,11 @@
 
 from collections import Counter
 
-from .Rules import set_moki_rules
-# from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
-#                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
+from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
+                    set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
 from .Items import item_table, group_table, base_id
 from .Locations import location_table, quest_table
-from .Options import WotWOptions  # add options_presets
+from .Options import WotWOptions  # TODO add options_presets
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
@@ -74,25 +73,25 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
-        set_moki_rules(world, player)
+        set_moki_rules(world, player, options)
 
         if options.difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_location("WestPools.BurrowOre", player),
                      lambda state: state.can_reach_region("WestPools.Teleporter", player)
                      and state.has_all(("Burrow", "Water", "WaterDash"), player))
 
-#        if options.difficulty >= 1:
-#            set_gorlek_rules(world, player)
-#            if world.glitches:
-#                set_gorlek_glitched_rules(world, player)
-#        if options.difficulty >= 2:
-#            set_kii_rules(world, player)
-#            if world.glitches:
-#                set_kii_glitched_rules(world, player)
-#        if options.difficulty == 3:
-#            set_unsafe_rules(world, player)
-#            if world.glitches:
-#                set_unsafe_glitched_rules(world, player)
+        if options.difficulty >= 1:
+            set_gorlek_rules(world, player, options)
+            if options.glitches:
+                set_gorlek_glitched_rules(world, player, options)
+        if options.difficulty >= 2:
+            set_kii_rules(world, player, options)
+            if options.glitches:
+                set_kii_glitched_rules(world, player, options)
+        if options.difficulty == 3:
+            set_unsafe_rules(world, player, options)
+            if options.glitches:
+                set_unsafe_glitched_rules(world, player, options)
 
         # Victory condition
         add_rule(world.get_location("Victory", player),
@@ -147,11 +146,6 @@ class WotWWorld(World):
             ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             region = world.get_region(event[2:], player)
             region.locations.append(ev)
-        victory = WotWLocation(player, "Victory", None)
-        victory.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
-        region = Region("Victory", player, world)
-        world.regions.append(region)
-        region.locations.append(victory)  # possible to add victory to event_table, but somehow breaks
 
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 
