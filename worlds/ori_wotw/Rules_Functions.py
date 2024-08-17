@@ -5,13 +5,13 @@ from .Refills import refills
 weapon_data = {  # The list contains the damage, and its energy cost
     "Sword": [4, 0],
     "Hammer": [12, 0],
-    "Grenade": [13, 10],  # Can be 17 damage if charged
-    "Shuriken": [7, 5],
-    "Bow": [4, 2.5],
-    "Flash": [12, 10],
-    "Sentry": [8, 10],  # 8.8, rounded down here
-    "Spear": [20, 20],
-    "Blaze": [13, 10],  # 13.8, rounded down here
+    "Grenade": [13, 1],  # Can be 17 damage if charged
+    "Shuriken": [7, 0.5],
+    "Bow": [4, 0.25],
+    "Flash": [12, 1],
+    "Sentry": [8, 1],  # 8.8, rounded down here
+    "Spear": [20, 2],
+    "Blaze": [13, 1],  # 13.8, rounded down here
     }
 
 ref_resource = {region: [0, 0] for region in region_table}
@@ -28,14 +28,14 @@ def get_max(state, player):
     """Returns the current max health and energy."""
     wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir")
-    return 30 + state.count("Health", player)*5 + 10*wisps, 30 + state.count("Energy", player)*5 + 10*wisps
+    return 30 + state.count("Health", player)*5 + 10*wisps, 3 + state.count("Energy", player)*0.5 + wisps
 
 
 def get_refill(max_resource):
     """Returns the refill values."""
     maxH, maxE = max_resource
     refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
-    refillE = 10*floor(maxE/50+1)
+    refillE = floor(maxE/50+1)
     return refillH, refillE
 
 
@@ -79,7 +79,6 @@ def can_keystones(state, player):
     return state.count("Keystone", player) >= count
 
 
-# TODO: multiply energy cost by 2 if not in unsafe. Also add combat_and, combat_or, damages_or
 def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, or_req):
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
@@ -101,10 +100,10 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
         health -= damage
         if health <= 0:
             if state.has("Regenerate", player) and -health < maxH:
-                n_regen = ceil((-health + 1)/3)
+                n_regen = ceil((-health + 1)/30)
                 if n_regen > energy:
                     return False
-                health = min(maxH, health + 3*n_regen)
+                health = min(maxH, health + 30*n_regen)
                 energy -= n_regen
             else:
                 return False
@@ -138,10 +137,10 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
             else:
                 health -= hp_cost
                 if state.has("Regenerate", player) and -health < maxH:
-                    n_regen = ceil((-health + 1)/3)
+                    n_regen = ceil((-health + 1)/30)
                     if n_regen > energy:
                         return False
-                    health = min(maxH, health + 3*n_regen)
+                    health = min(maxH, health + 30*n_regen)
                     energy -= n_regen
         else:
             energy -= min_cost
@@ -156,7 +155,6 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
 
 def combat_cost(state, player, options, hp_list):
     """Returns the energy cost for the enemies/walls/boss with current state."""
-    # TODO merge with cost_all
     hard = options.hard_mode
     diff = options.difficulty
 
@@ -208,7 +206,7 @@ def update_ref(region, state, player, resource, max_res):
         if hp != 0 and state.has("H." + region, player):
             resource[0] = max(maxH, resource[0] + hp*10)
         if en != 0 and state.has("E." + region, player):
-            resource[1] += max(maxE, resource[1] + en*10)
+            resource[1] += max(maxE, resource[1] + en)
 
         if resource > ref_resource[region]:  # Updates if bigger (lexical order, so health takes priority)
             ref_resource[region] = resource
