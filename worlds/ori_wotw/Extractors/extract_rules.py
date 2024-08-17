@@ -333,7 +333,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     if "." in anc:  # Gets the requirements when entering a new area.
         s = anc.find(".")
         i_area = anc[:s]  # Extracts the name of the area
-        if p_type == "anchor" and "." in p_name:
+        if p_type == "conn" and "." in p_name:
             s = p_name.find(".")
             f_area = p_name[:s]
             if i_area != f_area:
@@ -453,7 +453,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
 
 
 def combat_req(need, value):
-    """Parse the combat requirement with the given enemies."""
+    """Parse the combat requirement with the given enemies, returns the damage and type of combat."""
     damage = []
     dangers = []
 
@@ -472,13 +472,13 @@ def combat_req(need, value):
                 damage_type = "Ranged"
             else:
                 damage_type = "Combat"
-            damage.append([[ref_en[elem][0]], damage_type] * amount)
+            damage.append([ref_en[elem][0], damage_type] * amount)
             for dan in danger:
                 if dan not in dangers and dan not in ("Free", "Ranged"):
                     dangers.append("Combat." + dan)
 
     elif need == "Boss":
-        damage.append([int(value), "Combat"])
+        damage.append([int(value), "Boss"])
 
     elif need == "BreakWall":
         damage.append([int(value), "Wall"])
@@ -517,11 +517,11 @@ def parse_and(and_req, diff):
             req = glitches[elem]
             for i, skill in enumerate(req):
                 if elem == "ShurikenBreak" and diff == 5:
-                    combat_and.append((value*2, "Shuriken"))
+                    combat_and.append([value*2, "Shuriken"])
                 elif elem == "ShurikenBreak":
-                    combat_and.append((value*3, "Shuriken"))
+                    combat_and.append([value*3, "Shuriken"])
                 elif elem == "SentryBreak":
-                    combat_and.append((value*6.25, "Shuriken"))
+                    combat_and.append([value*6.25, "Shuriken"])
                 elif i == len(req)-1:
                     en_and += [skill] * value
                 else:
@@ -572,7 +572,20 @@ def order_or(or_chain):
 
 def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, diff, glitched, anc, p_name, arrival,
                 L_rules):
-    """Adds the text to the rules list."""  # TODO: complete docstring
+    """
+    Adds the text to the rules list.
+
+    and_requirements contains requirements that must all be satisfied.
+    or_skills0 contains a chain of skills, any can be satisfied. Same for or_skills1
+    or_resource contains requirements that can cost resources. Any can be satisfied.
+    health is the health requirement when entering a new area
+    diff is the path difficulty
+    glitched indicates if the path includes glitches
+    anc is the name of the starting region
+    p_name is the name of the location
+    arrival is the name of the connected region
+    L_rules is the list containing the parsed data. It is modified and returned at the end
+    """
     and_skills, and_other, damage_and, combat_and, en_and = and_requirements
     energy = []
 
@@ -657,7 +670,7 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
         if req_txt:
             req_txt += " and " + f"has_health(\"{health}\", s, player)"
         else:
-            temp_txt += f"has_health(\"{health}\", s, player)"
+            req_txt += f"has_health(\"{health}\", s, player)"
 
     if en_and:
         counter = Counter(en_and)
@@ -677,9 +690,9 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
             deal_damage, danger = combat_req(elem, value)
             or_costs.append([0, deal_damage, danger])
         elif elem in en_skills:
-            or_costs.append([1, elem, value])
+            or_costs.append([1, elem, int(value)])
         elif elem == "Damage":
-            or_costs.append([2, value])
+            or_costs.append([2, int(value)])
 
     if damage_and or combat_and or en_and or or_costs:
         temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, {combat_and}, "

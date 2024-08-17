@@ -3,6 +3,8 @@ from .Regions import region_table
 from .Refills import refills
 
 weapon_data = {  # The list contains the damage, and its energy cost
+    "Sword": [4, 0],
+    "Hammer": [12, 0],
     "Grenade": [13, 10],  # Can be 17 damage if charged
     "Shuriken": [7, 5],
     "Bow": [4, 2.5],
@@ -78,20 +80,24 @@ def can_keystones(state, player):
 
 
 # TODO: multiply energy cost by 2 if not in unsafe. Also add combat_and, combat_or, damages_or
-def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, en_or):
+def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, or_req):
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
-    damages (list) contains the dboost values (if several elements, Regenerate can be used inbetween).
+    damage_and (list) contains the dboost values (if several elements, Regenerate can be used inbetween).
+    combat_and (list of list) contains the combat damages needed and the type (enemy/wall).
     en_and (list of list) contains as elements the skill name, and the amount used. All must be satisfied.
-    en_or (list of list) is the same, but anty is required (the lowest cost will be applied).
+    or_req (list of list) contains damages, combat, and energy in each sublist (the first element of the list is the
+    type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
     """
+    diff = options.difficulty
     health, energy = ref_resource[region]
     maxH, maxE = get_max(state, player)
-    diff = options.difficulty
 
-    # TODO fix combat with ranged/wall/combat
-    for damage in damages:  # This part deals with the damage boosts
+    if diff != 3:  # Energy costs are doubled, except in unsafe
+        energy /= 2
+
+    for damage in damage_and:  # This part deals with the damage boosts
         health -= damage
         if health <= 0:
             if state.has("Regenerate", player) and -health < maxH:
@@ -103,66 +109,89 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
             else:
                 return False
 
-    cost_and = 0  # This computes the energy cost for weapons
-    for source in en_and:
+    for source in en_and:  # This computes the energy cost for weapons
         if not state.has(source[0], player):
             return False
-        cost_and += weapon_data[source[0]][1]*source[1]
+        energy -= weapon_data[source[0]][1] * source[1]
+        if energy < 0:
+            return False
 
-    cost_or = 0
-    if en_or:
-        cost_or = 1000  # Arbitrary value, must be higher than 200
-        for source in en_or:
-            if not state.has(source[0], player):
-                continue
-            cost_or = min(cost_or, weapon_data[source[0]][1]*source[1])
-
-    energy -= cost_and + cost_or
-
+    energy -= combat_cost(state, player, options, combat_and)
     if energy < 0:
         return False
+
+    if or_req:
+        min_cost = 1000  # Arbitrary value, higher than 200
+        hp_cost = False
+        for req in or_req:
+            if req[0] == 0:
+                min_cost = min(min_cost, combat_cost(state, player, options, req[1:]))
+            if req[0] == 1:
+                if state.has(req[1]):
+                    min_cost = min(min_cost, weapon_data[req[1]][1] * req[2])
+            if req[0] == 2:
+                hp_cost = req[1]
+        if min_cost > energy:
+            if not hp_cost:
+                return False
+            else:
+                health -= hp_cost
+                if state.has("Regenerate", player) and -health < maxH:
+                    n_regen = ceil((-health + 1)/3)
+                    if n_regen > energy:
+                        return False
+                    health = min(maxH, health + 3*n_regen)
+                    energy -= n_regen
+        else:
+            energy -= min_cost
+
     if arrival:
+        if diff != 3:
+            energy *= 2
         update_ref(arrival, state, player, [health, energy], [maxH, maxE])
         return True
     return True
 
 
-def damage(hp_list, state, player, region, weapons, arrival, options):
-    """
-    Energy cost for the enemies/wall/boss with current state.
-
-    `weapons` indicates the list of energy weapons that can be used in the situation.
-    """
+def combat_cost(state, player, options, hp_list):
+    """Returns the energy cost for the enemies/walls/boss with current state."""
     # TODO merge with cost_all
     hard = options.hard_mode
-    if state.has("Sword", player) or state.has("Hammer", player):
-        tot_cost = 0
+    diff = options.difficulty
 
-    else:
-        if not weapons:
-            return False
-        if hard:
-            mod = 1.8
-        else:
-            mod = 1
+    tot_cost = 0
+    for damage, category in hp_list:
+        if category == "Combat":
+            if diff == 3:
+                weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
+            else:
+                weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
+        elif category == "Ranged":
+            if diff == 0:
+                weapons = ["Bow", "Spear"]
+            elif diff == 3:
+                weapons = ["Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
+            else:
+                weapons = ["Grenade", "Bow", "Shuriken", "Sentry", "Spear"]
+        elif category == "Wall":
+            weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
+        elif category == "Boss":
+            if hard:
+                damage *= 1.8
+            if diff == 3:
+                weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
+            else:
+                weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
+        else:  # ShurikenBreak or SentryBreak
+            weapons = [category]
 
-        tot_cost = 0
-        for hp in hp_list:
-            for weapon in weapons:
-                cost = 1000  # Arbitrary value, higher than 200
-                if state.has(weapon, player):
-                    cost = min(cost, weapon_data[weapon][1] * ceil(hp*mod / weapon_data[weapon][0]))
-            tot_cost += cost
+        for weapon in weapons:
+            cost = 1000  # Arbitrary value, higher than 200
+            if state.has(weapon, player):
+                cost = min(cost, weapon_data[weapon][1] * ceil(damage / weapon_data[weapon][0]))
+        tot_cost += cost
 
-    health, energy = ref_resource[region]
-    energy -= tot_cost
-    if energy < 0:
-        return False
-    if arrival:
-        maxH, maxE = get_max(state, player)
-        update_ref(arrival, state, player, [health, energy], [maxH, maxE])
-        return True
-    return True
+    return tot_cost
 
 
 def update_ref(region, state, player, resource, max_res):
