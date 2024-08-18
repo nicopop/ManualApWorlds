@@ -19,15 +19,15 @@ ref_resource = {region: [0, 0] for region in region_table}
 
 def has_health(amount, state, player):
     """Returns if the player has enough max health to enter the area."""
-    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
-                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
+    wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
+                                  "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
     return amount < 30 + state.count("Health", player)*5 + 10*wisps
 
 
 def get_max(state, player):
     """Returns the current max health and energy."""
-    wisps = state.count_from_list("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
-                                  "WestPools.ForestsStrength", "WindtornRuins.Seir")
+    wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
+                                  "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
     return 30 + state.count("Health", player)*5 + 10*wisps, 3 + state.count("Energy", player)*0.5 + wisps
 
 
@@ -79,7 +79,7 @@ def can_keystones(state, player):
     return state.count("Keystone", player) >= count
 
 
-def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, or_req):
+def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, or_req, update):
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -87,7 +87,8 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
     combat_and (list of list) contains the combat damages needed and the type (enemy/wall).
     en_and (list of list) contains as elements the skill name, and the amount used. All must be satisfied.
     or_req (list of list) contains damages, combat, and energy in each sublist (the first element of the list is the
-    type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
+        type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
+    update indicates if the resource table has to be updated
     """
     diff = options.difficulty
     health, energy = ref_resource[region]
@@ -145,11 +146,17 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
         else:
             energy -= min_cost
 
-    if arrival:
+    if update:
         if diff != 3:
             energy *= 2
         update_ref(arrival, state, player, [health, energy], [maxH, maxE])
         return True
+    return True
+
+
+def no_cost(region, arrival, state, player):
+    """Executed when the path does not consume resource to still update the resource table."""
+    update_ref(arrival, state, player, ref_resource[region], get_max(state, player))
     return True
 
 

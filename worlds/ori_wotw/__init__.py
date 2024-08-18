@@ -14,7 +14,7 @@ from .Refills import refill_events
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule
-from BaseClasses import Region, Location, Entrance, Item, Tutorial, ItemClassification
+from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 spawn_names = {0: "MarshSpawn.Main",
                1: "MidnightBurrows.Teleporter",
@@ -68,7 +68,7 @@ class WotWWorld(World):
     def generate_early(self):  # TODO costs, items on spawn
         pass
 
-    def set_rules(self):  # TODO add other difficulties
+    def set_rules(self):
         world = self.multiworld
         player = self.player
         options = self.options
@@ -93,16 +93,6 @@ class WotWWorld(World):
             if options.glitches:
                 set_unsafe_glitched_rules(world, player, options)
 
-        # Victory condition
-        add_rule(world.get_location("Victory", player),
-                 lambda state: state.can_reach_region("WillowsEnd.Upper", player)
-                 and state.has_any(("Sword", "Hammer"), player)
-                 and state.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch")))
-
-        # from Utils import visualize_regions
-        # visualize_regions(self.multiworld.get_region("Menu", self.player), "my_world.puml")
-        # TODO remove debug comment
-
     def create_regions(self):
         world = self.multiworld
         player = self.player
@@ -115,15 +105,10 @@ class WotWWorld(World):
         menu_region = Region("Menu", player, world)
         world.regions.append(menu_region)
 
-        spawn_region = world.get_region(spawn_names[options.spawn], self.player)  # Links menu with spawn point
+        spawn_region = world.get_region(spawn_names[options.spawn], player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
 
-        for entrance_name in entrance_table:  # Creates and connects the entrances
-            (parent, connected) = entrance_name.split("_to_")
-            parent_region = world.get_region(parent, player)
-            entrance = WotWEntrance(player, entrance_name, parent_region)
-            world.regions.entrance_cache[player].setdefault(entrance_name, entrance)  # TODO Probably use something else
-            entrance.connect(world.get_region(connected, player))
+        menu_region.connect(world.get_region("HeaderStates", player))
 
         for loc_name in location_table:  # Create regions on locations and attach locations
             region = Region(loc_name, player, world)
@@ -144,8 +129,15 @@ class WotWWorld(World):
         for event in refill_events:  # Create refill events, their item, and attach to their region
             ev = WotWLocation(player, event, None)
             ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
-            region = world.get_region(event[2:], player)
+            region = Region(event, player, world)
+            world.regions.append(region)
             region.locations.append(ev)
+
+        for entrance_name in entrance_table:  # Creates and connects the entrances
+            (parent, connected) = entrance_name.split("_to_")
+            parent_region = world.get_region(parent, player)
+            entrance = parent_region.create_exit(entrance_name)
+            entrance.connect(world.get_region(connected, player))
 
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 
@@ -224,8 +216,4 @@ class WotWItem(Item):
 
 
 class WotWLocation(Location):
-    game: str = "Ori and the Will of the Wisps"
-
-
-class WotWEntrance(Entrance):
     game: str = "Ori and the Will of the Wisps"

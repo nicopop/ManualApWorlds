@@ -103,8 +103,6 @@ header = ("\"\"\"\n"
 
 imports = "from .Rules_Functions import *\n\n"
 
-lightM = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has_any((\"UpperDepths.ForestsEyes\", \"Flash\"), player))\n"
-lightG = "    add_rule(world.get_location(\"DepthsLight\", player), lambda state: state.has(\"Bow\", player))\n"
 # TODO add rule for glitches, and their event
 
 # %% Functions for extracting rules
@@ -134,9 +132,9 @@ def parsing(override=False):
     # Moki, Gorlek, Kii and Unsafe rules respectively
     M = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
          "def set_moki_rules(world, player, options):\n"
-         "    \"\"\"Moki (or easy, default) rules.\"\"\"\n" + lightM)
+         "    \"\"\"Moki (or easy, default) rules.\"\"\"\n")
     G = ("\n\ndef set_gorlek_rules(world, player, options):\n"
-         "    \"\"\"Gorlek (or medium) rules.\"\"\"\n" + lightG)
+         "    \"\"\"Gorlek (or medium) rules.\"\"\"\n")
     Gg = ("\n\ndef set_gorlek_glitched_rules(world, player, options):\n"
           "    \"\"\"Gorlek (or medium) rules with glitches\"\"\"\n")
     K = ("\n\ndef set_kii_rules(world, player, options):\n"
@@ -341,15 +339,13 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
                 if regen:
                     and_req.append("Regenerate")
 
-    arrival = ""
-    if p_type == "conn":
-        arrival = p_name
-        conn_name = f"{anc}_to_{p_name}"
-        if conn_name not in entrances:
-            entrances.append(conn_name)
-
     if p_type == "refill":
         p_name = ref_type + anc
+
+    arrival = p_name
+    conn_name = f"{anc}_to_{p_name}"
+    if conn_name not in entrances:
+        entrances.append(conn_name)
 
     s_req = req.split(", ")
     for elem in s_req:
@@ -360,8 +356,8 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
 
     if len(or_req) == 0:
         and_requirements, glitched = parse_and(and_req, diff)
-        L_rules = append_rule(and_requirements, "", "", "", health_req, diff, glitched, anc,
-                              p_name, arrival, L_rules)
+        L_rules = append_rule(and_requirements, "", "", "", health_req, diff, glitched, anc, arrival,
+                              p_type, L_rules)
 
     elif len(or_req) == 1:
         or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
@@ -370,16 +366,16 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
             and_req.append(req)
             and_requirements, glitched = parse_and(and_req, diff)
             and_req.remove(req)
-            L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
-                                  L_rules)
+            L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, arrival,
+                                  p_type, L_rules)
         if or_skills0:
             and_requirements, glitched = parse_and(and_req, diff)
             L_rules = append_rule(and_requirements, or_skills0, "", "", health_req, diff, glitched, anc,
-                                  p_name, arrival, L_rules)
+                                  arrival, p_type, L_rules)
         if or_resource0:
             and_requirements, glitched = parse_and(and_req, diff)
             L_rules = append_rule(and_requirements, "", "", or_resource0, health_req, diff, glitched, anc,
-                                  p_name, arrival, L_rules)
+                                  arrival, p_type, L_rules)
 
     elif len(or_req) == 2:
         or_skills0, or_glitch0, or_resource0 = order_or(or_req[0])
@@ -397,20 +393,20 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
                 and_req.remove(req2)
-                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
-                                      L_rules)
+                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, arrival,
+                                      p_type, L_rules)
             if or_skills1:   # Case 0 glitched, 1 skill
                 and_req.append(req)
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
-                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, True, anc, p_name,
-                                      arrival, L_rules)
+                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, True, anc,
+                                      arrival, p_type, L_rules)
             if or_resource1:  # Case 0 glitched, 1 resource
                 and_req.append(req)
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
-                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, True, anc, p_name,
-                                      arrival, L_rules)
+                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, True, anc,
+                                      arrival, p_type, L_rules)
 
         for req in or_resource0:
             for req2 in or_glitch1:  # Case 0 resource, 1 glitched
@@ -419,35 +415,35 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
                 and_req.remove(req2)
-                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, p_name, arrival,
-                                      L_rules)
+                L_rules = append_rule(and_requirements, "", "", "", health_req, diff, True, anc, arrival,
+                                      p_type, L_rules)
             if or_skills1:  # Case 0 resource, 1 skill
                 and_req.append(req)
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
-                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, glitched, anc, p_name,
-                                      arrival, L_rules)
+                L_rules = append_rule(and_requirements, "", or_skills1, "", health_req, diff, glitched, anc,
+                                      arrival, p_type, L_rules)
             if or_resource1:  # Case 0 resource, 1 resource
                 and_req.append(req)
                 and_requirements, glitched = parse_and(and_req, diff)
                 and_req.remove(req)
-                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, glitched, anc, p_name,
-                                      arrival, L_rules)
+                L_rules = append_rule(and_requirements, "", "", or_resource1, health_req, diff, glitched, anc,
+                                      arrival, p_type, L_rules)
 
         for req2 in or_glitch1:  # Case 0 skill, 1 glitched
             and_req.append(req2)
             and_requirements, glitched = parse_and(and_req, diff)
             and_req.remove(req2)
-            L_rules = append_rule(and_requirements, or_skills0, "", "", health_req, diff, True, anc, p_name, arrival,
-                                  L_rules)
+            L_rules = append_rule(and_requirements, or_skills0, "", "", health_req, diff, True, anc, arrival,
+                                  p_type, L_rules)
         if or_skills1:  # Case 0 skill, 1 skill
             and_requirements, glitched = parse_and(and_req, diff)
             L_rules = append_rule(and_requirements, or_skills0, or_skills1, "", health_req, diff, glitched, anc,
-                                  p_name, arrival, L_rules)
+                                  arrival, p_type, L_rules)
         if or_resource1:  # Case 0 skill, 1 resource
             and_requirements, glitched = parse_and(and_req, diff)
             L_rules = append_rule(and_requirements, or_skills0, "", or_resource1, health_req, diff, glitched, anc,
-                                  p_name, arrival, L_rules)
+                                  arrival, p_type, L_rules)
 
     return L_rules, entrances
 
@@ -570,8 +566,8 @@ def order_or(or_chain):
     return or_skills, or_glitch, or_resource
 
 
-def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, diff, glitched, anc, p_name, arrival,
-                L_rules):
+def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, diff, glitched, anc, arrival,
+                p_type, L_rules):
     """
     Adds the text to the rules list.
 
@@ -582,22 +578,15 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
     diff is the path difficulty
     glitched indicates if the path includes glitches
     anc is the name of the starting region
-    p_name is the name of the location
     arrival is the name of the connected region
+    p_type is the type of the path (connection, or location/event)
     L_rules is the list containing the parsed data. It is modified and returned at the end
     """
     and_skills, and_other, damage_and, combat_and, en_and = and_requirements
     energy = []
 
-    if not arrival and not p_name:
-        raise ValueError("p_name or arrival must be non empty.")
-
-    if arrival:
-        start_txt = f"    add_rule(world.get_entrance(\"{anc}_to_{arrival}\", player), lambda s: "
-        req_txt = ""
-    else:
-        start_txt = f"    add_rule(world.get_location(\"{p_name}\", player), lambda s: "
-        req_txt = f"s.can_reach_region(\"{anc}\")"
+    start_txt = f"    add_rule(world.get_entrance(\"{anc}_to_{arrival}\", player), lambda s: "
+    req_txt = ""
 
     if and_skills:
         temp_txt = ""
@@ -696,16 +685,27 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
 
     if damage_and or combat_and or en_and or or_costs:
         temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, {combat_and}, "
-                    f"{or_costs})")
+                    f"{or_costs}")
+        if p_type == "conn":
+            temp_txt += ", True)"  # Indicates if the resource table has to be updated
+        else:
+            temp_txt += ", False)"
         if req_txt:
             req_txt += " and " + temp_txt
         else:
-            temp_txt += temp_txt
+            req_txt += temp_txt
+
+    elif p_type == "conn":
+        if req_txt:  # Indicates that the resource table has to be updated, but the path does not consume resource
+            req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player)"
+        else:
+            req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player)"
 
     if req_txt:
         tot_txt = start_txt + req_txt + ")\n"
     else:
         tot_txt = start_txt + "True)\n"
+
     if glitched:
         diff += 1
 
