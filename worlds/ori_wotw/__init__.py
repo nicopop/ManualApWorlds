@@ -1,5 +1,6 @@
 """Initialisation file."""
 
+from typing import List
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
@@ -151,7 +152,7 @@ class WotWWorld(World):
 
         world.completion_condition[player] = lambda state: state.can_reach_region("Victory", player)
 
-    def create_item(self, name):
+    def create_item(self, name: str) -> "WotWItem":
         item_id = self.item_name_to_id[name]
         i = item_id - base_id
         return WotWItem(name, item_table[i]["classification"], item_id, player=self.player)
@@ -199,7 +200,7 @@ class WotWWorld(World):
             junk += 6
 
         counter = Counter(skipped_items)
-        pool = []
+        pool: List[WotWItem] = []
 
         for item in item_table:
             count = item["count"] - counter[item["name"]]

@@ -1,8 +1,9 @@
+from typing import Dict, List
 from math import ceil, floor
 from .Regions import region_table
 from .Refills import refills
 
-weapon_data = {  # The list contains the damage, and its energy cost
+weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy cost
     "Sword": [4, 0],
     "Hammer": [12, 0],
     "Grenade": [13, 1],  # Can be 17 damage if charged
@@ -14,24 +15,24 @@ weapon_data = {  # The list contains the damage, and its energy cost
     "Blaze": [13, 1],  # 13.8, rounded down here
     }
 
-ref_resource = {region: [0, 0] for region in region_table}
+ref_resource: Dict[str: [int, float]] = {region: [0, 0] for region in region_table}
 
 
-def has_health(amount, state, player):
+def has_health(amount: int, state, player) -> bool:
     """Returns if the player has enough max health to enter the area."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
     return amount < 30 + state.count("Health", player)*5 + 10*wisps
 
 
-def get_max(state, player):
+def get_max(state, player) -> (int, float):
     """Returns the current max health and energy."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
     return 30 + state.count("Health", player)*5 + 10*wisps, 3 + state.count("Energy", player)*0.5 + wisps
 
 
-def get_refill(max_resource):
+def get_refill(max_resource: (int, float)) -> (int, int):
     """Returns the refill values."""
     maxH, maxE = max_resource
     refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
@@ -39,8 +40,8 @@ def get_refill(max_resource):
     return refillH, refillE
 
 
-def can_keystones(state, player):
-    """Returns the total amount of Keystones on accessible doors."""
+def can_keystones(state, player) -> bool:
+    """Returns if the total amount of Keystones can open all accessible doors."""
     count = 0
     if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
             or state.can_reach_region("MarshSpawn.RegenDoor", player)):
@@ -79,16 +80,17 @@ def can_keystones(state, player):
     return state.count("Keystone", player) >= count
 
 
-def cost_all(state, player, options, region, arrival, damage_and, en_and, combat_and, or_req, update):
+def cost_all(state, player, options, region: str, arrival: str, damage_and: List, en_and: List[List[str, int]],
+             combat_and: List[List[int, str]], or_req: List[List], update: bool) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
-    damage_and (list) contains the dboost values (if several elements, Regenerate can be used inbetween).
-    combat_and (list of list) contains the combat damages needed and the type (enemy/wall).
-    en_and (list of list) contains as elements the skill name, and the amount used. All must be satisfied.
-    or_req (list of list) contains damages, combat, and energy in each sublist (the first element of the list is the
+    damage_and: contains the dboost values (if several elements, Regenerate can be used inbetween).
+    combat_and: contains the combat damages needed and the type (enemy/wall).
+    en_and: contains as elements the skill name, and the amount used. All must be satisfied.
+    or_req: contains damages, combat, and energy in each sublist (the first element of the list is the
         type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
-    update indicates if the resource table has to be updated
+    update: indicates if the resource table has to be updated
     """
     diff = options.difficulty
     health, energy = ref_resource[region]
@@ -121,7 +123,7 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
         return False
 
     if or_req:
-        min_cost = 1000  # Arbitrary value, higher than 200
+        min_cost = 1000  # Arbitrary value, higher than 20
         hp_cost = False
         for req in or_req:
             if req[0] == 0:
@@ -154,13 +156,13 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
     return True
 
 
-def no_cost(region, arrival, state, player):
+def no_cost(region: str, arrival: str, state, player) -> bool:
     """Executed when the path does not consume resource to still update the resource table."""
     update_ref(arrival, state, player, ref_resource[region], get_max(state, player))
     return True
 
 
-def combat_cost(state, player, options, hp_list):
+def combat_cost(state, player, options, hp_list: List[List[int, str]]) -> float:
     """Returns the energy cost for the enemies/walls/boss with current state."""
     hard = options.hard_mode
     diff = options.difficulty
@@ -191,7 +193,7 @@ def combat_cost(state, player, options, hp_list):
         else:  # ShurikenBreak or SentryBreak
             weapons = [category]
 
-        cost = 1000  # Arbitrary value, higher than 200
+        cost = 1000  # Arbitrary value, higher than 20
         for weapon in weapons:
             if state.has(weapon, player):
                 cost = min(cost, weapon_data[weapon][1] * ceil(damage / weapon_data[weapon][0]))
@@ -200,7 +202,7 @@ def combat_cost(state, player, options, hp_list):
     return tot_cost
 
 
-def update_ref(region, state, player, resource, max_res):
+def update_ref(region: str, state, player, resource: [int, float], max_res: [int, float]):
     """Updates the resource table for the arrival region, using the resource and the refills."""
     maxH, maxE = max_res
     refillH, refillE = get_refill(max_res)

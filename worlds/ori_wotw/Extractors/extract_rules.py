@@ -4,6 +4,7 @@ Converts an areas.wotw file into a set_rules function.
 Run `parsing()` to extract the rules (the `areas.wotw` file must be in the same folder as this script).
 """
 
+from typing import Dict, List
 import os
 import re
 from math import ceil
@@ -49,7 +50,7 @@ sp = re.compile("^ *")  # Used for indents
 col = re.compile(" .*:")  # name between space and colon
 tra = re.compile(" *$")  # Trailing space
 sep = re.compile(" at ")
-typ = re.compile("^  [a-z]+ ")  # Detects the type of the path
+typ = re.compile("^ {2}[a-z]+ ")  # Detects the type of the path
 nam = re.compile(" [a-zA-Z.=0-9]+:")  # Name of the object
 dif = re.compile("^[a-z]+, ")  # extracts the difficulty of the path
 ref = re.compile("[a-zA-Z=0-9]+$")  # Extracts the refill type if it has no colon
@@ -158,6 +159,8 @@ def parsing(override=False):
     req3 = ""  # Requirements from third indent
     req4 = ""  # Requirements from fourth indent
     ref_type = ""  # Refill type (energy, health, checkpoint or full)
+    p_type = ""  # Type of the path
+    p_name = ""  # Name of the location/region/event accessed by the path
 
     c_diff = {"moki": 0, "gorlek": 1, "kii": 3, "unsafe": 5}
 
@@ -314,18 +317,19 @@ def parsing(override=False):
         print("The file `Refills.py` has been successfully created.")
 
 
-def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free"):
+def convert(anc: str, p_type: str, p_name: str, L_rules: List[str], entrances: List[str], ref_type: str, diff: int,
+            req: str) -> (List[str], List[str]):
     """
     Converts the data given by the arguments into an add_rule function, and adds it to the right difficulty.
 
-    Returns the updated lists.
+    Returns the updated L_rules and entrances lists.
     anc: name of the starting anchor
     p_type: type of the element accessed by the rules (anchor, state, refill or item)
     p_name: name of the element accessed by the rules
-    diff: difficulty of the path (str)
+    ref_type: type of the refill (full, checkpoint, health or energy)
+    diff: difficulty of the path
     req: requirements to access the element
     """
-    glitched = False
     health_req = 0  # Requirement when entering a new area
 
     and_req = []
@@ -451,7 +455,7 @@ def convert(anc, p_type, p_name, L_rules, entrances, ref_type, diff=0, req="free
     return L_rules, entrances
 
 
-def combat_req(need, value):
+def combat_req(need: str, value: str) -> (List[List[int, str]], List[str]):
     """Parse the combat requirement with the given enemies, returns the damage and type of combat."""
     damage = []
     dangers = []
@@ -485,7 +489,7 @@ def combat_req(need, value):
     return damage, dangers
 
 
-def parse_and(and_req, diff):
+def parse_and(and_req: List[str], diff: int) -> (List, bool):
     """Parse the list of requirements in the `and` chain, and returns the processed information."""
     and_skills = []  # Stores inf_skills
     and_other = []  # Stores other requirements (that often have their own event)
@@ -545,7 +549,7 @@ def parse_and(and_req, diff):
     return (and_skills, and_other, damage_and, combat_and, en_and), glitched
 
 
-def order_or(or_chain):
+def order_or(or_chain: List[str]) -> (List[str], List[str], List[str]):
     """Parse the list of requirements in the `or` chain, and categorize them."""
     or_skills = []  # Stores inf_skills
     or_glitch = []  # Stores the glitches
@@ -569,10 +573,11 @@ def order_or(or_chain):
     return or_skills, or_glitch, or_resource
 
 
-def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, diff, glitched, anc, arrival,
-                p_type, L_rules):
+def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_skills1: str | List[str],
+                or_resource: str | List[str], health: int, diff: int, glitched: bool, anc: str, arrival: str,
+                p_type: str, L_rules: List[str]) -> List[str]:
     """
-    Adds the text to the rules list.
+    Adds the text to the rules list. Returns the updated L_rules.
 
     and_requirements contains requirements that must all be satisfied.
     or_skills0 contains a chain of skills, any can be satisfied. Same for or_skills1
@@ -718,7 +723,8 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
     return L_rules
 
 
-def conv_refill(p_name, anc, refills, refill_events):
+def conv_refill(p_name: str, anc: str, refills: Dict[str: List[int]],
+                refill_events: List[str]) -> (str, Dict[str: List[int]], List[str]):
     """Returns the refill type (to add before the region name) and updates the data tables."""
     current = refills[anc]
     if "=" in p_name:
@@ -744,8 +750,8 @@ def conv_refill(p_name, anc, refills, refill_events):
     raise ValueError(f"{p_name} is not a valid refill type (at anchor {anc}).")
 
 
-def req_area(area, diff):
-    """Requirements for entering an area."""
+def req_area(area: str, diff: int) -> (bool, str):
+    """Requirements for entering an area. Returns if Regenerate is needed, and the amount of health required."""
     M_dat = {"MidnightBurrows": (25, False), "EastHollow": (20, False), "WestHollow": (20, False),
              "WestGlades": (20, False), "OuterWellspring": (25, False), "InnerWellspring": (25, False),
              "WoodsEntry": (40, True), "WoodsMain": (40, True), "LowerReach": (40, True), "UpperReach": (40, True),
