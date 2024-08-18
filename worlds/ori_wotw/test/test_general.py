@@ -4,7 +4,7 @@ from test.general.test_locations import TestBase
 from test.general.test_reachability import TestBase as TestReach
 
 
-class WotWTestImpl(TestImplemented):  # TODO fails, use entrances for the region linked to the location/event
+class WotWTestImpl(TestImplemented):
     game = "Ori and the Will of the Wisps"
 
 

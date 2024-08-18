@@ -396,7 +396,7 @@ location_table = [
     "OpherShop.RapidSentry",
     "OpherShop.ChargeBlaze",
     "OpherShop.WaterBreath",
-    "GladesTown.RegrowTheGlades",
+    "GladesTown.RegrowTheGlades"
     ]
 
 quest_table = [
@@ -442,5 +442,5 @@ quest_table = [
     "WindtornRuins.HandToHandComplete",
     "GladesTown.HandToHandPouch",
     "GladesTown.TwillenGemQuest",
-    "GladesTown.RegrowTheGlades",
+    "GladesTown.RegrowTheGlades"
     ]

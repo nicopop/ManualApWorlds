@@ -125,10 +125,10 @@ def cost_all(state, player, options, region, arrival, damage_and, en_and, combat
         hp_cost = False
         for req in or_req:
             if req[0] == 0:
-                if all([state.has(danger) for danger in req[2]]):
+                if all([state.has(danger, player) for danger in req[2]]):
                     min_cost = min(min_cost, combat_cost(state, player, options, req[1]))
             if req[0] == 1:
-                if state.has(req[1]):
+                if state.has(req[1], player):
                     min_cost = min(min_cost, weapon_data[req[1]][1] * req[2])
             if req[0] == 2:
                 hp_cost = req[1]

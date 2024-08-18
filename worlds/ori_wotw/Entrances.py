@@ -1830,5 +1830,5 @@ entrance_table = [
     "TuleyShop_to_TuleyShop.Lightcatchers",
     "TuleyShop_to_TuleyShop.BlueMoon",
     "TuleyShop_to_TuleyShop.SpringPlants",
-    "TuleyShop_to_TuleyShop.LastTree",
+    "TuleyShop_to_TuleyShop.LastTree"
     ]

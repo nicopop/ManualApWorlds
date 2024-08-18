@@ -70,11 +70,13 @@ def extract_locations(override=False):
 
     for location in locations:
         location_txt += f"    \"{location}\",\n"
-    location_txt += "    ]\n"
+    location_txt = location_txt[:-2]
+    location_txt += "\n    ]\n"
 
     for quest in quests:
         quest_txt += f"    \"{quest}\",\n"
-    quest_txt += "    ]\n"
+    quest_txt = quest_txt[:-2]
+    quest_txt += "\n    ]\n"
 
     with open("Locations.py", "w") as file:
         file.write(header + location_txt)
@@ -135,7 +137,9 @@ def extract_events(override=False):
 
     for event in events:
         event_txt += f"    \"{event}\",\n"
-    event_txt += "    ]\n"
+
+    event_txt = event_txt[:-2]
+    event_txt += "\n    ]\n"
 
     with open("Events.py", "w") as file:
         file.write(header + event_txt)
@@ -193,7 +197,8 @@ def extract_regions(override=False):
     for region in regions:
         region_txt += f"    \"{region}\",\n"
 
-    region_txt += "    ]\n"
+    region_txt = region_txt[:-2]
+    region_txt += "\n    ]\n"
 
     with open("Regions.py", "w") as file:
         file.write(region_txt)

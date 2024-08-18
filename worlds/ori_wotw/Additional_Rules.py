@@ -3,9 +3,8 @@ def combat_rules(world, player, options):
     menu = world.get_region("Menu", player)
     diff = options.difficulty
     menu.connect(world.get_region("Victory", player),
-                 rule=lambda state: state.can_reach_region("WillowsEnd.Upper", player) and state.has_any(
-                     ("Sword", "Hammer"), player) and state.has_all(
-                     ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch")))
+                 rule=lambda state: state.has_any(("Sword", "Hammer"), player) and state.has_all(
+                     ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
 
     if diff == 0:  # Moki
         menu.connect(world.get_region("DepthsLight", player),
@@ -62,10 +61,16 @@ def combat_rules(world, player, options):
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade", "Spear"), player))
 
 
-def glitch_rules(world, player):
+def glitch_rules(world, player, options):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
-    menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
-    menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("DoubleJump", "Hammer"), player))
-    menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("DoubleJump", "Sword"), player))
-    menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has_all(("Glide", "Hammer"), player))
+    if options.glitches:
+        menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
+        menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("DoubleJump", "Hammer"), player))
+        menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("DoubleJump", "Sword"), player))
+        menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has_all(("Glide", "Hammer"), player))
+    else:
+        menu.connect(world.get_region("WaveDash", player), rule=lambda s: True)
+        menu.connect(world.get_region("HammerJump", player), rule=lambda s: True)
+        menu.connect(world.get_region("SwordJump", player), rule=lambda s: True)
+        menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: True)

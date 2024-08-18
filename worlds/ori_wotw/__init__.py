@@ -11,6 +11,7 @@ from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
+from .Additional_Rules import combat_rules, glitch_rules
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule
@@ -74,6 +75,8 @@ class WotWWorld(World):
         options = self.options
 
         set_moki_rules(world, player, options)
+        combat_rules(world, player, options)
+        glitch_rules(world, player, options)
 
         if options.difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_location("WestPools.BurrowOre", player),
@@ -92,6 +95,15 @@ class WotWWorld(World):
             set_unsafe_rules(world, player, options)
             if options.glitches:
                 set_unsafe_glitched_rules(world, player, options)
+
+        if options.skip_combat:
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player), lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
+        else:
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player), lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: s.has("Victory", player), "or")
 
     def create_regions(self):
         world = self.multiworld
@@ -116,30 +128,28 @@ class WotWWorld(World):
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
             if loc_name in quest_table:  # Quests also have to be tracked like events
                 quest_name = loc_name + ".quest"
-                quest_loc = WotWLocation(player, quest_name, None)
+                quest_loc = WotWLocation(player, quest_name, None, region)
                 quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression, None, player))
-                region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
-            ev = WotWLocation(player, event, None)
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             region = Region(event, player, world)
+            ev = WotWLocation(player, event, None, region)
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             world.regions.append(region)
-            region.locations.append(ev)
         for event in refill_events:  # Create refill events, their item, and attach to their region
-            ev = WotWLocation(player, event, None)
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             region = Region(event, player, world)
+            ev = WotWLocation(player, event, None, region)
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             world.regions.append(region)
-            region.locations.append(ev)
 
         for entrance_name in entrance_table:  # Creates and connects the entrances
             (parent, connected) = entrance_name.split("_to_")
             parent_region = world.get_region(parent, player)
+            connected_region = world.get_region(connected, player)
             entrance = parent_region.create_exit(entrance_name)
-            entrance.connect(world.get_region(connected, player))
+            entrance.connect(connected_region)
 
-        world.completion_condition[player] = lambda state: state.has("Victory", player)
+        world.completion_condition[player] = lambda state: state.can_reach_region("Victory", player)
 
     def create_item(self, name):
         item_id = self.item_name_to_id[name]

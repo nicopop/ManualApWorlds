@@ -89,7 +89,11 @@ class SkillUpgrades(Toggle):
     display_name = "Skill upgrades"
 
 
-# TODO open world, shops, combat, hearts, wellspring, quests, trials
+class SkipCombat(Toggle):  # TODO: implement
+    """Skip most of the combats."""
+    display_name = "Skip combat"
+# TODO open world, shops, hearts, wellspring, quests, trials
+
 
 @dataclass
 class WotWOptions(PerGameCommonOptions):
@@ -104,3 +108,4 @@ class WotWOptions(PerGameCommonOptions):
     bonus: BonusItems
     extra_bonus: ExtraBonusItems
     skill_upgrade: SkillUpgrades
+    skip_combat: SkipCombat

@@ -287,17 +287,20 @@ def parsing(override=False):
     ent_txt = header + "\n" + "entrance_table = [\n"
     for entrance in entrances:
         ent_txt += f"    \"{entrance}\",\n"
-    ent_txt += "    ]\n"
+    ent_txt = ent_txt[:-2]
+    ent_txt += "\n    ]\n"
 
     ref_txt = header + "\n" + "refills = {  # key: region name. List: [health restored, energy restored, refill type]\n"
     ref_txt += "    # For refill type: 0 is no refill, 1 is Checkpoint, 2 is Full refill.\n"
     for region, info in refills.items():
         ref_txt += f"    \"{region}\": {info},\n"
-    ref_txt += ("    }\n\n"
+    ref_txt = ref_txt[:-2]
+    ref_txt += ("\n    }\n\n"
                 "refill_events = [\n")
     for name in refill_events:
         ref_txt += f"    \"{name}\",\n"
-    ref_txt += "    ]\n"
+    ref_txt = ref_txt[:-2]
+    ref_txt += "\n    ]\n"
 
     with open("Rules.py", "w") as file:
         for i in range(7):
@@ -468,7 +471,7 @@ def combat_req(need, value):
                 damage_type = "Ranged"
             else:
                 damage_type = "Combat"
-            damage.append([ref_en[elem][0], damage_type] * amount)
+            damage += ([[ref_en[elem][0], damage_type]] * amount)
             for dan in danger:
                 if dan not in dangers and dan not in ("Free", "Ranged"):
                     dangers.append("Combat." + dan)
@@ -538,7 +541,7 @@ def parse_and(and_req, diff):
             combat_and += deal_damage
             and_other += danger
         else:  # Case of an event, or keystone, or spirit light, or ore
-            and_other.append(elem)
+            and_other.append(requirement)
     return (and_skills, and_other, damage_and, combat_and, en_and), glitched
 
 
@@ -610,6 +613,7 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
                 temp_txt = "can_keystones(s, player)"
             elif "=" in elem:
                 name, amount = elem.split("=")
+                amount = int(amount)
                 if name == "SpiritLight":
                     temp_txt = f"s.count(\"SpiritLight\", player) >= {ceil(amount/100)}"
                 elif name == "Ore":
@@ -657,9 +661,9 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
 
     if health:
         if req_txt:
-            req_txt += " and " + f"has_health(\"{health}\", s, player)"
+            req_txt += " and " + f"has_health({health}, s, player)"
         else:
-            req_txt += f"has_health(\"{health}\", s, player)"
+            req_txt += f"has_health({health}, s, player)"
 
     if en_and:
         counter = Counter(en_and)
@@ -702,9 +706,9 @@ def append_rule(and_requirements, or_skills0, or_skills1, or_resource, health, d
             req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player)"
 
     if req_txt:
-        tot_txt = start_txt + req_txt + ")\n"
+        tot_txt = start_txt + req_txt + ", \"or\")\n"
     else:
-        tot_txt = start_txt + "True)\n"
+        tot_txt = start_txt + "True, \"or\")\n"
 
     if glitched:
         diff += 1

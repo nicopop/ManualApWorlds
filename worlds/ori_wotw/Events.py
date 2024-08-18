@@ -156,5 +156,5 @@ event_table = [
     "TuleyShop.Lightcatchers",
     "TuleyShop.BlueMoon",
     "TuleyShop.SpringPlants",
-    "TuleyShop.LastTree",
+    "TuleyShop.LastTree"
     ]

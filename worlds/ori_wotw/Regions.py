@@ -320,5 +320,5 @@ region_table = [
     "Tokk",
     "TwillenShop",
     "OpherShop",
-    "TuleyShop",
+    "TuleyShop"
     ]

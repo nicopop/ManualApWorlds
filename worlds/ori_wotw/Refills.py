@@ -321,7 +321,7 @@ refills = {  # key: region name. List: [health restored, energy restored, refill
     "Tokk": [0, 0, 0],
     "TwillenShop": [0, 0, 0],
     "OpherShop": [0, 0, 0],
-    "TuleyShop": [0, 0, 0],
+    "TuleyShop": [0, 0, 0]
     }
 
 refill_events = [
@@ -645,5 +645,5 @@ refill_events = [
     "E.WillowsEnd.GlideRooms",
     "C.WillowsEnd.UpperHeartPath",
     "E.WillowsEnd.UpperHeartPath",
-    "C.WillowsEnd.UpperHeartCheckpoint",
+    "C.WillowsEnd.UpperHeartCheckpoint"
     ]
