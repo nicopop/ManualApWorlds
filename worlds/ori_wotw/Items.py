@@ -84,10 +84,11 @@ item_table = [
     # Extra TP, 2 in total
     {"name": "WestPoolsTP", "count": 1, "classification": ItemClassification.progression},
     {"name": "InnerRuinsTP", "count": 1, "classification": ItemClassification.progression},
-    # Bonus, 15 in total
+    # Bonus, 16 in total
     {"name": "HealthRegeneration", "count": 3, "classification": ItemClassification.useful},
     {"name": "EnergyRegeneration", "count": 3, "classification": ItemClassification.useful},
     {"name": "ExtraDoubleJump", "count": 1, "classification": ItemClassification.useful},
+    {"name": "ExtraAirDash", "count": 1, "classification": ItemClassification.useful},
     {"name": "BlazeEfficiency", "count": 1, "classification": ItemClassification.useful},
     {"name": "SpearEfficiency", "count": 1, "classification": ItemClassification.useful},
     {"name": "ShurikenEfficiency", "count": 1, "classification": ItemClassification.useful},
@@ -118,7 +119,7 @@ item_table = [
     {"name": "Jumpgrade", "count": 3, "classification": ItemClassification.useful},
     {"name": "SkillVelocity", "count": 3, "classification": ItemClassification.useful},
     # SpiritLight, complete for 389 locations
-    {"name": "SpiritLight", "count": 145, "classification": ItemClassification.progression_skip_balancing},
+    {"name": "SpiritLight", "count": 132, "classification": ItemClassification.progression_skip_balancing},
     {"name": "SpiritLight_1", "count": 1, "classification": ItemClassification.filler},
     ]
 

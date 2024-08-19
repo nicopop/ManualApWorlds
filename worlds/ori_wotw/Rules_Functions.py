@@ -15,7 +15,7 @@ weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy
     "Blaze": [13, 1],  # 13.8, rounded down here
     }
 
-ref_resource: Dict[str: [int, float]] = {region: [0, 0] for region in region_table}
+ref_resource: Dict[str, List] = {region: [0, 0] for region in region_table}
 
 
 def has_health(amount: int, state, player) -> bool:
@@ -80,8 +80,8 @@ def can_keystones(state, player) -> bool:
     return state.count("Keystone", player) >= count
 
 
-def cost_all(state, player, options, region: str, arrival: str, damage_and: List, en_and: List[List[str, int]],
-             combat_and: List[List[int, str]], or_req: List[List], update: bool) -> bool:
+def cost_all(state, player, options, region: str, arrival: str, damage_and: List, en_and: List[List],
+             combat_and: List[List], or_req: List[List], update: bool) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -162,7 +162,7 @@ def no_cost(region: str, arrival: str, state, player) -> bool:
     return True
 
 
-def combat_cost(state, player, options, hp_list: List[List[int, str]]) -> float:
+def combat_cost(state, player, options, hp_list: List[List]) -> float:
     """Returns the energy cost for the enemies/walls/boss with current state."""
     hard = options.hard_mode
     diff = options.difficulty
