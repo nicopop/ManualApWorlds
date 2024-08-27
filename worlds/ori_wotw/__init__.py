@@ -1,6 +1,6 @@
 """Initialisation file."""
 
-from typing import List
+from typing import List, TextIO, Dict
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
@@ -12,7 +12,8 @@ from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
-from .Additional_Rules import combat_rules, glitch_rules
+from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
+# from .Headers import core
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule
@@ -62,6 +63,8 @@ class WotWWorld(World):
     options_dataclass = WotWOptions
     options: WotWOptions
 
+    ref_resource: Dict[str, List] = {region: [0, 0, 30, 3] for region in region_table}
+
     required_client_version = (0, 4, 2)  # TODO check it
 
     def __init__(self, multiworld, player):
@@ -69,42 +72,6 @@ class WotWWorld(World):
 
     def generate_early(self):  # TODO costs, items on spawn
         pass
-
-    def set_rules(self):
-        world = self.multiworld
-        player = self.player
-        options = self.options
-
-        set_moki_rules(world, player, options)
-        combat_rules(world, player, options)
-        glitch_rules(world, player, options)
-
-        if options.difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
-            add_rule(world.get_location("WestPools.BurrowOre", player),
-                     lambda state: state.can_reach_region("WestPools.Teleporter", player)
-                     and state.has_all(("Burrow", "Water", "WaterDash"), player))
-
-        if options.difficulty >= 1:
-            set_gorlek_rules(world, player, options)
-            if options.glitches:
-                set_gorlek_glitched_rules(world, player, options)
-        if options.difficulty >= 2:
-            set_kii_rules(world, player, options)
-            if options.glitches:
-                set_kii_glitched_rules(world, player, options)
-        if options.difficulty == 3:
-            set_unsafe_rules(world, player, options)
-            if options.glitches:
-                set_unsafe_glitched_rules(world, player, options)
-
-        if options.skip_combat:
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player), lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
-        else:
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player), lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: s.has("Victory", player), "or")
 
     def create_regions(self):
         world = self.multiworld
@@ -118,8 +85,10 @@ class WotWWorld(World):
         menu_region = Region("Menu", player, world)
         world.regions.append(menu_region)
 
-        spawn_region = world.get_region(spawn_names[options.spawn], player)  # Links menu with spawn point
+        spawn_name = spawn_names[options.spawn]
+        spawn_region = world.get_region(spawn_name, player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
+        WotWWorld.ref_resource[spawn_name] = [30, 3, 30, 3]
 
         menu_region.connect(world.get_region("HeaderStates", player))
 
@@ -130,27 +99,34 @@ class WotWWorld(World):
             if loc_name in quest_table:  # Quests also have to be tracked like events
                 quest_name = loc_name + ".quest"
                 quest_loc = WotWLocation(player, quest_name, None, region)
-                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression, None, player))
+                quest_loc.show_in_spoiler = False
+                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression_skip_balancing,
+                                                     None, player))
+                region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression_skip_balancing, None, player))
             world.regions.append(region)
+            region.locations.append(ev)
         for event in refill_events:  # Create refill events, their item, and attach to their region
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            ev.show_in_spoiler = False
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression_skip_balancing, None, player))
             world.regions.append(region)
+            region.locations.append(ev)
 
         for entrance_name in entrance_table:  # Creates and connects the entrances
             (parent, connected) = entrance_name.split("_to_")
             parent_region = world.get_region(parent, player)
             connected_region = world.get_region(connected, player)
             entrance = parent_region.create_exit(entrance_name)
+            entrance.access_rule = lambda state: False
             entrance.connect(connected_region)
 
-        world.completion_condition[player] = lambda state: state.can_reach_region("Victory", player)
+        world.completion_condition[player] = lambda state: state.has("Victory", player)
 
     def create_item(self, name: str) -> "WotWItem":
         item_id = self.item_name_to_id[name]
@@ -162,7 +138,8 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
-        skipped_items = []
+        skipped_items = []  # Remove one instance of the item
+        removed_items = []  # Remove all instances of the item
         junk: int = 0
 
         for item, count in world.start_inventory[player].value.items():
@@ -171,39 +148,37 @@ class WotWWorld(World):
                 junk += 1
 
         if options.sword:
-            skipped_items.append("Sword")
-            junk += 1
+            removed_items.append("Sword")
 
         if not options.tp:
             for item in group_table["teleporters"]:
-                skipped_items.append(item)
-            junk += 14
+                removed_items.append(item)
 
         if not options.extratp:
             for item in group_table["extratp"]:
-                skipped_items.append(item)
-            junk += 2
+                removed_items.append(item)
 
         if not options.bonus:
             for item in group_table["bonus"]:
-                skipped_items.append(item)
-            junk += 15
+                removed_items.append(item)
 
         if not options.extra_bonus:
             for item in group_table["bonus+"]:
-                skipped_items.append(item)
-            junk += 25
+                removed_items.append(item)
 
         if not options.skill_upgrade:
             for item in group_table["skillup"]:
-                skipped_items.append(item)
-            junk += 6
+                removed_items.append(item)
 
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
 
         for item in item_table:
-            count = item["count"] - counter[item["name"]]
+            if item in removed_items:
+                junk += item["count"]
+                count = 0
+            else:
+                count = item["count"] - counter[item["name"]]
 
             if count <= 0:
                 continue
@@ -211,7 +186,7 @@ class WotWWorld(World):
                 pool.append(self.create_item(item["name"]))
 
         for _ in range(junk):
-            pool.append(self.create_item("SpiritLight"))
+            pool.append(self.create_item("SpiritLight_50"))
 
         world.itempool += pool
 
@@ -219,7 +194,54 @@ class WotWWorld(World):
             skipped_loc = world.get_location("WestPools.BurrowOre", player)
             skipped_loc.progress_type = 3
 
-    # TODO: config tutorial, header file, infos with fill_slot_data, spoiler
+    def set_rules(self):
+        world = self.multiworld
+        player = self.player
+        options = self.options
+        ref_resource = WotWWorld.ref_resource
+
+        set_moki_rules(world, player, options, ref_resource)
+        combat_rules(world, player, options)
+        glitch_rules(world, player, options)
+        unreachable_rules(world, player, options)
+
+        if options.difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
+            add_rule(world.get_entrance("WestPools.Teleporter_to_WestPools.BurrowOre", player),
+                     lambda state: state.has_all(("Burrow", "Water", "WaterDash"), player), "or")
+
+        if options.difficulty >= 1:
+            set_gorlek_rules(world, player, options, ref_resource)
+            if options.glitches:
+                set_gorlek_glitched_rules(world, player, options, ref_resource)
+        if options.difficulty >= 2:
+            set_kii_rules(world, player, options, ref_resource)
+            if options.glitches:
+                set_kii_glitched_rules(world, player, options, ref_resource)
+        if options.difficulty == 3:
+            set_unsafe_rules(world, player, options, ref_resource)
+            if options.glitches:
+                set_unsafe_glitched_rules(world, player, options, ref_resource)
+
+        if options.skip_combat:
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
+                     lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
+        else:
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
+                     lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),
+                     lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
+                     lambda s: s.has("Victory", player), "or")
+
+    # TODO probably better to do that automatically with the client, and get the settings from fill_slot_data
+    def generate_output(self, output_directory: str):
+        pass
+
+    def write_spoiler(self, spoiler_handle: TextIO) -> None:
+        pass
+    # TODO: config tutorial, infos with fill_slot_data
 
 
 class WotWItem(Item):

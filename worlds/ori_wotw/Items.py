@@ -119,8 +119,8 @@ item_table = [
     {"name": "Jumpgrade", "count": 3, "classification": ItemClassification.useful},
     {"name": "SkillVelocity", "count": 3, "classification": ItemClassification.useful},
     # SpiritLight, complete for 389 locations
-    {"name": "SpiritLight", "count": 132, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "SpiritLight_1", "count": 1, "classification": ItemClassification.filler},
+    {"name": "SpiritLight", "count": 80, "classification": ItemClassification.progression_skip_balancing},
+    {"name": "SpiritLight_50", "count": 65, "classification": ItemClassification.filler},
     ]
 
 

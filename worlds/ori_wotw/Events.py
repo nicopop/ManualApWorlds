@@ -11,6 +11,7 @@ event_table = [
     "HammerJump",
     "SwordJump",
     "GlideHammerJump",
+    "Combat.Ranged",
     "Combat.Aerial",
     "Combat.Dangerous",
     "Combat.Shielded",

@@ -1,0 +1,21 @@
+name: Example
+description: Ori and the Will of the Wisps example .yaml file.
+game: Ori and the Will of the Wisps
+requires:
+  version: 0.5.0
+
+Ori and the Will of the Wisps:
+  progression_balancing: normal
+  accessibility: items
+
+  difficulty: moki
+  glitches: 'false'
+  hard_mode: 'false'
+  spawn: marsh
+  tp: 'true'
+  extratp: 'false'
+  goal: trees
+  bonus: 'true'
+  extra_bonus: 'false'
+  skill_upgrade: 'false'
+  skip_combat: 'false'

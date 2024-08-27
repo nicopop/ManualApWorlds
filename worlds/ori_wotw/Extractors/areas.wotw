@@ -2494,7 +2494,8 @@ anchor WestHollow.SubmergedPlatform at -215, -4288:  # the platform below Hollow
       Glide, Sword OR Flash=1 OR Sentry=1
     unsafe: WestHollow.FullyDrained, Sword OR Flash=1 OR Sentry=1 OR FlashSwap OR BlazeSwap=1 OR GlideJump OR GrenadeJump OR PauseHover
   conn WestHollow.AboveJumppad:
-    moki, WestHollow.FullyDrained: WestHollow.LowerTongueExtended OR Launch OR Glide OR DoubleJump OR Dash
+    moki, WestHollow.FullyDrained:
+      WestHollow.LowerTongueExtended OR Launch OR Glide OR DoubleJump OR Dash
     gorlek: WestHollow.FullyDrained
 
 anchor WestHollow.AboveJumppad at -207, -4304:  # At the ledge above the jumppad at the bottom of the drain sequence
@@ -11999,7 +12000,7 @@ anchor UpperPools.DrainPuzzleEntrance at -1386, -4062:  # At the right of the do
 
 anchor UpperPools.DrainPuzzleRight at -1324, -4060:  # On the ground next to the energy cristal
   refill Energy=3:
-     moki: BreakCrystal
+    moki: BreakCrystal
   refill Health=1
      
   state UpperPools.DrainRoomPurpleWall:

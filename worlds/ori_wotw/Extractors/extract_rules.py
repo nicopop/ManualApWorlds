@@ -132,19 +132,19 @@ def parsing(override=False):
 
     # Moki, Gorlek, Kii and Unsafe rules respectively
     M = (header + imports + "from worlds.generic.Rules import add_rule\n\n\n"
-         "def set_moki_rules(world, player, options):\n"
+         "def set_moki_rules(world, player, options, ref_resource):\n"
          "    \"\"\"Moki (or easy, default) rules.\"\"\"\n")
-    G = ("\n\ndef set_gorlek_rules(world, player, options):\n"
+    G = ("\n\ndef set_gorlek_rules(world, player, options, ref_resource):\n"
          "    \"\"\"Gorlek (or medium) rules.\"\"\"\n")
-    Gg = ("\n\ndef set_gorlek_glitched_rules(world, player, options):\n"
+    Gg = ("\n\ndef set_gorlek_glitched_rules(world, player, options, ref_resource):\n"
           "    \"\"\"Gorlek (or medium) rules with glitches\"\"\"\n")
-    K = ("\n\ndef set_kii_rules(world, player, options):\n"
+    K = ("\n\ndef set_kii_rules(world, player, options, ref_resource):\n"
          "    \"\"\"Kii (or hard) rules\"\"\"\n")
-    Kg = ("\n\ndef set_kii_glitched_rules(world, player, options):\n"
+    Kg = ("\n\ndef set_kii_glitched_rules(world, player, options, ref_resource):\n"
           "    \"\"\"Kii (or hard) rules with glitches.\"\"\"\n")
-    U = ("\n\ndef set_unsafe_rules(world, player, options):\n"
+    U = ("\n\ndef set_unsafe_rules(world, player, options, ref_resource):\n"
          "    \"\"\"Unsafe rules.\"\"\"\n")
-    Ug = ("\n\ndef set_unsafe_glitched_rules(world, player, options):\n"
+    Ug = ("\n\ndef set_unsafe_glitched_rules(world, player, options, ref_resource):\n"
           "    \"\"\"Unsafe rules with glitches.\"\"\"\n")
 
     L_rules = [M, G, Gg, K, Kg, U, Ug]
@@ -455,7 +455,7 @@ def convert(anc: str, p_type: str, p_name: str, L_rules: List[str], entrances: L
     return L_rules, entrances
 
 
-def combat_req(need: str, value: str) -> (List[List[int, str]], List[str]):
+def combat_req(need: str, value: str) -> (List[List[int | str]], List[str]):
     """Parse the combat requirement with the given enemies, returns the damage and type of combat."""
     damage = []
     dangers = []
@@ -471,14 +471,12 @@ def combat_req(need: str, value: str) -> (List[List[int, str]], List[str]):
                 amount = int(elem[0])
                 elem = elem[2:]
             danger = ref_en[elem][1]
-            if "Ranged" in danger:
-                damage_type = "Ranged"
-            else:
-                damage_type = "Combat"
+            damage_type = "Combat"
             damage += ([[ref_en[elem][0], damage_type]] * amount)
             for dan in danger:
-                if dan not in dangers and dan not in ("Free", "Ranged"):
-                    dangers.append("Combat." + dan)
+                dan = "Combat." + dan
+                if dan not in dangers and dan != "Combat.Free":
+                    dangers.append(dan)
 
     elif need == "Boss":
         damage.append([int(value), "Boss"])
@@ -693,8 +691,8 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
             or_costs.append([2, int(value)])
 
     if damage_and or combat_and or en_and or or_costs:
-        temp_txt = (f"cost_all(s, player, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, {combat_and}, "
-                    f"{or_costs}")
+        temp_txt = (f"cost_all(s, player, ref_resource, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, "
+                    f"{combat_and}, {or_costs}")
         if p_type == "conn":
             temp_txt += ", True)"  # Indicates if the resource table has to be updated
         else:
@@ -706,9 +704,9 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
 
     elif p_type == "conn":
         if req_txt:  # Indicates that the resource table has to be updated, but the path does not consume resource
-            req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player)"
+            req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource)"
         else:
-            req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player)"
+            req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource)"
 
     if req_txt:
         tot_txt = start_txt + req_txt + ", \"or\")\n"
@@ -723,8 +721,8 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
     return L_rules
 
 
-def conv_refill(p_name: str, anc: str, refills: Dict[str: List[int]],
-                refill_events: List[str]) -> (str, Dict[str: List[int]], List[str]):
+def conv_refill(p_name: str, anc: str, refills: Dict[str, List[int]],
+                refill_events: List[str]) -> (str, Dict[str, List[int]], List[str]):
     """Returns the refill type (to add before the region name) and updates the data tables."""
     current = refills[anc]
     if "=" in p_name:

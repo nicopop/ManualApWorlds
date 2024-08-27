@@ -99,7 +99,8 @@ def extract_events(override=False):
               "\"\"\"\n\n")
 
     glitch_events = ["WaveDash", "HammerJump", "SwordJump", "GlideHammerJump"]
-    combat_events = ["Combat.Aerial", "Combat.Dangerous", "Combat.Shielded", "Combat.Bat", "Combat.Sand"]
+    combat_events = ["Combat.Ranged", "Combat.Aerial", "Combat.Dangerous", "Combat.Shielded", "Combat.Bat",
+                     "Combat.Sand"]
     other_events = ["BreakCrystal", "Victory"]
     events = glitch_events + combat_events + other_events
 

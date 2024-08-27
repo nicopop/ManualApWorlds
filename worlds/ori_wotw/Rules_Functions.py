@@ -1,6 +1,5 @@
 from typing import Dict, List
 from math import ceil, floor
-from .Regions import region_table
 from .Refills import refills
 
 weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy cost
@@ -14,8 +13,6 @@ weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy
     "Spear": [20, 2],
     "Blaze": [13, 1],  # 13.8, rounded down here
     }
-
-ref_resource: Dict[str, List] = {region: [0, 0] for region in region_table}
 
 
 def has_health(amount: int, state, player) -> bool:
@@ -80,7 +77,7 @@ def can_keystones(state, player) -> bool:
     return state.count("Keystone", player) >= count
 
 
-def cost_all(state, player, options, region: str, arrival: str, damage_and: List, en_and: List[List],
+def cost_all(state, player, ref_resource, options, region: str, arrival: str, damage_and: List, en_and: List[List],
              combat_and: List[List], or_req: List[List], update: bool) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
@@ -93,8 +90,13 @@ def cost_all(state, player, options, region: str, arrival: str, damage_and: List
     update: indicates if the resource table has to be updated
     """
     diff = options.difficulty
-    health, energy = ref_resource[region]
+    health, energy, old_maxH, old_maxE = ref_resource[region]
     maxH, maxE = get_max(state, player)
+
+    # Note: this can yield to some inaccuracies, but it should be fine (except maybe in unsafe).
+    # I don't have a better solution for now.
+    health += maxH - old_maxH
+    energy += maxE - old_maxE
 
     if diff != 3:  # Energy costs are doubled, except in unsafe
         energy /= 2
@@ -151,14 +153,17 @@ def cost_all(state, player, options, region: str, arrival: str, damage_and: List
     if update:
         if diff != 3:
             energy *= 2
-        update_ref(arrival, state, player, [health, energy], [maxH, maxE])
-        return True
+        update_ref(arrival, state, player, ref_resource, [health, energy], [maxH, maxE])
     return True
 
 
-def no_cost(region: str, arrival: str, state, player) -> bool:
+def no_cost(region: str, arrival: str, state, player, ref_resource) -> bool:
     """Executed when the path does not consume resource to still update the resource table."""
-    update_ref(arrival, state, player, ref_resource[region], get_max(state, player))
+    maxH, maxE = get_max(state, player)
+    old_health, old_energy, old_maxH, old_maxE = ref_resource[region]
+    oldH = old_health + maxH - old_maxH
+    oldE = old_energy + maxE - old_maxE
+    update_ref(arrival, state, player, ref_resource, [oldH, oldE], get_max(state, player))
     return True
 
 
@@ -174,13 +179,6 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
                 weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
             else:
                 weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
-        elif category == "Ranged":
-            if diff == 0:
-                weapons = ["Bow", "Spear"]
-            elif diff == 3:
-                weapons = ["Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
-            else:
-                weapons = ["Grenade", "Bow", "Shuriken", "Sentry", "Spear"]
         elif category == "Wall":
             weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
         elif category == "Boss":
@@ -202,20 +200,24 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
     return tot_cost
 
 
-def update_ref(region: str, state, player, resource: [int, float], max_res: [int, float]):
+def update_ref(region: str, state, player, ref_resource, resource: [int, float], max_res: [int, float]):
     """Updates the resource table for the arrival region, using the resource and the refills."""
     maxH, maxE = max_res
+    old_health, old_energy, old_maxH, old_maxE = ref_resource[region]
+    oldH = old_health + maxH - old_maxH
+    oldE = old_energy + maxE - old_maxE
     refillH, refillE = get_refill(max_res)
     en, hp, tr = refills[region]
+
     if tr == 2 and state.has("F." + region, player):
-        ref_resource[region] = [maxH, maxE]
+        ref_resource[region] = [maxH, maxE, maxH, maxE]
     else:
         if tr == 1 and state.has("C." + region, player):
             resource = [max(resource[0], refillH), max(resource[1], refillE)]
         if hp != 0 and state.has("H." + region, player):
-            resource[0] = max(maxH, resource[0] + hp*10)
+            resource[0] = min(maxH, resource[0] + hp*10)
         if en != 0 and state.has("E." + region, player):
-            resource[1] += max(maxE, resource[1] + en)
+            resource[1] = min(maxE, resource[1] + en)
 
-        if resource > ref_resource[region]:  # Updates if bigger (lexical order, so health takes priority)
-            ref_resource[region] = resource
+        if resource > [oldH, oldE]:  # Updates if bigger (lexical order, so health takes priority)
+            ref_resource[region] = [resource[0], resource[1], maxH, maxE]
