@@ -16,7 +16,7 @@ from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 # from .Headers import core
 
 from worlds.AutoWorld import World, WebWorld
-from worlds.generic.Rules import add_rule
+from worlds.generic.Rules import add_rule, forbid_item
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 spawn_names = {0: "MarshSpawn.Main",
@@ -174,16 +174,17 @@ class WotWWorld(World):
         pool: List[WotWItem] = []
 
         for item in item_table:
-            if item in removed_items:
+            item_name = item["name"]
+            if item_name in removed_items:
                 junk += item["count"]
                 count = 0
             else:
-                count = item["count"] - counter[item["name"]]
+                count = item["count"] - counter[item_name]
 
             if count <= 0:
                 continue
             for _ in range(count):
-                pool.append(self.create_item(item["name"]))
+                pool.append(self.create_item(item_name))
 
         for _ in range(junk):
             pool.append(self.create_item("SpiritLight_50"))
@@ -234,6 +235,24 @@ class WotWWorld(World):
                      lambda s: s.has("Victory", player), "or")
             add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
                      lambda s: s.has("Victory", player), "or")
+
+        # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
+        ore_loc = ("GladesTown.FamilyReunionKey",
+                   "GladesTown.KeyMokiHutEX",
+                   "GladesTown.MotayHutEX",
+                   "GladesTown.HoleHutEX",
+                   "GladesTown.HoleHutEC",
+                   "GladesTown.BraveMokiHutEX",
+                   "GladesTown.ArcingShard",
+                   "GladesTown.LupoSwimLeftEX",
+                   "GladesTown.AboveCaveEX",
+                   "GladesTown.AcornQI",
+                   "GladesTown.MokiAcornQuest",
+                   "GladesTown.CaveBurrowEX",
+                   "GladesTown.RebuildTheGlades",
+                   "WoodsEntry.DollQI")
+        for location in ore_loc:
+            forbid_item(world.get_location(location, player), "Ore", player)
 
     # TODO probably better to do that automatically with the client, and get the settings from fill_slot_data
     def generate_output(self, output_directory: str):

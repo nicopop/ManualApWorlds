@@ -39,7 +39,7 @@ def get_refill(max_resource: (int, float)) -> (int, int):
 
 def can_keystones(state, player) -> bool:
     """Returns if the total amount of Keystones can open all accessible doors."""
-    count = 0
+    count = 2  # Add more Keystones than necessary to make it less constrained for the player.
     if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
             or state.can_reach_region("MarshSpawn.RegenDoor", player)):
         count += 2

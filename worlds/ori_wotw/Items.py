@@ -28,11 +28,11 @@ item_table = [
     {"name": "Blaze", "count": 1, "classification": ItemClassification.progression},
     {"name": "WaterBreath", "count": 1, "classification": ItemClassification.progression},
     {"name": "AncestralLight", "count": 2, "classification": ItemClassification.useful},
-    # Collectibles, 127 in total
-    {"name": "Health", "count": 24, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "Energy", "count": 24, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "Keystone", "count": 34, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "Ore", "count": 40, "classification": ItemClassification.progression_skip_balancing},
+    # Collectibles, 131 in total (note: there are more Ore and keystones than needed)
+    {"name": "Health", "count": 24, "classification": ItemClassification.progression},
+    {"name": "Energy", "count": 24, "classification": ItemClassification.progression},
+    {"name": "Keystone", "count": 38, "classification": ItemClassification.progression},
+    {"name": "Ore", "count": 40, "classification": ItemClassification.progression},
     {"name": "ShardSlot", "count": 5, "classification": ItemClassification.useful},
     # Shards, 31 in total
     {"name": "Overcharge", "count": 1, "classification": ItemClassification.useful},
@@ -40,7 +40,7 @@ item_table = [
     {"name": "Wingclip", "count": 1, "classification": ItemClassification.useful},
     {"name": "Bounty", "count": 1, "classification": ItemClassification.useful},
     {"name": "Swap", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Magnet", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Magnet", "count": 1, "classification": ItemClassification.progression},
     {"name": "Splinter", "count": 1, "classification": ItemClassification.useful},
     {"name": "Reckless", "count": 1, "classification": ItemClassification.useful},
     {"name": "Quickshot", "count": 1, "classification": ItemClassification.useful},
@@ -119,8 +119,8 @@ item_table = [
     {"name": "Jumpgrade", "count": 3, "classification": ItemClassification.useful},
     {"name": "SkillVelocity", "count": 3, "classification": ItemClassification.useful},
     # SpiritLight, complete for 389 locations
-    {"name": "SpiritLight", "count": 80, "classification": ItemClassification.progression_skip_balancing},
-    {"name": "SpiritLight_50", "count": 65, "classification": ItemClassification.filler},
+    {"name": "SpiritLight", "count": 60, "classification": ItemClassification.progression_skip_balancing},
+    {"name": "SpiritLight_50", "count": 81, "classification": ItemClassification.filler},
     ]
 
 
