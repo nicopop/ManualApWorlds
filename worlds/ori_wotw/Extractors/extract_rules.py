@@ -618,7 +618,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
                 name, amount = elem.split("=")
                 amount = int(amount)
                 if name == "SpiritLight":
-                    temp_txt = f"s.count(\"SpiritLight\", player) >= {ceil(amount/100)}"
+                    temp_txt = f"s.count(\"200 SpiritLight\", player) >= {ceil(amount/200)}"
                 elif name == "Ore":
                     temp_txt = f"s.count(\"Ore\", player) >= {amount}"
                 else:

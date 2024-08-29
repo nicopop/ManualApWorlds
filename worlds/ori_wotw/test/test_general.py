@@ -58,7 +58,7 @@ class WotWTestImpl(TestImplemented):  # TODO: this fails to load some files outs
     game = "Ori and the Will of the Wisps"
 
 
-class WotWTestItem(TestItems):  # TODO: recheck item list in more details, 12 more items than expected
+class WotWTestItem(TestItems):
     game = "Ori and the Will of the Wisps"
 
 

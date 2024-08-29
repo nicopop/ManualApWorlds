@@ -5,8 +5,9 @@ from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
-from .Items import item_table, group_table, base_id
-from .Locations import location_table, quest_table
+from .Items import item_table, group_table
+from .Locations import loc_table
+from .Quests import quest_table
 from .Options import WotWOptions  # TODO add options_presets
 from .Events import event_table
 from .Regions import region_table
@@ -16,7 +17,7 @@ from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 # from .Headers import core
 
 from worlds.AutoWorld import World, WebWorld
-from worlds.generic.Rules import add_rule, forbid_item
+from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 spawn_names = {0: "MarshSpawn.Main",
@@ -55,8 +56,8 @@ class WotWWorld(World):
     game = "Ori and the Will of the Wisps"
     web = WotWWeb()
 
-    item_name_to_id = {item["name"]: (base_id + index) for index, item in enumerate(item_table)}
-    location_name_to_id = {loc: (base_id + index) for index, loc in enumerate(location_table)}
+    item_name_to_id = {name: data[2] for name, data in item_table.items()}
+    location_name_to_id = loc_table
 
     item_name_groups = group_table
 
@@ -65,7 +66,7 @@ class WotWWorld(World):
 
     ref_resource: Dict[str, List] = {region: [0, 0, 30, 3] for region in region_table}
 
-    required_client_version = (0, 4, 2)  # TODO check it
+    required_client_version = (0, 5, 0)
 
     def __init__(self, multiworld, player):
         super(WotWWorld, self).__init__(multiworld, player)
@@ -92,7 +93,7 @@ class WotWWorld(World):
 
         menu_region.connect(world.get_region("HeaderStates", player))
 
-        for loc_name in location_table:  # Create regions on locations and attach locations
+        for loc_name in loc_table.keys():  # Create regions on locations and attach locations
             region = Region(loc_name, player, world)
             world.regions.append(region)
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
@@ -129,9 +130,7 @@ class WotWWorld(World):
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 
     def create_item(self, name: str) -> "WotWItem":
-        item_id = self.item_name_to_id[name]
-        i = item_id - base_id
-        return WotWItem(name, item_table[i]["classification"], item_id, player=self.player)
+        return WotWItem(name, item_table[name][1], item_table[name][2], player=self.player)
 
     def create_items(self):
         world = self.multiworld
@@ -173,21 +172,21 @@ class WotWWorld(World):
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
 
-        for item in item_table:
-            item_name = item["name"]
-            if item_name in removed_items:
-                junk += item["count"]
+        for item, data in item_table.items():
+            if item in removed_items:
+                junk += data[0]
                 count = 0
             else:
-                count = item["count"] - counter[item_name]
+                count = data[0] - counter[item]
+                if count <= 0:  # This can happen with starting inventory
+                    junk += count
+                    count = 0
 
-            if count <= 0:
-                continue
             for _ in range(count):
-                pool.append(self.create_item(item_name))
+                pool.append(self.create_item(item))
 
         for _ in range(junk):
-            pool.append(self.create_item("SpiritLight_50"))
+            pool.append(self.create_item("50 SpiritLight"))
 
         world.itempool += pool
 
@@ -253,6 +252,51 @@ class WotWWorld(World):
                    "WoodsEntry.DollQI")
         for location in ore_loc:
             forbid_item(world.get_location(location, player), "Ore", player)
+
+        # Exclude Spirit Light from shops.
+        shop_loc = ("TwillenShop.Overcharge",
+                    "TwillenShop.TripleJump",
+                    "TwillenShop.Wingclip",
+                    "TwillenShop.Swap",
+                    "TwillenShop.LightHarvest",
+                    "TwillenShop.Vitality",
+                    "TwillenShop.Energy",
+                    "TwillenShop.Finesse",
+                    "OpherShop.WaterBreath",
+                    "OpherShop.Spike",
+                    "OpherShop.SpiritSmash",
+                    "OpherShop.Teleport",
+                    "OpherShop.SpiritStar",
+                    "OpherShop.Blaze",
+                    "OpherShop.Sentry",
+                    "OpherShop.ExplodingSpike",
+                    "OpherShop.ShockSmash",
+                    "OpherShop.StaticStar",
+                    "OpherShop.ChargeBlaze",
+                    "OpherShop.RapidSentry",
+                    "LupoShop.HCMapIcon",
+                    "LupoShop.ECMapIcon",
+                    "LupoShop.ShardMapIcon")
+        for location in shop_loc:
+            forbid_items_for_player(world.get_location(location, player),
+                                    {"50 SpiritLight", "100 SpiritLight", "200 SpiritLight"}, player)
+
+        # Exclude Keystones from small areas locked behind doors
+        ks_loc = ("UpperReach.SpringSeed",
+                  "UpperReach.LightBurstTree",
+                  "UpperReach.WellEX",
+                  "UpperReach.HiddenEX",
+                  "UpperReach.TreeOre",
+                  "LowerReach.SpiritTrial",
+                  "MidnightBurrows.TabletQI",
+                  "MarshSpawn.TokkTabletQuest",
+                  "UpperPools.SwimDashTree",
+                  "UpperPools.SwimDashCurrentEX",
+                  "UpperPools.RoofEX",
+                  "UpperPools.WaterfallEC",
+                  "EastPools.PurpleWallHC",)
+        for location in ks_loc:
+            forbid_item(world.get_location(location, player), "Keystone", player)
 
     # TODO probably better to do that automatically with the client, and get the settings from fill_slot_data
     def generate_output(self, output_directory: str):

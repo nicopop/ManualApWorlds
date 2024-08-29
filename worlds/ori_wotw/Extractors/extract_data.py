@@ -7,6 +7,7 @@ The data is extracted from an `areas.wotw` file and a `loc_data.csv` file.
 import re
 import os
 
+
 com = re.compile(" *#")  # Detects comments
 sp = re.compile("^ *")  # Used for indents
 col = re.compile(" .*:")  # name between space and colon
@@ -17,29 +18,27 @@ sep = re.compile(" at ")
 def extract_all(override=False):
     """Extracts the data on events, regions and locations."""
     extract_events(override)
-    extract_locations(override)
+    extract_quests(override)
     extract_regions(override)
 
 
-def extract_locations(override=False):
-    """Extracts the data and writes a file with the location table and the quest table."""
-    if os.path.exists("./Locations.py"):
+def extract_quests(override=False):
+    """Extracts the data and writes a file with the quest table."""
+    if os.path.exists("./Quests.py"):
         if override:
             print("Warning: File replaced")
         else:
-            raise FileExistsError("The file `Location.py` already exists. Use `override=True` to override it.")
+            raise FileExistsError("The file `Quests.py` already exists. Use `override=True` to override it.")
 
     header = ("\"\"\"\n"
-              "File generated with `extract_data.py` by running `extract_locations()` on an `areas.wotw` file.\n\n"
+              "File generated with `extract_data.py` by running `extract_quests()` on an `areas.wotw` file.\n\n"
               "You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .\n\n"
               "Do not edit manually.\n"
               "\"\"\"\n\n\n")
 
-    locations = []
     quests = []
 
-    location_txt = "location_table = [\n"
-    quest_txt = "quest_table = [\n"
+    quest_txt = header + "quest_table = [\n"
 
     with open("./areas.wotw", "r") as file:
         temp = file.readlines()
@@ -63,25 +62,17 @@ def extract_locations(override=False):
         if ind == 1:
             if "pickup" in p or "quest" in p:
                 name = col.search(p[2:]).group()[1:-1]
-                if name not in locations:
-                    locations.append(name)
                 if "quest" in p and name not in quests:
                     quests.append(name)
-
-    for location in locations:
-        location_txt += f"    \"{location}\",\n"
-    location_txt = location_txt[:-2]
-    location_txt += "\n    ]\n"
 
     for quest in quests:
         quest_txt += f"    \"{quest}\",\n"
     quest_txt = quest_txt[:-2]
     quest_txt += "\n    ]\n"
 
-    with open("Locations.py", "w") as file:
-        file.write(header + location_txt)
-        file.write("\n" + quest_txt)
-        print("The file Location.py has been successfully created.")
+    with open("Quests.py", "w") as file:
+        file.write(quest_txt)
+        print("The file Quests.py has been successfully created.")
 
 
 def extract_events(override=False):
