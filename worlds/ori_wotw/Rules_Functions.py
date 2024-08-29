@@ -90,7 +90,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     update: indicates if the resource table has to be updated
     """
     diff = options.difficulty
-    health, energy, old_maxH, old_maxE = ref_resource[region]
+    health, energy, old_maxH, old_maxE = ref_resource[region].copy()
     maxH, maxE = get_max(state, player)
 
     # Note: this can yield to some inaccuracies, but it should be fine (except maybe in unsafe).
@@ -160,7 +160,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
 def no_cost(region: str, arrival: str, state, player, ref_resource) -> bool:
     """Executed when the path does not consume resource to still update the resource table."""
     maxH, maxE = get_max(state, player)
-    old_health, old_energy, old_maxH, old_maxE = ref_resource[region]
+    old_health, old_energy, old_maxH, old_maxE = ref_resource[region].copy()
     oldH = old_health + maxH - old_maxH
     oldE = old_energy + maxE - old_maxE
     update_ref(arrival, state, player, ref_resource, [oldH, oldE], get_max(state, player))
@@ -203,7 +203,7 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
 def update_ref(region: str, state, player, ref_resource, resource: [int, float], max_res: [int, float]):
     """Updates the resource table for the arrival region, using the resource and the refills."""
     maxH, maxE = max_res
-    old_health, old_energy, old_maxH, old_maxE = ref_resource[region]
+    old_health, old_energy, old_maxH, old_maxE = ref_resource[region].copy()
     oldH = old_health + maxH - old_maxH
     oldE = old_energy + maxE - old_maxE
     refillH, refillE = get_refill(max_res)

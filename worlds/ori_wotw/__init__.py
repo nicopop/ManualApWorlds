@@ -20,23 +20,35 @@ from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
-spawn_names = {0: "MarshSpawn.Main",
-               1: "MidnightBurrows.Teleporter",
-               2: "HowlsDen.Teleporter",
-               3: "EastHollow.Teleporter",
-               4: "GladesTown.Teleporter",
-               5: "InnerWellspring.Teleporter",
-               6: "WoodsEntry.Teleporter",
-               7: "WoodsMain.Teleporter",
-               8: "LowerReach.Teleporter",
-               9: "UpperDepths.Teleporter",
-               10: "EastPools.Teleporter",
-               11: "WestPools.Teleporter",
-               12: "LowerWastes.WestTP",
-               13: "LowerWastes.EastTP",
-               14: "UpperWastes.NorthTP",
-               15: "WindtornRuins.RuinsTP",
-               16: "WillowsEnd.InnerTP"}
+spawn_names = {0: ("MarshSpawn.Main", ["MarshTP"]),
+               1: ("MidnightBurrows.Teleporter", ["BurrowsTP", "Bash", "DoubleJump"]),
+               2: ("HowlsDen.Teleporter", ["DenTP", "DoubleJump"]),
+               3: ("EastHollow.Teleporter", ["HollowTP", "Sword", "Dash",
+                                             "Regenerate", "Health", "Health", "Health", "Health"]),
+               4: ("GladesTown.Teleporter", ["GladesTP", "DoubleJump", "Dash", "Bash"]),
+               5: ("InnerWellspring.Teleporter", ["WellspringTP"]),
+               6: ("WoodsEntry.Teleporter", ["WestWoodsTP",
+                                             "Regenerate", "Health", "Health", "Health"]),
+               7: ("WoodsMain.Teleporter", ["EastWoodsTP", "DoubleJump", "Grapple", "Glide",
+                                            "Regenerate", "Health", "Health", "Health"]),
+               8: ("LowerReach.Teleporter", ["ReachTP", "Flap", "DoubleJump", "Bash", "Grenade",
+                                             "Regenerate", "Health", "Health", "Health"]),
+               9: ("UpperDepths.Teleporter", ["DepthsTP", "Glide",
+                                              "Regenerate", "Health", "Health", "Health"]),
+               10: ("EastPools.Teleporter", ["EastPoolsTP", "Water", "Bash",
+                                             "Regenerate", "Health", "Health", "Health"]),
+               11: ("WestPools.Teleporter", ["WestPoolsTP", "Water", "WaterDash", "WaterBreath",
+                                             "Regenerate", "Health", "Health", "Health"]),
+               12: ("LowerWastes.WestTP", ["WestWastesTP", "DoubleJump", "Grapple",
+                                           "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
+               13: ("LowerWastes.EastTP", ["EastWastesTP", "Burrow",
+                                           "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
+               14: ("UpperWastes.NorthTP", ["OuterRuinsTP", "Burrow",
+                                            "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
+               15: ("WindtornRuins.RuinsTP", ["InnerRuinsTP", "Burrow", "DoubleJump", "Dash", "Grapple",
+                                              "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
+               16: ("WillowsEnd.InnerTP", ["WillowTP", "MarshTP"])  # TODO add items for this, or remove the spawn
+               }
 
 
 class WotWWeb(WebWorld):
@@ -86,7 +98,7 @@ class WotWWorld(World):
         menu_region = Region("Menu", player, world)
         world.regions.append(menu_region)
 
-        spawn_name = spawn_names[options.spawn]
+        spawn_name = spawn_names[options.spawn][0]
         spawn_region = world.get_region(spawn_name, player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
         WotWWorld.ref_resource[spawn_name] = [30, 3, 30, 3]
@@ -141,12 +153,18 @@ class WotWWorld(World):
         removed_items = []  # Remove all instances of the item
         junk: int = 0
 
+        for item in spawn_names[options.spawn][1]:  # Staring items
+            world.push_precollected(self.create_item(item))
+            skipped_items.append(item)
+            junk += 1
+
         for item, count in world.start_inventory[player].value.items():
             for _ in range(count):
                 skipped_items.append(item)
                 junk += 1
 
         if options.sword:
+            world.push_precollected(self.create_item("Sword"))
             removed_items.append("Sword")
 
         if not options.tp:
@@ -175,12 +193,12 @@ class WotWWorld(World):
         for item, data in item_table.items():
             if item in removed_items:
                 junk += data[0]
-                count = 0
+                count = -counter[item]
             else:
                 count = data[0] - counter[item]
-                if count <= 0:  # This can happen with starting inventory
-                    junk += count
-                    count = 0
+            if count <= 0:  # This can happen with starting inventory
+                junk += count
+                count = 0
 
             for _ in range(count):
                 pool.append(self.create_item(item))
