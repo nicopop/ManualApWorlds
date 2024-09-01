@@ -54,7 +54,7 @@ class WotWTestID(TestItemIDs):
     game = "Ori and the Will of the Wisps"
 
 
-class WotWTestImpl(TestImplemented):  # TODO: this fails to load some files outside of WotW world
+class WotWTestImpl(TestImplemented):
     game = "Ori and the Will of the Wisps"
 
 

@@ -8,13 +8,13 @@ class LogicDifficulty(Choice):
     """Difficulty of the logic."""
     display_name = "Logic difficulty"
     default = 0
-    option_easy = 0
-    option_medium = 1
-    option_hard = 2
+    option_moki = 0
+    option_gorlek = 1
+    option_kii = 2
     option_unsafe = 3
-    alias_moki = 0
-    alias_gorlek = 1
-    alias_kii = 2
+    alias_easy = 0
+    alias_medium = 1
+    alias_hard = 2
 
 
 class Glitches(Toggle):
@@ -92,7 +92,22 @@ class SkillUpgrades(Toggle):
 class SkipCombat(Toggle):  # TODO: implement
     """Skip most of the combats."""
     display_name = "Skip combat"
-# TODO open world, shops, hearts, wellspring, quests, trials
+
+
+class VanillaShops(Toggle):  # TODO
+    """Shops are not randomized."""
+    display_name = "Vanilla shops"
+# TODO open world, hearts, wellspring, quests, trials
+
+
+class SkipTrials(Toggle):  # TODO
+    """Trials are already completed."""
+    display_name = "Skip Trials"
+
+
+class BetterWellspring(Toggle):  # TODO
+    """The top door of Wellspring Glades is opened by default."""
+    display_name = "Better Wellspring"
 
 
 @dataclass
@@ -109,3 +124,6 @@ class WotWOptions(PerGameCommonOptions):
     extra_bonus: ExtraBonusItems
     skill_upgrade: SkillUpgrades
     skip_combat: SkipCombat
+    vanilla_shops: VanillaShops
+    skip_trials: SkipTrials
+    better_wellspring: BetterWellspring

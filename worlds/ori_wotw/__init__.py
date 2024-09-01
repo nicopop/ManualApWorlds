@@ -15,40 +15,11 @@ from .Entrances import entrance_table
 from .Refills import refill_events
 from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 # from .Headers import core
+from Spawn_items import spawn_items, spawn_names
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
-
-spawn_names = {0: ("MarshSpawn.Main", ["MarshTP"]),
-               1: ("MidnightBurrows.Teleporter", ["BurrowsTP", "Bash", "DoubleJump"]),
-               2: ("HowlsDen.Teleporter", ["DenTP", "DoubleJump"]),
-               3: ("EastHollow.Teleporter", ["HollowTP", "Sword", "Dash",
-                                             "Regenerate", "Health", "Health", "Health", "Health"]),
-               4: ("GladesTown.Teleporter", ["GladesTP", "DoubleJump", "Dash", "Bash"]),
-               5: ("InnerWellspring.Teleporter", ["WellspringTP"]),
-               6: ("WoodsEntry.Teleporter", ["WestWoodsTP",
-                                             "Regenerate", "Health", "Health", "Health"]),
-               7: ("WoodsMain.Teleporter", ["EastWoodsTP", "DoubleJump", "Grapple", "Glide",
-                                            "Regenerate", "Health", "Health", "Health"]),
-               8: ("LowerReach.Teleporter", ["ReachTP", "Flap", "DoubleJump", "Bash", "Grenade",
-                                             "Regenerate", "Health", "Health", "Health"]),
-               9: ("UpperDepths.Teleporter", ["DepthsTP", "Glide",
-                                              "Regenerate", "Health", "Health", "Health"]),
-               10: ("EastPools.Teleporter", ["EastPoolsTP", "Water", "Bash",
-                                             "Regenerate", "Health", "Health", "Health"]),
-               11: ("WestPools.Teleporter", ["WestPoolsTP", "Water", "WaterDash", "WaterBreath",
-                                             "Regenerate", "Health", "Health", "Health"]),
-               12: ("LowerWastes.WestTP", ["WestWastesTP", "DoubleJump", "Grapple",
-                                           "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
-               13: ("LowerWastes.EastTP", ["EastWastesTP", "Burrow",
-                                           "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
-               14: ("UpperWastes.NorthTP", ["OuterRuinsTP", "Burrow",
-                                            "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
-               15: ("WindtornRuins.RuinsTP", ["InnerRuinsTP", "Burrow", "DoubleJump", "Dash", "Grapple",
-                                              "Regenerate", "Health", "Health", "Health", "Health", "Health"]),
-               16: ("WillowsEnd.InnerTP", ["WillowTP", "MarshTP"])  # TODO add items for this, or remove the spawn
-               }
 
 
 class WotWWeb(WebWorld):
@@ -98,7 +69,7 @@ class WotWWorld(World):
         menu_region = Region("Menu", player, world)
         world.regions.append(menu_region)
 
-        spawn_name = spawn_names[options.spawn][0]
+        spawn_name = spawn_names[options.spawn]
         spawn_region = world.get_region(spawn_name, player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
         WotWWorld.ref_resource[spawn_name] = [30, 3, 30, 3]
@@ -153,7 +124,7 @@ class WotWWorld(World):
         removed_items = []  # Remove all instances of the item
         junk: int = 0
 
-        for item in spawn_names[options.spawn][1]:  # Staring items
+        for item in spawn_items(world, options.spawn, options.difficulty):  # Staring items
             world.push_precollected(self.create_item(item))
             skipped_items.append(item)
             junk += 1
@@ -217,35 +188,78 @@ class WotWWorld(World):
         player = self.player
         options = self.options
         ref_resource = WotWWorld.ref_resource
+        menu = world.get_region("Menu", player)
+        difficulty = options.difficulty
+        goal = options.goal
 
+        # Add the basic rules.
         set_moki_rules(world, player, options, ref_resource)
         combat_rules(world, player, options)
         glitch_rules(world, player, options)
         unreachable_rules(world, player, options)
 
-        if options.difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
+        # Add rules depending on the logic difficulty.
+        if difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_entrance("WestPools.Teleporter_to_WestPools.BurrowOre", player),
                      lambda state: state.has_all(("Burrow", "Water", "WaterDash"), player), "or")
-
-        if options.difficulty >= 1:
+        if difficulty >= 1:
             set_gorlek_rules(world, player, options, ref_resource)
             if options.glitches:
                 set_gorlek_glitched_rules(world, player, options, ref_resource)
-        if options.difficulty >= 2:
+        if difficulty >= 2:
             set_kii_rules(world, player, options, ref_resource)
             if options.glitches:
                 set_kii_glitched_rules(world, player, options, ref_resource)
-        if options.difficulty == 3:
+        if difficulty == 3:
             set_unsafe_rules(world, player, options, ref_resource)
             if options.glitches:
                 set_unsafe_glitched_rules(world, player, options, ref_resource)
+
+        # Add victory condition
+        if goal == 0:
+            menu.connect(world.get_region("Victory", player),
+                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
+                                and s.has_any(("Sword", "Hammer"), player)
+                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
+                                                                                       "MarshSpawn.DamageTree",
+                                                                                       "HowlsDen.SwordTree",
+                                                                                       "HowlsDen.DoubleJumpTree",
+                                                                                       "MarshPastOpher.BowTree",
+                                                                                       "WestHollow.DashTree",
+                                                                                       "EastHollow.BashTree",
+                                                                                       "GladesTown.DamageTree",
+                                                                                       "InnerWellspring.GrappleTree",
+                                                                                       "UpperPools.SwimDashTree",
+                                                                                       "UpperReach.LightBurstTree",
+                                                                                       "LowerDepths.FlashTree",
+                                                                                       "LowerWastes.BurrowTree",
+                                                                                       "WeepingRidge.LaunchTree",
+                                                                                       ]])
+                         )
+        elif goal == 1:
+            menu.connect(world.get_region("Victory", player),
+                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
+                                and s.has_any(("Sword", "Hammer"), player)
+                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
+                                               "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
+                                               "WindtornRuins.Seir"), player)
+                         )
+        else:
+            menu.connect(world.get_region("Victory", player),
+                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
+                                and s.has_any(("Sword", "Hammer"), player)
+                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                and s.has_all((quest + ".quest" for quest in quest_table), player)
+                         )
 
         if options.skip_combat:
             add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
                      lambda s: True, "or")
             add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
             add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
-        else:
+        else:  # Connect these events when the seed is completed, to make them reachable.
             add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
                      lambda s: s.has("Victory", player), "or")
             add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),

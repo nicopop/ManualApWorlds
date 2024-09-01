@@ -104,8 +104,6 @@ header = ("\"\"\"\n"
 
 imports = "from .Rules_Functions import *\n\n"
 
-# TODO add rule for glitches, and their event
-
 # %% Functions for extracting rules
 
 

@@ -2,14 +2,9 @@ from worlds.generic.Rules import add_rule
 
 
 def combat_rules(world, player, options):
-    """Defines rules for combat, light, and victory condition."""
+    """Defines rules for combat and light."""
     menu = world.get_region("Menu", player)
     diff = options.difficulty
-    menu.connect(world.get_region("Victory", player),
-                 rule=lambda state: state.has_any(("Sword", "Hammer"), player) and state.has_all(
-                 ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player) and
-                 state.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
-                                "WestPools.ForestsStrength", "WindtornRuins.Seir"), player))
 
     if diff == 0:  # Moki
         menu.connect(world.get_region("DepthsLight", player),
@@ -78,7 +73,7 @@ def combat_rules(world, player, options):
 def glitch_rules(world, player, options):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
-    if options.glitches:
+    if options.glitches:  # Connect these events when the seed is completed, to make them reachable.
         menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
         menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("DoubleJump", "Hammer"), player))
         menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("DoubleJump", "Sword"), player))
@@ -145,5 +140,5 @@ def unreachable_rules(world, player, options):
     else:
         unreach = ()
 
-    for entr in unreach:
+    for entr in unreach:  # Connect these events when the seed is completed, to make them reachable.
         add_rule(world.get_entrance(entr, player), lambda s: s.has("Victory", player), "or")

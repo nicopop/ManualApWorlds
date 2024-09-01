@@ -90,6 +90,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     update: indicates if the resource table has to be updated
     """
     diff = options.difficulty
+    hard = options.hard_mode
     health, energy, old_maxH, old_maxE = ref_resource[region].copy()
     maxH, maxE = get_max(state, player)
 
@@ -102,6 +103,8 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
         energy /= 2
 
     for damage in damage_and:  # This part deals with the damage boosts
+        if hard:
+            damage *= 2
         health -= damage
         if health <= 0:
             if state.has("Regenerate", player) and -health < maxH:
@@ -137,9 +140,11 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
             if req[0] == 2:
                 hp_cost = req[1]
         if min_cost > energy:
-            if not hp_cost:
+            if not hp_cost:  # The damage boost option is considered only if no other option is possible.
                 return False
             else:
+                if hard:
+                    hp_cost *= 2
                 health -= hp_cost
                 if state.has("Regenerate", player) and -health < maxH:
                     n_regen = ceil((-health + 1)/30)
