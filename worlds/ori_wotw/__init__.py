@@ -14,8 +14,7 @@ from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
 from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
-# from .Headers import core
-from Spawn_items import spawn_items, spawn_names
+from .Spawn_items import spawn_items, spawn_names
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
@@ -158,6 +157,26 @@ class WotWWorld(World):
             for item in group_table["skillup"]:
                 removed_items.append(item)
 
+        if options.vanilla_shop_upgrades:
+            shop_items = {"OpherShop.ExplodingSpike": "ExplodingSpear",
+                          "OpherShop.ShockSmash": "HammerShockwave",
+                          "OpherShop.StaticStar": "StaticShuriken",
+                          "OpherShop.ChargeBlaze": "ChargeBlaze",
+                          "OpherShop.RapidSentry": "RapidSentry",
+                          "OpherShop.WaterBreath": "WaterBreath",
+                          "TwillenShop.Overcharge": "Overcharge",
+                          "TwillenShop.TripleJump": "TripleJump",
+                          "TwillenShop.Wingclip": "Wingclip",
+                          "TwillenShop.Swap": "Swap",
+                          "TwillenShop.LightHarvest": "LightHarvest",
+                          "TwillenShop.Vitality": "Vitality",
+                          "TwillenShop.Energy": "EnergyShard",
+                          "TwillenShop.Finesse": "Finesse"}
+            for location, item in shop_items.items():
+                loc = world.get_location(location, player)
+                loc.place_locked_item(self.create_item(item))
+                removed_items.append(item)
+
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
 
@@ -218,7 +237,7 @@ class WotWWorld(World):
         # Add victory condition
         if goal == 0:
             menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
+                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                 and s.has_any(("Sword", "Hammer"), player)
                                 and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                                 and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
@@ -239,19 +258,21 @@ class WotWWorld(World):
                          )
         elif goal == 1:
             menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
-                                and s.has_any(("Sword", "Hammer"), player)
-                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
-                                               "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
-                                               "WindtornRuins.Seir"), player)
+                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
+                                        and s.has_any(("Sword", "Hammer"), player)
+                                        and s.has_all(
+                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                        and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
+                                                       "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
+                                                       "WindtornRuins.Seir"), player)
                          )
         else:
             menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region(world.get_region("WillowsEnd.Upper", player))
-                                and s.has_any(("Sword", "Hammer"), player)
-                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                and s.has_all((quest + ".quest" for quest in quest_table), player)
+                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
+                                        and s.has_any(("Sword", "Hammer"), player)
+                                        and s.has_all(
+                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                        and s.has_all((quest + ".quest" for quest in quest_table), player)
                          )
 
         if options.skip_combat:

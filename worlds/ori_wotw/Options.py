@@ -94,10 +94,9 @@ class SkipCombat(Toggle):  # TODO: implement
     display_name = "Skip combat"
 
 
-class VanillaShops(Toggle):  # TODO
-    """Shops are not randomized."""
-    display_name = "Vanilla shops"
-# TODO open world, hearts, wellspring, quests, trials
+class VanillaShopUpgrades(Toggle):
+    """Weapon upgrades and shards in shops are not randomized."""
+    display_name = "Vanilla shop upgrades"
 
 
 class SkipTrials(Toggle):  # TODO
@@ -124,6 +123,7 @@ class WotWOptions(PerGameCommonOptions):
     extra_bonus: ExtraBonusItems
     skill_upgrade: SkillUpgrades
     skip_combat: SkipCombat
-    vanilla_shops: VanillaShops
+    vanilla_shop_upgrades: VanillaShopUpgrades
     skip_trials: SkipTrials
     better_wellspring: BetterWellspring
+# TODO open world, hearts, keystones, QOL

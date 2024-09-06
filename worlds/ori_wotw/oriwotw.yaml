@@ -19,3 +19,6 @@ Ori and the Will of the Wisps:
   extra_bonus: 'false'
   skill_upgrade: 'false'
   skip_combat: 'false'
+  vanilla_shop_upgrades: 'false'
+  skip_trials: 'false'
+  better_wellspring: 'false'
