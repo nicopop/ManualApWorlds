@@ -333,16 +333,18 @@ def convert(anc: str, p_type: str, p_name: str, L_rules: List[str], entrances: L
     and_req = []
     or_req = []
 
-    if "." in anc:  # Gets the requirements when entering a new area.
-        s = anc.find(".")
-        i_area = anc[:s]  # Extracts the name of the area
-        if p_type == "conn" and "." in p_name:
-            s = p_name.find(".")
-            f_area = p_name[:s]
-            if i_area != f_area:
-                regen, health_req = req_area(f_area, diff)
-                if regen:
-                    and_req.append("Regenerate")
+    if p_type == "conn" and "." in p_name:  # Gets the requirements when entering a new area.
+        s = p_name.find(".")
+        f_area = p_name[:s]
+        if "." in anc:
+            s = anc.find(".")
+            i_area = anc[:s]  # Extracts the name of the starting area
+        else:
+            i_area = ""
+        if i_area != f_area:
+            regen, health_req = req_area(f_area, diff)
+            if regen:
+                and_req.append("Regenerate")
 
     if p_type == "refill":
         p_name = ref_type + anc

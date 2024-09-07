@@ -12,6 +12,7 @@ Ori and the Will of the Wisps:
   glitches: 'false'
   hard_mode: 'false'
   spawn: marsh
+  sword: 'true'
   tp: 'true'
   extratp: 'false'
   goal: trees

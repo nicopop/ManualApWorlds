@@ -97,6 +97,9 @@ def extract_locs(override=False):
 
 def compute_id(prefix, item_type, group, value):
     """Returns the item ID accordig to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
+    assert int(group) <= 65535, f"group must be smaller than 65535 (is equal to {group})"
+    assert int(group) <= 65535, f"value must be smaller than 65535 (is equal to {group})"
+
     if item_type == "location":
         b_item_type = "00"
     elif item_type == "item":
