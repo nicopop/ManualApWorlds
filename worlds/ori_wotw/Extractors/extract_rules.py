@@ -465,7 +465,9 @@ def combat_req(need: str, value: str) -> (List[List[int | str]], List[str]):
 
         for elem in enemies:
             amount = 1
-            if "EnergyRefill" in elem:  # TODO: account for this, but does not affect logic at this point
+            if "EnergyRefill" in elem:
+                amount = int(elem[0])
+                damage.append([amount, "Refill"])
                 continue
             if elem[1] == "x":
                 amount = int(elem[0])
@@ -594,6 +596,9 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
     start_txt = f"    add_rule(world.get_entrance(\"{anc}_to_{arrival}\", player), lambda s: "
     req_txt = ""
 
+    if p_type == "refill":
+        arrival = anc
+
     if and_skills:
         temp_txt = ""
         if len(and_skills) == 1:
@@ -693,7 +698,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
     if damage_and or combat_and or en_and or or_costs:
         temp_txt = (f"cost_all(s, player, ref_resource, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, "
                     f"{combat_and}, {or_costs}")
-        if p_type == "conn":
+        if p_type in ("conn", "refill"):
             temp_txt += ", True)"  # Indicates if the resource table has to be updated
         else:
             temp_txt += ", False)"
@@ -702,7 +707,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
         else:
             req_txt += temp_txt
 
-    elif p_type == "conn":
+    elif p_type in ("conn", "refill"):
         if req_txt:  # Indicates that the resource table has to be updated, but the path does not consume resource
             req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource)"
         else:

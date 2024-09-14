@@ -178,6 +178,7 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
     diff = options.difficulty
 
     tot_cost = 0
+    max_cost = 0  # Maximum amount used, in case there are refills during combat.
     for damage, category in hp_list:
         if category == "Combat":
             if diff == 3:
@@ -193,6 +194,10 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
                 weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"]
             else:
                 weapons = ["Sword", "Hammer", "Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze"]
+        elif category == "Refill":
+            max_cost = max(max_cost, tot_cost)
+            tot_cost -= damage  # In that case, damage contains the amount of energy given back
+            continue
         else:  # ShurikenBreak or SentryBreak
             weapons = [category]
 
@@ -202,7 +207,7 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
                 cost = min(cost, weapon_data[weapon][1] * ceil(damage / weapon_data[weapon][0]))
         tot_cost += cost
 
-    return tot_cost
+    return max(tot_cost, max_cost)
 
 
 def update_ref(region: str, state, player, ref_resource, resource: [int, float], max_res: [int, float]):
