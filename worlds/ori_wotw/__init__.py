@@ -15,6 +15,7 @@ from .Entrances import entrance_table
 from .Refills import refill_events
 from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Spawn_items import spawn_items, spawn_names
+from .Presets import options_presets
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
@@ -31,7 +32,7 @@ class WotWWeb(WebWorld):
         "setup/en",
         [""]
     )]
-    # options_presets = options_presets
+    options_presets = options_presets
 
 
 class WotWWorld(World):
@@ -53,7 +54,7 @@ class WotWWorld(World):
     def __init__(self, multiworld, player):
         super(WotWWorld, self).__init__(multiworld, player)
 
-    def generate_early(self):  # TODO costs, items on spawn
+    def generate_early(self):  # TODO costs
         pass
 
     def create_regions(self):
@@ -176,6 +177,16 @@ class WotWWorld(World):
                 loc = world.get_location(location, player)
                 loc.place_locked_item(self.create_item(item))
                 removed_items.append(item)
+        if options.skip_trials:
+            for loc in ("MarshPastOpher.SpiritTrial",
+                        "WestHollow.SpiritTrial",
+                        "OuterWellspring.SpiritTrial",
+                        "EastPools.SpiritTrial",
+                        "WoodsMain.SpiritTrial",
+                        "LowerReach.SpiritTrial",
+                        "LowerDepths.SpiritTrial",
+                        "LowerWastes.SpiritTrial"):
+                world.get_location(loc, player).progress_type = 3
 
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
@@ -266,7 +277,7 @@ class WotWWorld(World):
                                                        "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
                                                        "WindtornRuins.Seir"), player)
                          )
-        else:
+        elif goal == 2:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                         and s.has_any(("Sword", "Hammer"), player)
@@ -274,19 +285,12 @@ class WotWWorld(World):
                              ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                                         and s.has_all((quest + ".quest" for quest in quest_table), player)
                          )
-
-        if options.skip_combat:
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
-                     lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
-        else:  # Connect these events when the seed is completed, to make them reachable.
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
-                     lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),
-                     lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
-                     lambda s: s.has("Victory", player), "or")
+        else:
+            menu.connect(world.get_region("Victory", player),
+                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
+                                        and s.has_any(("Sword", "Hammer"), player)
+                                        and s.has_all(
+                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
         ore_loc = ("GladesTown.FamilyReunionKey",
@@ -306,7 +310,7 @@ class WotWWorld(World):
         for location in ore_loc:
             forbid_item(world.get_location(location, player), "Ore", player)
 
-        # Exclude Spirit Light from shops.
+        # Exclude Spirit Light from shops (except 1 Spirit Light).
         shop_loc = ("TwillenShop.Overcharge",
                     "TwillenShop.TripleJump",
                     "TwillenShop.Wingclip",
@@ -350,6 +354,27 @@ class WotWWorld(World):
                   "EastPools.PurpleWallHC",)
         for location in ks_loc:
             forbid_item(world.get_location(location, player), "Keystone", player)
+
+        # Rules for specific options
+        if options.better_spawn:
+            menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
+            menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
+            menu.connect(world.get_region("EastPools.EntryLever", player))
+            menu.connect(world.get_region("UpperWastes.LeverDoor", player))
+        if options.skip_combat:
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
+                     lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
+        else:  # Connect these events when the seed is completed, to make them reachable.
+            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
+                     lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),
+                     lambda s: s.has("Victory", player), "or")
+            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
+                     lambda s: s.has("Victory", player), "or")
+        if options.better_wellspring:
+            menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
 
     # TODO probably better to do that automatically with the client, and get the settings from fill_slot_data
     def generate_output(self, output_directory: str):

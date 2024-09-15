@@ -5,8 +5,16 @@ from dataclasses import dataclass
 
 
 class LogicDifficulty(Choice):
-    """Difficulty of the logic."""
+    """
+    Difficulty of the logic.
+
+    - **Moki** (or easy): Recommended for beginners, who only played the game casually.
+    - **Gorlek** (or medium): Harder paths that can use sword and hammer as movement options, and damage boosts.
+    - **Kii (or hard)**: Hard and precise paths that use energy weapons as movement.
+    - **Unsafe**: Very hard and unverified paths. Warning: some paths are **extremely hard**.
+    """
     display_name = "Logic difficulty"
+    rich_text_doc = True
     default = 0
     option_moki = 0
     option_gorlek = 1
@@ -18,8 +26,15 @@ class LogicDifficulty(Choice):
 
 
 class Glitches(Toggle):
-    """Whether the logic includes paths using glitches."""
+    """
+    Whether the logic includes paths with glitches.
+
+    - **Gorlek**: includes grounded sentry jumps, sentry as a fire source, breaking walls with Shuriken, and removing the kill plane in Feeding Grounds.
+    - **Kii**: glitches are not included in Kii logic yet.
+    - **Unsafe**: everything else.
+    """
     display_name = "Glitches"
+    rich_text_doc = True
 
 
 class HardMode(Toggle):
@@ -50,6 +65,11 @@ class StartingLocation(Choice):
     default = 0
 
 
+class BetterSpawn(Toggle):
+    """Opens some doors so random spawn works better."""
+    display_name = "Better random spawn"
+
+
 class SpawnSword(DefaultOnToggle):
     """Choose to have Sword at the beginning."""
     display_name = "Spawn with Sword"
@@ -66,11 +86,18 @@ class ExtraTeleporters(Toggle):
 
 
 class Goal(Choice):
-    """Set a condition for entering the final boss."""
+    """Set a condition for entering the final boss. Use the rando wheel (with **V**) to check goal progress.
+
+    - **Trees**: All trees must be collected.
+    - **Wisps**: All wisps must be collected.
+    - **Quests**: All quests have to be finished.
+    """
     display_name = "Goal"
+    rich_text_doc = True
     option_trees = 0
     option_wisps = 1
     option_quests = 2
+    option_nothing = 3
     default = 0
 
 
@@ -99,12 +126,12 @@ class VanillaShopUpgrades(Toggle):
     display_name = "Vanilla shop upgrades"
 
 
-class SkipTrials(Toggle):  # TODO
-    """Trials are already completed."""
+class SkipTrials(Toggle):
+    """Trials only contain filler items."""
     display_name = "Skip Trials"
 
 
-class BetterWellspring(Toggle):  # TODO
+class BetterWellspring(Toggle):
     """The top door of Wellspring Glades is opened by default."""
     display_name = "Better Wellspring"
 
@@ -115,6 +142,7 @@ class WotWOptions(PerGameCommonOptions):
     glitches: Glitches
     hard_mode: HardMode
     spawn: StartingLocation
+    better_spawn: BetterSpawn
     sword: SpawnSword
     tp: Teleporters
     extratp: ExtraTeleporters
@@ -126,4 +154,4 @@ class WotWOptions(PerGameCommonOptions):
     vanilla_shop_upgrades: VanillaShopUpgrades
     skip_trials: SkipTrials
     better_wellspring: BetterWellspring
-# TODO open world, hearts, keystones, QOL
+# TODO open world, hearts, keystones, QOL, No quests (to add in Moki)

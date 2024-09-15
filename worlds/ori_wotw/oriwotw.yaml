@@ -12,6 +12,7 @@ Ori and the Will of the Wisps:
   glitches: 'false'
   hard_mode: 'false'
   spawn: marsh
+  better_spawn: 'false'
   sword: 'true'
   tp: 'true'
   extratp: 'false'

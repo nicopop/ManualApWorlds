@@ -38,7 +38,7 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("BreakCrystal", player),
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade"), player))
 
-    if options.difficulty >= 2:  # Kii
+    if diff >= 2:  # Kii
         menu.connect(world.get_region("DepthsLight", player),
                      rule=lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash", "Bow"), player))
         menu.connect(world.get_region("Combat.Ranged", player),
@@ -53,7 +53,7 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("BreakCrystal", player),
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade"), player))
 
-    if options.difficulty == 3:  # Unsafe
+    if diff == 3:  # Unsafe
         menu.connect(world.get_region("DepthsLight", player),
                      rule=lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash", "Bow"), player))
         menu.connect(world.get_region("Combat.Ranged", player),
@@ -86,8 +86,9 @@ def glitch_rules(world, player, options):
 
 
 def unreachable_rules(world, player, options):
-    """Rules to handle unreachable locations."""
-    if options.difficulty == 0:  # WestHollow.RockPuzzle ?
+    """Rules to handle unreachable locations and events."""
+    diff = options.difficulty
+    if diff == 0:
         unreach = ("WestHollow.AboveJumppad_to_WestHollow.LowerTongueRetracted",
                    "OuterWellspring.EntranceDoor_to_OuterWellspring.FallingWheel",
                    "MarshSpawn.PoolsBurrowsSignpost_to_E.MarshSpawn.PoolsBurrowsSignpost",
@@ -108,7 +109,7 @@ def unreachable_rules(world, player, options):
                    "LowerDepths.West_to_E.LowerDepths.West",
                    "UpperWastes.MissilePuzzleMiddle_to_C.UpperWastes.MissilePuzzleMiddle",
                    "WillowsEnd.Upper_to_E.WillowsEnd.Upper")
-    elif options.difficulty == 1:
+    elif diff == 1:
         unreach = ("OuterWellspring.EntranceDoor_to_OuterWellspring.FallingWheel",
                    "MarshSpawn.PoolsBurrowsSignpost_to_E.MarshSpawn.PoolsBurrowsSignpost",
                    "GladesTown.MotayHut_to_C.GladesTown.MotayHut",
@@ -123,7 +124,7 @@ def unreachable_rules(world, player, options):
                    "UpperDepths.FirstKSRoom_to_C.UpperDepths.FirstKSRoom",
                    "UpperDepths.FirstKSRoom_to_E.UpperDepths.FirstKSRoom",
                    "UpperDepths.Central_to_E.UpperDepths.Central")
-    elif options.difficulty == 2:
+    elif diff == 2:
         unreach = ("OuterWellspring.EntranceDoor_to_OuterWellspring.FallingWheel",
                    "GladesTown.MotayHut_to_C.GladesTown.MotayHut",
                    "GladesTown.UpperWest_to_C.GladesTown.UpperWest",
