@@ -597,7 +597,11 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
     req_txt = ""
 
     if p_type == "refill":
+        refill_type = arrival[0]
         arrival = anc
+
+    else:
+        refill_type = ""
 
     if and_skills:
         temp_txt = ""
@@ -697,7 +701,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
 
     if damage_and or combat_and or en_and or or_costs:
         temp_txt = (f"cost_all(s, player, ref_resource, options, \"{anc}\", \"{arrival}\", {damage_and}, {energy}, "
-                    f"{combat_and}, {or_costs}")
+                    f"{combat_and}, {or_costs}, \"{refill_type}\"")
         if p_type in ("conn", "refill"):
             temp_txt += ", True)"  # Indicates if the resource table has to be updated
         else:
@@ -709,9 +713,9 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
 
     elif p_type in ("conn", "refill"):
         if req_txt:  # Indicates that the resource table has to be updated, but the path does not consume resource
-            req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource)"
+            req_txt += " and " + f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource, \"{refill_type}\")"
         else:
-            req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource)"
+            req_txt += f"no_cost(\"{anc}\", \"{arrival}\", s, player, ref_resource, \"{refill_type}\")"
 
     if req_txt:
         tot_txt = start_txt + req_txt + ", \"or\")\n"

@@ -78,7 +78,7 @@ def can_keystones(state, player) -> bool:
 
 
 def cost_all(state, player, ref_resource, options, region: str, arrival: str, damage_and: List, en_and: List[List],
-             combat_and: List[List], or_req: List[List], update: bool) -> bool:
+             combat_and: List[List], or_req: List[List], refill: str, update: bool) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -88,6 +88,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     or_req: contains damages, combat, and energy in each sublist (the first element of the list is the
         type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
     update: indicates if the resource table has to be updated
+    refill: indicates if the path leads to a refill, and its type in that case
     """
     diff = options.difficulty
     hard = options.hard_mode
@@ -166,7 +167,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     if update:
         if diff != 3:
             energy *= 2
-        update_ref(arrival, state, player, ref_resource, [health, energy], [maxH, maxE])
+        update_ref(arrival, state, player, ref_resource, [health, energy], [maxH, maxE], refill)
         if health <= 0 or energy < 0:  # TODO: debug tool, remove
             print(f"no_cost warning: wrong values put in update of ref_resource in area {region} to {arrival}.\n"
                   f"Health = {health}\n"
@@ -174,7 +175,7 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     return True
 
 
-def no_cost(region: str, arrival: str, state, player, ref_resource) -> bool:
+def no_cost(region: str, arrival: str, state, player, ref_resource, refill: str) -> bool:
     """Executed when the path does not consume resource to still update the resource table."""
     maxH, maxE = get_max(state, player)
     old_health, old_energy, old_maxH, old_maxE = ref_resource[region].copy()
@@ -184,7 +185,7 @@ def no_cost(region: str, arrival: str, state, player, ref_resource) -> bool:
               f"Energy = {old_energy}\n\n")
     oldH = old_health + maxH - old_maxH
     oldE = old_energy + maxE - old_maxE
-    update_ref(arrival, state, player, ref_resource, [oldH, oldE], get_max(state, player))
+    update_ref(arrival, state, player, ref_resource, [oldH, oldE], get_max(state, player), refill)
     if oldH <= 0 or oldE < 0:  # TODO: debug tool, remove
         print(f"no_cost warning: wrong values put in update of ref_resource in area {region} to {arrival}.\n"
               f"Health = {oldH}\n"
@@ -230,7 +231,7 @@ def combat_cost(state, player, options, hp_list: List[List]) -> float:
     return max(tot_cost, max_cost)
 
 
-def update_ref(region: str, state, player, ref_resource, resource: [int, float], max_res: [int, float]):
+def update_ref(region: str, state, player, ref_resource, resource: [int, float], max_res: [int, float], refill: str):
     """Updates the resource table for the arrival region, using the resource and the refills."""
     maxH, maxE = max_res
     old_health, old_energy, old_maxH, old_maxE = ref_resource[region].copy()
@@ -239,17 +240,17 @@ def update_ref(region: str, state, player, ref_resource, resource: [int, float],
     refillH, refillE = get_refill(max_res)
     en, hp, tr = refills[region]
 
-    if tr == 2 and state.has("F." + region, player):
+    if tr == 2 and (refill == "F" or state.has("F." + region, player)):
         ref_resource[region] = [maxH, maxE, maxH, maxE]
         print(f"Full refill applied in {region}")  # TODO remove the debug prints
     else:
-        if tr == 1 and state.has("C." + region, player):
+        if tr == 1 and (refill == "C" or state.has("C." + region, player)):
             resource = [max(resource[0], refillH), max(resource[1], refillE)]
             print(f"Checkpoint refill applied in {region}")
-        if hp != 0 and state.has("H." + region, player):
+        if hp != 0 and (refill == "H" or state.has("H." + region, player)):
             resource[0] = min(maxH, resource[0] + hp*10)
             print(f"Health refill applied in {region}")
-        if en != 0 and state.has("E." + region, player):
+        if en != 0 and (refill == "E" or state.has("E." + region, player)):
             resource[1] = min(maxE, resource[1] + en)
             print(f"Energy refill applied in {region}")
 
