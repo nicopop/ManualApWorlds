@@ -33,7 +33,7 @@ def get_refill(max_resource: (int, float)) -> (int, int):
     """Returns the refill values."""
     maxH, maxE = max_resource
     refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
-    refillE = floor(maxE/50+1)
+    refillE = floor(maxE/5+1)
     return refillH, refillE
 
 
@@ -94,8 +94,16 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
     health, energy, old_maxH, old_maxE = ref_resource[region].copy()
     maxH, maxE = get_max(state, player)
 
+    if health <= 0 or energy < 0:  # TODO: debug tool, remove
+        print(f"cost_all warning: wrong values in ref_resource in area {region} to {arrival}.\n"
+              f"Health = {health}\n"
+              f"Energy = {energy}\n\n")
+
+    if region == "WillowsEnd.Upper":  # TODO: debug tool, remove
+        print(ref_resource)
+
     # Note: this can yield to some inaccuracies, but it should be fine (except maybe in unsafe).
-    # I don't have a better solution for now.
+    # The alternative is to redo all rules each time an item is received, but that takes too long
     health += maxH - old_maxH
     energy += maxE - old_maxE
 
@@ -159,6 +167,10 @@ def cost_all(state, player, ref_resource, options, region: str, arrival: str, da
         if diff != 3:
             energy *= 2
         update_ref(arrival, state, player, ref_resource, [health, energy], [maxH, maxE])
+        if health <= 0 or energy < 0:  # TODO: debug tool, remove
+            print(f"no_cost warning: wrong values put in update of ref_resource in area {region} to {arrival}.\n"
+                  f"Health = {health}\n"
+                  f"Energy = {energy}\n\n")
     return True
 
 
@@ -166,9 +178,17 @@ def no_cost(region: str, arrival: str, state, player, ref_resource) -> bool:
     """Executed when the path does not consume resource to still update the resource table."""
     maxH, maxE = get_max(state, player)
     old_health, old_energy, old_maxH, old_maxE = ref_resource[region].copy()
+    if old_health <= 0 or old_energy < 0:  # TODO: debug tool, remove
+        print(f"no_cost warning: wrong values in ref_resource in area {region}.\n"
+              f"Health = {old_health}\n"
+              f"Energy = {old_energy}\n\n")
     oldH = old_health + maxH - old_maxH
     oldE = old_energy + maxE - old_maxE
     update_ref(arrival, state, player, ref_resource, [oldH, oldE], get_max(state, player))
+    if oldH <= 0 or oldE < 0:  # TODO: debug tool, remove
+        print(f"no_cost warning: wrong values put in update of ref_resource in area {region} to {arrival}.\n"
+              f"Health = {oldH}\n"
+              f"Energy = {oldE}\n\n")
     return True
 
 
@@ -221,13 +241,30 @@ def update_ref(region: str, state, player, ref_resource, resource: [int, float],
 
     if tr == 2 and state.has("F." + region, player):
         ref_resource[region] = [maxH, maxE, maxH, maxE]
+        print(f"Full refill applied in {region}")  # TODO remove the debug prints
     else:
         if tr == 1 and state.has("C." + region, player):
             resource = [max(resource[0], refillH), max(resource[1], refillE)]
+            print(f"Checkpoint refill applied in {region}")
         if hp != 0 and state.has("H." + region, player):
             resource[0] = min(maxH, resource[0] + hp*10)
+            print(f"Health refill applied in {region}")
         if en != 0 and state.has("E." + region, player):
             resource[1] = min(maxE, resource[1] + en)
+            print(f"Energy refill applied in {region}")
 
         if resource > [oldH, oldE]:  # Updates if bigger (lexical order, so health takes priority)
             ref_resource[region] = [resource[0], resource[1], maxH, maxE]
+        elif old_health == 0:  # If this is the first time the region is accessible, update the resource table
+            ref_resource[region] = [resource[0], resource[1], maxH, maxE]
+        # Otherwise, the resource table is unchanged
+
+    health, energy = ref_resource[region][:2]
+    if health <= 0 or energy < 0:  # TODO: debug tool, remove
+        print(f"update_ref warning: wrong values put in ref_resource in area {region}.\n"
+              f"max_res  = {max_res}\n"
+              f"resource = {resource}\n"
+              f"computed = {oldH}, {oldE}\n"
+              f"refill   = {refillH}, {refillE}\n"
+              f"Health   = {health}\n"
+              f"Energy   = {energy}\n\n")
