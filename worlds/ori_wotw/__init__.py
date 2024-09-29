@@ -47,7 +47,7 @@ class WotWWorld(World):
     options_dataclass = WotWOptions
     options: WotWOptions
 
-    ref_resource: Dict[str, List] = {region: [0, 0, 30, 3] for region in region_table}
+    ref_resource: Dict[str, List] = {region: [0, 0, 0, 0] for region in region_table}
 
     required_client_version = (0, 5, 0)
 
@@ -91,6 +91,7 @@ class WotWWorld(World):
         for event in event_table:  # Create events, their item, and a region to attach them
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
+            ev.show_in_spoiler = False
             ev.place_locked_item(WotWItem(event, ItemClassification.progression_skip_balancing, None, player))
             world.regions.append(region)
             region.locations.append(ev)
@@ -109,6 +110,12 @@ class WotWWorld(World):
             entrance = parent_region.create_exit(entrance_name)
             entrance.access_rule = lambda state: False
             entrance.connect(connected_region)
+
+        region = Region("Victory", player, world)  # Victory event
+        ev = WotWLocation(player, "Victory", None, region)
+        ev.place_locked_item(WotWItem("Victory", ItemClassification.progression_skip_balancing, None, player))
+        world.regions.append(region)
+        region.locations.append(ev)
 
         world.completion_condition[player] = lambda state: state.has("Victory", player)
 

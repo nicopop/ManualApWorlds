@@ -18,7 +18,6 @@ event_table = [
     "Combat.Bat",
     "Combat.Sand",
     "BreakCrystal",
-    "Victory",
     "DepthsLight",
     "SkipKwolok",
     "SkipMora1",
