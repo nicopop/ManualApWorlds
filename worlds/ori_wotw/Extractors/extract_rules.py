@@ -627,7 +627,10 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
                 name, amount = elem.split("=")
                 amount = int(amount)
                 if name == "SpiritLight":
-                    temp_txt = f"s.count(\"200 SpiritLight\", player) >= {ceil(amount/200)}"
+                    if amount == 1200:  # Case of a shop item
+                        temp_txt = "s.count(\"200 SpiritLight\", player) >= 6"
+                    else:  # Case of a map from Lupo
+                        temp_txt = "can_buy_map(s, player)"
                 elif name == "Ore":
                     temp_txt = f"s.count(\"Ore\", player) >= {amount}"
                 else:

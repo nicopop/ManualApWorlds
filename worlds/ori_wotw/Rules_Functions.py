@@ -37,6 +37,31 @@ def get_refill(max_resource: (int, float)) -> (int, int):
     return refillH, refillE
 
 
+def can_buy_map(state, player) -> bool:
+    """Returns if the total amount of Spirit Light can buy all accessible maps."""
+    cost = 200  # Higher cost than necessary to make it less constrained for the player.
+    if state.can_reach_region("MarshSpawn.BrokenBridge", player):
+        cost += 200
+    if state.can_reach_region("MidnightBurrows.Central", player):
+        cost += 50
+    if state.can_reach_region("WestHollow.HollowDrainLower", player):
+        cost += 150
+    if state.can_reach_region("InnerWellspring.WestDoor", player):
+        cost += 150
+    if (state.can_reach_region("LowerReach.Central", player)
+            or state.can_reach_region("LowerReach.OutsideTPRoom", player)):
+        cost += 150
+    if state.can_reach_region("LowerDepths.East", player):
+        cost += 150
+    if state.can_reach_region("EastPools.LupoArea", player):
+        cost += 150
+    if state.can_reach_region("LowerWastes.ThirstyGorlek", player):
+        cost += 150
+    if state.can_reach_region("WillowsEnd.InnerTP", player):
+        cost += 50
+    return state.count("200 SpiritLight", player) >= ceil(cost/200)
+
+
 def can_keystones(state, player) -> bool:
     """Returns if the total amount of Keystones can open all accessible doors."""
     count = 2  # Add more Keystones than necessary to make it less constrained for the player.
