@@ -1,4 +1,4 @@
-"""Initialisation file."""
+"""AP world for Ori and the Will of the Wisps."""
 
 from typing import List, TextIO, Dict
 from collections import Counter
@@ -8,7 +8,7 @@ from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules,
 from .Items import item_table, group_table
 from .Locations import loc_table
 from .Quests import quest_table
-from .Options import WotWOptions  # TODO add options_presets
+from .Options import WotWOptions
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
@@ -23,7 +23,7 @@ from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 
 class WotWWeb(WebWorld):
-    theme = "ocean"  # TODO documentation, presets (create them in Options)
+    theme = "ocean"  # TODO documentation
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
         "A guide to setting up the Ori and the Will of the Wisps randomizer connected to an Archipelago Multiworld",

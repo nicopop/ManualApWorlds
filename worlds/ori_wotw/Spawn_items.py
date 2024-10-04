@@ -22,7 +22,12 @@ spawn_names = ["MarshSpawn.Main",
 
 
 def spawn_items(world, spawn, difficulty):
-    """Returns a set of spawn items for the chosen spawn point and difficulty."""
+    """
+    Returns a set of spawn items for the chosen spawn point and difficulty.
+
+    The items are stored in a list of dimension 3 for each difficulty ;
+    with spawn location, item groups, items along 1st, 2nd, 3rd indexes respectively.
+    """
     rand = world.random
     moki: List[List[List]] = [
             [["MarshTP"]],
@@ -55,8 +60,8 @@ def spawn_items(world, spawn, difficulty):
               "Health", "Health", "Health"],
              ["InnerRuinsTP", "Burrow", "DoubleJump", "Glide", "Grapple", "Regenerate", "Health", "Health",
               "Health", "Health", "Health"]],
-            [["WillowTP", "Launch", "200 SpiritLight", "Regenerate", "Health", "Health", "Health", "Health",
-              "Health", "Health", "Health"]],
+            [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate", "Health", "Health", "Health",
+              "Health", "Health", "Health", "Health"]],
             ]
 
     gorlek: List[List[List]] = [
@@ -80,7 +85,7 @@ def spawn_items(world, spawn, difficulty):
               [["EastWoodsTP", "DoubleJump", "Grapple", "Glide", "Regenerate"],
                ["EastWoodsTP", "Dash", "Grapple", "Glide", "Regenerate"]],
               [["ReachTP", "Flap", "DoubleJump", "Bash", "Grenade", "Regenerate"],
-               ["ReachTP", "Flap", "Glide", "Grenade", "200 SpiritLight", "Regenerate"]],
+               ["ReachTP", "Flap", "Glide", "Grenade", "200 SpiritLight", "200 SpiritLight", "Regenerate"]],
               [["DepthsTP", "Glide", "Regenerate"]],
               [["EastPoolsTP", "Water", "Bash", "Regenerate"]],
               [["WestPoolsTP", "Water", "WaterDash", "Regenerate"]],
@@ -94,7 +99,7 @@ def spawn_items(world, spawn, difficulty):
                ["InnerRuinsTP", "Burrow", "Glide", "Sword", "Grapple", "Regenerate"],
                ["InnerRuinsTP", "Burrow", "DoubleJump", "Hammer", "Grapple", "Regenerate"],
                ["InnerRuinsTP", "Burrow", "Glide", "Hammer", "Grapple", "Regenerate"]],
-              [["WillowTP", "Launch", "200 SpiritLight", "Regenerate"]]
+              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]]
               ]
 
     kii: List[List[List]] = [
@@ -129,7 +134,7 @@ def spawn_items(world, spawn, difficulty):
             ["InnerRuinsTP", "Burrow", "Glide", "Grapple", "Regenerate"],
             ["InnerRuinsTP", "Burrow", "Hammer", "Dash", "Regenerate"],
             ["InnerRuinsTP", "Burrow", "DoubleJump", "Grapple", "Regenerate"]],
-           [["WillowTP", "Launch", "200 SpiritLight", "Regenerate"]]
+           [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]]
            ]
 
     unsafe: List[List[List]] = [
@@ -163,7 +168,7 @@ def spawn_items(world, spawn, difficulty):
                ["InnerRuinsTP", "Burrow", "Glide", "Grapple"],
                ["InnerRuinsTP", "Burrow", "Hammer", "Dash"],
                ["InnerRuinsTP", "Burrow", "DoubleJump", "Grapple"]],
-              [["WillowTP", "Launch", "200 SpiritLight"]]
+              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight"]]
               ]
 
     if difficulty == 0:

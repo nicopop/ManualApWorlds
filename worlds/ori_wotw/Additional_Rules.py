@@ -1,3 +1,5 @@
+"""Additional location rules that are not extracted from `areas.wotw`."""
+
 from worlds.generic.Rules import add_rule
 
 
@@ -73,12 +75,12 @@ def combat_rules(world, player, options):
 def glitch_rules(world, player, options):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
-    if options.glitches:  # Connect these events when the seed is completed, to make them reachable.
+    if options.glitches:
         menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
         menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("DoubleJump", "Hammer"), player))
         menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("DoubleJump", "Sword"), player))
         menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has_all(("Glide", "Hammer"), player))
-    else:
+    else:  # Connect these events when the seed is completed, to make them reachable.
         menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has("Victory", player))
         menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has("Victory", player))
         menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has("Victory", player))
@@ -86,7 +88,7 @@ def glitch_rules(world, player, options):
 
 
 def unreachable_rules(world, player, options):
-    """Rules to handle unreachable locations and events."""
+    """Rules to handle unreachable events."""
     diff = options.difficulty
     if diff == 0:
         unreach = ("WestHollow.AboveJumppad_to_WestHollow.LowerTongueRetracted",
