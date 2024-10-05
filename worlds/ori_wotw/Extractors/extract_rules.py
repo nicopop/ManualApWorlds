@@ -7,11 +7,8 @@ Run `parsing()` to extract the rules (the `areas.wotw` file must be in the same 
 from typing import Dict, List
 import os
 import re
-from math import ceil
 from collections import Counter
 
-# TODO : fix line 271 in areas.wotw and 10803 (TwoCrushersEX)
-# TODO 4: Create syntax analysis for areas.wotw
 # %% Data and global variables
 
 # Enemy data

@@ -290,6 +290,7 @@ region_table = [
     "UpperWastes.MissilePuzzleLeft",
     "UpperWastes.MissilePuzzleMiddle",
     "UpperWastes.MissilePuzzleRight",
+    "UpperWastes.SpinLasers",
     "UpperWastes.RuinsApproach",
     "UpperWastes.NorthTP",
     "UpperWastes.OutsideRuins",
