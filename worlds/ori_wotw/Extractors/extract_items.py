@@ -2,6 +2,7 @@
 
 import os
 prefix = "101111110010101001"
+# base_id = int(prefix + "0000000000000000000000000000000000", 2)
 
 
 def extract_items(override=False):
@@ -13,14 +14,13 @@ def extract_items(override=False):
             raise FileExistsError("The file `Items.py` already exists. Use `override=True` to override it.")
 
     global prefix
-    base_id = int(prefix + "0000000000000000000000000000000000", 2)
+    store = []  # Stores the IDs to check for duplicates
 
     header = ("\"\"\"\n"
               "File generated with `extract_items.py` with the `Items_data.csv` file.\n\n"
               "Do not edit manually.\n"
               "\"\"\"\n\n"
-              "from BaseClasses import ItemClassification\n\n"
-              f"base_id = {base_id}\n")
+              "from BaseClasses import ItemClassification\n\n")
 
     with open("./Items_data.csv", "r") as file:
         temp = file.readlines()
@@ -30,7 +30,11 @@ def extract_items(override=False):
     for line in temp[1:]:
         data = line.split(",")
         item_id = compute_id(prefix, data[3], data[4], data[5])
-        item_txt += (f"    \"{data[0]}\": ({int(data[1])}, ItemClassification.{data[2]}, {item_id}),\n")
+        if item_id in store:
+            raise ValueError(f"{item_id} duplicated.\n"
+                             f"Group = {data[4]}, State = {data[5]},  Item = {data[0]}")
+        store.append(item_id)
+        item_txt += f"    \"{data[0]}\": ({int(data[1])}, ItemClassification.{data[2]}, {item_id}),\n"
     item_txt = item_txt[:-2]
     item_txt += "\n    }\n\n\n"
 
@@ -72,6 +76,7 @@ def extract_locs(override=False):
             raise FileExistsError("The file `Locations.py` already exists. Use `override=True` to override it.")
 
     global prefix
+    store = []  # Stores the IDs to check for duplicates
 
     header = ("\"\"\"\n"
               "File generated with `extract_items.py` with the `loc_data.csv` file.\n\n"
@@ -85,8 +90,12 @@ def extract_locs(override=False):
 
     for line in temp[1:]:
         data = line.split(", ")
-        loc_id = compute_id(prefix, "location", data[5], data[7])
-        loc_txt += (f"    \"{data[0]}\": {loc_id},\n")
+        loc_id = compute_id(prefix, "location", data[5], data[7], data[8])
+        if loc_id in store:
+            raise ValueError(f"{loc_id} duplicated.\n"
+                             f"Group = {data[5]}, Value = {data[7]},  Location = {data[0]}")
+        store.append(loc_id)
+        loc_txt += f"    \"{data[0]}\": {loc_id},\n"
     loc_txt = loc_txt[:-2]
     loc_txt += "\n    }\n"
 
@@ -95,10 +104,13 @@ def extract_locs(override=False):
         print("The file Locations.py has been successfully created.")
 
 
-def compute_id(prefix, item_type, group, value):
-    """Returns the item ID accordig to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
+def compute_id(pre, item_type, group, state, value=""):
+    """Returns the item ID according to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
     assert int(group) <= 65535, f"group must be smaller than 65535 (is equal to {group})"
-    assert int(group) <= 65535, f"value must be smaller than 65535 (is equal to {group})"
+    assert int(state) <= 65535, f"state must be smaller than 65535 (is equal to {state})"
+    # assert int(value) <= 255, f"state must be smaller than 255 (is equal to {value})"
+    if value:
+        state = str(int(state) + int(value))  # TODO Temporary solution, see how to fix that
 
     if item_type == "location":
         b_item_type = "00"
@@ -112,8 +124,8 @@ def compute_id(prefix, item_type, group, value):
     b_group = bin(int(group))[2:]
     b_group = "0" * (16-len(b_group)) + b_group
 
-    b_value = bin(int(value))[2:]
+    b_value = bin(int(state))[2:]
     b_value = "0" * (16-len(b_value)) + b_value
 
-    total = prefix + b_item_type + b_group + b_value
+    total = pre + b_item_type + b_group + b_value
     return int(total, 2)

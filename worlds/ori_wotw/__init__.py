@@ -1,6 +1,6 @@
 """AP world for Ori and the Will of the Wisps."""
 
-from typing import List, TextIO, Dict
+from typing import List, Dict, Any
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
@@ -40,7 +40,7 @@ class WotWWorld(World):
     web = WotWWeb()
 
     item_name_to_id = {name: data[2] for name, data in item_table.items()}
-    location_name_to_id = loc_table
+    location_name_to_id = loc_table  # TODO Solve problem about location IDs
 
     item_name_groups = group_table
 
@@ -82,6 +82,8 @@ class WotWWorld(World):
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
             if loc_name in quest_table:  # Quests also have to be tracked like events
                 quest_name = loc_name + ".quest"
+                if options.no_quests:
+                    region = menu_region  # Connect the quest events to the beginning if they are skipped
                 quest_loc = WotWLocation(player, quest_name, None, region)
                 quest_loc.show_in_spoiler = False
                 quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression_skip_balancing,
@@ -184,7 +186,7 @@ class WotWWorld(World):
                 loc = world.get_location(location, player)
                 loc.place_locked_item(self.create_item(item))
                 removed_items.append(item)
-        if options.skip_trials:
+        if options.no_trials:
             for loc in ("MarshPastOpher.SpiritTrial",
                         "WestHollow.SpiritTrial",
                         "OuterWellspring.SpiritTrial",
@@ -194,6 +196,9 @@ class WotWWorld(World):
                         "LowerDepths.SpiritTrial",
                         "LowerWastes.SpiritTrial"):
                 world.get_location(loc, player).progress_type = 3
+        if options.no_quests:
+            for quest in quest_table:
+                world.get_location(quest, player).progress_type = 3
 
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
@@ -368,7 +373,7 @@ class WotWWorld(World):
             menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
             menu.connect(world.get_region("EastPools.EntryLever", player))
             menu.connect(world.get_region("UpperWastes.LeverDoor", player))
-        if options.skip_combat:
+        if options.no_combat:
             add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
                      lambda s: True, "or")
             add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
@@ -383,13 +388,20 @@ class WotWWorld(World):
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
 
-    # TODO probably better to do that automatically with the client, and get the settings from fill_slot_data
-    def generate_output(self, output_directory: str):
-        pass
-
-    def write_spoiler(self, spoiler_handle: TextIO) -> None:
-        pass
-    # TODO: config tutorial, infos with fill_slot_data
+    def fill_slot_data(self) -> Dict[str, Any]:
+        options = self.options
+        slot_data: Dict[str, Any] = {
+            "goal": options.goal.current_key,
+            "hard_mode": bool(options.hard_mode.value),
+            "spawn": options.spawn.current_key,  # TODO: maybe give coordinates instead
+            "better_spawn": bool(options.better_spawn.value),
+            "no_combat": bool(options.no_combat.value),
+            "no_trials": bool(options.no_trials.value),
+            "better_wellspring": bool(options.better_wellspring.value),
+            "no_hearts": bool(options.no_hearts.value),
+            "no_quests": bool(options.no_quests.value)
+        }
+        return slot_data
 
 
 class WotWItem(Item):

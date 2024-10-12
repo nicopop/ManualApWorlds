@@ -111,6 +111,6 @@ SkillVelocity,1,useful,item,11,80
 1 SpiritLight,1,filler,resource,1,1
 Ore,40,progression,resource,2,0
 Keystone,40,progression,resource,3,0
-ShardSlot,5,useful,resource,3,0
+ShardSlot,5,useful,resource,4,0
 Health,24,progression,resource,5,0
 Energy,24,progression,resource,6,0

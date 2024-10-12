@@ -116,9 +116,9 @@ class SkillUpgrades(Toggle):
     display_name = "Skill upgrades"
 
 
-class SkipCombat(Toggle):  # TODO: implement
+class NoCombat(Toggle):  # TODO: implement
     """Skip most of the combats."""
-    display_name = "Skip combat"
+    display_name = "No combat"
 
 
 class VanillaShopUpgrades(Toggle):
@@ -126,14 +126,24 @@ class VanillaShopUpgrades(Toggle):
     display_name = "Vanilla shop upgrades"
 
 
-class SkipTrials(Toggle):
+class NoTrials(Toggle):
     """Trials only contain filler items."""
-    display_name = "Skip Trials"
+    display_name = "No Trials"
 
 
 class BetterWellspring(Toggle):
     """The top door of Wellspring Glades is opened by default."""
     display_name = "Better Wellspring"
+
+
+class NoWillowHearts(Toggle):
+    """The door to Shriek is open from the beginning."""
+    display_name = "No Willow hearts"
+
+
+class NoQuests(Toggle):
+    """No items are on quests, and locations locked behind them are accessible."""
+    display_name = "No Quests"
 
 
 @dataclass
@@ -150,8 +160,10 @@ class WotWOptions(PerGameCommonOptions):
     bonus: BonusItems
     extra_bonus: ExtraBonusItems
     skill_upgrade: SkillUpgrades
-    skip_combat: SkipCombat
+    no_combat: NoCombat
     vanilla_shop_upgrades: VanillaShopUpgrades
-    skip_trials: SkipTrials
+    no_trials: NoTrials
     better_wellspring: BetterWellspring
-# TODO open world, hearts, keystones, QOL, No quests (to add in Moki)
+    no_hearts: NoWillowHearts
+    no_quests: NoQuests
+# TODO open world, keystones, QOL

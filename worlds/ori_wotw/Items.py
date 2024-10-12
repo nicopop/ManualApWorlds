@@ -6,7 +6,6 @@ Do not edit manually.
 
 from BaseClasses import ItemClassification
 
-base_id = 3363010932375552
 item_table = {  # The tuple contains the amount, the classification, the ID
     "Sword": (1, ItemClassification.progression, 3363015228915812),
     "DoubleJump": (1, ItemClassification.progression, 3363015228915717),
@@ -120,7 +119,7 @@ item_table = {  # The tuple contains the amount, the classification, the ID
     "1 SpiritLight": (1, ItemClassification.filler, 3363019522375681),
     "Ore": (40, ItemClassification.progression, 3363019522441216),
     "Keystone": (40, ItemClassification.progression, 3363019522506752),
-    "ShardSlot": (5, ItemClassification.useful, 3363019522506752),
+    "ShardSlot": (5, ItemClassification.useful, 3363019522572288),
     "Health": (24, ItemClassification.progression, 3363019522637824),
     "Energy": (24, ItemClassification.progression, 3363019522703360)
     }
