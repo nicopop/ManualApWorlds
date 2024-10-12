@@ -1,4 +1,4 @@
-options_presets = {
+options_presets = {  # TODO: reorganize (also in yaml + make more yaml templates)
     "Moki": {
         "progression_balancing": "normal",
         "accessibility":         "items",
@@ -20,6 +20,9 @@ options_presets = {
         "better_wellspring":     False,
         "no_hearts":             False,
         "no_quests":             True,
+        "qol":                   True,
+        "no_ks":                 False,
+        "open_mode":             False
     },
     "Gorlek": {
         "progression_balancing": "normal",
@@ -42,6 +45,9 @@ options_presets = {
         "better_wellspring":     False,
         "no_hearts":             False,
         "no_quests":             False,
+        "qol":                   True,
+        "no_ks":                 False,
+        "open_mode":             False
     },
     "Kii": {
         "progression_balancing": "normal",
@@ -64,5 +70,8 @@ options_presets = {
         "better_wellspring":     False,
         "no_hearts":             False,
         "no_quests":             False,
+        "qol":                   True,
+        "no_ks":                 False,
+        "open_mode":             False
     }
 }

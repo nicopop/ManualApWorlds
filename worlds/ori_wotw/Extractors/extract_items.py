@@ -93,7 +93,7 @@ def extract_locs(override=False):
         loc_id = compute_id(prefix, "location", data[5], data[7], data[8])
         if loc_id in store:
             raise ValueError(f"{loc_id} duplicated.\n"
-                             f"Group = {data[5]}, Value = {data[7]},  Location = {data[0]}")
+                             f"Group = {data[5]}, State = {data[7]}, Value = {data[8]}, Location = {data[0]}")
         store.append(loc_id)
         loc_txt += f"    \"{data[0]}\": {loc_id},\n"
     loc_txt = loc_txt[:-2]
@@ -108,9 +108,8 @@ def compute_id(pre, item_type, group, state, value=""):
     """Returns the item ID according to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
     assert int(group) <= 65535, f"group must be smaller than 65535 (is equal to {group})"
     assert int(state) <= 65535, f"state must be smaller than 65535 (is equal to {state})"
-    # assert int(value) <= 255, f"state must be smaller than 255 (is equal to {value})"
     if value:
-        state = str(int(state) + int(value))  # TODO Temporary solution, see how to fix that
+        assert int(value) <= 255, f"state must be smaller than 255 (is equal to {value})"
 
     if item_type == "location":
         b_item_type = "00"
@@ -122,10 +121,19 @@ def compute_id(pre, item_type, group, state, value=""):
         raise ValueError(f"{item_type} is not a valid type of item (must be location, item or resource).")
 
     b_group = bin(int(group))[2:]
+    if item_type == "location":
+        b_group = "0" * (8-len(b_group[-8:])) + b_group[-8:]
+
     b_group = "0" * (16-len(b_group)) + b_group
 
-    b_value = bin(int(state))[2:]
-    b_value = "0" * (16-len(b_value)) + b_value
+    b_state = bin(int(state))[2:]
+    b_state = "0" * (16-len(b_state)) + b_state
 
-    total = pre + b_item_type + b_group + b_value
+    if value:
+        b_value = bin(int(value))[2:]
+        b_value = "0" * (8-len(b_value)) + b_value
+    else:
+        b_value = ""
+
+    total = pre + b_item_type + b_group + b_state + b_value
     return int(total, 2)

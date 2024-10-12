@@ -1,6 +1,6 @@
 """Options for Ori and the Will of the Wisps Randomizer."""
 
-from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions
+from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions, OptionGroup
 from dataclasses import dataclass
 
 
@@ -37,11 +37,6 @@ class Glitches(Toggle):
     rich_text_doc = True
 
 
-class HardMode(Toggle):
-    """Play the game in hard difficulty."""
-    display_name = "Hard mode"
-
-
 class StartingLocation(Choice):
     """Choose the starting location."""
     display_name = "Starting location"
@@ -65,26 +60,6 @@ class StartingLocation(Choice):
     default = 0
 
 
-class BetterSpawn(Toggle):
-    """Opens some doors so random spawn works better."""
-    display_name = "Better random spawn"
-
-
-class SpawnSword(DefaultOnToggle):
-    """Choose to have Sword at the beginning."""
-    display_name = "Spawn with Sword"
-
-
-class Teleporters(DefaultOnToggle):
-    """Add most teleporters to the item pool."""
-    display_name = "Teleporters"
-
-
-class ExtraTeleporters(Toggle):
-    """Add two extra teleporters."""
-    display_name = "Extra teleporters"
-
-
 class Goal(Choice):
     """Set a condition for entering the final boss. Use the rando wheel (with **V**) to check goal progress.
 
@@ -99,6 +74,26 @@ class Goal(Choice):
     option_quests = 2
     option_nothing = 3
     default = 0
+
+
+class HardMode(Toggle):
+    """Play the game in hard difficulty."""
+    display_name = "Hard mode"
+
+
+class QualityOfLife(DefaultOnToggle):
+    """Activate QOL features and gameplay improvements."""
+    display_name = "Quality of life"
+
+
+class Teleporters(DefaultOnToggle):
+    """Add most teleporters to the item pool."""
+    display_name = "Teleporters"
+
+
+class ExtraTeleporters(Toggle):
+    """Add two extra teleporters."""
+    display_name = "Extra teleporters"
 
 
 class BonusItems(DefaultOnToggle):
@@ -116,24 +111,24 @@ class SkillUpgrades(Toggle):
     display_name = "Skill upgrades"
 
 
-class NoCombat(Toggle):  # TODO: implement
-    """Skip most of the combats."""
-    display_name = "No combat"
-
-
-class VanillaShopUpgrades(Toggle):
-    """Weapon upgrades and shards in shops are not randomized."""
-    display_name = "Vanilla shop upgrades"
-
-
-class NoTrials(Toggle):
-    """Trials only contain filler items."""
-    display_name = "No Trials"
+class BetterSpawn(Toggle):
+    """Opens some doors so random spawn works better."""
+    display_name = "Better random spawn"
 
 
 class BetterWellspring(Toggle):
     """The top door of Wellspring Glades is opened by default."""
     display_name = "Better Wellspring"
+
+
+class NoCombat(Toggle):
+    """Skip most of the combats."""
+    display_name = "No combat"
+
+
+class NoTrials(Toggle):
+    """Trials only contain filler items."""
+    display_name = "No Trials"
 
 
 class NoWillowHearts(Toggle):
@@ -146,24 +141,79 @@ class NoQuests(Toggle):
     display_name = "No Quests"
 
 
+class NoKeystonesDoors(Toggle):
+    """Open keystone doors by default (and remove keystones from the pool)."""
+    display_name = "No Keystone doors"
+
+
+class OpenMode(Toggle):
+    """Open most of the doors and obstacles."""
+    display_name = "Open mode"
+
+
+class SpawnSword(DefaultOnToggle):
+    """Choose to have Sword at the beginning."""
+    display_name = "Spawn with Sword"
+
+
+class VanillaShopUpgrades(Toggle):
+    """Weapon upgrades and shards in shops are not randomized."""
+    display_name = "Vanilla shop upgrades"
+
+
+option_groups = [
+    OptionGroup("Seed Settings", [
+        LogicDifficulty,
+        Glitches,
+        StartingLocation,
+        Goal,
+        HardMode,
+        QualityOfLife
+    ]),
+    OptionGroup("Item Pool", [
+        Teleporters,
+        ExtraTeleporters,
+        BonusItems,
+        ExtraBonusItems,
+        SkillUpgrades
+    ]),
+    OptionGroup("World Changes", [
+        BetterSpawn,
+        BetterWellspring,
+        NoCombat,
+        NoTrials,
+        NoWillowHearts,
+        NoQuests,
+        NoKeystonesDoors,
+        OpenMode
+    ]),
+    OptionGroup("Item Placements", [
+        SpawnSword,
+        VanillaShopUpgrades
+    ])
+]
+
+
 @dataclass
 class WotWOptions(PerGameCommonOptions):
-    difficulty: LogicDifficulty
+    difficulty: LogicDifficulty  # Seed Settings
     glitches: Glitches
-    hard_mode: HardMode
     spawn: StartingLocation
-    better_spawn: BetterSpawn
-    sword: SpawnSword
-    tp: Teleporters
-    extratp: ExtraTeleporters
     goal: Goal
+    hard_mode: HardMode
+    qol: QualityOfLife
+    tp: Teleporters  # Item Pool
+    extratp: ExtraTeleporters
     bonus: BonusItems
     extra_bonus: ExtraBonusItems
     skill_upgrade: SkillUpgrades
-    no_combat: NoCombat
-    vanilla_shop_upgrades: VanillaShopUpgrades
-    no_trials: NoTrials
+    better_spawn: BetterSpawn  # World Changes
     better_wellspring: BetterWellspring
+    no_combat: NoCombat
+    no_trials: NoTrials
     no_hearts: NoWillowHearts
     no_quests: NoQuests
-# TODO open world, keystones, QOL
+    no_ks: NoKeystonesDoors
+    open_mode: OpenMode
+    sword: SpawnSword  # Item Placements
+    vanilla_shop_upgrades: VanillaShopUpgrades

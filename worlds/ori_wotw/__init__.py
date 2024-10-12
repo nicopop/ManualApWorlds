@@ -1,21 +1,23 @@
 """AP world for Ori and the Will of the Wisps."""
 
-from typing import List, Dict, Any
+from typing import List, Dict
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
+from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Items import item_table, group_table
 from .Locations import loc_table
 from .Quests import quest_table
-from .Options import WotWOptions
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
-from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
+from .Options import WotWOptions, option_groups
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
+from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
+                      h_open_mode)
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
@@ -33,6 +35,7 @@ class WotWWeb(WebWorld):
         [""]
     )]
     options_presets = options_presets
+    option_groups = option_groups
 
 
 class WotWWorld(World):
@@ -40,7 +43,7 @@ class WotWWorld(World):
     web = WotWWeb()
 
     item_name_to_id = {name: data[2] for name, data in item_table.items()}
-    location_name_to_id = loc_table  # TODO Solve problem about location IDs
+    location_name_to_id = loc_table
 
     item_name_groups = group_table
 
@@ -86,22 +89,21 @@ class WotWWorld(World):
                     region = menu_region  # Connect the quest events to the beginning if they are skipped
                 quest_loc = WotWLocation(player, quest_name, None, region)
                 quest_loc.show_in_spoiler = False
-                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression_skip_balancing,
-                                                     None, player))
+                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression, None, player))
                 region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
             ev.show_in_spoiler = False
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression_skip_balancing, None, player))
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             world.regions.append(region)
             region.locations.append(ev)
         for event in refill_events:  # Create refill events, their item, and attach to their region
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
             ev.show_in_spoiler = False
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression_skip_balancing, None, player))
+            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
             world.regions.append(region)
             region.locations.append(ev)
 
@@ -115,7 +117,7 @@ class WotWWorld(World):
 
         region = Region("Victory", player, world)  # Victory event
         ev = WotWLocation(player, "Victory", None, region)
-        ev.place_locked_item(WotWItem("Victory", ItemClassification.progression_skip_balancing, None, player))
+        ev.place_locked_item(WotWItem("Victory", ItemClassification.progression, None, player))
         world.regions.append(region)
         region.locations.append(ev)
 
@@ -166,6 +168,12 @@ class WotWWorld(World):
         if not options.skill_upgrade:
             for item in group_table["skillup"]:
                 removed_items.append(item)
+
+        if options.no_quests:
+            removed_items.append("Ore")
+
+        if options.no_ks:
+            removed_items.append("Keystone")
 
         if options.vanilla_shop_upgrades:
             shop_items = {"OpherShop.ExplodingSpike": "ExplodingSpear",
@@ -387,21 +395,108 @@ class WotWWorld(World):
                      lambda s: s.has("Victory", player), "or")
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
+        if options.no_ks:
+            for event in ("MarshSpawn.KeystoneDoor",
+                          "HowlsDen.KeystoneDoor",
+                          "MidnightBurrows.KeystoneDoor",
+                          "WoodsEntry.KeystoneDoor",
+                          "WoodsMain.KeystoneDoor",
+                          "LowerReach.KeystoneDoor",
+                          "UpperReach.KeystoneDoor",
+                          "UpperDepths.EntryKeystoneDoor",
+                          "UpperDepths.CentralKeystoneDoor",
+                          "UpperPools.KeystoneRoomBubbleFree",
+                          "UpperPools.KeystoneDoor",
+                          "UpperWastes.KeystoneDoor"):
+                menu.connect(world.get_region(event, player))
+        if options.open_mode:
+            for event in ("HowlsDen.BoneBarrier",  # Part from open mode
+                          "MarshSpawn.ToOpherBarrier",
+                          "MarshSpawn.TokkBarrier",
+                          "MarshSpawn.LogBroken",
+                          "MarshSpawn.BurrowsOpen",
+                          "MidnightBurrows.HowlsDenShortcut",
+                          "MarshPastOpher.EyestoneDoor",
+                          "WestHollow.PurpleDoorOpen",
+                          "EastHollow.HornbugDoor",
+                          "EastHollow.DepthsLever",
+                          "GladesTown.GromsWall",
+                          "OuterWellspring.EntranceDoorOpen",
+                          "InnerWellspring.MiddleDoorsOpen",
+                          "InnerWellspring.TopDoorOpen",
+                          "EastHollow.DepthsOpen",
+                          "LowerReach.Lever",
+                          "LowerReach.TPLantern",
+                          "LowerReach.RolledSnowball",
+                          "LowerReach.EastDoorLantern",
+                          "LowerReach.ArenaBeaten",
+                          "UpperWastes.LeverDoor",
+                          "WindtornRuins.RuinsLever",
+                          "WindtornRuins.PillarBroken",
+                          "WeepingRidge.ElevatorFightCompleted",
+                          "EastPools.EntryLever",
+                          "EastPools.CentralRoomPurpleWall",
+                          "UpperPools.UpperWaterDrained",
+                          "UpperPools.ButtonDoorAboveTree",
+                          "MarshSpawn.HowlBurnt",  # Part from no rain
+                          "HowlsDen.UpperLoopExitBarrier",
+                          "HowlsDen.UpperLoopEntranceBarrier",
+                          "HowlsDen.RainLifted",):
+                menu.connect(world.get_region(event, player))
 
-    def fill_slot_data(self) -> Dict[str, Any]:
+    def generate_output(self, output_directory: str) -> None:
+        world = self.multiworld
         options = self.options
-        slot_data: Dict[str, Any] = {
-            "goal": options.goal.current_key,
-            "hard_mode": bool(options.hard_mode.value),
-            "spawn": options.spawn.current_key,  # TODO: maybe give coordinates instead
-            "better_spawn": bool(options.better_spawn.value),
-            "no_combat": bool(options.no_combat.value),
-            "no_trials": bool(options.no_trials.value),
-            "better_wellspring": bool(options.better_wellspring.value),
-            "no_hearts": bool(options.no_hearts.value),
-            "no_quests": bool(options.no_quests.value)
-        }
-        return slot_data
+        goals = (r"!!__GOALMODE_HACK trees" + "\n\n",
+                 r"!!__GOALMODE_HACK wisps" + "\n\n",
+                 r"!!__GOALMODE_HACK quests" + "\n\n",
+                 "")
+        coord = ("-799, -4310\n\n",  # Spawn coordinates
+                 "-945, -4582\n\n",
+                 "-328, -4536\n\n",
+                 "-150, -4238\n\n",
+                 "-307, -4153\n\n",
+                 "-1308, -3675\n\n",
+                 "611, -4162\n\n",
+                 "1083, -4052\n\n",
+                 "-259, -3962\n\n",
+                 "513, -4361\n\n",
+                 "-1316, -4153\n\n",
+                 "-1656, -4171\n\n",
+                 "1456, -3997\n\n",
+                 "1992, -3902\n\n",
+                 "2044, -3679\n\n",
+                 "2130, -3984\n\n",
+                 "422, -3864\n\n")
+
+        output = "Flags: AP\n\n"
+        output += f"Seed: {world.seed_name}\n\n"
+        output += f"APSlot: {world.player_name[self.player]}\n\n"
+
+        output += r"Spawn: " + coord[options.spawn.value]
+        output += goals[options.goal.value]
+        output += h_core
+
+        if options.no_combat:
+            output += h_no_combat
+        if options.no_quests:
+            output += h_no_quests
+        if options.no_hearts:
+            output += h_no_hearts
+        if options.no_trials:
+            output += h_no_trials
+        if options.better_wellspring:
+            output += r"// No Trials\n3|0|8|37858|31962|bool|true" + "\n\n"
+        if options.qol:
+            output += h_qol
+        if options.no_ks:
+            output += h_no_ks
+        if options.open_mode:
+            output += h_open_mode
+
+        file_name = f"/AP_{world.player_name[self.player]}.wotwr"
+        with open(output_directory + file_name, "w") as f:
+            f.write(output)
 
 
 class WotWItem(Item):
