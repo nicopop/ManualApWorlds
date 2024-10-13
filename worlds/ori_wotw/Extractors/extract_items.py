@@ -113,18 +113,22 @@ def compute_id(pre, item_type, group, state, value=""):
 
     if item_type == "location":
         b_item_type = "00"
+        if not value:
+            value = "0"
     elif item_type == "item":
         b_item_type = "01"
+        value = ""
     elif item_type == "resource":
         b_item_type = "10"
+        value = ""
     else:
         raise ValueError(f"{item_type} is not a valid type of item (must be location, item or resource).")
 
     b_group = bin(int(group))[2:]
     if item_type == "location":
         b_group = "0" * (8-len(b_group[-8:])) + b_group[-8:]
-
-    b_group = "0" * (16-len(b_group)) + b_group
+    else:
+        b_group = "0" * (16-len(b_group)) + b_group
 
     b_state = bin(int(state))[2:]
     b_state = "0" * (16-len(b_state)) + b_state
