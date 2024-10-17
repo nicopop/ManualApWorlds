@@ -1,4 +1,5 @@
 {
+  "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json",
   "Lobby": {
     "starting": true,
     "requires": [],
@@ -6,7 +7,7 @@
   },
   "Restaurant": {
     "requires": "|@Basefloorplans:1| and |@NormalSettings:1|",
-    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey",
+    "connects_to": ["Steak", "Salad", "Pizza", "Dumplings", "Coffee", "Burger", "Turkey", "Tacos",
         "Pie", "Cakes", "Spaghetti", "Fish", "Hot Dog", "Breakfast", "Stir Fry", "Extras"]
   },
   "Steak": {
@@ -105,6 +106,20 @@
     "connects_to": ["Late Turkey"]
   },
   "Late Turkey": {
+    "requires": "|Research Desk| and |Sink Upgrades|",
+    "connects_to": []
+  },
+  "Tacos": {
+    "requires": "|Tacos Recipe|",
+    "connects_to": ["Early Tacos"]
+  },
+  "Early Tacos": {
+    "connects_to": ["Middle Tacos"]
+  },
+  "Middle Tacos": {
+    "connects_to": ["Late Tacos"]
+  },
+  "Late Tacos": {
     "requires": "|Research Desk| and |Sink Upgrades|",
     "connects_to": []
   },

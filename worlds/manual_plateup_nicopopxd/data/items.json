@@ -1,9 +1,11 @@
-[
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
+    "data": [
   {
     "name": "Victory Token",
     "progression_skip_balancing": true,
     "local": true,
-    "count": 30,
+    "count": 40,
     "category": [ "1 Important", "0 Everything", "normal_tokens" ]
   },
   {
@@ -44,6 +46,11 @@
   },
   {
     "name": "Turkey Recipe",
+    "progression": true,
+    "category": [ "2 Recipes", "0 Everything", "level_06" ]
+  },
+  {
+    "name": "Tacos Recipe",
     "progression": true,
     "category": [ "2 Recipes", "0 Everything", "level_06" ]
   },
@@ -270,3 +277,4 @@
     "category": [ "4 Settings", "0 Everything", "level_05" ]
   }
 ]
+}

@@ -6,9 +6,8 @@ from BaseClasses import MultiWorld, CollectionState
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
 from ..Locations import ManualLocation
-from ..Data import load_data_file
 from ..Game import game_name
-from ..Helpers import clamp
+from ..Helpers import clamp, load_data_file
 
 # Raw JSON data from the Manual apworld, respectively:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
@@ -22,7 +21,6 @@ from .Options import Goal
 
 import logging
 import math
-from copy import copy
 
 logger = logging.getLogger()
 APMiscData = {}
@@ -46,21 +44,21 @@ Copy of any changed world item/locations
 
 
 
+# Use this function to change the valid filler items to be created to replace item links or starting items.
+# Default value is the `filler_item_name` from game.json
+def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
+    return False
+
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
 def before_create_regions(world: World, multiworld: MultiWorld, player: int):
-    extra_data = load_data_file("extra.json")
     if not hasattr(world, 'options'):
         raise Exception("Sorry I no longer support AP before the Options Manager")
     # Set version in yaml and log
     if not APMiscData.get('version'):
         APMiscData['version'] = "Unknown"
-        APMiscData['043Compatible'] = False
 
         if 'version' in game_table:
             APMiscData['version'] = game_table['version']
-
-        if hasattr(multiworld, 'clear_location_cache') and callable(multiworld.clear_location_cache):
-            APMiscData['043Compatible'] = True
 
         logger.info(f"player(s) uses {world.game} version: {APMiscData['version']}")
 
@@ -76,20 +74,24 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
 
     #Options Check for impossibilities
     for i in range(world.options.host_level.value + 1, 16):
-        recipes = extra_data.get("Options").get(f"level_{i}", [])
+        recipes = world.item_name_groups.get(f"level_{i:02d}", [])
+        #recipes = extra_data.get("Options").get(f"level_{i}", [])
         for recipe in recipes:
-            logger.debug(f"removed player {player} recipe_{recipe.lower().replace(' ', '')}")
-            option_name = f"recipe_{recipe.lower().replace(' ', '')}"
-            if world.options.__dict__.get(option_name, {}):
-                world.options.__dict__[option_name].value = 0
-    # APMiscData[player]["EnabledRecipeCount"] = len([name for name, option in world.options.__dict__.items() if name.startswith('recipe_') and option.value])
-    # APMiscData[player]["EnabledRecipeCount"] += world.options.more_recipes.value
+            if not recipe.lower().endswith("recipe"):
+                continue
+            recipe = "recipe_" + recipe.lower().rstrip("recipe").replace(' ', '')
+            # option_name = f"recipe_{recipe}"
+            if world.options.__dict__.get(recipe, {}):
+                world.options.__dict__[recipe].value = 0
+                logger.debug(f"Set player {player}'s {recipe} option's value to 0 because its for a higher lvl than host_level({world.options.host_level.value})")
+
     if not hasattr(world, "valid_recipes"):
         world.valid_recipes = {}
+        world.required_tokens = -1
     if APMiscData['is_regen']:
-        data = multiworld.re_gen_passthrough.get(game_name,{}).get(player, {"valid_recipes": {}, "item_counts": {}})
+        data = multiworld.re_gen_passthrough.get(game_name,{}).get(player, {"valid_recipes": {}, "required_tokens": -1})
         world.valid_recipes = data["valid_recipes"]
-        world.item_counts[player] = data["item_counts"]
+        world.required_tokens = data["required_tokens"]
 
     if not world.valid_recipes:
         world.valid_recipes = {r.replace("recipe_", "").replace(' ', '').lower(): value.value for r, value in world.options.__dict__.items() if r.startswith("recipe_")}
@@ -98,15 +100,20 @@ def before_create_regions(world: World, multiworld: MultiWorld, player: int):
                 world.valid_recipes[f"extra{i:02d}"] = 1
             else:
                 world.valid_recipes[f"extra{i:02d}"] = 0
-        if not APMiscData['is_fake']:
-            enabled_recipes = [r for r, value in world.valid_recipes.items() if value]
+
+        world.enabled_recipes = [r for r, value in world.valid_recipes.items() if value]
+
+        if world.required_tokens == -1:
+            world.required_tokens = int(len(world.enabled_recipes))
             if world.options.goal == Goal.option_random_recipes_quota:
-                win_tokens = max(math.ceil(len(enabled_recipes)*(world.options.win_percent.value * 0.01)), 2)
-                toRoll = len(enabled_recipes) - win_tokens
-                world.random.shuffle(enabled_recipes)
-                for _ in range(toRoll):
-                    world.valid_recipes[enabled_recipes.pop()] = False
-    APMiscData[player]["win_tokens"] = len([r for r, value in world.valid_recipes.items() if value])
+                world.required_tokens = max(math.ceil(len(world.enabled_recipes)*(world.options.win_percent.value * 0.01)), 2)
+                if not APMiscData['is_fake']:
+                    toRoll = len(world.enabled_recipes) - world.required_tokens
+                    shuffle = list(world.enabled_recipes)
+                    world.random.shuffle(shuffle)
+                    for _ in range(toRoll):
+                        world.valid_recipes[shuffle.pop()] = False
+
 
     # if world.options.goal == Goal.option_randomly_placed_tokens or world.options.goal == Goal.option_chaos_mcguffin:
     #     APMiscData[player]["win_tokens"] = max(math.ceil(APMiscData[player]["win_tokens"]*(world.options.win_percent.value * 0.01)), 2)
@@ -175,7 +182,7 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     # Use this hook to remove items from the item pool
     item_counts= {}
     location_count = len(multiworld.get_unfilled_locations(player))
-    totalRecipes = APMiscData[player]["win_tokens"]
+    totalRecipes = world.required_tokens
     host_level = world.options.host_level.value
     goal = world.options.goal
     if goal == Goal.option_random_recipes_quota:
@@ -187,32 +194,39 @@ def before_create_items_filler(item_pool: list, world: World, multiworld: MultiW
     for item in APWorkingData["items_to_be_removed"].get(player, []):
         item_counts[item] = 0
 
-    if goal == Goal.option_chaos_mcguffin:
-        item_counts["Chaos Token"] = clamp(totalRecipes * 2, 4 , 60)
+    tokenType = "Chaos Token" if goal == Goal.option_chaos_mcguffin else "Victory Token"
+    non_Token_items_count = len(item_pool) - next(iter(filter(lambda c: c["name"] == tokenType, item_table)))["count"]
+    loc_left = len(multiworld.get_unfilled_locations(player)) - non_Token_items_count
+
+    if tokenType == "Chaos Token":
+        item_counts["Chaos Token"] = min(loc_left, clamp(totalRecipes * 2, 4 , 60))
         item_counts["Victory Token"] = 0
     else:
         item_counts["Chaos Token"] = 0
         item_counts["Victory Token"] = clamp(totalRecipes, 2, 30)
+    if loc_left < item_counts[tokenType]:
+        raise Exception(f"Before even creating filler items there's is not enough locations left for the Victory tokens. {item_counts['Victory Token'] - loc_left} location(s) missing \nTry enabling more recipes")
+    world.required_tokens = item_counts[tokenType]
 
-    for name, count in item_counts.items():
-        checkedname = copy(name)
-        # future change item name here
-        items = []
-        for item in item_pool:
-            if item.player != player:
-                continue
-            if item.name == checkedname:
-                items.append(item)
-        if len(items) > count:
-            for x in range(len(items) - count):
-                item_pool.remove(items[x])
+    counts = {}
+    removeMe = []
+    for item in item_pool:
+        if item.name in item_counts.keys():
+            if not item.name in counts.keys():
+                counts[item.name] = 0
+            counts[item.name] += 1
+            if counts[item.name] > item_counts[item.name]:
+                removeMe.append(item)
 
+    for item in removeMe:
+        item_pool.remove(item)
+    removeMe.clear()
 
     # for itemName in itemNamesToRemove:
     #     item = next(i for i in item_pool if i.name == itemName)
     #     item_pool.remove(item)
 
-    logger.info(f"{world.game}:{APMiscData[player]['name']}({player}):(lvl {host_level})(Recipes: {totalRecipes}) {len(item_pool)} items | {location_count} locations")
+    logger.info(f"{world.game}:{APMiscData[player]['name']}({player}):(lvl {host_level})(Goal: {goal.current_option_name})(Recipes: {len(world.enabled_recipes)}) {len(item_pool)} items | {location_count} locations")
 
     return item_pool
 
@@ -235,19 +249,17 @@ def before_set_rules(world: World, multiworld: MultiWorld, player: int):
 # Called after rules for accessing regions and locations are created, in case you want to see or modify that information.
 def after_set_rules(world: World, multiworld: MultiWorld, player: int):
     # Use this hook to modify the access rules for a given location
-    token_required = APMiscData[player]["win_tokens"]
+    token_required = world.required_tokens
     goal = world.options.goal
     if goal == Goal.option_quota or goal == Goal.option_randomly_placed_tokens or goal == Goal.option_chaos_mcguffin:
         token_name = "Victory Token"
         token_required = max(math.ceil(token_required*(world.options.win_percent.value * 0.01)), 2)
         if goal == Goal.option_chaos_mcguffin:
             token_name = "Chaos Token"
-            token_required = min(token_required * 2, 60)
-        Goals = [x['name'] for x in location_table if x.get('victory',False)]
+        # Goals = [x['name'] for x in location_table if x.get('victory',False)]
         for location in multiworld.get_locations(player):
-            if location.name in Goals:
-                set_rule(location,
-                        lambda state: state.has(token_name, player, token_required))
+            if location.name.lower() == goal.current_key:
+                location.access_rule = lambda state: state.has(token_name, player, token_required)
                 break
     pass
     # def Example_Rule(state: CollectionState) -> bool:
@@ -293,8 +305,28 @@ def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, 
     # world.item_counts[player] = slot_data.get("item_counts", {})
     # slot_data["item_counts"] = world.item_counts[player]
     slot_data["valid_recipes"] = world.valid_recipes
+    slot_data["required_tokens"] = world.required_tokens
     return slot_data
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
+    pass
+
+# This is called when you want to add information to the hint text
+def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+
+    ### Example way to use this hook:
+    # if player not in hint_data:
+    #     hint_data.update({player: {}})
+    # for location in multiworld.get_locations(player):
+    #     if not location.address:
+    #         continue
+    #
+    #     use this section to calculate the hint string
+    #
+    #     hint_data[player][location.address] = hint_string
+
+    pass
+
+def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
     pass

@@ -1,4 +1,5 @@
 {
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
     "level_01":{
         "hidden": true,
         "create_item_group": false,
@@ -80,7 +81,8 @@
     "04a - Dumplings":{},
     "04b - Coffee":{},
     "05 - Burger":{},
-    "06 - Turkey":{},
+    "06a - Turkey":{},
+    "06b - Tacos":{},
     "07a - Pie":{},
     "07b - Cakes":{},
     "08 - Spaghetti":{},
@@ -136,7 +138,7 @@
         "create_item_group": false,
         "create_location_group": false
     },
-    "chaos_token": {
+    "chaos_tokens": {
         "hidden": true,
         "create_item_group": false,
         "create_location_group": false

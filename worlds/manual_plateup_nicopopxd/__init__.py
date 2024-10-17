@@ -19,19 +19,20 @@ from .Regions import create_regions
 from .Items import ManualItem
 from .Rules import set_rules
 from .Options import manual_options_data
-from .Helpers import is_option_enabled, is_item_enabled, get_option_value, get_items_for_player
+from .Helpers import is_item_enabled, get_option_value, get_items_for_player, resolve_yaml_option
 
 from BaseClasses import ItemClassification, Tutorial, Item
 from Options import PerGameCommonOptions
 from worlds.AutoWorld import World, WebWorld
 
 from .hooks.World import \
-    before_create_regions, after_create_regions, \
+    hook_get_filler_item_name, before_create_regions, after_create_regions, \
     before_create_items_starting, before_create_items_filler, after_create_items, \
     before_create_item, after_create_item, \
     before_set_rules, after_set_rules, \
     before_generate_basic, after_generate_basic, \
-    before_fill_slot_data, after_fill_slot_data, before_write_spoiler
+    before_fill_slot_data, after_fill_slot_data, before_write_spoiler, \
+    before_extend_hint_information, after_extend_hint_information
 from .hooks.Data import hook_interpret_slot_data
 
 class ManualWorld(World):
@@ -53,6 +54,8 @@ class ManualWorld(World):
     item_name_to_item = item_name_to_item
     item_name_groups = item_name_groups
 
+    filler_item_name = filler_item_name
+
     item_counts = {}
     start_inventory = {}
 
@@ -61,6 +64,9 @@ class ManualWorld(World):
     location_name_to_location = location_name_to_location
     location_name_groups = location_name_groups
     victory_names = victory_names
+
+    def get_filler_item_name(self) -> str:
+        return hook_get_filler_item_name(self, self.multiworld, self.player) or self.filler_item_name
 
     def interpret_slot_data(self, slot_data: dict[str, any]):
         #this is called by tools like UT
@@ -102,8 +108,10 @@ class ManualWorld(World):
         configured_item_names = self.item_id_to_name.copy()
 
         for name in configured_item_names.values():
+            # victory gets placed via place_locked_item at the victory location in create_regions
             if name == "__Victory__": continue
-            if name == filler_item_name: continue
+            # the game.json filler item name is added to the item lookup, so skip it until it's potentially needed later
+            if name == filler_item_name: continue # intentionally using the Game.py filler_item_name here because it's a non-Items item
 
             item = self.item_name_to_item[name]
             item_count = int(item.get("count", 1))
@@ -117,15 +125,34 @@ class ManualWorld(World):
 
             if item_count == 0: continue
 
-            for i in range(item_count):
+            for _ in range(item_count):
                 new_item = self.create_item(name)
                 pool.append(new_item)
 
-            if item.get("early"): # only early
-                self.multiworld.early_items[self.player][name] = item_count
-            if item.get("local"): # only local
-                if name not in self.multiworld.local_items[self.player].value:
+            if item.get("early"): # Some or all early
+                if isinstance(item["early"],int) or (isinstance(item["early"],str) and item["early"].isnumeric()):
+                    self.multiworld.early_items[self.player][name] = int(item["early"])
+
+                elif isinstance(item["early"],bool): #No need to deal with true vs false since false wont get here
+                    self.multiworld.early_items[self.player][name] = item_count
+
+                else:
+                    raise Exception(f"Item {name}'s 'early' has an invalid value of '{item['early']}'. \nA boolean or an integer was expected.")
+
+            if item.get("local"): # All local
+                if name not in self.options.local_items.value:
                     self.options.local_items.value.add(name)
+
+            if item.get("local_early"): # Some or all local and early
+                if isinstance(item["local_early"],int) or (isinstance(item["local_early"],str) and item["local_early"].isnumeric()):
+                    self.multiworld.local_early_items[self.player][name] = int(item["local_early"])
+
+                elif isinstance(item["local_early"],bool):
+                    self.multiworld.local_early_items[self.player][name] = item_count
+
+                else:
+                    raise Exception(f"Item {name}'s 'local_early' has an invalid value of '{item['local_early']}'. \nA boolean or an integer was expected.")
+
 
         pool = before_create_items_starting(pool, self, self.multiworld, self.player)
 
@@ -133,6 +160,8 @@ class ManualWorld(World):
 
         if starting_items:
             for starting_item_block in starting_items:
+                if not resolve_yaml_option(self.multiworld, self.player, starting_item_block):
+                    continue
                 # if there's a condition on having a previous item, check for any of them
                 # if not found in items started, this starting item rule shouldn't execute, and check the next one
                 if "if_previous_item" in starting_item_block:
@@ -223,8 +252,7 @@ class ManualWorld(World):
                 forbidden_item_names.extend([i["name"] for i in item_name_to_item.values() if "category" in i and set(i["category"]).intersection(manual_location["dont_place_item_category"])])
 
             if forbidden_item_names:
-                forbid_items_for_player(location, forbidden_item_names, self.player)
-                forbidden_item_names.clear()
+                forbid_items_for_player(location, set(forbidden_item_names), self.player)
 
         # Handle specific item placements using fill_restrictive
         manual_locations_with_placements = {location['name']: location for location in location_name_to_location.values() if "place_item" in location or "place_item_category" in location}
@@ -309,9 +337,27 @@ class ManualWorld(World):
     def write_spoiler(self, spoiler_handle):
         before_write_spoiler(self, self.multiworld, spoiler_handle)
 
+    def extend_hint_information(self, hint_data: dict[int, dict[int, str]]) -> None:
+        before_extend_hint_information(hint_data, self, self.multiworld, self.player)
+
+        for location in self.multiworld.get_locations(self.player):
+            if not location.address:
+                continue
+            if "hint_entrance" in self.location_name_to_location[location.name]:
+                if self.player not in hint_data:
+                    hint_data.update({self.player: {}})
+                hint_data[self.player][location.address] = self.location_name_to_location[location.name]["hint_entrance"]
+
+        after_extend_hint_information(hint_data, self, self.multiworld, self.player)
+
     ###
     # Non-standard AP world methods
     ###
+
+    rules_functions_maximum_recursion: int = 5
+    """Default: 5\n
+    The maximum time a location/region's requirement can loop to check for functions\n
+    One thing to remember is the more you loop the longer generation will take. So probably leave it as is unless you really needs it."""
 
     def add_filler_items(self, item_pool, traps):
         Utils.deprecate("Use adjust_filler_items instead.")
@@ -333,7 +379,7 @@ class ManualWorld(World):
                 item_pool.append(extra_item)
 
             for _ in range(0, filler_count):
-                extra_item = self.create_item(filler_item_name)
+                extra_item = self.create_item(self.get_filler_item_name())
                 item_pool.append(extra_item)
         elif extras < 0:
             logging.warning(f"{self.game} has more items than locations. {abs(extras)} non-progression items will be removed at random.")
@@ -385,8 +431,13 @@ class ManualWorld(World):
 ###
 
 def launch_client(*args):
+    import CommonClient
     from .ManualClient import launch as Main
-    launch_subprocess(Main, name="Manual client")
+
+    if CommonClient.gui_enabled:
+        launch_subprocess(Main, name="Manual client")
+    else:
+        Main()
 
 class VersionedComponent(Component):
     def __init__(self, display_name: str, script_name: Optional[str] = None, func: Optional[Callable] = None, version: int = 0, file_identifier: Optional[Callable[[str], bool]] = None):
@@ -394,7 +445,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 2024_05_05 # YYYYMMDD
+    version = 2024_09_29 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":

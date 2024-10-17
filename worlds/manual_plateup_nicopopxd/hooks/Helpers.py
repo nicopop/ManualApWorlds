@@ -1,8 +1,9 @@
-from typing import Optional
-from BaseClasses import MultiWorld
-from ..Locations import ManualLocation
-from ..Items import ManualItem
+from typing import Optional, TYPE_CHECKING
+from BaseClasses import MultiWorld, Item, Location
 
+if TYPE_CHECKING:
+    from ..Items import ManualItem
+    from ..Locations import ManualLocation
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the category, False to disable it, or None to use the default behavior
@@ -23,7 +24,7 @@ def before_is_category_enabled(multiworld: MultiWorld, player: int, category_nam
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the item, False to disable it, or None to use the default behavior
-def before_is_item_enabled(multiworld: MultiWorld, player: int, item: ManualItem) -> Optional[bool]:
+def before_is_item_enabled(multiworld: MultiWorld, player: int, item: "ManualItem") -> Optional[bool]:
     check = checkobject(multiworld, player, item)
     if check is None:
         base = multiworld.worlds[player]
@@ -35,31 +36,37 @@ def before_is_item_enabled(multiworld: MultiWorld, player: int, item: ManualItem
 
 # Use this if you want to override the default behavior of is_option_enabled
 # Return True to enable the location, False to disable it, or None to use the default behavior
-def before_is_location_enabled(multiworld: MultiWorld, player: int, location: ManualLocation) -> Optional[bool]:
+def before_is_location_enabled(multiworld: MultiWorld, player: int, location: "ManualLocation") -> Optional[bool]:
     from .Options import Goal
     check = checkobject(multiworld, player, location)
     if check is None:
         name = location.get('name', "")
+        if "inGame" not in location.get('category', []):
+            return None
         recipe = name.split('-')[0].replace(" ", "").lower()
         world = multiworld.worlds[player]
+        goal = world.options.goal
 
-        if recipe in world.valid_recipes.keys(): #if its a recipe location
-            if world.options.goal.value == Goal.option_random_recipes_quota:
-                result = _check_recipe(world, recipe)
-                if result is None:
-                    if "no_token" in location.get('category', []) or "has_token" in location.get('category', []):
-                        has_token = "has_token" in location.get('category', [])
-                        if world.valid_recipes.get(recipe, False):
-                            return has_token
-                        else:
-                            return not has_token
-            elif world.options.goal == Goal.option_randomly_placed_tokens:
-                if "has_token" in location.get('category', []):
-                    return False
-            else:
-                if "no_token" in location.get('category', []):
-                    return False
-            return _check_recipe(world, recipe)
+        if recipe not in world.valid_recipes.keys():
+            raise Exception(f"{recipe} is not a known recipe. Probably missing its '{recipe} recipe' item in item.json")
+        #if its a recipe location
+        if goal == Goal.option_random_recipes_quota:
+            result = _check_recipe(world, recipe)
+            if result is None:
+                if "no_token" in location.get('category', []) or "has_token" in location.get('category', []):
+                    has_token = "has_token" in location.get('category', [])
+                    if world.valid_recipes.get(recipe, False):
+                        return has_token
+                    else:
+                        return not has_token
+            return result
+        elif goal == Goal.option_randomly_placed_tokens or goal == Goal.option_chaos_mcguffin:
+            if "has_token" in location.get('category', []):
+                return False
+        else:
+            if "no_token" in location.get('category', []):
+                return False
+        return _check_recipe(world, recipe)
     return check
 
 def _check_recipe(base, recipe: str) -> Optional[bool]:
