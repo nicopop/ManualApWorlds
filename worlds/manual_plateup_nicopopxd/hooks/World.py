@@ -256,12 +256,10 @@ def after_set_rules(world: World, multiworld: MultiWorld, player: int):
         token_required = max(math.ceil(token_required*(world.options.win_percent.value * 0.01)), 2)
         if goal == Goal.option_chaos_mcguffin:
             token_name = "Chaos Token"
-            token_required = min(token_required * 2, 60)
-        Goals = [x['name'] for x in location_table if x.get('victory',False)]
+        # Goals = [x['name'] for x in location_table if x.get('victory',False)]
         for location in multiworld.get_locations(player):
-            if location.name in Goals:
-                set_rule(location,
-                        lambda state: state.has(token_name, player, token_required))
+            if location.name.lower() == goal.current_key:
+                location.access_rule = lambda state: state.has(token_name, player, token_required)
                 break
     pass
     # def Example_Rule(state: CollectionState) -> bool:
