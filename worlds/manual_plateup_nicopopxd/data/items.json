@@ -1,4 +1,6 @@
-[
+{
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
+    "data": [
   {
     "name": "Victory Token",
     "progression_skip_balancing": true,
@@ -275,3 +277,4 @@
     "category": [ "4 Settings", "0 Everything", "level_05" ]
   }
 ]
+}

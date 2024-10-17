@@ -1,10 +1,9 @@
-from BaseClasses import Entrance, MultiWorld, Region, ItemClassification
+from BaseClasses import Entrance, MultiWorld, Region
 from .Helpers import is_category_enabled, is_location_enabled
-from .Data import region_table, location_table
+from .Data import region_table
 from .Locations import ManualLocation, location_name_to_location
-from .Items import ManualItem
 from worlds.AutoWorld import World
-from .hooks.Regions import before_region_table_processed
+
 
 if not region_table:
     region_table = {}
@@ -20,7 +19,6 @@ regionMap["Manual"] = {
     "connects_to": starting_regions
 }
 
-regionMap = before_region_table_processed(regionMap)
 
 def create_regions(world: World, multiworld: MultiWorld, player: int):
     # Create regions and assign locations to each region
@@ -65,13 +63,6 @@ def create_region(world: World, multiworld: MultiWorld, player: int, name: str, 
             if location_name_to_location[location].get('prehint'):
                 world.options.start_location_hints.value.add(location)
             ret.locations.append(locationObj)
-
-            if loc_id and world.location_name_to_location[location].get("create_event", False):
-                eventLocationObj = ManualLocation(player,"[Event] "+location,None,ret)
-                eventLocationObj.show_in_spoiler = False
-                eventItemOjb = ManualItem("[Event] "+location,ItemClassification.progression, None, player)
-                eventLocationObj.place_locked_item(eventItemOjb)
-                ret.locations.append(eventLocationObj)
     if exits:
         for exit in exits:
             ret.exits.append(Entrance(player, getConnectionName(name, exit), ret))

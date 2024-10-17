@@ -6,9 +6,8 @@ from BaseClasses import MultiWorld, CollectionState
 # Object classes from Manual -- extending AP core -- representing items and locations that are used in generation
 from ..Items import ManualItem
 from ..Locations import ManualLocation
-from ..Data import load_data_file
 from ..Game import game_name
-from ..Helpers import clamp
+from ..Helpers import clamp, load_data_file
 
 # Raw JSON data from the Manual apworld, respectively:
 #          data/game.json, data/items.json, data/locations.json, data/regions.json
@@ -48,7 +47,7 @@ Copy of any changed world item/locations
 
 # Use this function to change the valid filler items to be created to replace item links or starting items.
 # Default value is the `filler_item_name` from game.json
-def hook_get_filler_item_name() -> str | bool:
+def hook_get_filler_item_name(world: World, multiworld: MultiWorld, player: int) -> str | bool:
     return False
 
 # Called before regions and locations are created. Not clear why you'd want this, but it's here. Victory location is included, but Victory event is not placed yet.
@@ -311,4 +310,23 @@ def after_fill_slot_data(slot_data: dict, world: World, multiworld: MultiWorld, 
 
 # This is called right at the end, in case you want to write stuff to the spoiler log
 def before_write_spoiler(world: World, multiworld: MultiWorld, spoiler_handle) -> None:
+    pass
+
+# This is called when you want to add information to the hint text
+def before_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
+
+    ### Example way to use this hook:
+    # if player not in hint_data:
+    #     hint_data.update({player: {}})
+    # for location in multiworld.get_locations(player):
+    #     if not location.address:
+    #         continue
+    #
+    #     use this section to calculate the hint string
+    #
+    #     hint_data[player][location.address] = hint_string
+
+    pass
+
+def after_extend_hint_information(hint_data: dict[int, dict[int, str]], world: World, multiworld: MultiWorld, player: int) -> None:
     pass

@@ -1,4 +1,6 @@
-[
+{
+	"$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
+    "data": [
 	{
 		"name": "Get in a game for the first time",
 		"category": [ "00 - Lobby" ],
@@ -8,31 +10,36 @@
 	{
 		"name": "Get to Overtime for the first time",
 		"category": [ "00 - Lobby" ],
-		"requires": "|Victory Token:1|",
+		"requires": "{checkToken(1)}",
+		"dont_place_item": ["Victory Token", "Chaos Token"],
 		"region": "Lobby"
 	},
 	{
 		"name": "Get at least 10% of the Victory tokens",
 		"category": [ "00 - Lobby" ],
-		"requires": "|Victory Token:10%|",
+		"requires": "{checkToken(10%)}",
+		"dont_place_item": ["Victory Token", "Chaos Token"],
 		"region": "Lobby"
 	},
 	{
 		"name": "Get at least 25% of the Victory tokens",
 		"category": [ "00 - Lobby" ],
-		"requires": "|Victory Token:25%|",
+		"requires": "{checkToken(25%)}",
+		"dont_place_item": ["Victory Token", "Chaos Token"],
 		"region": "Lobby"
 	},
 	{
 		"name": "Get at least 50% of the Victory tokens",
 		"category": [ "00 - Lobby" ],
-		"requires": "|Victory Token:50%|",
+		"requires": "{checkToken(50%)}",
+		"dont_place_item": ["Victory Token", "Chaos Token"],
 		"region": "Lobby"
 	},
 	{
 		"name": "Get to 75% of the Victory tokens",
 		"category": [ "00 - Lobby" ],
-		"requires": "|Victory Token:75%|",
+		"requires": "{checkToken(75%)}",
+		"dont_place_item": ["Victory Token", "Chaos Token"],
 		"region": "Lobby"
 	},
 	{
@@ -1001,4 +1008,4 @@
 		"category": ["00 - Victory"],
 		"victory": true
 	}
-]
+]}

@@ -19,7 +19,7 @@ from .Regions import create_regions
 from .Items import ManualItem
 from .Rules import set_rules
 from .Options import manual_options_data
-from .Helpers import is_option_enabled, is_item_enabled, get_option_value, get_items_for_player
+from .Helpers import is_item_enabled, get_option_value, get_items_for_player, resolve_yaml_option
 
 from BaseClasses import ItemClassification, Tutorial, Item
 from Options import PerGameCommonOptions
@@ -31,7 +31,8 @@ from .hooks.World import \
     before_create_item, after_create_item, \
     before_set_rules, after_set_rules, \
     before_generate_basic, after_generate_basic, \
-    before_fill_slot_data, after_fill_slot_data, before_write_spoiler
+    before_fill_slot_data, after_fill_slot_data, before_write_spoiler, \
+    before_extend_hint_information, after_extend_hint_information
 from .hooks.Data import hook_interpret_slot_data
 
 class ManualWorld(World):
@@ -53,6 +54,8 @@ class ManualWorld(World):
     item_name_to_item = item_name_to_item
     item_name_groups = item_name_groups
 
+    filler_item_name = filler_item_name
+
     item_counts = {}
     start_inventory = {}
 
@@ -63,7 +66,7 @@ class ManualWorld(World):
     victory_names = victory_names
 
     def get_filler_item_name(self) -> str:
-        return hook_get_filler_item_name() or filler_item_name
+        return hook_get_filler_item_name(self, self.multiworld, self.player) or self.filler_item_name
 
     def interpret_slot_data(self, slot_data: dict[str, any]):
         #this is called by tools like UT
@@ -105,8 +108,10 @@ class ManualWorld(World):
         configured_item_names = self.item_id_to_name.copy()
 
         for name in configured_item_names.values():
+            # victory gets placed via place_locked_item at the victory location in create_regions
             if name == "__Victory__": continue
-            if name == filler_item_name: continue
+            # the game.json filler item name is added to the item lookup, so skip it until it's potentially needed later
+            if name == filler_item_name: continue # intentionally using the Game.py filler_item_name here because it's a non-Items item
 
             item = self.item_name_to_item[name]
             item_count = int(item.get("count", 1))
@@ -155,6 +160,8 @@ class ManualWorld(World):
 
         if starting_items:
             for starting_item_block in starting_items:
+                if not resolve_yaml_option(self.multiworld, self.player, starting_item_block):
+                    continue
                 # if there's a condition on having a previous item, check for any of them
                 # if not found in items started, this starting item rule shouldn't execute, and check the next one
                 if "if_previous_item" in starting_item_block:
@@ -330,9 +337,27 @@ class ManualWorld(World):
     def write_spoiler(self, spoiler_handle):
         before_write_spoiler(self, self.multiworld, spoiler_handle)
 
+    def extend_hint_information(self, hint_data: dict[int, dict[int, str]]) -> None:
+        before_extend_hint_information(hint_data, self, self.multiworld, self.player)
+
+        for location in self.multiworld.get_locations(self.player):
+            if not location.address:
+                continue
+            if "hint_entrance" in self.location_name_to_location[location.name]:
+                if self.player not in hint_data:
+                    hint_data.update({self.player: {}})
+                hint_data[self.player][location.address] = self.location_name_to_location[location.name]["hint_entrance"]
+
+        after_extend_hint_information(hint_data, self, self.multiworld, self.player)
+
     ###
     # Non-standard AP world methods
     ###
+
+    rules_functions_maximum_recursion: int = 5
+    """Default: 5\n
+    The maximum time a location/region's requirement can loop to check for functions\n
+    One thing to remember is the more you loop the longer generation will take. So probably leave it as is unless you really needs it."""
 
     def add_filler_items(self, item_pool, traps):
         Utils.deprecate("Use adjust_filler_items instead.")
@@ -354,7 +379,7 @@ class ManualWorld(World):
                 item_pool.append(extra_item)
 
             for _ in range(0, filler_count):
-                extra_item = self.create_item(filler_item_name)
+                extra_item = self.create_item(self.get_filler_item_name())
                 item_pool.append(extra_item)
         elif extras < 0:
             logging.warning(f"{self.game} has more items than locations. {abs(extras)} non-progression items will be removed at random.")
@@ -420,7 +445,7 @@ class VersionedComponent(Component):
         self.version = version
 
 def add_client_to_launcher() -> None:
-    version = 2024_07_17 # YYYYMMDD
+    version = 2024_09_29 # YYYYMMDD
     found = False
     for c in components:
         if c.display_name == "Manual Client":

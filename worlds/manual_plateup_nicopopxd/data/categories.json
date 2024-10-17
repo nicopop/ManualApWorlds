@@ -1,4 +1,5 @@
 {
+    "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.categories.schema.json",
     "level_01":{
         "hidden": true,
         "create_item_group": false,
