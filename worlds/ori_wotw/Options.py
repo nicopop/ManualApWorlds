@@ -137,7 +137,7 @@ class NoWillowHearts(Toggle):
 
 
 class NoQuests(Toggle):
-    """No items are on quests, and locations locked behind them are accessible."""
+    """Talking to NPCs gives no item, and locations locked behind them are accessible."""
     display_name = "No Quests"
 
 
@@ -149,6 +149,11 @@ class NoKeystonesDoors(Toggle):
 class OpenMode(Toggle):
     """Open most of the doors and obstacles."""
     display_name = "Open mode"
+
+
+class GladesDone(Toggle):
+    """Start with Glades rebuilt and regrown."""
+    display_name = "Glades Done"
 
 
 class SpawnSword(DefaultOnToggle):
@@ -185,7 +190,8 @@ option_groups = [
         NoWillowHearts,
         NoQuests,
         NoKeystonesDoors,
-        OpenMode
+        OpenMode,
+        GladesDone
     ]),
     OptionGroup("Item Placements", [
         SpawnSword,
@@ -215,5 +221,6 @@ class WotWOptions(PerGameCommonOptions):
     no_quests: NoQuests
     no_ks: NoKeystonesDoors
     open_mode: OpenMode
+    glades_done: GladesDone
     sword: SpawnSword  # Item Placements
     vanilla_shop_upgrades: VanillaShopUpgrades

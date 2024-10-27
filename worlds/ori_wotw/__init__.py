@@ -17,10 +17,10 @@ from .Options import WotWOptions, option_groups
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
 from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
-                      h_open_mode)
+                      h_open_mode, h_glades_done)
 
 from worlds.AutoWorld import World, WebWorld
-from worlds.generic.Rules import add_rule, forbid_item, forbid_items_for_player
+from worlds.generic.Rules import add_rule, set_rule, forbid_item, forbid_items_for_player
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 
@@ -169,7 +169,7 @@ class WotWWorld(World):
             for item in group_table["skillup"]:
                 removed_items.append(item)
 
-        if options.no_quests:
+        if options.glades_done:
             removed_items.append("Ore")
 
         if options.no_ks:
@@ -207,6 +207,10 @@ class WotWWorld(World):
         if options.no_quests:
             for quest in quest_table:
                 world.get_location(quest, player).progress_type = 3
+        if options.glades_done:
+            for loc in ("GladesTown.RebuildTheGlades",
+                        "GladesTown.RegrowTheGlades"):
+                world.get_location(loc, player).progress_type = 3
 
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
@@ -382,17 +386,22 @@ class WotWWorld(World):
             menu.connect(world.get_region("EastPools.EntryLever", player))
             menu.connect(world.get_region("UpperWastes.LeverDoor", player))
         if options.no_combat:
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
-                     lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player), lambda s: True, "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player), lambda s: True, "or")
+            for entrance in ("HeaderStates_to_SkipKwolok",
+                             "HeaderStates_to_SkipMora1",
+                             "HeaderStates_to_SkipMora2",
+                             "DenShrine_to_HowlsDen.CombatShrineCompleted",
+                             "MarshShrine_to_MarshPastOpher.CombatShrineCompleted",
+                             "GladesShrine_to_WestGlades.CombatShrineCompleted",
+                             "WoodsShrine_to_WoodsMain.CombatShrineCompleted",
+                             "DepthsShrine_to_LowerDepths.CombatShrineCompleted"):
+                set_rule(world.get_entrance(entrance, player), lambda s: True)
         else:  # Connect these events when the seed is completed, to make them reachable.
-            add_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
-                     lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),
-                     lambda s: s.has("Victory", player), "or")
-            add_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
-                     lambda s: s.has("Victory", player), "or")
+            set_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
+                     lambda s: s.has("Victory", player))
+            set_rule(world.get_entrance("HeaderStates_to_SkipMora1", player),
+                     lambda s: s.has("Victory", player))
+            set_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
+                     lambda s: s.has("Victory", player))
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
         if options.no_ks:
@@ -443,14 +452,32 @@ class WotWWorld(World):
                           "HowlsDen.UpperLoopEntranceBarrier",
                           "HowlsDen.RainLifted",):
                 menu.connect(world.get_region(event, player))
+        if options.glades_done:
+            for quest in ("InnerWellspring.BlueMoonSeed",
+                          "EastPools.GrassSeed",
+                          "UpperDepths.LightcatcherSeed",
+                          "UpperReach.SpringSeed",
+                          "UpperWastes.FlowersSeed",
+                          "WoodsEntry.TreeSeed"):
+                menu.connect(world.get_region(quest + ".quest", player))
+            for event in ("GladesTown.BuildHuts",
+                          "GladesTown.RoofsOverHeads",
+                          "GladesTown.OnwardsAndUpwards",
+                          "GladesTown.ClearThorns",
+                          "GladesTown.CaveEntrance",):
+                menu.connect(world.get_region(event, player))
+
+        if options.no_quests:  # Open locations locked behind NPCs
+            for quest in ("WoodsEntry.LastTreeBranch",
+                          "WoodsEntry.DollQI",
+                          "GladesTown.FamilyReunionKey"):
+                menu.connect(world.get_region(quest + ".quest", player))
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
         options = self.options
-        goals = (r"!!__GOALMODE_HACK trees" + "\n\n",
-                 r"!!__GOALMODE_HACK wisps" + "\n\n",
-                 r"!!__GOALMODE_HACK quests" + "\n\n",
-                 "")
+        goals = (", All Trees", ", All Quests", ", All Wisps", "")
+        logic_difficulty = ("Moki", "Gorlek", "Kii", "Unsafe")
         coord = ("-799, -4310\n\n",  # Spawn coordinates
                  "-945, -4582\n\n",
                  "-328, -4536\n\n",
@@ -469,34 +496,51 @@ class WotWWorld(World):
                  "2130, -3984\n\n",
                  "422, -3864\n\n")
 
-        output = "Flags: AP\n\n"
-        output += f"Seed: {world.seed_name}\n\n"
-        output += f"APSlot: {world.player_name[self.player]}\n\n"
+        flags = f"Flags: AP, {logic_difficulty[options.difficulty]}{goals[options.goal]}\n\n"
+        output = r"// Format Version: 1.0.0" + "\n"
+        output += f"Seed: {world.seed_name}\n"
+        output += f"APSlot: {world.player_name[self.player]}\n"
 
-        output += r"Spawn: " + coord[options.spawn.value]
-        output += goals[options.goal.value]
+        output += r"Spawn: " + coord[options.spawn]
         output += h_core
 
+        if options.glitches:
+            flags += ", Glitches"
+        if options.tp:
+            flags += ", Teleporters"
+        if options.better_spawn:
+            output += h_better_spawn
         if options.no_combat:
             output += h_no_combat
+            flags += ", No Combat"
         if options.no_quests:
             output += h_no_quests
+            flags += ", No Quests"
         if options.no_hearts:
             output += h_no_hearts
+            flags += ", No Willow Hearts"
         if options.no_trials:
             output += h_no_trials
+            flags += ", No Trials"
+        if options.glades_done:
+            output += h_glades_done
+            flags += ", Glades Done"
         if options.better_wellspring:
-            output += r"// No Trials\n3|0|8|37858|31962|bool|true" + "\n\n"
+            output += r"// Better Wellspring" + "\n" + r"3|0|8|37858|31962|bool|true" + "\n\n"
+            flags += ", Better Wellspring"
         if options.qol:
             output += h_qol
         if options.no_ks:
             output += h_no_ks
+            flags += ", No Keystone Doors"
         if options.open_mode:
             output += h_open_mode
+            flags += ", Open Mode"
 
+        flags += "\n\n"
         file_name = f"/AP_{world.player_name[self.player]}.wotwr"
         with open(output_directory + file_name, "w") as f:
-            f.write(output)
+            f.write(flags + output)
 
 
 class WotWItem(Item):

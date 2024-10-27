@@ -1,3 +1,154 @@
+"""Generate an output file for testing."""
+# TODO: Bonus_core, bonus ?
+
+# Options
+difficulty = 0
+glitches = False
+goal = 0
+tp = True
+spawn = 0
+better_spawn = True
+no_combat = True
+no_quests = True  # TODO ? Also rebuild glades
+no_hearts = True
+no_trials = True
+glades_done = True
+better_wellspring = True
+qol = True
+no_ks = True
+open_mode = False  # TODO
+# Dummy information, not used for now.
+seed = 0
+name = "test"
+# Specific to testing
+give_skills = True  # Gives all skills on spawn
+give_tp = True  # Gives all TPs on spawn
+
+
+def generate_test() -> None:
+    """Generates the test output, with the options listed above."""
+    goals = (", All Trees", ", All Quests", ", All Wisps", "")
+    logic_difficulty = ("Moki", "Gorlek", "Kii", "Unsafe")
+    coord = ("-799, -4310\n\n",  # Spawn coordinates
+             "-945, -4582\n\n",
+             "-328, -4536\n\n",
+             "-150, -4238\n\n",
+             "-307, -4153\n\n",
+             "-1308, -3675\n\n",
+             "611, -4162\n\n",
+             "1083, -4052\n\n",
+             "-259, -3962\n\n",
+             "513, -4361\n\n",
+             "-1316, -4153\n\n",
+             "-1656, -4171\n\n",
+             "1456, -3997\n\n",
+             "1992, -3902\n\n",
+             "2044, -3679\n\n",
+             "2130, -3984\n\n",
+             "422, -3864\n\n")
+
+    flags = f"Flags: AP, {logic_difficulty[difficulty]}{goals[goal]}\n\n"
+    output = r"// Format Version: 1.0.0" + "\n"
+    output += f"Seed: {seed}\n"
+    output += f"APSlot: {name}\n"
+
+    output += r"Spawn: " + coord[spawn]
+    output += h_core
+
+    if give_skills:
+        output += test_skills
+    if give_tp:
+        output += test_tp
+
+    if glitches:
+        flags += ", Glitches"
+    if tp:
+        flags += ", Teleporters"
+    if better_spawn:
+        output += h_better_spawn
+    if no_combat:
+        output += h_no_combat
+        flags += ", No Combat"
+    if no_quests:
+        output += h_no_quests
+        flags += ", No Quests"
+    if no_hearts:
+        output += h_no_hearts
+        flags += ", No Willow Hearts"
+    if no_trials:
+        output += h_no_trials
+        flags += ", No Trials"
+    if glades_done:
+        output += h_glades_done
+        flags += ", Glades Done"
+    if better_wellspring:
+        output += r"// Better Wellspring" + "\n" + r"3|0|8|37858|31962|bool|true" + "\n\n"
+        flags += ", Better Wellspring"
+    if qol:
+        output += h_qol
+    if no_ks:
+        output += h_no_ks
+        flags += ", No Keystone Doors"
+    if open_mode:
+        output += h_open_mode
+        flags += ", Open Mode"
+
+    flags += "\n\n"
+    with open("./AP_test.wotwr", "w") as f:
+        f.write(flags + output)
+    print("Generated the file.")
+
+# Headers used in testing
+
+
+test_skills = (r"// Skills on spawn" + "\n"
+               r"3|0|2|0" + "\n"
+               r"3|0|2|3" + "\n"
+               r"3|0|2|5" + "\n"
+               r"3|0|2|8" + "\n"
+               r"3|0|2|9" + "\n"
+               r"3|0|2|14" + "\n"
+               r"3|0|2|15" + "\n"
+               r"3|0|2|23" + "\n"
+               r"3|0|2|51" + "\n"
+               r"3|0|2|57" + "\n"
+               r"3|0|2|62" + "\n"
+               r"3|0|2|74" + "\n"
+               r"3|0|2|77" + "\n"
+               r"3|0|2|97" + "\n"
+               r"3|0|2|98" + "\n"
+               r"3|0|2|100" + "\n"
+               r"3|0|2|101" + "\n"
+               r"3|0|2|102" + "\n"
+               r"3|0|2|104" + "\n"
+               r"3|0|2|106" + "\n"
+               r"3|0|2|108" + "\n"
+               r"3|0|2|115" + "\n"
+               r"3|0|2|116" + "\n"
+               r"3|0|2|118" + "\n"
+               r"3|0|9|0" + "\n")
+
+test_tp = (r"3|0|5|0|mute" + "\n"
+           r"3|0|5|1|mute" + "\n"
+           r"3|0|5|2|mute" + "\n"
+           r"3|0|5|3|mute" + "\n"
+           r"3|0|5|4|mute" + "\n"
+           r"3|0|5|5|mute" + "\n"
+           r"3|0|5|6|mute" + "\n"
+           r"3|0|5|7|mute" + "\n"
+           r"3|0|5|8|mute" + "\n"
+           r"3|0|5|9|mute" + "\n"
+           r"3|0|5|10|mute" + "\n"
+           r"3|0|5|11|mute" + "\n"
+           r"3|0|5|12|mute" + "\n"
+           r"3|0|5|13|mute" + "\n"
+           r"3|0|5|14|mute" + "\n"
+           r"3|0|5|15|mute" + "\n"
+           r"3|0|5|16|mute" + "\n"
+           r"3|0|5|17|mute" + "\n")
+
+# Headers.py
+
 """Headers used for generating a .wotwr seed file."""
 
 h_core = (r"// Seed Core" + "\n"

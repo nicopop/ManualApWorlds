@@ -28,6 +28,7 @@ Ori and the Will of the Wisps:
   no_hearts: 'false'
   no_quests: 'false'
   no_ks: 'false'
+  glades_done: 'false'
   open_mode: 'false'
 
   sword: 'false'

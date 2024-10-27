@@ -1,6 +1,6 @@
 """Additional location rules that are not extracted from `areas.wotw`."""
 
-from worlds.generic.Rules import add_rule
+from worlds.generic.Rules import set_rule
 
 
 def combat_rules(world, player, options):
@@ -144,4 +144,4 @@ def unreachable_rules(world, player, options):
         unreach = ()
 
     for entr in unreach:  # Connect these events when the seed is completed, to make them reachable.
-        add_rule(world.get_entrance(entr, player), lambda s: s.has("Victory", player), "or")
+        set_rule(world.get_entrance(entr, player), lambda s: s.has("Victory", player))
