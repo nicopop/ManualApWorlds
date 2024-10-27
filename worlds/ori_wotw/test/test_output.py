@@ -3,20 +3,21 @@
 
 # Options
 difficulty = 0
-glitches = False
+glitches = True
+hard_mode = True
 goal = 0
 tp = True
 spawn = 0
 better_spawn = True
 no_combat = True
-no_quests = True  # TODO ? Also rebuild glades
+no_quests = True
 no_hearts = True
 no_trials = True
 glades_done = True
 better_wellspring = True
 qol = True
 no_ks = True
-open_mode = False  # TODO
+open_mode = False
 # Dummy information, not used for now.
 seed = 0
 name = "test"
@@ -29,30 +30,46 @@ def generate_test() -> None:
     """Generates the test output, with the options listed above."""
     goals = (", All Trees", ", All Quests", ", All Wisps", "")
     logic_difficulty = ("Moki", "Gorlek", "Kii", "Unsafe")
-    coord = ("-799, -4310\n\n",  # Spawn coordinates
-             "-945, -4582\n\n",
-             "-328, -4536\n\n",
-             "-150, -4238\n\n",
-             "-307, -4153\n\n",
-             "-1308, -3675\n\n",
-             "611, -4162\n\n",
-             "1083, -4052\n\n",
-             "-259, -3962\n\n",
-             "513, -4361\n\n",
-             "-1316, -4153\n\n",
-             "-1656, -4171\n\n",
-             "1456, -3997\n\n",
-             "1992, -3902\n\n",
-             "2044, -3679\n\n",
-             "2130, -3984\n\n",
-             "422, -3864\n\n")
+    coord = (r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
+             r"-945, -4582  // MidnightBurrows.Teleporter",
+             r"-328, -4536  // HowlsDen.Teleporter",
+             r"-150, -4238  // EastHollow.Teleporter",
+             r"-307, -4153  // GladesTown.Teleporter",
+             r"-1308, -3675  // InnerWellspring.Teleporter",
+             r"611, -4162  // WoodsEntry.Teleporter",
+             r"1083, -4052  // WoodsMain.Teleporter",
+             r"-259, -3962  // LowerReach.Teleporter",
+             r"513, -4361  // UpperDepths.Teleporter",
+             r"-1316, -4153  // EastPools.Teleporter",
+             r"-1656, -4171  // WestPools.Teleporter",
+             r"1456, -3997  // LowerWastes.WestTP",
+             r"1992, -3902  // LowerWastes.EastTP",
+             r"2044, -3679  // UpperWastes.NorthTP",
+             r"2130, -3984  // WindtornRuins.RuinsTP",
+             r"422, -3864  // WillowsEnd.InnerTP")
 
-    flags = f"Flags: AP, {logic_difficulty[difficulty]}{goals[goal]}\n\n"
-    output = r"// Format Version: 1.0.0" + "\n"
-    output += f"Seed: {seed}\n"
-    output += f"APSlot: {name}\n"
+    flags = f"Flags: AP, {logic_difficulty[difficulty]}{goals[goal]}"
+    if glitches:
+        tricks = ("\"SwordSentryJump\",\"GlideHammerJump\",\"SentryRedirect\",\"HammerJump\",\"BlazeSwap\","
+                  "\"LaunchSwap\",\"SpearBreak\",\"ShurikenBreak\",\"GlideJump\",\"GrenadeRedirect\","
+                  "\"GrenadeJump\",\"FlashSwap\",\"RemoveKillPlane\",\"HammerBreak\",\"HammerSentryJump\","
+                  "\"SpearJump\",\"PauseHover\",\"SwordJump\",\"WaveDash\",\"SentrySwap\","
+                  "\"SentryBurn\",\"SentryBreak\"")
+    else:
+        tricks = ""
+    if hard_mode:
+        hard = "true"
+    else:
+        hard = "false"
+    head = (r"// Format Version: 1.0.0" + "\n"
+            r"// Config: {" + f"\"seed\":\"{seed}\",\"worldSettings\":["
+            "{\"spawn\":\"Random\",\"difficulty\":" + f"\"{logic_difficulty[difficulty]}\""
+            f",\"tricks\":[{tricks}],\"hard\":{hard},\"goals\":[],\"headers\":[]"
+            ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
+            "\"online\":false,\"createGame\":\"None\"}\n\n")
+    output = f"Seed: {seed}\nAPSlot: {name}\n\n"
 
-    output += r"Spawn: " + coord[spawn]
+    output += r"Spawn: " + coord[spawn] + "\n\n"
     output += h_core
 
     if give_skills:
@@ -93,9 +110,9 @@ def generate_test() -> None:
         output += h_open_mode
         flags += ", Open Mode"
 
-    flags += "\n\n"
+    flags += "\n"
     with open("./AP_test.wotwr", "w") as f:
-        f.write(flags + output)
+        f.write(flags + head + output)
     print("Generated the file.")
 
 # Headers used in testing
@@ -122,7 +139,6 @@ test_skills = (r"// Skills on spawn" + "\n"
                r"3|0|2|102" + "\n"
                r"3|0|2|104" + "\n"
                r"3|0|2|106" + "\n"
-               r"3|0|2|108" + "\n"
                r"3|0|2|115" + "\n"
                r"3|0|2|116" + "\n"
                r"3|0|2|118" + "\n"
