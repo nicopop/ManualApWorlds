@@ -1,5 +1,6 @@
 """Generate an output file for testing."""
 # TODO: Bonus_core, bonus ?
+from typing import List, Dict, Tuple
 
 # Options
 difficulty = 0
@@ -18,9 +19,10 @@ better_wellspring = True
 qol = True
 no_ks = True
 open_mode = False
-# Dummy information, not used for now.
+# Dummy information
 seed = 0
 name = "test"
+shop_text = "shop test"
 # Specific to testing
 give_skills = True  # Gives all skills on spawn
 give_tp = True  # Gives all TPs on spawn
@@ -28,25 +30,52 @@ give_tp = True  # Gives all TPs on spawn
 
 def generate_test() -> None:
     """Generates the test output, with the options listed above."""
-    goals = (", All Trees", ", All Quests", ", All Wisps", "")
-    logic_difficulty = ("Moki", "Gorlek", "Kii", "Unsafe")
-    coord = (r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
-             r"-945, -4582  // MidnightBurrows.Teleporter",
-             r"-328, -4536  // HowlsDen.Teleporter",
-             r"-150, -4238  // EastHollow.Teleporter",
-             r"-307, -4153  // GladesTown.Teleporter",
-             r"-1308, -3675  // InnerWellspring.Teleporter",
-             r"611, -4162  // WoodsEntry.Teleporter",
-             r"1083, -4052  // WoodsMain.Teleporter",
-             r"-259, -3962  // LowerReach.Teleporter",
-             r"513, -4361  // UpperDepths.Teleporter",
-             r"-1316, -4153  // EastPools.Teleporter",
-             r"-1656, -4171  // WestPools.Teleporter",
-             r"1456, -3997  // LowerWastes.WestTP",
-             r"1992, -3902  // LowerWastes.EastTP",
-             r"2044, -3679  // UpperWastes.NorthTP",
-             r"2130, -3984  // WindtornRuins.RuinsTP",
-             r"422, -3864  // WillowsEnd.InnerTP")
+    goals: List[str] = [", All Trees", ", All Quests", ", All Wisps", ""]
+    logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
+    coord: List[str] = [
+        r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
+        r"-945, -4582  // MidnightBurrows.Teleporter",
+        r"-328, -4536  // HowlsDen.Teleporter",
+        r"-150, -4238  // EastHollow.Teleporter",
+        r"-307, -4153  // GladesTown.Teleporter",
+        r"-1308, -3675  // InnerWellspring.Teleporter",
+        r"611, -4162  // WoodsEntry.Teleporter",
+        r"1083, -4052  // WoodsMain.Teleporter",
+        r"-259, -3962  // LowerReach.Teleporter",
+        r"513, -4361  // UpperDepths.Teleporter",
+        r"-1316, -4153  // EastPools.Teleporter",
+        r"-1656, -4171  // WestPools.Teleporter",
+        r"1456, -3997  // LowerWastes.WestTP",
+        r"1992, -3902  // LowerWastes.EastTP",
+        r"2044, -3679  // UpperWastes.NorthTP",
+        r"2130, -3984  // WindtornRuins.RuinsTP",
+        r"422, -3864  // WillowsEnd.InnerTP"
+    ]
+    shops: Dict[str, Tuple] = {
+        "TwillenShop.Overcharge": ("2|1", "2|101"),  # Location name: (Uberstate, Price State)
+        "TwillenShop.TripleJump": ("2|2", "2|102"),
+        "TwillenShop.Wingclip": ("2|3", "2|103"),
+        "TwillenShop.Swap": ("2|5", "2|105"),
+        "TwillenShop.LightHarvest": ("2|19", "2|119"),
+        "TwillenShop.Vitality": ("2|22", "2|122"),
+        "TwillenShop.Energy": ("2|26", "2|126"),
+        "TwillenShop.Finesse": ("2|40", "2|140"),
+        "OpherShop.WaterBreath": ("1|23", "1|10023"),
+        "OpherShop.Spike": ("1|74", "1|10074"),
+        "OpherShop.SpiritSmash": ("1|98", "1|10098"),
+        "OpherShop.Teleport": ("1|105", "1|10105"),
+        "OpherShop.SpiritStar": ("1|106", "1|10106"),
+        "OpherShop.Blaze": ("1|115", "1|10115"),
+        "OpherShop.Sentry": ("1|116", "1|10116"),
+        "OpherShop.ExplodingSpike": ("1|1074", "1|11074"),
+        "OpherShop.ShockSmash": ("1|1098", "1|11098"),
+        "OpherShop.StaticStar": ("1|1106", "1|11106"),
+        "OpherShop.ChargeBlaze": ("1|1115", "1|11115"),
+        "OpherShop.RapidSentry": ("1|1116", "1|11116"),
+        "LupoShop.HCMapIcon": ("48248|19396", "48248|19397"),
+        "LupoShop.ECMapIcon": ("48248|57987", "48248|57988"),
+        "LupoShop.ShardMapIcon": ("48248|41666", "48248|41667")
+    }
 
     flags = f"Flags: AP, {logic_difficulty[difficulty]}{goals[goal]}"
     if glitches:
@@ -71,6 +100,12 @@ def generate_test() -> None:
 
     output += r"Spawn: " + coord[spawn] + "\n\n"
     output += h_core
+
+    output += r"// Shops" + "\n"
+    for loc, states in shops.items():  # TODO: Add an icon specific to AP ?
+        output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
+        output += f"3|1|17|1|{states[0]}|{shop_text}\n"  # Add the item name
+    output += "\n\n"
 
     if give_skills:
         output += test_skills

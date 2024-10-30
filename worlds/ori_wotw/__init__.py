@@ -1,11 +1,10 @@
 """AP world for Ori and the Will of the Wisps."""
 
-# TODO costs and shop items
 # TODO Add Shriek TP
 # TODO Add no rain
 # TODO Shrine and trial hints ? Relics ? Black market ?
 
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
@@ -275,23 +274,24 @@ class WotWWorld(World):
         if goal == 0:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                                and s.has_any(("Sword", "Hammer"), player)
-                                and s.has_all(("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
-                                                                                       "MarshSpawn.DamageTree",
-                                                                                       "HowlsDen.SwordTree",
-                                                                                       "HowlsDen.DoubleJumpTree",
-                                                                                       "MarshPastOpher.BowTree",
-                                                                                       "WestHollow.DashTree",
-                                                                                       "EastHollow.BashTree",
-                                                                                       "GladesTown.DamageTree",
-                                                                                       "InnerWellspring.GrappleTree",
-                                                                                       "UpperPools.SwimDashTree",
-                                                                                       "UpperReach.LightBurstTree",
-                                                                                       "LowerDepths.FlashTree",
-                                                                                       "LowerWastes.BurrowTree",
-                                                                                       "WeepingRidge.LaunchTree",
-                                                                                       ]])
+                                        and s.has_any(("Sword", "Hammer"), player)
+                                        and s.has_all(
+                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                                        and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
+                                                                                               "MarshSpawn.DamageTree",
+                                                                                               "HowlsDen.SwordTree",
+                                                                                               "HowlsDen.DoubleJumpTree",
+                                                                                               "MarshPastOpher.BowTree",
+                                                                                               "WestHollow.DashTree",
+                                                                                               "EastHollow.BashTree",
+                                                                                               "GladesTown.DamageTree",
+                                                                                               "InnerWellspring.GrappleTree",
+                                                                                               "UpperPools.SwimDashTree",
+                                                                                               "UpperReach.LightBurstTree",
+                                                                                               "LowerDepths.FlashTree",
+                                                                                               "LowerWastes.BurrowTree",
+                                                                                               "WeepingRidge.LaunchTree",
+                                                                                               ]])
                          )
         elif goal == 1:
             menu.connect(world.get_region("Victory", player),
@@ -309,7 +309,7 @@ class WotWWorld(World):
                                         and s.has_any(("Sword", "Hammer"), player)
                                         and s.has_all(
                              ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                        and s.has_all((quest + ".quest" for quest in quest_table), player)
+                                        and s.has_all((quests + ".quest" for quests in quest_table), player)
                          )
         else:
             menu.connect(world.get_region("Victory", player),
@@ -477,26 +477,54 @@ class WotWWorld(World):
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
+        player = self.player
         options = self.options
-        goals = (", All Trees", ", All Quests", ", All Wisps", "")
-        logic_difficulty = ("Moki", "Gorlek", "Kii", "Unsafe")
-        coord = (r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
-                 r"-945, -4582  // MidnightBurrows.Teleporter",
-                 r"-328, -4536  // HowlsDen.Teleporter",
-                 r"-150, -4238  // EastHollow.Teleporter",
-                 r"-307, -4153  // GladesTown.Teleporter",
-                 r"-1308, -3675  // InnerWellspring.Teleporter",
-                 r"611, -4162  // WoodsEntry.Teleporter",
-                 r"1083, -4052  // WoodsMain.Teleporter",
-                 r"-259, -3962  // LowerReach.Teleporter",
-                 r"513, -4361  // UpperDepths.Teleporter",
-                 r"-1316, -4153  // EastPools.Teleporter",
-                 r"-1656, -4171  // WestPools.Teleporter",
-                 r"1456, -3997  // LowerWastes.WestTP",
-                 r"1992, -3902  // LowerWastes.EastTP",
-                 r"2044, -3679  // UpperWastes.NorthTP",
-                 r"2130, -3984  // WindtornRuins.RuinsTP",
-                 r"422, -3864  // WillowsEnd.InnerTP")
+        goals: List[str] = [", All Trees", ", All Quests", ", All Wisps", ""]
+        logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
+        coord: List[str] = [
+            r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
+            r"-945, -4582  // MidnightBurrows.Teleporter",
+            r"-328, -4536  // HowlsDen.Teleporter",
+            r"-150, -4238  // EastHollow.Teleporter",
+            r"-307, -4153  // GladesTown.Teleporter",
+            r"-1308, -3675  // InnerWellspring.Teleporter",
+            r"611, -4162  // WoodsEntry.Teleporter",
+            r"1083, -4052  // WoodsMain.Teleporter",
+            r"-259, -3962  // LowerReach.Teleporter",
+            r"513, -4361  // UpperDepths.Teleporter",
+            r"-1316, -4153  // EastPools.Teleporter",
+            r"-1656, -4171  // WestPools.Teleporter",
+            r"1456, -3997  // LowerWastes.WestTP",
+            r"1992, -3902  // LowerWastes.EastTP",
+            r"2044, -3679  // UpperWastes.NorthTP",
+            r"2130, -3984  // WindtornRuins.RuinsTP",
+            r"422, -3864  // WillowsEnd.InnerTP"
+        ]
+        shops: Dict[str, Tuple] = {
+            "TwillenShop.Overcharge": ("2|1", "2|101"),  # Location name: (Uberstate, Price State)
+            "TwillenShop.TripleJump": ("2|2", "2|102"),
+            "TwillenShop.Wingclip": ("2|3", "2|103"),
+            "TwillenShop.Swap": ("2|5", "2|105"),
+            "TwillenShop.LightHarvest": ("2|19", "2|119"),
+            "TwillenShop.Vitality": ("2|22", "2|122"),
+            "TwillenShop.Energy": ("2|26", "2|126"),
+            "TwillenShop.Finesse": ("2|40", "2|140"),
+            "OpherShop.WaterBreath": ("1|23", "1|10023"),
+            "OpherShop.Spike": ("1|74", "1|10074"),
+            "OpherShop.SpiritSmash": ("1|98", "1|10098"),
+            "OpherShop.Teleport": ("1|105", "1|10105"),
+            "OpherShop.SpiritStar": ("1|106", "1|10106"),
+            "OpherShop.Blaze": ("1|115", "1|10115"),
+            "OpherShop.Sentry": ("1|116", "1|10116"),
+            "OpherShop.ExplodingSpike": ("1|1074", "1|11074"),
+            "OpherShop.ShockSmash": ("1|1098", "1|11098"),
+            "OpherShop.StaticStar": ("1|1106", "1|11106"),
+            "OpherShop.ChargeBlaze": ("1|1115", "1|11115"),
+            "OpherShop.RapidSentry": ("1|1116", "1|11116"),
+            "LupoShop.HCMapIcon": ("48248|19396", "48248|19397"),
+            "LupoShop.ECMapIcon": ("48248|57987", "48248|57988"),
+            "LupoShop.ShardMapIcon": ("48248|41666", "48248|41667")
+        }
 
         flags = f"Flags: AP, {logic_difficulty[options.difficulty]}{goals[options.goal]}"
         if options.glitches:
@@ -517,10 +545,17 @@ class WotWWorld(World):
                 f",\"tricks\":[{tricks}],\"hard\":{hard},\"goals\":[],\"headers\":[]"
                 ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
                 "\"online\":false,\"createGame\":\"None\"}\n\n")
-        output = f"Seed: {world.seed_name}\nAPSlot: {world.player_name[self.player]}\n"
+        output = f"Seed: {world.seed_name}\nAPSlot: {world.player_name[player]}\n"
 
         output += r"Spawn: " + coord[options.spawn]
         output += h_core
+
+        output += r"// Shops" + "\n"
+        for loc, states in shops.items():  # TODO: Add an icon specific to AP ? Add description ?
+            item_name = world.get_location(loc, player).item.name
+            output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
+            output += f"3|1|17|1|{states[0]}|{item_name}\n"  # Add the item name
+        output += "\n\n"
 
         if options.glitches:
             flags += ", Glitches"
@@ -556,7 +591,7 @@ class WotWWorld(World):
             flags += ", Open Mode"
 
         flags += "\n"
-        file_name = f"/AP_{world.player_name[self.player]}.wotwr"
+        file_name = f"/AP_{world.player_name[player]}.wotwr"
         with open(output_directory + file_name, "w") as f:
             f.write(flags + head + output)
 
