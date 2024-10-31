@@ -18,7 +18,8 @@ spawn_names = ["MarshSpawn.Main",
                "LowerWastes.EastTP",
                "UpperWastes.NorthTP",
                "WindtornRuins.RuinsTP",
-               "WillowsEnd.InnerTP"]
+               "WillowsEnd.InnerTP",
+               "WillowsEnd.Upper"]
 
 
 def spawn_items(world, spawn, difficulty):
@@ -62,6 +63,8 @@ def spawn_items(world, spawn, difficulty):
               "Health", "Health", "Health"]],
             [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate", "Health", "Health", "Health",
               "Health", "Health", "Health", "Health"]],
+            [["ShriekTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate", "Health", "Health", "Health",
+              "Health", "Health", "Health", "Health"]],
             ]
 
     gorlek: List[List[List]] = [
@@ -99,7 +102,9 @@ def spawn_items(world, spawn, difficulty):
                ["InnerRuinsTP", "Burrow", "Glide", "Sword", "Grapple", "Regenerate"],
                ["InnerRuinsTP", "Burrow", "DoubleJump", "Hammer", "Grapple", "Regenerate"],
                ["InnerRuinsTP", "Burrow", "Glide", "Hammer", "Grapple", "Regenerate"]],
-              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]]
+              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]],
+              [["ShriekTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate", "Health", "Health", "Health",
+                "Health", "Health", "Health", "Health"]],
               ]
 
     kii: List[List[List]] = [
@@ -134,7 +139,9 @@ def spawn_items(world, spawn, difficulty):
             ["InnerRuinsTP", "Burrow", "Glide", "Grapple", "Regenerate"],
             ["InnerRuinsTP", "Burrow", "Hammer", "Dash", "Regenerate"],
             ["InnerRuinsTP", "Burrow", "DoubleJump", "Grapple", "Regenerate"]],
-           [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]]
+           [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]],
+           [["ShriekTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate", "Health", "Health", "Health",
+             "Health", "Health", "Health", "Health"]],
            ]
 
     unsafe: List[List[List]] = [
@@ -168,7 +175,8 @@ def spawn_items(world, spawn, difficulty):
                ["InnerRuinsTP", "Burrow", "Glide", "Grapple"],
                ["InnerRuinsTP", "Burrow", "Hammer", "Dash"],
                ["InnerRuinsTP", "Burrow", "DoubleJump", "Grapple"]],
-              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight"]]
+              [["WillowTP", "Launch", "200 SpiritLight", "200 SpiritLight"]],
+              [["ShriekTP", "Launch", "200 SpiritLight", "200 SpiritLight", "Regenerate"]],
               ]
 
     if difficulty == 0:

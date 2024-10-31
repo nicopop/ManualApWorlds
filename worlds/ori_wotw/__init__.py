@@ -1,8 +1,7 @@
 """AP world for Ori and the Will of the Wisps."""
 
-# TODO Add Shriek TP
-# TODO Add no rain
 # TODO Relics ? Black market ?
+# TODO rename items
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -406,6 +405,9 @@ class WotWWorld(World):
                      lambda s: s.has("Victory", player))
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
+        if options.no_rain:
+            menu.connect(world.get_region("HowlsDen.RainLifted", player))
+            menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
         if options.no_ks:
             for event in ("MarshSpawn.KeystoneDoor",
                           "HowlsDen.KeystoneDoor",

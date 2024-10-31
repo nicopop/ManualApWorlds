@@ -14,6 +14,7 @@ Ori and the Will of the Wisps:
   goal: trees
   hard_mode: 'false'
   qol: 'true'
+  hints: 'true'
 
   tp: 'true'
   extratp: 'false'
@@ -23,6 +24,7 @@ Ori and the Will of the Wisps:
 
   better_spawn: 'false'
   better_wellspring: 'false'
+  no_rain: 'false'
   no_combat: 'false'
   no_trials: 'false'
   no_hearts: 'false'

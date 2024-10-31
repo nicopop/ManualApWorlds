@@ -14,6 +14,7 @@ no_combat = False
 no_quests = True
 no_hearts = True
 no_trials = False
+no_rain = True
 glades_done = True
 better_wellspring = True
 qol = True
@@ -184,6 +185,9 @@ def generate_test() -> None:
     if open_mode:
         output += h_open_mode
         flags += ", Open Mode"
+    if no_rain:
+        output += h_no_rain
+        flags += ", No Rain"
 
     flags += "\n"
     with open("./AP_test.wotwr", "w") as f:
@@ -929,3 +933,9 @@ h_hints = (r"// Shrine and trial hints" + "\n"
            r"19|0=1|4|17|44310|9902|0|8|9|16|int|+1" + "\n"
            r"19|4=1|4|17|58674|29265|0|8|9|17|int|+1" + "\n"
            r"19|3=1|4|17|18793|31937|0|8|9|18|int|+1" + "\n")
+
+h_no_rain = (r"// No rain" + "\n"
+             r"3|0|8|6|401|bool|true" + "\n"
+             r"3|0|8|21786|30656|bool|true" + "\n"
+             r"3|0|8|21786|40322|bool|true" + "\n"
+             r"3|0|8|21786|25095|bool|true" + "\n\n")

@@ -57,6 +57,7 @@ class StartingLocation(Choice):
     option_outerruins = 14
     option_innerruins = 15
     option_willow = 16
+    option_shriek = 17
     default = 0
 
 
@@ -126,6 +127,11 @@ class BetterWellspring(Toggle):
     display_name = "Better Wellspring"
 
 
+class NoRain(Toggle):
+    """ Remove the rain in Marsh, and remove Howl."""
+    display_name = "No Rain"
+
+
 class NoCombat(Toggle):
     """Skip most of the combats."""
     display_name = "No combat"
@@ -191,6 +197,7 @@ option_groups = [
     OptionGroup("World Changes", [
         BetterSpawn,
         BetterWellspring,
+        NoRain,
         NoCombat,
         NoTrials,
         NoWillowHearts,
@@ -222,6 +229,7 @@ class WotWOptions(PerGameCommonOptions):
     skill_upgrade: SkillUpgrades
     better_spawn: BetterSpawn  # World Changes
     better_wellspring: BetterWellspring
+    no_rain: NoRain
     no_combat: NoCombat
     no_trials: NoTrials
     no_hearts: NoWillowHearts

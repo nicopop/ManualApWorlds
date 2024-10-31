@@ -51,7 +51,7 @@ def extract_items(override=False):
                  '    "teleporters": ["BurrowsTP", "DenTP", "EastPoolsTP", "DepthsTP", "WellspringTP", "ReachTP", "HollowTP",\n'
                  '                    "WestWoodsTP", "EastWoodsTP", "WestWastesTP", "EastWastesTP", "OuterRuinsTP", "WillowTP",\n'
                  '                    "MarshTP", "GladesTP"],\n'
-                 '    "extratp": ["WestPoolsTP", "InnerRuinsTP"],\n'
+                 '    "extratp": ["WestPoolsTP", "InnerRuinsTP", "ShriekTP"],\n'
                  '    "weapon_upgrades": ["ExplodingSpear", "HammerShockwave", "StaticShuriken", "ChargeBlaze", "RapidSentry"],\n'
                  '    "bonus": ["HealthRegeneration", "EnergyRegeneration", "ExtraDoubleJump", "ExtraAirDash", "BlazeEfficiency",\n'
                  '              "SpearEfficiency", "ShurikenEfficiency", "SentryEfficiency", "BowEfficiency", "RegenerateEfficiency",\n'

@@ -70,6 +70,7 @@ MarshTP,1,progression,item,21786,10185
 GladesTP,1,progression,item,42178,42096
 WestPoolsTP,1,progression,item,945,1370
 InnerRuinsTP,1,progression,item,10289,4928
+ShriekTP,1,progression,item,16155,50867
 HealthRegeneration,1,useful,item,11,30
 EnergyRegeneration,1,useful,item,11,31
 ExtraDoubleJump,1,useful,item,11,35
@@ -107,7 +108,7 @@ Jumpgrade,1,useful,item,11,87
 SkillVelocity,1,useful,item,11,80
 200 SpiritLight,20,progression_skip_balancing,resource,1,200
 100 SpiritLight,20,filler,resource,1,100
-50 SpiritLight,109,filler,resource,1,50
+50 SpiritLight,108,filler,resource,1,50
 1 SpiritLight,1,filler,resource,1,1
 Ore,40,progression,resource,2,0
 Keystone,40,progression,resource,3,0
