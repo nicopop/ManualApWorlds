@@ -2,7 +2,7 @@
 
 # TODO Add Shriek TP
 # TODO Add no rain
-# TODO Shrine and trial hints ? Relics ? Black market ?
+# TODO Relics ? Black market ?
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -21,7 +21,7 @@ from .Options import WotWOptions, option_groups
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
 from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
-                      h_open_mode, h_glades_done)
+                      h_open_mode, h_glades_done, h_hints)
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, set_rule, forbid_item, forbid_items_for_player
@@ -526,6 +526,33 @@ class WotWWorld(World):
             "LupoShop.ShardMapIcon": ("48248|41666", "48248|41667")
         }
 
+        trials: Dict[str, List[str]] = {
+            "MarshPastOpher.SpiritTrial":
+                [r"44964|45951=1|6|Complete the Marsh Spirit Trial to gain\n", r"3|100|4|29|100|Reward: "],
+            "WestHollow.SpiritTrial":
+                [r"44964|25545=1|6|Complete the Hollow Spirit Trial to gain\n", r"3|101|4|29|101|Reward: "],
+            "OuterWellspring.SpiritTrial":
+                [r"44964|11512=1|6|Complete the Wellspring Spirit Trial to gain\n", r"3|102|4|29|102|Reward: "],
+            "WoodsMain.SpiritTrial":
+                [r"44964|22703=1|6|Complete the Woods Spirit Trial to gain\n", r"3|103|4|29|103|Reward: "],
+            "LowerReach.SpiritTrial":
+                [r"44964|23661=1|6|Complete the Reach Spirit Trial to gain\n", r"3|104|4|29|104|Reward: "],
+            "LowerDepths.SpiritTrial":
+                [r"44964|28552=1|6|Complete the Mouldwood Spirit Trial to gain\n", r"3|105|4|29|105|Reward: "],
+            "EastPools.SpiritTrial":
+                [r"44964|54686=1|6|Complete the Luma Spirit Trial to gain\n", r"3|106|4|29|106|Reward: "],
+            "LowerWastes.SpiritTrial":
+                [r"44964|30767=1|6|Complete the Wastes Spirit Trial to gain\n", r"3|107|4|29|107|Reward: "]
+        }
+
+        shrines: Dict[str, str] = {
+            "MarshPastOpher.CombatShrine": r"9|14|6|Complete the Marsh Combat Shrine to gain\n",
+            "HowlsDen.CombatShrine": r"9|15|6|Complete the Howl's Den Combat Shrine to gain\n",
+            "WestGlades.CombatShrine": r"9|16|6|Complete the Glades Combat Shrine to gain\n",
+            "WoodsMain.CombatShrine": r"9|17|6|Complete the Woods Combat Shrine to gain\n",
+            "LowerDepths.CombatShrine": r"9|18|6|Complete the Mouldwood Combat Shrine to gain\n"
+        }
+
         flags = f"Flags: AP, {logic_difficulty[options.difficulty]}{goals[options.goal]}"
         if options.glitches:
             tricks = ("\"SwordSentryJump\",\"GlideHammerJump\",\"SentryRedirect\",\"HammerJump\",\"BlazeSwap\","
@@ -556,6 +583,18 @@ class WotWWorld(World):
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
             output += f"3|1|17|1|{states[0]}|{item_name}\n"  # Add the item name
         output += "\n\n"
+
+        if options.hints:
+            output += h_hints
+            for loc, state in shrines.items():
+                item_name = world.get_location(loc, player).item.name
+                output += state + f"{item_name}\n"
+            output += r"// Trial hints" + "\n"
+            for loc, states in trials.items():
+                item_name = world.get_location(loc, player).item.name
+                output += states[0] + f"{item_name}\n"
+                output += states[1] + f"{item_name}\n"
+            output += "\n\n"
 
         if options.glitches:
             flags += ", Glitches"

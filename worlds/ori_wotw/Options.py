@@ -86,6 +86,11 @@ class QualityOfLife(DefaultOnToggle):
     display_name = "Quality of life"
 
 
+class ShrineTrialHints(DefaultOnToggle):
+    """Displays the reward for shrines and trials when activating them."""
+    display_name = "Shrines and trials hints"
+
+
 class Teleporters(DefaultOnToggle):
     """Add most teleporters to the item pool."""
     display_name = "Teleporters"
@@ -173,7 +178,8 @@ option_groups = [
         StartingLocation,
         Goal,
         HardMode,
-        QualityOfLife
+        QualityOfLife,
+        ShrineTrialHints
     ]),
     OptionGroup("Item Pool", [
         Teleporters,
@@ -208,6 +214,7 @@ class WotWOptions(PerGameCommonOptions):
     goal: Goal
     hard_mode: HardMode
     qol: QualityOfLife
+    hints: ShrineTrialHints
     tp: Teleporters  # Item Pool
     extratp: ExtraTeleporters
     bonus: BonusItems

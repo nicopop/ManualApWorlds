@@ -10,19 +10,22 @@ goal = 0
 tp = True
 spawn = 0
 better_spawn = True
-no_combat = True
+no_combat = False
 no_quests = True
 no_hearts = True
-no_trials = True
+no_trials = False
 glades_done = True
 better_wellspring = True
 qol = True
 no_ks = True
 open_mode = False
+hints = True
 # Dummy information
 seed = 0
 name = "test"
 shop_text = "shop test"
+trial_text = "trial test"
+shrine_text = "shrine test"
 # Specific to testing
 give_skills = True  # Gives all skills on spawn
 give_tp = True  # Gives all TPs on spawn
@@ -77,6 +80,33 @@ def generate_test() -> None:
         "LupoShop.ShardMapIcon": ("48248|41666", "48248|41667")
     }
 
+    trials: Dict[str, List[str]] = {
+        "MarshPastOpher.SpiritTrial":
+            [r"44964|45951=1|6|Complete the Marsh Spirit Trial to gain\n", r"3|100|4|29|100|Reward: "],
+        "WestHollow.SpiritTrial":
+            [r"44964|25545=1|6|Complete the Hollow Spirit Trial to gain\n", r"3|101|4|29|101|Reward: "],
+        "OuterWellspring.SpiritTrial":
+            [r"44964|11512=1|6|Complete the Wellspring Spirit Trial to gain\n", r"3|102|4|29|102|Reward: "],
+        "WoodsMain.SpiritTrial":
+            [r"44964|22703=1|6|Complete the Woods Spirit Trial to gain\n", r"3|103|4|29|103|Reward: "],
+        "LowerReach.SpiritTrial":
+            [r"44964|23661=1|6|Complete the Reach Spirit Trial to gain\n", r"3|104|4|29|104|Reward: "],
+        "LowerDepths.SpiritTrial":
+            [r"44964|28552=1|6|Complete the Mouldwood Spirit Trial to gain\n", r"3|105|4|29|105|Reward: "],
+        "EastPools.SpiritTrial":
+            [r"44964|54686=1|6|Complete the Luma Spirit Trial to gain\n", r"3|106|4|29|106|Reward: "],
+        "LowerWastes.SpiritTrial":
+            [r"44964|30767=1|6|Complete the Wastes Spirit Trial to gain\n", r"3|107|4|29|107|Reward: "]
+    }
+
+    shrines: Dict[str, str] = {
+        "MarshPastOpher.CombatShrine": r"9|14|6|Complete the Marsh Combat Shrine to gain\n",
+        "HowlsDen.CombatShrine": r"9|15|6|Complete the Howl's Den Combat Shrine to gain\n",
+        "WestGlades.CombatShrine": r"9|16|6|Complete the Glades Combat Shrine to gain\n",
+        "WoodsMain.CombatShrine": r"9|17|6|Complete the Woods Combat Shrine to gain\n",
+        "LowerDepths.CombatShrine": r"9|18|6|Complete the Mouldwood Combat Shrine to gain\n"
+    }
+
     flags = f"Flags: AP, {logic_difficulty[difficulty]}{goals[goal]}"
     if glitches:
         tricks = ("\"SwordSentryJump\",\"GlideHammerJump\",\"SentryRedirect\",\"HammerJump\",\"BlazeSwap\","
@@ -106,6 +136,16 @@ def generate_test() -> None:
         output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
         output += f"3|1|17|1|{states[0]}|{shop_text}\n"  # Add the item name
     output += "\n\n"
+
+    if hints:
+        output += h_hints
+        for loc_name, state in shrines.items():
+            output += state + f"{shrine_text}\n"
+        output += r"// Trial hints" + "\n"
+        for loc_name, states in trials.items():
+            output += states[0] + f"{trial_text}\n"
+            output += states[1] + f"{trial_text}\n"
+        output += "\n\n"
 
     if give_skills:
         output += test_skills
@@ -876,4 +916,16 @@ h_glades_done = (r"// Glades Done" + "\n"
                  r"3|0|8|21|18751|bool|true" + "\n"
                  r"3|0|8|21|16586|bool|true" + "\n"
                  r"3|0|4|19|14019|33776|1|8|14019|33776|int|1" + "\n"
-                 r"3|0|8|6|300|bool|true" + "\n")
+                 r"3|0|8|6|300|bool|true" + "\n\n")
+
+h_hints = (r"// Shrine and trial hints" + "\n"
+           r"3|1|4|21|9|14  // Shrine hints" + "\n"
+           r"3|1|4|21|9|15" + "\n"
+           r"3|1|4|21|9|16" + "\n"
+           r"3|1|4|21|9|17" + "\n"
+           r"3|1|4|21|9|18" + "\n"
+           r"19|1=1|4|17|21786|18109|0|8|9|14|int|+1" + "\n"
+           r"19|2=1|4|17|24922|13993|0|8|9|15|int|+1" + "\n"
+           r"19|0=1|4|17|44310|9902|0|8|9|16|int|+1" + "\n"
+           r"19|4=1|4|17|58674|29265|0|8|9|17|int|+1" + "\n"
+           r"19|3=1|4|17|18793|31937|0|8|9|18|int|+1" + "\n")
