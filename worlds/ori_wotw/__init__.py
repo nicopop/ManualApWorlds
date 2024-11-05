@@ -1,7 +1,6 @@
 """AP world for Ori and the Will of the Wisps."""
 
 # TODO Relics ? Black market ?
-# TODO rename items
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -176,19 +175,19 @@ class WotWWorld(World):
             removed_items.append("Keystone")
 
         if options.vanilla_shop_upgrades:
-            shop_items = {"OpherShop.ExplodingSpike": "ExplodingSpear",
-                          "OpherShop.ShockSmash": "HammerShockwave",
-                          "OpherShop.StaticStar": "StaticShuriken",
-                          "OpherShop.ChargeBlaze": "ChargeBlaze",
-                          "OpherShop.RapidSentry": "RapidSentry",
-                          "OpherShop.WaterBreath": "WaterBreath",
+            shop_items = {"OpherShop.ExplodingSpike": "Exploding Spear",
+                          "OpherShop.ShockSmash": "Hammer Shockwave",
+                          "OpherShop.StaticStar": "Static Shuriken",
+                          "OpherShop.ChargeBlaze": "Charge Blaze",
+                          "OpherShop.RapidSentry": "Rapid Sentry",
+                          "OpherShop.WaterBreath": "Water Breath",
                           "TwillenShop.Overcharge": "Overcharge",
-                          "TwillenShop.TripleJump": "TripleJump",
+                          "TwillenShop.TripleJump": "Triple Jump",
                           "TwillenShop.Wingclip": "Wingclip",
                           "TwillenShop.Swap": "Swap",
-                          "TwillenShop.LightHarvest": "LightHarvest",
+                          "TwillenShop.LightHarvest": "Light Harvest",
                           "TwillenShop.Vitality": "Vitality",
-                          "TwillenShop.Energy": "EnergyShard",
+                          "TwillenShop.Energy": "Energy Shard",
                           "TwillenShop.Finesse": "Finesse"}
             for location, item in shop_items.items():
                 loc = world.get_location(location, player)
@@ -229,7 +228,7 @@ class WotWWorld(World):
                 pool.append(self.create_item(item))
 
         for _ in range(junk):
-            pool.append(self.create_item("50 SpiritLight"))
+            pool.append(self.create_item("50 Spirit Light"))
 
         world.itempool += pool
 
@@ -255,7 +254,7 @@ class WotWWorld(World):
         # Add rules depending on the logic difficulty.
         if difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_entrance("WestPools.Teleporter_to_WestPools.BurrowOre", player),
-                     lambda state: state.has_all(("Burrow", "Water", "WaterDash"), player), "or")
+                     lambda state: state.has_all(("Burrow", "Water", "Water Dash"), player), "or")
         if difficulty >= 1:
             set_gorlek_rules(world, player, options, ref_resource)
             if options.glitches:
@@ -275,7 +274,7 @@ class WotWWorld(World):
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                         and s.has_any(("Sword", "Hammer"), player)
                                         and s.has_all(
-                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                                         and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
                                                                                                "MarshSpawn.DamageTree",
                                                                                                "HowlsDen.SwordTree",
@@ -297,7 +296,7 @@ class WotWWorld(World):
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                         and s.has_any(("Sword", "Hammer"), player)
                                         and s.has_all(
-                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                                         and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
                                                        "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
                                                        "WindtornRuins.Seir"), player)
@@ -307,7 +306,7 @@ class WotWWorld(World):
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                         and s.has_any(("Sword", "Hammer"), player)
                                         and s.has_all(
-                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                                         and s.has_all((quests + ".quest" for quests in quest_table), player)
                          )
         else:
@@ -315,7 +314,7 @@ class WotWWorld(World):
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                                         and s.has_any(("Sword", "Hammer"), player)
                                         and s.has_all(
-                             ("DoubleJump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
+                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
         ore_loc = ("GladesTown.FamilyReunionKey",
@@ -361,7 +360,7 @@ class WotWWorld(World):
                     "LupoShop.ShardMapIcon")
         for location in shop_loc:
             forbid_items_for_player(world.get_location(location, player),
-                                    {"50 SpiritLight", "100 SpiritLight", "200 SpiritLight"}, player)
+                                    {"50 Spirit Light", "100 Spirit Light", "200 Spirit Light"}, player)
 
         # Exclude Keystones from small areas locked behind doors
         ks_loc = ("UpperReach.SpringSeed",

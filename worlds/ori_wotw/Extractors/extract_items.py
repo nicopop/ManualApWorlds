@@ -6,7 +6,7 @@ prefix = "101111110010101001"
 
 
 def extract_items(override=False):
-    """Extracts the data and writes a file with the item table and the item groups."""
+    """Extract the data and writes a file with the item table and the item groups."""
     if os.path.exists("./Items.py"):
         if override:
             print("Warning: File replaced")
@@ -39,27 +39,29 @@ def extract_items(override=False):
     item_txt += "\n    }\n\n\n"
 
     item_txt += ('group_table = {\n'
-                 '    "skills": ["Sword", "DoubleJump", "Regenerate", "Bow", "Dash", "Bash", "Grapple", "Glide", "Flap", "Grenade",\n'
-                 '               "Flash", "WaterDash", "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "Sentry", "Shuriken",\n'
+                 '    "skills": ["Sword", "Double Jump", "Regenerate", "Bow", "Dash", "Bash", "Grapple", "Glide", "Flap", "Grenade",\n'
+                 '               "Flash", "Water Dash", "Burrow", "Launch", "Water", "Water Breath", "Hammer", "Sentry", "Shuriken",\n'
                  '               "Spear", "Blaze"],\n'
-                 '    "collectibles": ["Health", "Energy", "Keystone", "Ore", "ShardSlot", "AncestralLight_1", "AncestralLight_2"],\n'
-                 '    "spirit_light": ["1 SpiritLight", "50 SpiritLight", "100 SpiritLight", "200 SpiritLight"],\n'
-                 '    "shards": ["Overcharge", "TripleJump", "Wingclip", "Bounty", "Swap", "Magnet", "Splinter", "Reckless", "Quickshot",\n'
-                 '               "Resilience", "LightHarvest", "Vitality", "LifeHarvest", "EnergyHarvest", "EnergyShard", "LifePact",\n'
-                 '               "LastStand", "Sense", "UltraBash", "UltraGrapple", "Overflow", "Thorn", "Catalyst", "Turmoil", "Sticky",\n'
-                 '               "Finesse", "SpiritSurge", "Lifeforce", "Deflector", "Fracture", "Arcing"],\n'
-                 '    "teleporters": ["BurrowsTP", "DenTP", "EastPoolsTP", "DepthsTP", "WellspringTP", "ReachTP", "HollowTP",\n'
-                 '                    "WestWoodsTP", "EastWoodsTP", "WestWastesTP", "EastWastesTP", "OuterRuinsTP", "WillowTP",\n'
-                 '                    "MarshTP", "GladesTP"],\n'
-                 '    "extratp": ["WestPoolsTP", "InnerRuinsTP", "ShriekTP"],\n'
-                 '    "weapon_upgrades": ["ExplodingSpear", "HammerShockwave", "StaticShuriken", "ChargeBlaze", "RapidSentry"],\n'
-                 '    "bonus": ["HealthRegeneration", "EnergyRegeneration", "ExtraDoubleJump", "ExtraAirDash", "BlazeEfficiency",\n'
-                 '              "SpearEfficiency", "ShurikenEfficiency", "SentryEfficiency", "BowEfficiency", "RegenerateEfficiency",\n'
-                 '              "FlashEfficiency", "GrenadeEfficiency"],\n'
-                 '    "bonus+": ["RapidSword", "RapidHammer", "RapidSpear", "QuickshotUpgrade", "MeltingBow",\n'
-                 '               "MeltingBlaze", "MeltingSword", "MeltingHammer", "MeltingSpear", "MeltingShuriken", "UnchargedBashnades",\n'
-                 '               "ExtraGrenade", "SplinterGrenade", "UnlimitedSentries", "SentryFireRate", "BashableShuriken"],\n'
-                 '    "skillup": ["Jumpgrade", "SkillVelocity"]\n'
+                 '    "collectibles": ["Health", "Energy", "Keystone", "Ore", "Shard Slot", "Ancestral Light 1", "Ancestral Light 2"],\n'
+                 '    "spirit_light": ["1 Spirit Light", "50 Spirit Light", "100 Spirit Light", "200 Spirit Light"],\n'
+                 '    "shards": ["Overcharge", "Triple Jump", "Wingclip", "Bounty", "Swap", "Magnet", "Splinter", "Reckless", "Quickshot",\n'
+                 '               "Resilience", "Light Harvest", "Vitality", "Life Harvest", "Energy Harvest", "Energy (Shard)",\n'
+                 '               "Life Pact", "Last Stand", "Sense", "Ultra Bash", "Ultra Grapple", "Overflow", "Thorn", "Catalyst",\n'
+                 '               "Turmoil", "Sticky","Finesse", "Spirit Surge", "Lifeforce", "Deflector", "Fracture", "Arcing"],\n'
+                 '    "teleporters": ["Midnight Burrows TP", "Howl\'s Den TP", "Central Luma TP", "Mouldwood Depths TP",\n'
+                 '                    "Wellspring TP", "Baur\'s Reach TP", "Kwolok\'s Hollow TP", "Woods Entrance TP", "Woods Exit TP",\n'
+                 '                    "Feeding Grounds TP", "Central Wastes TP", "Outer Ruins TP", "Willow\'s End TP",\n'
+                 '                    "Inkwater Marsh TP", "Glades TP"],\n'
+                 '    "extratp": ["Luma Boss TP", "Inner Ruins TP", "Shriek TP"],\n'
+                 '    "weapon_upgrades": ["Exploding Spear", "Hammer Shockwave", "Static Shuriken", "Charge Blaze", "Rapid Sentry"],\n'
+                 '    "bonus": ["Health Regeneration", "Energy Regeneration", "Extra Double Jump", "Extra Air Dash", "Blaze Efficiency",\n'
+                 '              "Spear Efficiency", "Shuriken Efficiency", "Sentry Efficiency", "Bow Efficiency", "Regenerate Efficiency",\n'
+                 '              "Flash Efficiency", "Grenade Efficiency"],\n'
+                 '    "bonus+": ["Rapid Sword", "Rapid Hammer", "Rapid Spear", "Quickshot Upgrade", "Melting Bow",\n'
+                 '               "Melting Blaze", "Melting Sword", "Melting Hammer", "Melting Spear", "Melting Shuriken",\n'
+                 '               "Uncharged Bashnades", "Extra Grenade", "Splinter Grenade", "Unlimited Sentries",\n'
+                 '               "Sentry Fire Rate", "Bashable Shuriken"],\n'
+                 '    "skillup": ["Jumpgrade", "Skill Velocity"]\n'
                  '    }\n')
 
     with open("Items.py", "w") as file:
@@ -68,7 +70,7 @@ def extract_items(override=False):
 
 
 def extract_locs(override=False):
-    """Extracts the data and writes a file with the location table."""
+    """Extract the data and writes a file with the location table."""
     if os.path.exists("./Locations.py"):
         if override:
             print("Warning: File replaced")
@@ -105,7 +107,7 @@ def extract_locs(override=False):
 
 
 def compute_id(pre, item_type, group, state, value=""):
-    """Returns the item ID according to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
+    """Return the item ID according to its type, and its uberstate group and value."""  # TODO: link ref for how to compute ID
     assert int(group) <= 65535, f"group must be smaller than 65535 (is equal to {group})"
     assert int(state) <= 65535, f"state must be smaller than 65535 (is equal to {state})"
     if value:

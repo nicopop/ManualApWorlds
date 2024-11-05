@@ -14,9 +14,9 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("Combat.Ranged", player),
                      rule=lambda state: state.has_any(("Bow", "Spear"), player))
         menu.connect(world.get_region("Combat.Aerial", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Launch"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Launch"), player))
         menu.connect(world.get_region("Combat.Dangerous", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Dash", "Bash", "Launch"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Dash", "Bash", "Launch"), player))
         menu.connect(world.get_region("Combat.Shielded", player),
                      rule=lambda s: s.has_any(("Hammer", "Launch", "Grenade", "Spear"), player))
         menu.connect(world.get_region("Combat.Bat", player), rule=lambda s: s.has("Bash", player))
@@ -30,9 +30,9 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("Combat.Ranged", player),
                      rule=lambda state: state.has_any(("Grenade", "Bow", "Shuriken", "Sentry", "Spear"), player))
         menu.connect(world.get_region("Combat.Aerial", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Launch", "Bash"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Launch", "Bash"), player))
         menu.connect(world.get_region("Combat.Dangerous", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Dash", "Bash", "Launch"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Dash", "Bash", "Launch"), player))
         menu.connect(world.get_region("Combat.Shielded", player),
                      rule=lambda s: s.has_any(("Hammer", "Launch", "Grenade", "Spear"), player))
         menu.connect(world.get_region("Combat.Bat", player), rule=lambda s: s.has("Bash", player))
@@ -47,7 +47,7 @@ def combat_rules(world, player, options):
                      rule=lambda state: state.has_any(("Grenade", "Bow", "Shuriken", "Sentry", "Spear"), player))
         menu.connect(world.get_region("Combat.Aerial", player), rule=lambda s: True)
         menu.connect(world.get_region("Combat.Dangerous", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Dash", "Bash", "Launch"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Dash", "Bash", "Launch"), player))
         menu.connect(world.get_region("Combat.Shielded", player),
                      rule=lambda s: s.has_any(("Hammer", "Launch", "Grenade", "Spear"), player))
         menu.connect(world.get_region("Combat.Bat", player), rule=lambda s: True)
@@ -63,7 +63,7 @@ def combat_rules(world, player, options):
                      state.has_any(("Grenade", "Bow", "Shuriken", "Sentry", "Spear", "Blaze", "Flash"), player))
         menu.connect(world.get_region("Combat.Aerial", player), rule=lambda s: True)
         menu.connect(world.get_region("Combat.Dangerous", player),
-                     rule=lambda s: s.has_any(("DoubleJump", "Dash", "Bash", "Launch"), player))
+                     rule=lambda s: s.has_any(("Double Jump", "Dash", "Bash", "Launch"), player))
         menu.connect(world.get_region("Combat.Shielded", player),
                      rule=lambda s: s.has_any(("Hammer", "Launch", "Grenade", "Spear"), player))
         menu.connect(world.get_region("Combat.Bat", player), rule=lambda s: True)
@@ -76,9 +76,9 @@ def glitch_rules(world, player, options):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
     if options.glitches:
-        menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
-        menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("DoubleJump", "Hammer"), player))
-        menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("DoubleJump", "Sword"), player))
+        menu.connect(world.get_region("Wave Dash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
+        menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("Double Jump", "Hammer"), player))
+        menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("Double Jump", "Sword"), player))
         menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has_all(("Glide", "Hammer"), player))
     else:  # Connect these events when the seed is completed, to make them reachable.
         menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has("Victory", player))

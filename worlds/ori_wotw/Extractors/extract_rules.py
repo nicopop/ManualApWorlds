@@ -41,6 +41,32 @@ ref_en = {"Mantis": (32, ["Free"]),
           "Spiderling": (12, ["Free"]),
           }
 
+name_convert: Dict[str, str] = {  # Translation of the item names
+    "DoubleJump": "Double Jump",
+    "WaterDash": "Water Dash",
+    "WaterBreath": "Water Breath",
+    "TripleJump": "Triple Jump",
+    "BurrowsTP": "Midnight Burrows TP",
+    "DenTP": "Howl's Den TP",
+    "EastPoolsTP": "Central Luma TP",
+    "DepthsTP": "Mouldwood Depths TP",
+    "WellspringTP": "Wellspring TP",
+    "ReachTP": "Baur's Reach TP",
+    "HollowTP": "Kwolok's Hollow TP",
+    "WestWoodsTP": "Woods Entrance TP",
+    "EastWoodsTP": "Woods Exit TP",
+    "WestWastesTP": "Feeding Grounds TP",
+    "EastWastesTP": "Central Wastes TP",
+    "OuterRuinsTP": "Outer Ruins TP",
+    "WillowTP": "Willow's End TP",
+    "MarshTP": "Inkwater Marsh TP",
+    "GladesTP": "Glades TP",
+    "WestPoolsTP": "Luma Boss TP",
+    "InnerRuinsTP": "Inner Ruins TP",
+    "ShriekTP": "Shriek TP",
+    }
+
+
 # Regular expressions used for parsing
 com = re.compile(" *#")  # Detects comments
 sp = re.compile("^ *")  # Used for indents
@@ -58,8 +84,8 @@ en_skills = ["Bow", "Grenade", "Flash", "Sentry", "Shuriken", "Spear", "Blaze"] 
 combat_name = ["BreakWall", "Combat", "Boss"]
 
 # Skills that can be used infinitely (note: Regenerate is here because of how the logic is written)
-inf_skills = ["Sword", "DoubleJump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "WaterDash",
-              "Burrow", "Launch", "Water", "WaterBreath", "Hammer", "free"]
+inf_skills = ["Sword", "Double Jump", "Regenerate", "Dash", "Bash", "Grapple", "Glide", "Flap", "Water Dash",
+              "Burrow", "Launch", "Water", "Water Breath", "Hammer", "free"]
 
 # Glitches that use resources
 glitches = {"ShurikenBreak": ["Shuriken"],
@@ -142,7 +168,7 @@ def parsing(override=False):
     Ug = ("\n\ndef set_unsafe_glitched_rules(world, player, options, ref_resource):\n"
           "    \"\"\"Unsafe rules with glitches.\"\"\"\n")
 
-    L_rules = [M, G, Gg, K, Kg, U, Ug]
+    L_rules: List[str] = [M, G, Gg, K, Kg, U, Ug]
     entrances = []
     refills = {}  # Contains the refill info per region as a list: [health, energy, type]
     refill_events = []  # Stores all the names given to the refill events.
@@ -190,7 +216,7 @@ def parsing(override=False):
         elif ind == 1:
             if not anc:
                 continue
-            if "nospawn" in p or "tprestriction" in p:  # TODO: manage these
+            if "nospawn" in p or "tprestriction" in p:  # TODO: manage these if spawn anywhere implemented
                 continue
             p_type = typ.search(p).group()[2:-1]  # Connection type
             if p_type not in ("conn", "state", "pickup", "refill", "quest"):
@@ -315,9 +341,9 @@ def parsing(override=False):
 def convert(anc: str, p_type: str, p_name: str, L_rules: List[str], entrances: List[str], ref_type: str, diff: int,
             req: str) -> (List[str], List[str]):
     """
-    Converts the data given by the arguments into an add_rule function, and adds it to the right difficulty.
+    Convert the data given by the arguments into an add_rule function, and add it to the right difficulty.
 
-    Returns the updated L_rules and entrances lists.
+    Return the updated L_rules and entrances lists.
     anc: name of the starting anchor
     p_type: type of the element accessed by the rules (anchor, state, refill or item)
     p_name: name of the element accessed by the rules
@@ -500,6 +526,8 @@ def parse_and(and_req: List[str], diff: int) -> (List, bool):
         if "=" in requirement:
             elem, value = requirement.split("=")
         else:
+            if requirement in name_convert.keys():
+                requirement = name_convert[requirement]
             elem = requirement
             value = 0
 
@@ -556,6 +584,8 @@ def order_or(or_chain: List[str]) -> (List[str], List[str], List[str]):
         if "=" in requirement:
             elem = requirement.split("=")[0]
         else:
+            if requirement in name_convert.keys():
+                requirement = name_convert[requirement]
             elem = requirement
 
         if elem in other_glitches or elem in inf_glitches.keys() or elem in glitches.keys():  # Handle the glitches
@@ -574,7 +604,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
                 or_resource: str | List[str], health: int, diff: int, glitched: bool, anc: str, arrival: str,
                 p_type: str, L_rules: List[str]) -> List[str]:
     """
-    Adds the text to the rules list. Returns the updated L_rules.
+    Add the text to the rules list. Returns the updated L_rules.
 
     and_requirements contains requirements that must all be satisfied.
     or_skills0 contains a chain of skills, any can be satisfied. Same for or_skills1
@@ -625,7 +655,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
                 amount = int(amount)
                 if name == "SpiritLight":
                     if amount == 1200:  # Case of a shop item
-                        temp_txt = "s.count(\"200 SpiritLight\", player) >= 6"
+                        temp_txt = "s.count(\"200 Spirit Light\", player) >= 6"
                     else:  # Case of a map from Lupo
                         temp_txt = "can_buy_map(s, player)"
                 elif name == "Ore":
@@ -732,7 +762,7 @@ def append_rule(and_requirements: List[List], or_skills0: str | List[str], or_sk
 
 def conv_refill(p_name: str, anc: str, refills: Dict[str, List[int]],
                 refill_events: List[str]) -> (str, Dict[str, List[int]], List[str]):
-    """Returns the refill type (to add before the region name) and updates the data tables."""
+    """Return the refill type (to add before the region name) and updates the data tables."""
     current = refills[anc]
     if "=" in p_name:
         value = int(p_name[-1])
@@ -758,7 +788,11 @@ def conv_refill(p_name: str, anc: str, refills: Dict[str, List[int]],
 
 
 def req_area(area: str, diff: int) -> (bool, str):
-    """Requirements for entering an area. Returns if Regenerate is needed, and the amount of health required."""
+    """
+    Return the requirement for entering an area.
+
+    Returns if Regenerate is needed, and the amount of health required.
+    """
     M_dat = {"MidnightBurrows": (25, False), "EastHollow": (20, False), "WestHollow": (20, False),
              "WestGlades": (20, False), "OuterWellspring": (25, False), "InnerWellspring": (25, False),
              "WoodsEntry": (40, True), "WoodsMain": (40, True), "LowerReach": (40, True), "UpperReach": (40, True),

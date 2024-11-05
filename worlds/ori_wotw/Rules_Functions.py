@@ -59,7 +59,7 @@ def can_buy_map(state, player) -> bool:
         cost += 150
     if state.can_reach_region("WillowsEnd.InnerTP", player):
         cost += 50
-    return state.count("200 SpiritLight", player) >= ceil(cost/200)
+    return state.count("200 Spirit Light", player) >= ceil(cost/200)
 
 
 def can_keystones(state, player) -> bool:
