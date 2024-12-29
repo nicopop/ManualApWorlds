@@ -272,48 +272,48 @@ class WotWWorld(World):
         if goal == 0:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                                        and s.has_any(("Sword", "Hammer"), player)
-                                        and s.has_all(
+                         and s.has_any(("Sword", "Hammer"), player)
+                         and s.has_all(
                              ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                        and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
-                                                                                               "MarshSpawn.DamageTree",
-                                                                                               "HowlsDen.SwordTree",
-                                                                                               "HowlsDen.DoubleJumpTree",
-                                                                                               "MarshPastOpher.BowTree",
-                                                                                               "WestHollow.DashTree",
-                                                                                               "EastHollow.BashTree",
-                                                                                               "GladesTown.DamageTree",
-                                                                                               "InnerWellspring.GrappleTree",
-                                                                                               "UpperPools.SwimDashTree",
-                                                                                               "UpperReach.LightBurstTree",
-                                                                                               "LowerDepths.FlashTree",
-                                                                                               "LowerWastes.BurrowTree",
-                                                                                               "WeepingRidge.LaunchTree",
-                                                                                               ]])
+                         and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
+                                                                                "MarshSpawn.DamageTree",
+                                                                                "HowlsDen.SwordTree",
+                                                                                "HowlsDen.DoubleJumpTree",
+                                                                                "MarshPastOpher.BowTree",
+                                                                                "WestHollow.DashTree",
+                                                                                "EastHollow.BashTree",
+                                                                                "GladesTown.DamageTree",
+                                                                                "InnerWellspring.GrappleTree",
+                                                                                "UpperPools.SwimDashTree",
+                                                                                "UpperReach.LightBurstTree",
+                                                                                "LowerDepths.FlashTree",
+                                                                                "LowerWastes.BurrowTree",
+                                                                                "WeepingRidge.LaunchTree",
+                                                                                ]])
                          )
         elif goal == 1:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                                        and s.has_any(("Sword", "Hammer"), player)
-                                        and s.has_all(
+                         and s.has_any(("Sword", "Hammer"), player)
+                         and s.has_all(
                              ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                        and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
-                                                       "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
-                                                       "WindtornRuins.Seir"), player)
+                         and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
+                                        "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
+                                        "WindtornRuins.Seir"), player)
                          )
         elif goal == 2:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                                        and s.has_any(("Sword", "Hammer"), player)
-                                        and s.has_all(
+                         and s.has_any(("Sword", "Hammer"), player)
+                         and s.has_all(
                              ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                                        and s.has_all((quests + ".quest" for quests in quest_table), player)
+                         and s.has_all((quests + ".quest" for quests in quest_table), player)
                          )
         else:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                                        and s.has_any(("Sword", "Hammer"), player)
-                                        and s.has_all(
+                         and s.has_any(("Sword", "Hammer"), player)
+                         and s.has_all(
                              ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.

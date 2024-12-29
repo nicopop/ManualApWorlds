@@ -76,7 +76,7 @@ def glitch_rules(world, player, options):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
     if options.glitches:
-        menu.connect(world.get_region("Wave Dash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
+        menu.connect(world.get_region("WaveDash", player), rule=lambda s: s.has_all(("Dash", "Regenerate"), player))
         menu.connect(world.get_region("HammerJump", player), rule=lambda s: s.has_all(("Double Jump", "Hammer"), player))
         menu.connect(world.get_region("SwordJump", player), rule=lambda s: s.has_all(("Double Jump", "Sword"), player))
         menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has_all(("Glide", "Hammer"), player))
