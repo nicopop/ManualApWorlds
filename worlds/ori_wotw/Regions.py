@@ -1,9 +1,8 @@
 """
-File generated with `extract_data.py` by running `extract_regions()` on an `areas.wotw` file.
+Generated file, do not edit manually.
 
-You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .
-
-Do not edit manually.
+See https://github.com/Satisha10/AP_world_wotw_extractors for the code.
+Generated with `extract_data.py` by running `extract_regions()`.
 """
 
 

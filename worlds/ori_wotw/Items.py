@@ -1,8 +1,10 @@
 """
-File generated with `extract_items.py` with the `Items_data.csv` file.
+Generated file, do not edit manually.
 
-Do not edit manually.
+See https://github.com/Satisha10/AP_world_wotw_extractors for the code.
+Generated with `extract_items.py` by running `extract_items()`.
 """
+
 
 from BaseClasses import ItemClassification
 

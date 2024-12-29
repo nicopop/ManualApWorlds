@@ -1,10 +1,10 @@
 """
-File generated with `extract_rules.py` with an `areas.wotw` file.
+Generated file, do not edit manually.
 
-You can find such a file at https://github.com/ori-community/wotw-seedgen/tree/main/wotw_seedgen .
-
-Do not edit manually.
+See https://github.com/Satisha10/APworld_wotw_extractors for the code.
+Generated with `extract_rules.py` by running `parse_rules()`.
 """
+
 
 
 entrance_table = [
