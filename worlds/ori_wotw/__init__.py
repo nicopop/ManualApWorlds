@@ -573,7 +573,11 @@ class WotWWorld(World):
                 f",\"tricks\":[{tricks}],\"hard\":{hard},\"goals\":[],\"headers\":[]"
                 ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
                 "\"online\":false,\"createGame\":\"None\"}\n\n")
-        output = f"Seed: {world.seed_name}\nAPSlot: {world.player_name[player]}\n"
+        output = ("APAddress:archipelago.gg\n"
+                  "APPort:38281\n"
+                  "APPassword:\n"
+                  f"APSlot:{world.player_name[player]}\n\n"
+                  f"APSeed:{world.seed_name}\n")
 
         output += r"Spawn: " + coord[options.spawn]
         output += h_core
