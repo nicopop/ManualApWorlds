@@ -153,7 +153,7 @@ class WotWWorld(World):
                 removed_items.append(item)
 
         if not options.extratp:
-            for item in group_table["extratp"]:
+            for item in group_table["extra_tp"]:
                 removed_items.append(item)
 
         if not options.bonus:
@@ -165,7 +165,7 @@ class WotWWorld(World):
                 removed_items.append(item)
 
         if not options.skill_upgrade:
-            for item in group_table["skillup"]:
+            for item in group_table["skill_upgrades"]:
                 removed_items.append(item)
 
         if options.glades_done:
@@ -462,7 +462,7 @@ class WotWWorld(World):
                           "UpperReach.SpringSeed",
                           "UpperWastes.FlowersSeed",
                           "WoodsEntry.TreeSeed"):
-                menu.connect(world.get_region(quest + ".quest", player))
+                menu.connect(world.get_region(quest, player))
             for event in ("GladesTown.BuildHuts",
                           "GladesTown.RoofsOverHeads",
                           "GladesTown.OnwardsAndUpwards",
@@ -474,7 +474,7 @@ class WotWWorld(World):
             for quest in ("WoodsEntry.LastTreeBranch",
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
-                menu.connect(world.get_region(quest + ".quest", player))
+                menu.connect(world.get_region(quest, player))
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
@@ -573,13 +573,13 @@ class WotWWorld(World):
                 f",\"tricks\":[{tricks}],\"hard\":{hard},\"goals\":[],\"headers\":[]"
                 ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
                 "\"online\":false,\"createGame\":\"None\"}\n\n")
-        output = ("APAddress:archipelago.gg\n"
-                  "APPort:38281\n"
-                  "APPassword:\n"
-                  f"APSlot:{world.player_name[player]}\n\n"
-                  f"APSeed:{world.seed_name}\n")
+        connect = ("APAddress:archipelago.gg\n"
+                   "APPort:38281\n"
+                   "APPassword:\n"
+                   f"APSlot:{world.player_name[player]}\n\n"
+                   f"APSeed:{world.seed_name}\n")
 
-        output += r"Spawn: " + coord[options.spawn]
+        output = r"Spawn: " + coord[options.spawn]
         output += h_core
 
         output += r"// Shops" + "\n"
@@ -635,9 +635,9 @@ class WotWWorld(World):
             flags += ", Open Mode"
 
         flags += "\n"
-        file_name = f"/AP_{world.player_name[player]}.wotwr"
+        file_name = f"/AP_{world.player_name[player]}_{world.seed_name[:4]}.wotwr"
         with open(output_directory + file_name, "w") as f:
-            f.write(flags + head + output)
+            f.write(connect + flags + output + head)
 
 
 class WotWItem(Item):
