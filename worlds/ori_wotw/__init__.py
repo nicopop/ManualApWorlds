@@ -576,10 +576,10 @@ class WotWWorld(World):
         connect = ("APAddress:archipelago.gg\n"
                    "APPort:38281\n"
                    "APPassword:\n"
-                   f"APSlot:{world.player_name[player]}\n\n"
-                   f"APSeed:{world.seed_name}\n")
+                   f"APSlot:{world.player_name[player]}\n"
+                   f"APSeed:{world.seed_name}\n\n\n")
 
-        output = r"Spawn: " + coord[options.spawn]
+        output = r"Spawn: " + coord[options.spawn] + "\n\n"
         output += h_core
 
         output += r"// Shops" + "\n"
