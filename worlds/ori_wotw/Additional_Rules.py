@@ -24,7 +24,7 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("BreakCrystal", player),
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow"), player))
 
-    if diff == 1:  # Gorlek
+    elif diff == 1:  # Gorlek
         menu.connect(world.get_region("DepthsLight", player),
                      rule=lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash", "Bow"), player))
         menu.connect(world.get_region("Combat.Ranged", player),
@@ -40,7 +40,7 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("BreakCrystal", player),
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade"), player))
 
-    if diff >= 2:  # Kii
+    elif diff == 2:  # Kii
         menu.connect(world.get_region("DepthsLight", player),
                      rule=lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash", "Bow"), player))
         menu.connect(world.get_region("Combat.Ranged", player),
@@ -55,7 +55,7 @@ def combat_rules(world, player, options):
         menu.connect(world.get_region("BreakCrystal", player),
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade"), player))
 
-    if diff == 3:  # Unsafe
+    else:  # Unsafe
         menu.connect(world.get_region("DepthsLight", player),
                      rule=lambda state: state.has_any(("UpperDepths.ForestsEyes", "Flash", "Bow"), player))
         menu.connect(world.get_region("Combat.Ranged", player),

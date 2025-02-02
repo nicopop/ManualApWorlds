@@ -19,7 +19,7 @@ from .Options import WotWOptions, option_groups
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
 from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
-                      h_open_mode, h_glades_done, h_hints)
+                      h_open_mode, h_glades_done, h_hints, h_no_rain)
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, set_rule, forbid_item, forbid_items_for_player
@@ -633,6 +633,9 @@ class WotWWorld(World):
         if options.open_mode:
             output += h_open_mode
             flags += ", Open Mode"
+        if options.no_rain:
+            output += h_no_rain
+            flags += ", No Rain"
 
         flags += "\n"
         file_name = f"/AP_{world.player_name[player]}_{world.seed_name[:4]}.wotwr"
