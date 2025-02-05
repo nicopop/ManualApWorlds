@@ -5,6 +5,7 @@
 # TODO règles temporaires, ou changer ressources (se baser sur les refills pour le montant initial)
 # TODO comments on templates
 # TODO fix player name with _
+# TODO forcer glades_done si no_quests (et no_rain si open mode)
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -15,6 +16,7 @@ from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Items import item_table, group_table
 from .Locations import loc_table
 from .Quests import quest_table
+from.LocationGroups import loc_sets
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
@@ -68,6 +70,17 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
+        loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
+        quests_list: List[str] = loc_sets["ExtraQuests"]
+        if not options.glades_done:
+            loc_list += loc_sets["Rebuild"]
+            quests_list += loc_sets["Rebuild"]
+        if not options.no_quests:
+            loc_list += loc_sets["Quests"]
+            quests_list += loc_sets["Quests"]
+        if not options.no_trials:
+            loc_list += loc_sets["Trials"]
+
         for region_name in region_table:
             region = Region(region_name, player, world)
             world.regions.append(region)
@@ -82,18 +95,19 @@ class WotWWorld(World):
 
         menu_region.connect(world.get_region("HeaderStates", player))
 
-        for loc_name in loc_table.keys():  # Create regions on locations and attach locations
+        for loc_name in loc_table.keys():  # Create regions on locations
             region = Region(loc_name, player, world)
             world.regions.append(region)
+        for quest_name in quest_table:  # Quests are locations that have to be tracked like events
+            event_name = quest_name + ".quest"
+            region = world.get_region(quest_name, player)
+            event = WotWLocation(player, event_name, None, region)
+            event.show_in_spoiler = False
+            event.place_locked_item(self.create_event(quest_name))
+            region.locations.append(event)
+        for loc_name in loc_list:  # Attach the used locations to their region
+            region = world.get_region(loc_name, player)
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
-            if loc_name in quest_table:  # Quests also have to be tracked like events
-                quest_name = loc_name + ".quest"
-                if options.no_quests:  # TODO wrong
-                    region = menu_region  # Connect the quest events to the beginning if they are skipped
-                quest_loc = WotWLocation(player, quest_name, None, region)
-                quest_loc.show_in_spoiler = False
-                quest_loc.place_locked_item(self.create_event(loc_name))
-                region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
             region = Region(event, player, world)
@@ -134,9 +148,9 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
-        skipped_items = []  # Remove one instance of the item
-        removed_items = []  # Remove all instances of the item
-        junk: int = 0
+        skipped_items: List[str] = []  # Remove one instance of the item
+        removed_items: List[str] = []  # Remove all instances of the item
+        loc_amount: int = 389
 
         for item in spawn_items(world, options.spawn, options.difficulty):  # Staring items
             world.push_precollected(self.create_item(item))
@@ -172,6 +186,7 @@ class WotWWorld(World):
 
         if options.glades_done:
             removed_items.append("Ore")
+            loc_amount -= len(loc_sets["Rebuild"])
 
         if options.no_ks:
             removed_items.append("Keystone")
@@ -195,23 +210,11 @@ class WotWWorld(World):
                 loc = world.get_location(location, player)
                 loc.place_locked_item(self.create_item(item))
                 removed_items.append(item)
+
         if options.no_trials:
-            for loc in ("MarshPastOpher.SpiritTrial",
-                        "WestHollow.SpiritTrial",
-                        "OuterWellspring.SpiritTrial",
-                        "EastPools.SpiritTrial",
-                        "WoodsMain.SpiritTrial",
-                        "LowerReach.SpiritTrial",
-                        "LowerDepths.SpiritTrial",
-                        "LowerWastes.SpiritTrial"):
-                world.get_location(loc, player).progress_type = 3
+            loc_amount -= len(loc_sets["Trials"])
         if options.no_quests:
-            for quest in quest_table:
-                world.get_location(quest, player).progress_type = 3
-        if options.glades_done:
-            for loc in ("GladesTown.RebuildTheGlades",
-                        "GladesTown.RegrowTheGlades"):
-                world.get_location(loc, player).progress_type = 3
+            loc_amount -= len(loc_sets["Quests"])
 
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
@@ -227,10 +230,8 @@ class WotWWorld(World):
             for _ in range(count):
                 pool.append(self.create_item(item))
 
-        for _ in range(junk):
-            pool.append(self.create_item("50 Spirit Light"))
-#        for _ in range(loc_amount - len(pool)):
-#            pool.append(self.create_item(self.get_filler_item_name()))
+        for _ in range(loc_amount - len(pool)):
+            pool.append(self.create_item(self.get_filler_item_name()))
 
         world.itempool += pool
 
@@ -430,7 +431,7 @@ class WotWWorld(World):
                           "UpperWastes.KeystoneDoor"):
                 menu.connect(world.get_region(event, player))
         if options.open_mode:
-            for event in ("HowlsDen.BoneBarrier",  # Part from open mode
+            for event in ("HowlsDen.BoneBarrier",
                           "MarshSpawn.ToOpherBarrier",
                           "MarshSpawn.TokkBarrier",
                           "MarshSpawn.LogBroken",
@@ -457,8 +458,10 @@ class WotWWorld(World):
                           "EastPools.EntryLever",
                           "EastPools.CentralRoomPurpleWall",
                           "UpperPools.UpperWaterDrained",
-                          "UpperPools.ButtonDoorAboveTree",
-                          "MarshSpawn.HowlBurnt",  # Part from no rain
+                          "UpperPools.ButtonDoorAboveTree",):
+                menu.connect(world.get_region(event, player))
+        if options.no_rain:
+            for event in ("MarshSpawn.HowlBurnt",
                           "HowlsDen.UpperLoopExitBarrier",
                           "HowlsDen.UpperLoopEntranceBarrier",
                           "HowlsDen.RainLifted",):
@@ -471,7 +474,7 @@ class WotWWorld(World):
                           "UpperWastes.FlowersSeed",
                           "WoodsEntry.TreeSeed"):
                 menu.connect(world.get_region(quest, player))
-            for event in ("GladesTown.BuildHuts",
+            for event in ("GladesTown.BuildHuts",  # TODO problem with events: it connects the location
                           "GladesTown.RoofsOverHeads",
                           "GladesTown.OnwardsAndUpwards",
                           "GladesTown.ClearThorns",

@@ -1,5 +1,7 @@
-loc_sets = {
-    "Quests": {
+from typing import List, Dict
+
+loc_sets: Dict[str, List[str]] = {
+    "Quests": [
         "MarshSpawn.TokkKeystoneQuest",
         "MarshSpawn.MokkFangQuest",
         "MarshSpawn.TokkTabletQuest",
@@ -23,8 +25,8 @@ loc_sets = {
         "GladesTown.HandToHandCanteen",
         "LowerWastes.HandToHandMapstone",
         "WindtornRuins.HandToHandComplete",
-    },
-    "ExtraQuests": {
+    ],
+    "ExtraQuests": [
         "MarshSpawn.CaveKS",
         "MarshSpawn.FangQI",
         "HowlsDen.SwordTree",
@@ -43,12 +45,12 @@ loc_sets = {
         "WestPools.ForestsStrength",
         "UpperWastes.FlowersSeed",
         "WindtornRuins.Seir",
-    },
-    "Rebuild": {
+    ],
+    "Rebuild": [
         "GladesTown.RebuildTheGlades",
         "GladesTown.RegrowTheGlades",
-    },
-    "Trials": {
+    ],
+    "Trials": [
         "MarshPastOpher.SpiritTrial",
         "WestHollow.SpiritTrial",
         "OuterWellspring.SpiritTrial",
@@ -57,8 +59,8 @@ loc_sets = {
         "LowerReach.SpiritTrial",
         "LowerDepths.SpiritTrial",
         "LowerWastes.SpiritTrial",
-    },
-    "Base": {
+    ],
+    "Base": [
         "MarshSpawn.RockHC",
         "MarshSpawn.FirstPickupEX",
         "MarshSpawn.GrappleHC",
@@ -396,5 +398,5 @@ loc_sets = {
         "OpherShop.RapidSentry",
         "LupoShop.HCMapIcon",
         "LupoShop.ECMapIcon",
-        "LupoShop.ShardMapIcon"}
+        "LupoShop.ShardMapIcon"]
     }
