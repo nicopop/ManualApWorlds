@@ -1,6 +1,10 @@
 """AP world for Ori and the Will of the Wisps."""
 
 # TODO Relics ? Black market ?
+# TODO enlever locs, aussi modifier le décompte des objets (mettre 50/100 SL à 0, et remplir jusqu'au nb de locs)
+# TODO règles temporaires, ou changer ressources (se baser sur les refills pour le montant initial)
+# TODO comments on templates
+# TODO fix player name with _
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -84,25 +88,25 @@ class WotWWorld(World):
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
             if loc_name in quest_table:  # Quests also have to be tracked like events
                 quest_name = loc_name + ".quest"
-                if options.no_quests:
+                if options.no_quests:  # TODO wrong
                     region = menu_region  # Connect the quest events to the beginning if they are skipped
                 quest_loc = WotWLocation(player, quest_name, None, region)
                 quest_loc.show_in_spoiler = False
-                quest_loc.place_locked_item(WotWItem(loc_name, ItemClassification.progression, None, player))
+                quest_loc.place_locked_item(self.create_event(loc_name))
                 region.locations.append(quest_loc)
 
         for event in event_table:  # Create events, their item, and a region to attach them
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
             ev.show_in_spoiler = False
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            ev.place_locked_item(self.create_event(event))
             world.regions.append(region)
             region.locations.append(ev)
         for event in refill_events:  # Create refill events, their item, and attach to their region
             region = Region(event, player, world)
             ev = WotWLocation(player, event, None, region)
             ev.show_in_spoiler = False
-            ev.place_locked_item(WotWItem(event, ItemClassification.progression, None, player))
+            ev.place_locked_item(self.create_event(event))
             world.regions.append(region)
             region.locations.append(ev)
 
@@ -137,12 +141,10 @@ class WotWWorld(World):
         for item in spawn_items(world, options.spawn, options.difficulty):  # Staring items
             world.push_precollected(self.create_item(item))
             skipped_items.append(item)
-            junk += 1
 
-        for item, count in world.start_inventory[player].value.items():
+        for item, count in options.start_inventory.value.items():
             for _ in range(count):
                 skipped_items.append(item)
-                junk += 1
 
         if options.sword:
             world.push_precollected(self.create_item("Sword"))
@@ -216,12 +218,10 @@ class WotWWorld(World):
 
         for item, data in item_table.items():
             if item in removed_items:
-                junk += data[0]
                 count = -counter[item]
             else:
                 count = data[0] - counter[item]
             if count <= 0:  # This can happen with starting inventory
-                junk += count
                 count = 0
 
             for _ in range(count):
@@ -229,12 +229,20 @@ class WotWWorld(World):
 
         for _ in range(junk):
             pool.append(self.create_item("50 Spirit Light"))
+#        for _ in range(loc_amount - len(pool)):
+#            pool.append(self.create_item(self.get_filler_item_name()))
 
         world.itempool += pool
 
         if options.difficulty == 0:  # Exclude a location that is inaccessible in the lowest difficulty.
             skipped_loc = world.get_location("WestPools.BurrowOre", player)
             skipped_loc.progress_type = 3
+
+    def create_event(self, event: str) -> "WotWItem":
+        return WotWItem(event, ItemClassification.progression, None, self.player)
+
+    def get_filler_item_name(self) -> str:
+        return self.random.choice(["50 Spirit Light", "100 Spirit Light"])
 
     def set_rules(self):
         world = self.multiworld

@@ -19,14 +19,15 @@ def has_health(amount: int, state, player) -> bool:
     """Returns if the player has enough max health to enter the area."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
-    return amount < 30 + state.count("Health", player)*5 + 10*wisps
+    return amount < 30 + state.count("Health Fragment", player)*5 + 10*wisps
 
 
 def get_max(state, player) -> (int, float):
     """Returns the current max health and energy."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
-    return 30 + state.count("Health", player)*5 + 10*wisps, 3 + state.count("Energy", player)*0.5 + wisps
+    return (30 + state.count("Health Fragment", player)*5 + 10*wisps,
+            3 + state.count("Energy Fragment", player)*0.5 + wisps)
 
 
 def get_refill(max_resource: (int, float)) -> (int, int):
