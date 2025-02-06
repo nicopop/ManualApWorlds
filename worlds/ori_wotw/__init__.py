@@ -1,7 +1,6 @@
 """AP world for Ori and the Will of the Wisps."""
 
 # TODO Relics ? Black market ?
-# TODO enlever locs, aussi modifier le décompte des objets (mettre 50/100 SL à 0, et remplir jusqu'au nb de locs)
 # TODO règles temporaires, ou changer ressources (se baser sur les refills pour le montant initial)
 # TODO comments on templates
 # TODO fix player name with _
@@ -16,7 +15,7 @@ from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Items import item_table, group_table
 from .Locations import loc_table
 from .Quests import quest_table
-from.LocationGroups import loc_sets
+from .LocationGroups import loc_sets
 from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
@@ -71,14 +70,17 @@ class WotWWorld(World):
         options = self.options
 
         loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
-        quests_list: List[str] = loc_sets["ExtraQuests"]
-        if not options.glades_done:
+        if options.glades_done:
+            self.disabled_locations += loc_sets["Rebuild"]
+        else:
             loc_list += loc_sets["Rebuild"]
-            quests_list += loc_sets["Rebuild"]
-        if not options.no_quests:
+        if options.no_quests:
+            self.disabled_locations += loc_sets["Quests"]
+        else:
             loc_list += loc_sets["Quests"]
-            quests_list += loc_sets["Quests"]
-        if not options.no_trials:
+        if options.no_trials:
+            self.disabled_locations += loc_sets["Trials"]
+        else:
             loc_list += loc_sets["Trials"]
 
         for region_name in region_table:
@@ -100,7 +102,8 @@ class WotWWorld(World):
             world.regions.append(region)
         for quest_name in quest_table:  # Quests are locations that have to be tracked like events
             event_name = quest_name + ".quest"
-            region = world.get_region(quest_name, player)
+            region = Region(event_name, player, world)
+            world.regions.append(region)
             event = WotWLocation(player, event_name, None, region)
             event.show_in_spoiler = False
             event.place_locked_item(self.create_event(quest_name))
@@ -186,7 +189,6 @@ class WotWWorld(World):
 
         if options.glades_done:
             removed_items.append("Ore")
-            loc_amount -= len(loc_sets["Rebuild"])
 
         if options.no_ks:
             removed_items.append("Keystone")
@@ -211,11 +213,6 @@ class WotWWorld(World):
                 loc.place_locked_item(self.create_item(item))
                 removed_items.append(item)
 
-        if options.no_trials:
-            loc_amount -= len(loc_sets["Trials"])
-        if options.no_quests:
-            loc_amount -= len(loc_sets["Quests"])
-
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
 
@@ -230,7 +227,7 @@ class WotWWorld(World):
             for _ in range(count):
                 pool.append(self.create_item(item))
 
-        for _ in range(loc_amount - len(pool)):
+        for _ in range(loc_amount - len(self.disabled_items) - len(pool)):
             pool.append(self.create_item(self.get_filler_item_name()))
 
         world.itempool += pool
@@ -472,20 +469,19 @@ class WotWWorld(World):
                           "UpperDepths.LightcatcherSeed",
                           "UpperReach.SpringSeed",
                           "UpperWastes.FlowersSeed",
-                          "WoodsEntry.TreeSeed"):
-                menu.connect(world.get_region(quest, player))
-            for event in ("GladesTown.BuildHuts",  # TODO problem with events: it connects the location
+                          "WoodsEntry.TreeSeed",
+                          "GladesTown.BuildHuts",
                           "GladesTown.RoofsOverHeads",
                           "GladesTown.OnwardsAndUpwards",
                           "GladesTown.ClearThorns",
                           "GladesTown.CaveEntrance",):
-                menu.connect(world.get_region(event, player))
+                menu.connect(world.get_region(quest + ".quest", player))
 
         if options.no_quests:  # Open locations locked behind NPCs
             for quest in ("WoodsEntry.LastTreeBranch",
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
-                menu.connect(world.get_region(quest, player))
+                menu.connect(world.get_region(quest + ".quest", player))
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
@@ -595,21 +591,25 @@ class WotWWorld(World):
 
         output += r"// Shops" + "\n"
         for loc, states in shops.items():  # TODO: Add an icon specific to AP ? Add description ?
-            item_name = world.get_location(loc, player).item.name
+            item = world.get_location(loc, player).item
+            text = f"{item.name} ({item.game})"
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
-            output += f"3|1|17|1|{states[0]}|{item_name}\n"  # Add the item name
+            output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
         output += "\n\n"
 
         if options.hints:
+            output += r"// Shrine and Trial hints"
             output += h_hints
             for loc, state in shrines.items():
-                item_name = world.get_location(loc, player).item.name
-                output += state + f"{item_name}\n"
+                item = world.get_location(loc, player).item
+                text = f"{item.name} ({item.game})\n"
+                output += state + text
             output += r"// Trial hints" + "\n"
             for loc, states in trials.items():
-                item_name = world.get_location(loc, player).item.name
-                output += states[0] + f"{item_name}\n"
-                output += states[1] + f"{item_name}\n"
+                item = world.get_location(loc, player).item
+                text = f"{item.name} ({item.game})\n"
+                output += states[0] + text
+                output += states[1] + text
             output += "\n\n"
 
         if options.glitches:
