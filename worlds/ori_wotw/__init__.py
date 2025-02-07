@@ -57,8 +57,6 @@ class WotWWorld(World):
     options_dataclass = WotWOptions
     options: WotWOptions
 
-    ref_resource: Dict[str, List] = {region: [0, 0, 0, 0] for region in region_table}
-
     required_client_version = (0, 5, 0)
 
     def __init__(self, multiworld, player):
@@ -70,17 +68,11 @@ class WotWWorld(World):
         options = self.options
 
         loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
-        if options.glades_done:
-            self.disabled_locations += loc_sets["Rebuild"]
-        else:
+        if not options.glades_done:
             loc_list += loc_sets["Rebuild"]
-        if options.no_quests:
-            self.disabled_locations += loc_sets["Quests"]
-        else:
+        if not options.no_quests:
             loc_list += loc_sets["Quests"]
-        if options.no_trials:
-            self.disabled_locations += loc_sets["Trials"]
-        else:
+        if not options.no_trials:
             loc_list += loc_sets["Trials"]
 
         for region_name in region_table:
@@ -93,7 +85,6 @@ class WotWWorld(World):
         spawn_name = spawn_names[options.spawn]
         spawn_region = world.get_region(spawn_name, player)  # Links menu with spawn point
         menu_region.connect(spawn_region)
-        WotWWorld.ref_resource[spawn_name] = [30, 3, 30, 3]
 
         menu_region.connect(world.get_region("HeaderStates", player))
 
@@ -108,6 +99,8 @@ class WotWWorld(World):
             event.show_in_spoiler = False
             event.place_locked_item(self.create_event(quest_name))
             region.locations.append(event)
+            base_region = world.get_region(quest_name, player)
+            base_region.connect(region)
         for loc_name in loc_list:  # Attach the used locations to their region
             region = world.get_region(loc_name, player)
             region.locations.append(WotWLocation(player, loc_name, self.location_name_to_id[loc_name], region))
@@ -189,9 +182,16 @@ class WotWWorld(World):
 
         if options.glades_done:
             removed_items.append("Ore")
+            loc_amount -= len(loc_sets["Rebuild"])
 
         if options.no_ks:
             removed_items.append("Keystone")
+
+        if options.no_trials:
+            loc_amount -= len(loc_sets["Trials"])
+
+        if options.no_quests:
+            loc_amount -= len(loc_sets["Quests"])
 
         if options.vanilla_shop_upgrades:
             shop_items = {"OpherShop.ExplodingSpike": "Exploding Spear",
@@ -227,7 +227,7 @@ class WotWWorld(World):
             for _ in range(count):
                 pool.append(self.create_item(item))
 
-        for _ in range(loc_amount - len(self.disabled_items) - len(pool)):
+        for _ in range(loc_amount - len(pool)):
             pool.append(self.create_item(self.get_filler_item_name()))
 
         world.itempool += pool
@@ -246,13 +246,12 @@ class WotWWorld(World):
         world = self.multiworld
         player = self.player
         options = self.options
-        ref_resource = WotWWorld.ref_resource
         menu = world.get_region("Menu", player)
         difficulty = options.difficulty
         goal = options.goal
 
         # Add the basic rules.
-        set_moki_rules(world, player, options, ref_resource)
+        set_moki_rules(world, player, options)
         combat_rules(world, player, options)
         glitch_rules(world, player, options)
         unreachable_rules(world, player, options)
@@ -260,27 +259,26 @@ class WotWWorld(World):
         # Add rules depending on the logic difficulty.
         if difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_entrance("WestPools.Teleporter_to_WestPools.BurrowOre", player),
-                     lambda state: state.has_all(("Burrow", "Water", "Water Dash"), player), "or")
+                     lambda state: state.has_all(("Burrow", "Clean Water", "Water Dash"), player), "or")
         if difficulty >= 1:
-            set_gorlek_rules(world, player, options, ref_resource)
+            set_gorlek_rules(world, player, options)
             if options.glitches:
-                set_gorlek_glitched_rules(world, player, options, ref_resource)
+                set_gorlek_glitched_rules(world, player, options)
         if difficulty >= 2:
-            set_kii_rules(world, player, options, ref_resource)
+            set_kii_rules(world, player, options)
             if options.glitches:
-                set_kii_glitched_rules(world, player, options, ref_resource)
+                set_kii_glitched_rules(world, player, options)
         if difficulty == 3:
-            set_unsafe_rules(world, player, options, ref_resource)
+            set_unsafe_rules(world, player, options)
             if options.glitches:
-                set_unsafe_glitched_rules(world, player, options, ref_resource)
+                set_unsafe_glitched_rules(world, player, options)
 
         # Add victory condition
         if goal == 0:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(
-                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                          and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
                                                                                 "MarshSpawn.DamageTree",
                                                                                 "HowlsDen.SwordTree",
@@ -301,8 +299,7 @@ class WotWWorld(World):
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(
-                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                          and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
                                         "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
                                         "WindtornRuins.Seir"), player)
@@ -311,16 +308,15 @@ class WotWWorld(World):
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(
-                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
                          and s.has_all((quests + ".quest" for quests in quest_table), player)
                          )
         else:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(
-                             ("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
+                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
+                         )
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
         ore_loc = ("GladesTown.FamilyReunionKey",
