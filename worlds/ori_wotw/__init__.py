@@ -62,6 +62,16 @@ class WotWWorld(World):
     def __init__(self, multiworld, player):
         super(WotWWorld, self).__init__(multiworld, player)
 
+    def generate_early(self):
+        """Options checking"""
+        if self.options.goal.value == 2:
+            self.options.no_quests.value = False
+            self.options.glades_done.value = False
+        if self.options.no_quests:
+            self.options.glades_done.value = True
+        if self.options.open_mode:
+            self.options.no_rain.value = True
+
     def create_regions(self):
         world = self.multiworld
         player = self.player
@@ -319,22 +329,23 @@ class WotWWorld(World):
                          )
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
-        ore_loc = ("GladesTown.FamilyReunionKey",
-                   "GladesTown.KeyMokiHutEX",
-                   "GladesTown.MotayHutEX",
-                   "GladesTown.HoleHutEX",
-                   "GladesTown.HoleHutEC",
-                   "GladesTown.BraveMokiHutEX",
-                   "GladesTown.ArcingShard",
-                   "GladesTown.LupoSwimLeftEX",
-                   "GladesTown.AboveCaveEX",
-                   "GladesTown.AcornQI",
-                   "GladesTown.MokiAcornQuest",
-                   "GladesTown.CaveBurrowEX",
-                   "GladesTown.RebuildTheGlades",
-                   "WoodsEntry.DollQI")
-        for location in ore_loc:
-            forbid_item(world.get_location(location, player), "Ore", player)
+        if not options.glades_done:
+            ore_loc = ("GladesTown.FamilyReunionKey",
+                       "GladesTown.KeyMokiHutEX",
+                       "GladesTown.MotayHutEX",
+                       "GladesTown.HoleHutEX",
+                       "GladesTown.HoleHutEC",
+                       "GladesTown.BraveMokiHutEX",
+                       "GladesTown.ArcingShard",
+                       "GladesTown.LupoSwimLeftEX",
+                       "GladesTown.AboveCaveEX",
+                       "GladesTown.AcornQI",
+                       "GladesTown.MokiAcornQuest",
+                       "GladesTown.CaveBurrowEX",
+                       "GladesTown.RebuildTheGlades",
+                       "WoodsEntry.DollQI")
+            for location in ore_loc:
+                forbid_item(world.get_location(location, player), "Ore", player)
 
         # Exclude Spirit Light from shops (except 1 Spirit Light).
         shop_loc = ("TwillenShop.Overcharge",
@@ -372,7 +383,6 @@ class WotWWorld(World):
                   "UpperReach.TreeOre",
                   "LowerReach.SpiritTrial",
                   "MidnightBurrows.TabletQI",
-                  "MarshSpawn.TokkTabletQuest",
                   "UpperPools.SwimDashTree",
                   "UpperPools.SwimDashCurrentEX",
                   "UpperPools.RoofEX",
@@ -380,8 +390,12 @@ class WotWWorld(World):
                   "EastPools.PurpleWallHC",)
         for location in ks_loc:
             forbid_item(world.get_location(location, player), "Keystone", player)
+        if not options.no_quests:
+            forbid_item(world.get_location("MarshSpawn.TokkTabletQuest", player), "Keystone", player)
 
         # Rules for specific options
+        if options.qol:
+            menu.connect(world.get_region("GladesTown.TuleySpawned", player))
         if options.better_spawn:
             menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
             menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
@@ -406,9 +420,6 @@ class WotWWorld(World):
                      lambda s: s.has("Victory", player))
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
-        if options.no_rain:
-            menu.connect(world.get_region("HowlsDen.RainLifted", player))
-            menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
         if options.no_ks:
             for event in ("MarshSpawn.KeystoneDoor",
                           "HowlsDen.KeystoneDoor",
@@ -432,7 +443,6 @@ class WotWWorld(World):
                           "MidnightBurrows.HowlsDenShortcut",
                           "MarshPastOpher.EyestoneDoor",
                           "WestHollow.PurpleDoorOpen",
-                          "EastHollow.HornbugDoor",
                           "EastHollow.DepthsLever",
                           "GladesTown.GromsWall",
                           "OuterWellspring.EntranceDoorOpen",
@@ -446,7 +456,6 @@ class WotWWorld(World):
                           "LowerReach.ArenaBeaten",
                           "UpperWastes.LeverDoor",
                           "WindtornRuins.RuinsLever",
-                          "WindtornRuins.PillarBroken",
                           "WeepingRidge.ElevatorFightCompleted",
                           "EastPools.EntryLever",
                           "EastPools.CentralRoomPurpleWall",
@@ -454,11 +463,12 @@ class WotWWorld(World):
                           "UpperPools.ButtonDoorAboveTree",):
                 menu.connect(world.get_region(event, player))
         if options.no_rain:
-            for event in ("MarshSpawn.HowlBurnt",
-                          "HowlsDen.UpperLoopExitBarrier",
+            for event in ("HowlsDen.UpperLoopExitBarrier",
                           "HowlsDen.UpperLoopEntranceBarrier",
                           "HowlsDen.RainLifted",):
                 menu.connect(world.get_region(event, player))
+            if not options.better_spawn:
+                menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
         if options.glades_done:
             for quest in ("InnerWellspring.BlueMoonSeed",
                           "EastPools.GrassSeed",
@@ -466,18 +476,30 @@ class WotWWorld(World):
                           "UpperReach.SpringSeed",
                           "UpperWastes.FlowersSeed",
                           "WoodsEntry.TreeSeed",
-                          "GladesTown.BuildHuts",
+                          "GladesTown.RebuildTheGlades",
+                          "GladesTown.RegrowTheGlades",):
+                menu.connect(world.get_region(quest + ".quest", player))
+            for event in ("GladesTown.BuildHuts",
                           "GladesTown.RoofsOverHeads",
                           "GladesTown.OnwardsAndUpwards",
                           "GladesTown.ClearThorns",
-                          "GladesTown.CaveEntrance",):
-                menu.connect(world.get_region(quest + ".quest", player))
+                          "GladesTown.CaveEntrance"):
+                menu.connect(world.get_region(event, player))
 
         if options.no_quests:  # Open locations locked behind NPCs
             for quest in ("WoodsEntry.LastTreeBranch",
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
                 menu.connect(world.get_region(quest + ".quest", player))
+
+        # Additional rules, remove when resource tracking is fully reworked
+        '''
+        add_rule(world.get_entrance("MarshSpawn.BurrowFightArena_to_MarshSpawn.BurrowArena", player),
+                 lambda s: s.has("Regenerate", player) and s.has_any(("Sword", "Hammer"), player) and
+                 s.has("Combat.Dangerous", player) and s.has("Combat.Shielded", player) and
+                 s.has("Combat.Bat", player) and s.has("Combat.Aerial", player) and
+                 s.has("Combat.Ranged", player) and s.has("Combat.Sand", player), "or")
+        '''
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld

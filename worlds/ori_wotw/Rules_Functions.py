@@ -104,7 +104,7 @@ def can_keystones(state, player) -> bool:
 
 
 def cost_all(state, player, options, region: str, damage_and: List, en_and: List[List],
-             combat_and: List[List], or_req: List[List]) -> bool:
+             combat_and: List[List], or_req: List[List], path_difficulty: int) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -113,22 +113,26 @@ def cost_all(state, player, options, region: str, damage_and: List, en_and: List
     en_and: contains as elements the skill name, and the amount used. All must be satisfied.
     or_req: contains damages, combat, and energy in each sublist (the first element of the list is the
         type of requirement: 0 is combat, 1 is energy, 2 is damage boost). Any can be verified.
+    path_difficulty: 0, 1, 3, 5 for Moki, Gorlek, Kii, Unsafe
     """
     hard = options.hard_mode
     maxH, maxE = get_max(state, player)
 
     en, hp, tr = refills[region]
-    health, energy = 0, 10  # TODO: 10 base energy can lead to softlock, modify when resource tracking fully reworked
+    health, energy = 10, 1  # TODO: The base resources can lead to softlock, modify when resource tracking is reworked
 
-    if tr == 2 and state.has("F." + region, player):
+    if path_difficulty == 0:  # Moki has no damage boost and barely requires energy, so this is fine.
         health, energy = maxH, maxE
     else:
-        if tr == 1 and state.has("C." + region, player):
-            health, energy = get_refill((maxH, maxE))
-        if hp != 0 and state.has("H." + region, player):
-            health += hp*10
-        if en != 0 and state.has("E." + region, player):
-            energy += en
+        if tr == 2 and state.has("F." + region, player):
+            health, energy = maxH, maxE
+        else:
+            if tr == 1 and state.has("C." + region, player):
+                health, energy = get_refill((maxH, maxE))
+            if hp != 0 and state.has("H." + region, player):
+                health += hp*10
+            if en != 0 and state.has("E." + region, player):
+                energy += en
 
     # if diff != 3:  # Energy costs are doubled, except in unsafe
     #     energy /= 2
