@@ -18,8 +18,7 @@ spawn_names = ["MarshSpawn.Main",
                "LowerWastes.EastTP",
                "UpperWastes.NorthTP",
                "WindtornRuins.RuinsTP",
-               "WillowsEnd.InnerTP",
-               "WillowsEnd.Upper"]
+               "WillowsEnd.InnerTP",]
 
 
 def spawn_items(world, spawn, difficulty):
@@ -64,8 +63,6 @@ def spawn_items(world, spawn, difficulty):
               "Health", "Health", "Health"]],
             [["Willow's End TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate", "Health", "Health",
               "Health", "Health", "Health", "Health", "Health"]],
-            [["Shriek TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate", "Health", "Health", "Health",
-              "Health", "Health", "Health", "Health"]],
             ]
 
     gorlek: List[List[List]] = [
@@ -104,8 +101,6 @@ def spawn_items(world, spawn, difficulty):
                ["Inner Ruins TP", "Burrow", "Double Jump", "Hammer", "Grapple", "Regenerate"],
                ["Inner Ruins TP", "Burrow", "Glide", "Hammer", "Grapple", "Regenerate"]],
               [["Willow's End TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate"]],
-              [["Shriek TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate", "Health", "Health",
-                "Health", "Health", "Health", "Health", "Health"]],
               ]
 
     kii: List[List[List]] = [
@@ -141,8 +136,6 @@ def spawn_items(world, spawn, difficulty):
             ["Inner Ruins TP", "Burrow", "Hammer", "Dash", "Regenerate"],
             ["Inner Ruins TP", "Burrow", "Double Jump", "Grapple", "Regenerate"]],
            [["Willow's End TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate"]],
-           [["Shriek TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate", "Health", "Health", "Health",
-             "Health", "Health", "Health", "Health"]],
            ]
 
     unsafe: List[List[List]] = [
@@ -177,7 +170,6 @@ def spawn_items(world, spawn, difficulty):
                ["Inner Ruins TP", "Burrow", "Hammer", "Dash"],
                ["Inner Ruins TP", "Burrow", "Double Jump", "Grapple"]],
               [["Willow's End TP", "Launch", "200 Spirit Light", "200 Spirit Light"]],
-              [["Shriek TP", "Launch", "200 Spirit Light", "200 Spirit Light", "Regenerate"]],
               ]
 
     if difficulty == 0:

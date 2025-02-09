@@ -7,7 +7,6 @@ loc_sets: Dict[str, List[str]] = {
         "MarshSpawn.TokkTabletQuest",
         "EastHollow.KwolokAmuletQuest",
         "OuterWellspring.TheLostCompass",
-        "WoodsEntry.LastTreeBranch",
         "WoodsEntry.TreeSeed",
         "EastPools.KwolokAmuletQI",
         "LowerWastes.EerieGemQI",
@@ -59,6 +58,9 @@ loc_sets: Dict[str, List[str]] = {
         "LowerReach.SpiritTrial",
         "LowerDepths.SpiritTrial",
         "LowerWastes.SpiritTrial",
+    ],
+    "QOL": [
+        "WoodsEntry.LastTreeBranch"
     ],
     "Base": [
         "MarshSpawn.RockHC",

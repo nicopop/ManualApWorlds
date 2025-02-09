@@ -1,10 +1,8 @@
 """AP world for Ori and the Will of the Wisps."""
 
 # TODO Relics ? Black market ?
-# TODO règles temporaires, ou changer ressources (se baser sur les refills pour le montant initial)
 # TODO comments on templates
 # TODO fix player name with _
-# TODO forcer glades_done si no_quests (et no_rain si open mode)
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -20,7 +18,7 @@ from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
-from .Options import WotWOptions, option_groups
+from .Options import WotWOptions, option_groups, Goal, LogicDifficulty
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
 from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
@@ -64,7 +62,7 @@ class WotWWorld(World):
 
     def generate_early(self):
         """Options checking"""
-        if self.options.goal.value == 2:
+        if self.options.goal.value == Goal.option_quests:  # All quests
             self.options.no_quests.value = False
             self.options.glades_done.value = False
         if self.options.no_quests:
@@ -84,6 +82,8 @@ class WotWWorld(World):
             loc_list += loc_sets["Quests"]
         if not options.no_trials:
             loc_list += loc_sets["Trials"]
+        if not options.qol and not options.no_quests:
+            loc_list += loc_sets["QOL"]
 
         for region_name in region_table:
             region = Region(region_name, player, world)
@@ -203,6 +203,9 @@ class WotWWorld(World):
         if options.no_quests:
             loc_amount -= len(loc_sets["Quests"])
 
+        if options.qol or options.no_quests:
+            loc_amount -= len(loc_sets["QOL"])
+
         if options.vanilla_shop_upgrades:
             shop_items = {"OpherShop.ExplodingSpike": "Exploding Spear",
                           "OpherShop.ShockSmash": "Hammer Shockwave",
@@ -242,7 +245,8 @@ class WotWWorld(World):
 
         world.itempool += pool
 
-        if options.difficulty == 0:  # Exclude a location that is inaccessible in the lowest difficulty.
+        if options.difficulty == LogicDifficulty.option_moki:
+            # Exclude a location that is inaccessible in the lowest difficulty.
             skipped_loc = world.get_location("WestPools.BurrowOre", player)
             skipped_loc.progress_type = 3
 
@@ -267,24 +271,25 @@ class WotWWorld(World):
         unreachable_rules(world, player, options)
 
         # Add rules depending on the logic difficulty.
-        if difficulty == 0:  # Extra rule for a location that is inaccessible in the lowest difficulty.
+        if difficulty == LogicDifficulty.option_moki:
+            # Extra rule for a location that is inaccessible in the lowest difficulty.
             add_rule(world.get_entrance("WestPools.Teleporter_to_WestPools.BurrowOre", player),
                      lambda state: state.has_all(("Burrow", "Clean Water", "Water Dash"), player), "or")
-        if difficulty >= 1:
+        if difficulty >= LogicDifficulty.option_gorlek:
             set_gorlek_rules(world, player, options)
             if options.glitches:
                 set_gorlek_glitched_rules(world, player, options)
-        if difficulty >= 2:
+        if difficulty >= LogicDifficulty.option_kii:
             set_kii_rules(world, player, options)
             if options.glitches:
                 set_kii_glitched_rules(world, player, options)
-        if difficulty == 3:
+        if difficulty == LogicDifficulty.option_unsafe:
             set_unsafe_rules(world, player, options)
             if options.glitches:
                 set_unsafe_glitched_rules(world, player, options)
 
         # Add victory condition
-        if goal == 0:
+        if goal == Goal.option_trees:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
@@ -305,7 +310,7 @@ class WotWWorld(World):
                                                                                 "WeepingRidge.LaunchTree",
                                                                                 ]])
                          )
-        elif goal == 1:
+        elif goal == Goal.option_wisps:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)
@@ -314,7 +319,7 @@ class WotWWorld(World):
                                         "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
                                         "WindtornRuins.Seir"), player)
                          )
-        elif goal == 2:
+        elif goal == Goal.option_quests:
             menu.connect(world.get_region("Victory", player),
                          rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
                          and s.has_any(("Sword", "Hammer"), player)

@@ -57,7 +57,6 @@ class StartingLocation(Choice):
     option_outerruins = 14
     option_innerruins = 15
     option_willow = 16
-    option_shriek = 17
     default = 0
 
 
@@ -98,7 +97,7 @@ class Teleporters(DefaultOnToggle):
 
 
 class ExtraTeleporters(Toggle):
-    """Add two extra teleporters."""
+    """Add Ruins, West Pools and Shriek teleporters to the pool."""
     display_name = "Extra teleporters"
 
 
