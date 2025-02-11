@@ -1,6 +1,6 @@
 """Options for Ori and the Will of the Wisps Randomizer."""
 
-from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions, OptionGroup
+from Options import Choice, Toggle, DefaultOnToggle, PerGameCommonOptions, OptionGroup, OptionSet
 from dataclasses import dataclass
 
 
@@ -131,9 +131,19 @@ class NoRain(Toggle):
     display_name = "No Rain"
 
 
-class NoCombat(Toggle):
-    """Skip most of the combats."""
-    display_name = "No combat"
+class NoCombat(OptionSet):
+    """Skip all combat heavy parts.
+
+    - Everything: the same as if you include all the following
+    - Shrines: Shrine have their pickup floating above them before the fight
+    - Arenas: the arenas start as completed
+    - Demi Bosses: Demi Bosses like Howl, Beetle and Rock boss start as defeated
+    - Bosses: Bosses like Kwolok, Mora and Shriek's combat phases are skipped
+    """
+    display_name = "No Combat"
+    rich_text_doc = True
+    valid_keys = ["Everything", "Shrines", "Arenas", "Demi Bosses", "Bosses"]
+    default = []
 
 
 class NoTrials(Toggle):

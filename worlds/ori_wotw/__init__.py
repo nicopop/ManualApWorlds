@@ -21,7 +21,7 @@ from .Refills import refill_events
 from .Options import WotWOptions, option_groups, Goal, LogicDifficulty
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
-from .Headers import (h_core, h_better_spawn, h_no_combat, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
+from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_arenas, h_no_combat_demibosses, h_no_combat_bosses, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
                       h_open_mode, h_glades_done, h_hints, h_no_rain)
 
 from worlds.AutoWorld import World, WebWorld
@@ -406,15 +406,11 @@ class WotWWorld(World):
             menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
             menu.connect(world.get_region("EastPools.EntryLever", player))
             menu.connect(world.get_region("UpperWastes.LeverDoor", player))
-        if options.no_combat:
+
+        if "Everything" in options.no_combat or "Bosses" in options.no_combat:
             for entrance in ("HeaderStates_to_SkipKwolok",
                              "HeaderStates_to_SkipMora1",
-                             "HeaderStates_to_SkipMora2",
-                             "DenShrine_to_HowlsDen.CombatShrineCompleted",
-                             "MarshShrine_to_MarshPastOpher.CombatShrineCompleted",
-                             "GladesShrine_to_WestGlades.CombatShrineCompleted",
-                             "WoodsShrine_to_WoodsMain.CombatShrineCompleted",
-                             "DepthsShrine_to_LowerDepths.CombatShrineCompleted"):
+                             "HeaderStates_to_SkipMora2"):
                 set_rule(world.get_entrance(entrance, player), lambda s: True)
         else:  # Connect these events when the seed is completed, to make them reachable.
             set_rule(world.get_entrance("HeaderStates_to_SkipKwolok", player),
@@ -423,6 +419,15 @@ class WotWWorld(World):
                      lambda s: s.has("Victory", player))
             set_rule(world.get_entrance("HeaderStates_to_SkipMora2", player),
                      lambda s: s.has("Victory", player))
+        if "Everything" in options.no_combat or "Shrines" in options.no_combat:
+            for entrance in (
+                        "DenShrine_to_HowlsDen.CombatShrineCompleted",
+                        "MarshShrine_to_MarshPastOpher.CombatShrineCompleted",
+                        "GladesShrine_to_WestGlades.CombatShrineCompleted",
+                        "WoodsShrine_to_WoodsMain.CombatShrineCompleted",
+                        "DepthsShrine_to_LowerDepths.CombatShrineCompleted"):
+                set_rule(world.get_entrance(entrance, player), lambda s: True)
+
         if options.better_wellspring:
             menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
         if options.no_ks:
@@ -642,8 +647,18 @@ class WotWWorld(World):
         if options.better_spawn:
             output += h_better_spawn
         if options.no_combat:
-            output += h_no_combat
-            flags += ", No Combat"
+            output += r"//No Combat" + "\n"
+            no_combat = "Everything" in options.no_combat
+            if no_combat or "Shrines" in options.no_combat:
+                output += h_no_combat_shrines
+            if no_combat or "Arenas" in options.no_combat:
+                output += h_no_combat_arenas
+            if no_combat or "Demi Bosses" in options.no_combat:
+                output += h_no_combat_arenas
+            if no_combat or "Bosses" in options.no_combat:
+                output += h_no_combat_arenas
+            flags += ", No Combat: [" + ", ".join(options.no_combat.value) + "]"
+
         if options.no_quests:
             output += h_no_quests
             flags += ", No Quests"
