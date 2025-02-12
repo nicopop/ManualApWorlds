@@ -1,7 +1,6 @@
 """AP world for Ori and the Will of the Wisps."""
 
 # TODO Relics ? Black market ?
-# TODO comments on templates
 # TODO fix player name with _
 
 from typing import List, Dict, Tuple
@@ -401,6 +400,8 @@ class WotWWorld(World):
         # Rules for specific options
         if options.qol:
             menu.connect(world.get_region("GladesTown.TuleySpawned", player))
+            world.get_region("WoodsEntry.LastTreeBranch", player).connect(
+                world.get_region("WoodsEntry.TreeSeed", player))
         if options.better_spawn:
             menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
             menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
