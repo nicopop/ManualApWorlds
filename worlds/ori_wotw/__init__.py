@@ -657,7 +657,7 @@ class WotWWorld(World):
                 output += h_no_combat_arenas
             if no_combat or "Bosses" in options.no_combat:
                 output += h_no_combat_arenas
-            flags += ", No Combat: [" + ", ".join(options.no_combat.value) + "]"
+            flags += ", No Combat: [" + "; ".join(options.no_combat.value) + "]"
 
         if options.no_quests:
             output += h_no_quests

@@ -125,14 +125,14 @@ h_better_spawn = (r"// Better random spawn" + "\n"
                   r"3|0|8|21786|25095|bool|true" + "\n"
                   r"3|0|8|21786|53932|bool|true" + "\n\n")
 
-h_no_combat_shrines = (r"// if skipShrines true" + "\n"
+h_no_combat_shrines = (r"// Combat Shrines start as completed" + "\n"
                        r"3|0|8|21786|2869|bool|true" + "\n"
                        r"3|0|8|24922|45011|bool|true" + "\n"
                        r"3|0|8|18793|12512|bool|true" + "\n"
                        r"3|0|8|58674|56043|bool|true" + "\n"
                        r"3|0|8|44310|58796|bool|true" + "\n")
 
-h_no_combat_arenas = (r"// if skipArenas true" + "\n"
+h_no_combat_arenas = (r"// Combat Arenas start as completed" + "\n"
                       r"3|0|8|21786|35598|bool|true" + "\n"
                       r"3|0|8|28895|42209|bool|true" + "\n"
                       r"3|0|8|9593|59418|bool|true" + "\n"
@@ -141,7 +141,7 @@ h_no_combat_arenas = (r"// if skipArenas true" + "\n"
                       r"3|0|8|37858|8487|int|5" + "\n"
                       r"3|0|8|5377|53480|byte|4" + "\n")
 
-h_no_combat_demibosses = (r"// if skipDemiBosses true" + "\n"
+h_no_combat_demibosses = (r"// Demi Bosses start as defeated" + "\n"
                           r"3|0|8|21786|30656|bool|true" + "\n"
                           r"3|0|8|21786|40322|bool|true" + "\n"
                           r"3|0|8|21786|25095|bool|true" + "\n"
@@ -150,7 +150,7 @@ h_no_combat_demibosses = (r"// if skipDemiBosses true" + "\n"
                           r"3|0|8|16155|28478|bool|true" + "\n"
                           r"3|0|8|16155|12971|int|4" + "\n")
 
-h_no_combat_bosses = (r"// if skipBosses true" + "\n"
+h_no_combat_bosses = (r"// Skip Bosses" + "\n"
                r"945|58403=3|8|945|58403|int|6" + "\n"
                r"945|58403=3|4|8|-1958|-4067|mute" + "\n"
                r"18793|26713=2|8|18793|26713|int|4" + "\n"
