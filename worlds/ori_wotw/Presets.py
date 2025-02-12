@@ -1,7 +1,7 @@
 options_presets = {  # TODO: reorganize (also in yaml + make more yaml templates)
     "Moki": {
         "progression_balancing": "normal",
-        "accessibility":         "items",
+        "accessibility":         "minimal",
         "difficulty":            "moki",
         "glitches":              False,
         "hard_mode":             False,
@@ -26,7 +26,7 @@ options_presets = {  # TODO: reorganize (also in yaml + make more yaml templates
     },
     "Gorlek": {
         "progression_balancing": "normal",
-        "accessibility":         "items",
+        "accessibility":         "minimal",
         "difficulty":            "gorlek",
         "glitches":              False,
         "hard_mode":             False,
@@ -51,7 +51,7 @@ options_presets = {  # TODO: reorganize (also in yaml + make more yaml templates
     },
     "Kii": {
         "progression_balancing": "normal",
-        "accessibility":         "items",
+        "accessibility":         "minimal",
         "difficulty":            "kii",
         "glitches":              False,
         "hard_mode":             False,
