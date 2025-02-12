@@ -36,13 +36,19 @@ class WotWWeb(WebWorld):
         "English",
         "setup_en.md",
         "setup/en",
-        [""]
+        ["Satisha"]
     )]
     options_presets = options_presets
     option_groups = option_groups
+    bug_report_page = "https://discord.com/channels/731205301247803413/1272952565843103765"
+
 
 
 class WotWWorld(World):
+    """Ori and the Will of the Wisps is a 2D Metroidvania;
+    The sequel to Ori and the blind forest, a platform game emphasizing exploration, collecting items and upgrades, and backtracking to previously inaccessible areas.
+    The player controls the titular Ori, a white guardian spirit.
+    """
     game = "Ori and the Will of the Wisps"
     web = WotWWeb()
 
