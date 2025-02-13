@@ -1,5 +1,5 @@
 from BaseClasses import Item, ItemClassification
-from AutoWorld import World
+from worlds.AutoWorld import World
 
 skills_ids: dict[str, str] = {
     "Sword": "spell:1002",
@@ -34,38 +34,38 @@ collectibles_ids: dict[str, str] = {
     "Ancestral Light 1": "spell:4007",
     "Ancestral Light 2": "spell:4008"
 }
-shards_ids: dict[str, int] = {
-    "Overcharge": 1,
-    "Triple Jump": 2,
-    "Wingclip": 3,
-    "Bounty": 4,
-    "Swap": 5,
-    "Magnet": 8,
-    "Splinter": 9,
-    "Reckless": 13,
-    "Quickshot": 14,
-    "Resilience": 18,
-    "Light Harvest": 19,
-    "Vitality": 22,
-    "Life Harvest": 23,
-    "Energy Harvest": 25,
-    "Energy": 26,
-    "Life Pact": 27,
-    "Last Stand": 28,
-    "Sense": 30,
-    "Ultra Bash": 32,
-    "Ultra Grapple": 33,
-    "Overflow": 34,
-    "Thorn": 35,
-    "Catalyst": 36,
-    "Turmoil": 38,
-    "Sticky": 39,
-    "Finesse": 40,
-    "Spirit Surge": 41,
-    "Lifeforce": 43,
-    "Deflector": 44,
-    "Fracture": 46,
-    "Arcing": 47
+shards_ids: dict[str, str] = {
+    "Overcharge": "shard:1",
+    "Triple Jump": "shard:2",
+    "Wingclip": "shard:3",
+    "Bounty": "shard:4",
+    "Swap": "shard:5",
+    "Magnet": "shard:8",
+    "Splinter": "shard:9",
+    "Reckless": "shard:13",
+    "Quickshot": "shard:14",
+    "Resilience": "shard:18",
+    "Light Harvest": "shard:19",
+    "Vitality": "shard:22",
+    "Life Harvest": "shard:23",
+    "Energy Harvest": "shard:25",
+    "Energy": "shard:26",
+    "Life Pact": "shard:27",
+    "Last Stand": "shard:28",
+    "Sense": "shard:30",
+    "Ultra Bash": "shard:32",
+    "Ultra Grapple": "shard:33",
+    "Overflow": "shard:34",
+    "Thorn": "shard:35",
+    "Catalyst": "shard:36",
+    "Turmoil": "shard:38",
+    "Sticky": "shard:39",
+    "Finesse": "shard:40",
+    "Spirit Surge": "shard:41",
+    "Lifeforce": "shard:43",
+    "Deflector": "shard:44",
+    "Fracture": "shard:46",
+    "Arcing": "shard:47"
 }
 upgrades_ids: dict[str, str] = {
     "Rapid Sentry": "opher:1",
@@ -114,10 +114,11 @@ others_ids: dict[str, str] = {
     "teleporter": "file:assets/icons/game/teleporter.png",
     "experience": "file:assets/icons/game/experience.png",
     "map": "file:assets/icons/game/map.png",
-    "message": "file:assets/icons/game/message.png"
+    "message": "file:assets/icons/game/message.png",
+    "moki": "file:assets/icons/game/moki.png"
 }
 
-def get_item_iconpath(world: World, item: Item, disable_other_games: bool = False) -> str|None:
+def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
     classification = ItemClassification(item.classification) #sometimes apworld use ints that since 0.6.0 need to be converted explicitly
 
     icon_path = None
@@ -132,7 +133,7 @@ def get_item_iconpath(world: World, item: Item, disable_other_games: bool = Fals
             icon_path = skills_ids[item.name]
 
         elif shards_ids.get(item.name):
-            icon_path = f"shard:{shards_ids[item.name]}"
+            icon_path = shards_ids[item.name]
 
         elif collectibles_ids.get(item.name):
             icon_path = collectibles_ids[item.name]
@@ -146,7 +147,7 @@ def get_item_iconpath(world: World, item: Item, disable_other_games: bool = Fals
         else: #If seen mean we missed an item
             icon_path = others_ids["message"] # message meaning tell us on discord...
 
-    elif not disable_other_games: #Some generic icons for any games
+    elif keyword_based_icons: #Some generic icons for any games
         if "key" in item.name.lower():
             icon_path = collectibles_ids["Keystone"]
         elif "health" in item.name.lower() or "life" in item.name.lower() or "Heart" in item.name.lower():
@@ -161,10 +162,16 @@ def get_item_iconpath(world: World, item: Item, disable_other_games: bool = Fals
             icon_path = collectibles_ids["Ore"]
         elif "exp" in item.name.lower() or "xp" in item.name.lower() or "ability" in item.name.lower():
             icon_path = others_ids["experience"]
-        elif ItemClassification.trap in classification:
-            icon_path = world.random.choice(list(skills_ids.values() + collectibles_ids.values()))
+
+    if icon_path is None: # Fallback to Classification system if keyword_based_icons is turned off or fail
+        if ItemClassification.trap in classification:
+            icon_path = world.random.choice(list(skills_ids.values()) + list(collectibles_ids.values()))
+
         elif ItemClassification.progression in classification:
-            icon_path = collectibles_ids["Shard Slot"]
+            icon_path = collectibles_ids["Shard Slot"] #placeholder
+
+        elif ItemClassification.useful in classification:
+            icon_path = others_ids["moki"] #placeholder
 
         #Else None aka default ? icon for now
 
