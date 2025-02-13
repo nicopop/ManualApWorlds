@@ -9,7 +9,6 @@ from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
-from .Rules_Functions import has_quests, has_trees, has_wisps, can_defeat_shriek
 from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Items import item_table, group_table
 from .Locations import loc_table
