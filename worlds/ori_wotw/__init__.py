@@ -2,6 +2,7 @@
 
 # TODO Relics ? Black market ?
 # TODO fix player name with _
+# TODO Lupo shop
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -18,10 +19,11 @@ from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
-from .Options import WotWOptions, option_groups, Goal, LogicDifficulty
+from .Options import WotWOptions, option_groups, LogicDifficulty
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
-from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_arenas, h_no_combat_demibosses, h_no_combat_bosses, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
+from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_arenas, h_no_combat_demibosses,
+                      h_no_combat_bosses, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
                       h_open_mode, h_glades_done, h_hints, h_no_rain)
 
 from worlds.AutoWorld import World, WebWorld
@@ -68,9 +70,10 @@ class WotWWorld(World):
 
     def generate_early(self):
         """Options checking"""
-        if self.options.goal.value == Goal.option_quests:  # All quests
+        if "quests" in self.options.goal:
             self.options.no_quests.value = False
             self.options.glades_done.value = False
+
         if self.options.no_quests:
             self.options.glades_done.value = True
         if self.options.open_mode:
@@ -81,6 +84,7 @@ class WotWWorld(World):
         player = self.player
         options = self.options
 
+        # Contain all the locations that are used
         loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
         if not options.glades_done:
             loc_list += loc_sets["Rebuild"]
@@ -268,7 +272,6 @@ class WotWWorld(World):
         options = self.options
         menu = world.get_region("Menu", player)
         difficulty = options.difficulty
-        goal = options.goal
 
         # Add the basic rules.
         set_moki_rules(world, player, options)
@@ -295,49 +298,41 @@ class WotWWorld(World):
                 set_unsafe_glitched_rules(world, player, options)
 
         # Add victory condition
-        if goal == Goal.option_trees:
-            menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                         and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                         and all([s.can_reach_region(tree, player) for tree in ["MarshSpawn.RegenTree",
-                                                                                "MarshSpawn.DamageTree",
-                                                                                "HowlsDen.SwordTree",
-                                                                                "HowlsDen.DoubleJumpTree",
-                                                                                "MarshPastOpher.BowTree",
-                                                                                "WestHollow.DashTree",
-                                                                                "EastHollow.BashTree",
-                                                                                "GladesTown.DamageTree",
-                                                                                "InnerWellspring.GrappleTree",
-                                                                                "UpperPools.SwimDashTree",
-                                                                                "UpperReach.LightBurstTree",
-                                                                                "LowerDepths.FlashTree",
-                                                                                "LowerWastes.BurrowTree",
-                                                                                "WeepingRidge.LaunchTree",
-                                                                                ]])
-                         )
-        elif goal == Goal.option_wisps:
-            menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                         and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                         and s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
-                                        "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
-                                        "WindtornRuins.Seir"), player)
-                         )
-        elif goal == Goal.option_quests:
-            menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                         and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                         and s.has_all((quests + ".quest" for quests in quest_table), player)
-                         )
-        else:
-            menu.connect(world.get_region("Victory", player),
-                         rule=lambda s: s.can_reach_region("WillowsEnd.Upper", player)
-                         and s.has_any(("Sword", "Hammer"), player)
-                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player)
-                         )
+        victory_conn = world.get_region("WillowsEnd.Upper", player).connect(world.get_region("Victory", player))
+        set_rule(victory_conn, lambda s: s.has_any(("Sword", "Hammer"), player)
+                         and s.has_all(("Double Jump", "Dash", "Bash", "Grapple", "Glide", "Burrow", "Launch"), player))
+
+        if "trees" in options.goal:
+            add_rule(victory_conn, lambda s: all([s.can_reach_region(tree, player)
+                          for tree in ["MarshSpawn.RegenTree",
+                                       "MarshSpawn.DamageTree",
+                                       "HowlsDen.SwordTree",
+                                       "HowlsDen.DoubleJumpTree",
+                                       "MarshPastOpher.BowTree",
+                                       "WestHollow.DashTree",
+                                       "EastHollow.BashTree",
+                                       "GladesTown.DamageTree",
+                                       "InnerWellspring.GrappleTree",
+                                       "UpperPools.SwimDashTree",
+                                       "UpperReach.LightBurstTree",
+                                       "LowerDepths.FlashTree",
+                                       "LowerWastes.BurrowTree",
+                                       "WeepingRidge.LaunchTree",
+                                       ]
+                          ])
+                     )
+
+        if "wisps" in options.goal:
+            add_rule(victory_conn, lambda s: s.has_all(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory",
+                                                        "UpperDepths.ForestsEyes", "WestPools.ForestsStrength",
+                                                        "WindtornRuins.Seir"), player)
+                     )
+        if "quests" in options.goal:
+            # Rebuild and quests are always enabled when quests is in the goals
+            quest_list: List[str] = loc_sets["ExtraQuests"] + loc_sets["Rebuild"] + loc_sets["Quests"]
+            if not options.qol:
+                quest_list += loc_sets["QOL"]
+            add_rule(victory_conn, lambda s: s.has_all((quests for quests in quest_list), player))
 
         # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
         if not options.glades_done:
@@ -392,7 +387,6 @@ class WotWWorld(World):
                   "UpperReach.WellEX",
                   "UpperReach.HiddenEX",
                   "UpperReach.TreeOre",
-                  "LowerReach.SpiritTrial",
                   "MidnightBurrows.TabletQI",
                   "UpperPools.SwimDashTree",
                   "UpperPools.SwimDashCurrentEX",
@@ -403,6 +397,8 @@ class WotWWorld(World):
             forbid_item(world.get_location(location, player), "Keystone", player)
         if not options.no_quests:
             forbid_item(world.get_location("MarshSpawn.TokkTabletQuest", player), "Keystone", player)
+        if not options.no_trials:
+            forbid_item(world.get_location("LowerReach.SpiritTrial", player), "Keystone", player)
 
         # Rules for specific options
         if options.qol:
@@ -523,7 +519,7 @@ class WotWWorld(World):
         world = self.multiworld
         player = self.player
         options = self.options
-        goals: List[str] = [", All Trees", ", All Quests", ", All Wisps", ""]
+
         logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
         coord: List[str] = [
             r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
@@ -597,7 +593,13 @@ class WotWWorld(World):
             "LowerDepths.CombatShrine": r"9|18|6|Complete the Mouldwood Combat Shrine to gain\n"
         }
 
-        flags = f"Flags: AP, {logic_difficulty[options.difficulty]}{goals[options.goal]}"
+        flags = f"Flags: AP, {logic_difficulty[options.difficulty]}"
+        if "trees" in options.goal:
+            flags += ", All Trees"
+        if "quests" in options.goal:
+            flags += ", All Quests"
+        if "wisps" in options.goal:
+            flags += ", All Wisps"
         if options.glitches:
             tricks = ("\"SwordSentryJump\",\"GlideHammerJump\",\"SentryRedirect\",\"HammerJump\",\"BlazeSwap\","
                       "\"LaunchSwap\",\"SpearBreak\",\"ShurikenBreak\",\"GlideJump\",\"GrenadeRedirect\","
@@ -661,12 +663,13 @@ class WotWWorld(World):
                 item = world.get_location(loc, player).item
                 text = f"{item.name} ({item.game})\n"
                 output += state + text
-            output += r"// Trial hints" + "\n"
-            for loc, states in trials.items():
-                item = world.get_location(loc, player).item
-                text = f"{item.name} ({item.game})\n"
-                output += states[0] + text
-                output += states[1] + text
+            if not options.no_trials:
+                output += r"// Trial hints" + "\n"
+                for loc, states in trials.items():
+                    item = world.get_location(loc, player).item
+                    text = f"{item.name} ({item.game})\n"
+                    output += states[0] + text
+                    output += states[1] + text
             output += "\n\n"
 
         if options.glitches:
@@ -683,10 +686,10 @@ class WotWWorld(World):
             if no_combat or "Arenas" in options.no_combat:
                 output += h_no_combat_arenas
             if no_combat or "Demi Bosses" in options.no_combat:
-                output += h_no_combat_arenas
+                output += h_no_combat_demibosses
             if no_combat or "Bosses" in options.no_combat:
-                output += h_no_combat_arenas
-            flags += ", No Combat: [" + "; ".join(options.no_combat.value) + "]"
+                output += h_no_combat_bosses
+            flags += ", No Combat"
 
         if options.no_quests:
             output += h_no_quests
