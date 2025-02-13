@@ -219,6 +219,7 @@ h_no_hearts = (r"// No Willow Hearts" + "\n"
                r"3|0|8|16155|60752|bool|true" + "\n\n")
 
 h_qol = (r"// Quality of life" + "\n"
+         r"3|0|8|6|300|bool|true // Spawn Tuley" + "\n"
          r"3|0|8|7|22|bool|true // Shriek Escape Healthbar" + "\n"
          r"3|20|8|5|11|float|230 // Teleport Refills" + "\n"
          r"3|20|8|5|13|float|23" + "\n"
