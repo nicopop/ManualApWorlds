@@ -10,7 +10,7 @@ class LogicDifficulty(Choice):
 
     - **Moki** (or easy): Recommended for beginners, who only played the game casually.
     - **Gorlek** (or medium): Harder paths that can use sword and hammer as movement options, and damage boosts.
-    - **Kii (or hard)**: Hard and precise paths that use energy weapons as movement.
+    - **Kii** (or hard): Hard and precise paths that use energy weapons as movement.
     - **Unsafe**: Very hard and unverified paths. Warning: some paths are **extremely hard**.
     """
     display_name = "Logic difficulty"
@@ -60,8 +60,8 @@ class StartingLocation(Choice):
     default = 0
 
 
-class Goal(Choice):
-    """Set a condition for entering the final boss. Use the rando wheel (with **V**) to check goal progress.
+class Goal(OptionSet):
+    """Set conditions for entering the final boss. Use the rando wheel (with **V**) to check goal progress.
 
     - **Trees**: All trees must be collected.
     - **Wisps**: All wisps must be collected.
@@ -69,11 +69,10 @@ class Goal(Choice):
     """
     display_name = "Goal"
     rich_text_doc = True
-    option_trees = 0
-    option_wisps = 1
-    option_quests = 2
-    option_nothing = 3
-    default = 0
+    valid_keys_casefold = True
+    valid_keys = ["trees", "wisps", "quests"]
+    default = ["trees"]
+
 
 
 class HardMode(Toggle):
