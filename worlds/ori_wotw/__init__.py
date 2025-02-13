@@ -10,6 +10,7 @@ from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules,
                     set_kii_glitched_rules, set_unsafe_rules, set_unsafe_glitched_rules)
 from .Additional_Rules import combat_rules, glitch_rules, unreachable_rules
 from .Items import item_table, group_table
+from .Items_Icons import get_item_iconpath
 from .Locations import loc_table
 from .Quests import quest_table
 from .LocationGroups import loc_sets
@@ -625,11 +626,32 @@ class WotWWorld(World):
         output += h_core
 
         output += r"// Shops" + "\n"
-        for loc, states in shops.items():  # TODO: Add an icon specific to AP ? Add description ?
+        for loc, states in shops.items():
             item = world.get_location(loc, player).item
             text = f"{item.name} ({item.game})"
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
             output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
+
+            classification = ItemClassification(item.classification) #sometimes apworld use ints that since 0.6.0 need to be converted explicitly
+            target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
+            if ItemClassification.trap in classification and ItemClassification.progression in classification:
+                description = f"This item might be important but you might want to avoid buying this for now ask {target_player_name} about it."
+            elif ItemClassification.trap in classification:
+                fakeclassification = self.random.choice(["important", "useful", "unimportant"])
+                description = f"This item might be {fakeclassification} for {target_player_name}?"
+            elif ItemClassification.progression in classification:
+                description = f"This item might be important for {target_player_name}."
+            elif ItemClassification.useful in classification:
+                description = f"This item might be useful for {target_player_name}."
+            else:
+                description = f"This item might be unimportant for {target_player_name}."
+
+            output += f"3|1|17|2|{states[0]}|{description}\n"  # Add the item description
+
+            icon_path = get_item_iconpath(self, item)
+            if icon_path:
+                output += f"3|1|17|0|{states[0]}|{icon_path}\n"
+
         output += "\n\n"
 
         if options.hints:
