@@ -389,16 +389,22 @@ class WotWWorld(World):
         if not options.no_trials:
             forbid_item(world.get_location("LowerReach.SpiritTrial", player), "Keystone", player)
 
+        def try_connect(regionIn: Region, regionOut: Region):
+            """Create the region connection if it doesn't already exists"""
+            connection = regionIn.name + " -> " + regionOut.name
+            if not world.regions.entrance_cache[player].get(connection):
+                regionIn.connect(regionOut)
+
         # Rules for specific options
         if options.qol:
-            menu.connect(world.get_region("GladesTown.TuleySpawned", player))
+            try_connect(menu, world.get_region("GladesTown.TuleySpawned", player))
             world.get_region("WoodsEntry.LastTreeBranch", player).connect(
                 world.get_region("WoodsEntry.TreeSeed", player))
         if options.better_spawn:
-            menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
-            menu.connect(world.get_region("HowlsDen.BoneBarrier", player))
-            menu.connect(world.get_region("EastPools.EntryLever", player))
-            menu.connect(world.get_region("UpperWastes.LeverDoor", player))
+            try_connect(menu, world.get_region("MarshSpawn.HowlBurnt", player))
+            try_connect(menu, world.get_region("HowlsDen.BoneBarrier", player))
+            try_connect(menu, world.get_region("EastPools.EntryLever", player))
+            try_connect(menu, world.get_region("UpperWastes.LeverDoor", player))
 
         if "Everything" in options.no_combat or "Bosses" in options.no_combat:
             for entrance in ("HeaderStates_to_SkipKwolok",
@@ -422,7 +428,7 @@ class WotWWorld(World):
                 set_rule(world.get_entrance(entrance, player), lambda s: True)
 
         if options.better_wellspring:
-            menu.connect(world.get_region("InnerWellspring.TopDoorOpen", player))
+            try_connect(menu, world.get_region("InnerWellspring.TopDoorOpen", player))
         if options.no_ks:
             for event in ("MarshSpawn.KeystoneDoor",
                           "HowlsDen.KeystoneDoor",
@@ -436,7 +442,7 @@ class WotWWorld(World):
                           "UpperPools.KeystoneRoomBubbleFree",
                           "UpperPools.KeystoneDoor",
                           "UpperWastes.KeystoneDoor"):
-                menu.connect(world.get_region(event, player))
+                try_connect(menu, world.get_region(event, player))
         if options.open_mode:
             for event in ("HowlsDen.BoneBarrier",
                           "MarshSpawn.ToOpherBarrier",
@@ -464,14 +470,14 @@ class WotWWorld(World):
                           "EastPools.CentralRoomPurpleWall",
                           "UpperPools.UpperWaterDrained",
                           "UpperPools.ButtonDoorAboveTree",):
-                menu.connect(world.get_region(event, player))
+                try_connect(menu, world.get_region(event, player))
         if options.no_rain:
             for event in ("HowlsDen.UpperLoopExitBarrier",
                           "HowlsDen.UpperLoopEntranceBarrier",
                           "HowlsDen.RainLifted",):
-                menu.connect(world.get_region(event, player))
+                try_connect(menu, world.get_region(event, player))
             if not options.better_spawn:
-                menu.connect(world.get_region("MarshSpawn.HowlBurnt", player))
+                try_connect(menu, world.get_region("MarshSpawn.HowlBurnt", player))
         if options.glades_done:
             for quest in ("InnerWellspring.BlueMoonSeed",
                           "EastPools.GrassSeed",
@@ -481,19 +487,19 @@ class WotWWorld(World):
                           "WoodsEntry.TreeSeed",
                           "GladesTown.RebuildTheGlades",
                           "GladesTown.RegrowTheGlades",):
-                menu.connect(world.get_region(quest + ".quest", player))
+                try_connect(menu, world.get_region(quest + ".quest", player))
             for event in ("GladesTown.BuildHuts",
                           "GladesTown.RoofsOverHeads",
                           "GladesTown.OnwardsAndUpwards",
                           "GladesTown.ClearThorns",
                           "GladesTown.CaveEntrance"):
-                menu.connect(world.get_region(event, player))
+                try_connect(menu, world.get_region(event, player))
 
         if options.no_quests:  # Open locations locked behind NPCs
             for quest in ("WoodsEntry.LastTreeBranch",
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
-                menu.connect(world.get_region(quest + ".quest", player))
+                try_connect(menu, world.get_region(quest + ".quest", player))
 
         # Additional rules, remove when resource tracking is fully reworked
         '''
