@@ -1,7 +1,7 @@
 from BaseClasses import Item, ItemClassification
 from worlds.AutoWorld import World
 
-skills_ids: dict[str, str] = {
+skills_paths: dict[str, str] = {
     "Sword": "spell:1002",
     "Double Jump": "spell:3004",
     "Regenerate": "spell:2013",
@@ -25,7 +25,7 @@ skills_ids: dict[str, str] = {
     "Blaze": "spell:2016"
 }
 
-collectibles_ids: dict[str, str] = {
+collectibles_paths: dict[str, str] = {
     "Health Fragment": "file:assets/icons/game/healthfragment.png",
     "Energy Fragment": "file:assets/icons/game/energyfragment.png",
     "Ore": "file:assets/icons/game/gorlekore.png",
@@ -34,7 +34,7 @@ collectibles_ids: dict[str, str] = {
     "Ancestral Light 1": "spell:4007",
     "Ancestral Light 2": "spell:4008"
 }
-shards_ids: dict[str, str] = {
+shards_paths: dict[str, str] = {
     "Overcharge": "shard:1",
     "Triple Jump": "shard:2",
     "Wingclip": "shard:3",
@@ -67,7 +67,7 @@ shards_ids: dict[str, str] = {
     "Fracture": "shard:46",
     "Arcing": "shard:47"
 }
-upgrades_ids: dict[str, str] = {
+upgrades_paths: dict[str, str] = {
     "Rapid Sentry": "opher:1",
     "Hammer Shockwave": "opher:3",
     "Static Shuriken": "opher:5",
@@ -75,7 +75,7 @@ upgrades_ids: dict[str, str] = {
     "Charge Blaze": "opher:9",
     "Water Breath": "opher:10"
 }
-bonus_ids: dict[str, str] = { #Generated using the 'randomizer\assets\icons\bonus' folder and group_table["bonus"] + group_table["bonus+"]
+bonus_paths: dict[str, str] = { #Generated using the 'randomizer\assets\icons\bonus' folder and group_table["bonus"] + group_table["bonus+"]
     "Health Regeneration": "file:assets/icons/bonus/healthregeneration.png",
     "Energy Regeneration": "file:assets/icons/bonus/energyregeneration.png",
     "Extra Double Jump": "file:assets/icons/bonus/extradoublejump.png",
@@ -94,10 +94,10 @@ bonus_ids: dict[str, str] = { #Generated using the 'randomizer\assets\icons\bonu
     "Rapid Grenade": "file:assets/icons/bonus/rapidgrenade.png",
     "Quickshot Upgrade": "file:assets/icons/bonus/rapidquickshot.png", # Manually Found
     "Rapid Regenerate": "file:assets/icons/bonus/rapidregen.png", # Manually Found
-    "Melting Bow":  skills_ids["Bow"], # Manually Found
+    "Melting Bow":  skills_paths["Bow"], # Manually Found
     "Melting Blaze": "file:assets/icons/bonus/meltingblaze.png",
     "Melting Sword": "file:assets/icons/bonus/meltingsword.png",
-    "Melting Hammer": skills_ids["Hammer"], # Manually Found
+    "Melting Hammer": skills_paths["Hammer"], # Manually Found
     "Melting Spear": "file:assets/icons/bonus/meltingspear.png",
     "Melting Shuriken": "file:assets/icons/bonus/meltingshuriken.png",
     "Uncharged Bashnades": "file:assets/icons/bonus/unchargedbashgrenade.png", # Manually Found
@@ -110,7 +110,7 @@ bonus_ids: dict[str, str] = { #Generated using the 'randomizer\assets\icons\bonu
     "Splinter Shurikens": "file:assets/icons/bonus/splintershuriken.png", # Manually Found
     "Bashable Shurikens": "file:assets/icons/bonus/bashableshuriken.png" # Manually Found
 }
-others_ids: dict[str, str] = {
+others_paths: dict[str, str] = {
     "teleporter": "file:assets/icons/game/teleporter.png",
     "experience": "file:assets/icons/game/experience.png",
     "map": "file:assets/icons/game/map.png",
@@ -122,6 +122,11 @@ others_ids: dict[str, str] = {
     "soundwave": "spell:2006",
     "gold_orb": "spell:2018"
 }
+archipelago_paths: dict[str,str] = {
+    "progression": "file:original-logo.png",
+    "useful": "file:blue-icon.png",
+    "filler": "file:white-icon.png"
+}
 
 def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
     classification = ItemClassification(item.classification) #sometimes apworld use ints that since 0.6.0 need to be converted explicitly
@@ -129,58 +134,56 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
     icon_path = None
     if item.game == world.game: #Try to use base game and rando icons
         if item.name.endswith("Spirit Light"):
-            icon_path = others_ids["experience"]
+            icon_path = others_paths["experience"]
 
         elif item.name.endswith(" TP"):
-            icon_path = others_ids["teleporter"]
+            icon_path = others_paths["teleporter"]
 
-        elif skills_ids.get(item.name):
-            icon_path = skills_ids[item.name]
+        elif skills_paths.get(item.name):
+            icon_path = skills_paths[item.name]
 
-        elif shards_ids.get(item.name):
-            icon_path = shards_ids[item.name]
+        elif shards_paths.get(item.name):
+            icon_path = shards_paths[item.name]
 
-        elif collectibles_ids.get(item.name):
-            icon_path = collectibles_ids[item.name]
+        elif collectibles_paths.get(item.name):
+            icon_path = collectibles_paths[item.name]
 
-        elif upgrades_ids.get(item.name):
-            icon_path = upgrades_ids[item.name]
+        elif upgrades_paths.get(item.name):
+            icon_path = upgrades_paths[item.name]
 
-        elif bonus_ids.get(item.name):
-            icon_path = bonus_ids[item.name]
+        elif bonus_paths.get(item.name):
+            icon_path = bonus_paths[item.name]
 
         else: #If seen mean we missed an item
-            icon_path = others_ids["message"] # message meaning tell us on discord...
+            icon_path = others_paths["message"] # message meaning tell us on discord...
 
     elif keyword_based_icons: #Some generic icons for any games
         if "key" in item.name.lower():
-            icon_path = collectibles_ids["Keystone"]
+            icon_path = collectibles_paths["Keystone"]
         elif "health" in item.name.lower() or "life" in item.name.lower() or "Heart" in item.name.lower():
-            icon_path = collectibles_ids["Health Fragment"]
+            icon_path = collectibles_paths["Health Fragment"]
         elif "energy" in item.name.lower():
-            icon_path = collectibles_ids["Energy Fragment"]
+            icon_path = collectibles_paths["Energy Fragment"]
         elif "map" in item.name.lower():
-            icon_path = others_ids["map"]
+            icon_path = others_paths["map"]
         elif "TP" in item.name:
-            icon_path = others_ids["teleporter"]
+            icon_path = others_paths["teleporter"]
         elif "ore" in item.name.lower():
-            icon_path = collectibles_ids["Ore"]
+            icon_path = collectibles_paths["Ore"]
         elif "exp" in item.name.lower() or "xp" in item.name.lower() or "ability" in item.name.lower():
-            icon_path = others_ids["experience"]
+            icon_path = others_paths["experience"]
 
     if icon_path is None: # Fallback to Classification system if keyword_based_icons is turned off or fail
         if ItemClassification.trap in classification:
-            icon_path = world.random.choice(list(skills_ids.values()) + list(collectibles_ids.values()))
+            icon_path = world.random.choice(list(archipelago_paths.values()))
 
         elif ItemClassification.progression in classification:
-            icon_path = others_ids["gauntlet"] #placeholder
+            icon_path = archipelago_paths["progression"]
 
         elif ItemClassification.useful in classification:
-            icon_path = others_ids["heart"] #placeholder
+            icon_path = archipelago_paths["useful"]
 
         else:
-            icon_path = others_ids["plant"] #placeholder
-
-        #Else None aka default ? icon for now
+            icon_path = archipelago_paths["filler"]
 
     return icon_path
