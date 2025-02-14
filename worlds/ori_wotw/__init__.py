@@ -389,11 +389,12 @@ class WotWWorld(World):
         if not options.no_trials:
             forbid_item(world.get_location("LowerReach.SpiritTrial", player), "Keystone", player)
 
-        def try_connect(regionIn: Region, regionOut: Region):
+        def try_connect(regionIn: Region, regionOut: Region, connection: str|None = None, rule = None):
             """Create the region connection if it doesn't already exists"""
-            connection = regionIn.name + " -> " + regionOut.name
+            if connection is None:
+                connection =  f"{regionIn.name} -> {regionOut.name}"
             if not world.regions.entrance_cache[player].get(connection):
-                regionIn.connect(regionOut)
+                regionIn.connect(regionOut, connection, rule)
 
         # Rules for specific options
         if options.qol:
