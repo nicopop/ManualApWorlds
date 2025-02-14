@@ -115,7 +115,12 @@ others_ids: dict[str, str] = {
     "experience": "file:assets/icons/game/experience.png",
     "map": "file:assets/icons/game/map.png",
     "message": "file:assets/icons/game/message.png",
-    "moki": "file:assets/icons/game/moki.png"
+    "moki": "file:assets/icons/game/moki.png",
+    "gauntlet": "shard:24",
+    "plant": "shard:12",
+    "heart": "spell:2008",
+    "soundwave": "spell:2006",
+    "gold_orb": "spell:2018"
 }
 
 def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
@@ -168,10 +173,13 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
             icon_path = world.random.choice(list(skills_ids.values()) + list(collectibles_ids.values()))
 
         elif ItemClassification.progression in classification:
-            icon_path = collectibles_ids["Shard Slot"] #placeholder
+            icon_path = others_ids["gauntlet"] #placeholder
 
         elif ItemClassification.useful in classification:
-            icon_path = others_ids["moki"] #placeholder
+            icon_path = others_ids["heart"] #placeholder
+
+        else:
+            icon_path = others_ids["plant"] #placeholder
 
         #Else None aka default ? icon for now
 

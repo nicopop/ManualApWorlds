@@ -650,7 +650,7 @@ class WotWWorld(World):
 
             output += f"3|1|17|2|{states[0]}|{description}\n"  # Add the item description
 
-            icon_path = get_item_iconpath(self, item)
+            icon_path = get_item_iconpath(self, item, options.shop_keywords)
             if icon_path:
                 output += f"3|1|17|0|{states[0]}|{icon_path}\n"
 

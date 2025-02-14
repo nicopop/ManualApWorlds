@@ -174,6 +174,12 @@ class GladesDone(Toggle):
     """Start with Glades rebuilt and regrown."""
     display_name = "Glades Done"
 
+class ShopKeywordsIcons(DefaultOnToggle):
+    """Have the non local items attempt to use a keyword system to choose icons
+    for example, item with 'map' in their name will have a map icon
+    if no keyword fit then the icon fall back to Classification
+    """
+    display_name = "Shop Keywords Icons"
 
 class SpawnSword(DefaultOnToggle):
     """Choose to have Sword at the beginning."""
@@ -212,7 +218,8 @@ option_groups = [
         NoQuests,
         NoKeystonesDoors,
         OpenMode,
-        GladesDone
+        GladesDone,
+        ShopKeywordsIcons
     ]),
     OptionGroup("Item Placements", [
         SpawnSword,
@@ -245,5 +252,6 @@ class WotWOptions(PerGameCommonOptions):
     no_ks: NoKeystonesDoors
     open_mode: OpenMode
     glades_done: GladesDone
+    shop_keywords: ShopKeywordsIcons
     sword: SpawnSword  # Item Placements
     vanilla_shop_upgrades: VanillaShopUpgrades
