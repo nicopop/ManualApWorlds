@@ -165,7 +165,6 @@ class WotWWorld(World):
 
         skipped_items: List[str] = []  # Remove one instance of the item
         removed_items: List[str] = []  # Remove all instances of the item
-        loc_amount: int = 389
 
         for item in spawn_items(world, options.spawn, options.difficulty):  # Staring items
             world.push_precollected(self.create_item(item))
@@ -201,19 +200,9 @@ class WotWWorld(World):
 
         if options.glades_done:
             removed_items.append("Ore")
-            loc_amount -= len(loc_sets["Rebuild"])
 
         if options.no_ks:
             removed_items.append("Keystone")
-
-        if options.no_trials:
-            loc_amount -= len(loc_sets["Trials"])
-
-        if options.no_quests:
-            loc_amount -= len(loc_sets["Quests"])
-
-        if options.qol or options.no_quests:
-            loc_amount -= len(loc_sets["QOL"])
 
         if options.vanilla_shop_upgrades:
             shop_items = {"OpherShop.ExplodingSpike": "Exploding Spear",
@@ -228,7 +217,7 @@ class WotWWorld(World):
                           "TwillenShop.Swap": "Swap",
                           "TwillenShop.LightHarvest": "Light Harvest",
                           "TwillenShop.Vitality": "Vitality",
-                          "TwillenShop.Energy": "Energy Shard",
+                          "TwillenShop.Energy": "Energy (Shard)",
                           "TwillenShop.Finesse": "Finesse"}
             for location, item in shop_items.items():
                 loc = world.get_location(location, player)
@@ -249,7 +238,8 @@ class WotWWorld(World):
             for _ in range(count):
                 pool.append(self.create_item(item))
 
-        for _ in range(loc_amount - len(pool)):
+        extras = len(world.get_unfilled_locations(player=self.player)) - len(pool)
+        for _ in range(extras):
             pool.append(self.create_item(self.get_filler_item_name()))
 
         world.itempool += pool
