@@ -174,7 +174,7 @@ class GladesDone(Toggle):
     """Start with Glades rebuilt and regrown."""
     display_name = "Glades Done"
 
-class ShopKeywordsIcons(DefaultOnToggle):
+class ShopKeywordsIcons(Toggle):
     """Have the non local items attempt to use a keyword system to choose icons
     for example, item with 'map' in their name will have a map icon
     if no keyword fit then the icon fall back to Classification

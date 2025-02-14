@@ -123,9 +123,9 @@ others_paths: dict[str, str] = {
     "gold_orb": "spell:2018"
 }
 archipelago_paths: dict[str,str] = {
-    "progression": "file:original-logo.png",
+    "progression": "file:color-icon.png",
     "useful": "file:blue-icon.png",
-    "filler": "file:white-icon.png"
+    "filler": "file:green-icon.png"
 }
 
 def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
@@ -175,7 +175,7 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
 
     if icon_path is None: # Fallback to Classification system if keyword_based_icons is turned off or fail
         if ItemClassification.trap in classification:
-            icon_path = world.random.choice(list(archipelago_paths.values()))
+            icon_path = world.random.choice(list(archipelago_paths.values())+ list(skills_paths.values()))
 
         elif ItemClassification.progression in classification:
             icon_path = archipelago_paths["progression"]
