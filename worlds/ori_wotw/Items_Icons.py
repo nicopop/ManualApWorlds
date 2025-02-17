@@ -154,10 +154,7 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
         elif bonus_paths.get(item.name):
             icon_path = bonus_paths[item.name]
 
-        else: #If seen mean we missed an item
-            icon_path = others_paths["message"] # message meaning tell us on discord...
-
-    elif keyword_based_icons: #Some generic icons for any games
+    if keyword_based_icons and icon_path is None: #Some generic icons for any games
         if "key" in item.name.lower():
             icon_path = collectibles_paths["Keystone"]
         elif "health" in item.name.lower() or "life" in item.name.lower() or "Heart" in item.name.lower():
