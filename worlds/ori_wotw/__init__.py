@@ -1,8 +1,11 @@
 """AP world for Ori and the Will of the Wisps."""
 
-# TODO Relics ? Black market ?
+# TODO Relics ? Black market ? Also make location groups for each area
 # TODO fix player name with _
-# TODO Lupo shop
+# TODO Add MotayHints
+# TODO fix the in-game location counter
+# TODO recheck typing everywhere
+
 
 from typing import List, Dict, Tuple
 from collections import Counter
@@ -27,7 +30,7 @@ from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_a
                       h_open_mode, h_glades_done, h_hints, h_no_rain)
 
 from worlds.AutoWorld import World, WebWorld
-from worlds.generic.Rules import add_rule, set_rule, forbid_item, forbid_items_for_player
+from worlds.generic.Rules import add_rule, set_rule
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 
 
@@ -70,7 +73,7 @@ class WotWWorld(World):
 
     def generate_early(self):
         """Options checking"""
-        if "quests" in self.options.goal:
+        if "quests" in self.options.goal:  # TODO allow these options with the quest goal
             self.options.no_quests.value = False
             self.options.glades_done.value = False
 
@@ -324,78 +327,12 @@ class WotWWorld(World):
                 quest_list += loc_sets["QOL"]
             add_rule(victory_conn, lambda s: s.has_all((quests for quests in quest_list), player))
 
-        # Exclude Gorlek Ore from locations locked behind rebuilding Glades.
-        if not options.glades_done:
-            ore_loc = ("GladesTown.FamilyReunionKey",
-                       "GladesTown.KeyMokiHutEX",
-                       "GladesTown.MotayHutEX",
-                       "GladesTown.HoleHutEX",
-                       "GladesTown.HoleHutEC",
-                       "GladesTown.BraveMokiHutEX",
-                       "GladesTown.ArcingShard",
-                       "GladesTown.LupoSwimLeftEX",
-                       "GladesTown.AboveCaveEX",
-                       "GladesTown.AcornQI",
-                       "GladesTown.MokiAcornQuest",
-                       "GladesTown.CaveBurrowEX",
-                       "GladesTown.RebuildTheGlades",
-                       "WoodsEntry.DollQI")
-            for location in ore_loc:
-                forbid_item(world.get_location(location, player), "Ore", player)
-
-        # Exclude Spirit Light from shops (except 1 Spirit Light).
-        shop_loc = ("TwillenShop.Overcharge",
-                    "TwillenShop.TripleJump",
-                    "TwillenShop.Wingclip",
-                    "TwillenShop.Swap",
-                    "TwillenShop.LightHarvest",
-                    "TwillenShop.Vitality",
-                    "TwillenShop.Energy",
-                    "TwillenShop.Finesse",
-                    "OpherShop.WaterBreath",
-                    "OpherShop.Spike",
-                    "OpherShop.SpiritSmash",
-                    "OpherShop.Teleport",
-                    "OpherShop.SpiritStar",
-                    "OpherShop.Blaze",
-                    "OpherShop.Sentry",
-                    "OpherShop.ExplodingSpike",
-                    "OpherShop.ShockSmash",
-                    "OpherShop.StaticStar",
-                    "OpherShop.ChargeBlaze",
-                    "OpherShop.RapidSentry",
-                    "LupoShop.HCMapIcon",
-                    "LupoShop.ECMapIcon",
-                    "LupoShop.ShardMapIcon")
-        for location in shop_loc:
-            forbid_items_for_player(world.get_location(location, player),
-                                    {"50 Spirit Light", "100 Spirit Light", "200 Spirit Light"}, player)
-
-        # Exclude Keystones from small areas locked behind doors
-        ks_loc = ("UpperReach.SpringSeed",
-                  "UpperReach.LightBurstTree",
-                  "UpperReach.WellEX",
-                  "UpperReach.HiddenEX",
-                  "UpperReach.TreeOre",
-                  "MidnightBurrows.TabletQI",
-                  "UpperPools.SwimDashTree",
-                  "UpperPools.SwimDashCurrentEX",
-                  "UpperPools.RoofEX",
-                  "UpperPools.WaterfallEC",
-                  "EastPools.PurpleWallHC",)
-        for location in ks_loc:
-            forbid_item(world.get_location(location, player), "Keystone", player)
-        if not options.no_quests:
-            forbid_item(world.get_location("MarshSpawn.TokkTabletQuest", player), "Keystone", player)
-        if not options.no_trials:
-            forbid_item(world.get_location("LowerReach.SpiritTrial", player), "Keystone", player)
-
-        def try_connect(regionIn: Region, regionOut: Region, connection: str|None = None, rule = None):
-            """Create the region connection if it doesn't already exists"""
+        def try_connect(region_in: Region, region_out: Region, connection: str|None = None, rule = None):
+            """Create the region connection if it doesn't already exist."""
             if connection is None:
-                connection =  f"{regionIn.name} -> {regionOut.name}"
+                connection =  f"{region_in.name} -> {region_out.name}"
             if not world.regions.entrance_cache[player].get(connection):
-                regionIn.connect(regionOut, connection, rule)
+                region_in.connect(region_out, connection, rule)
 
         # Rules for specific options
         if options.qol:
@@ -502,15 +439,6 @@ class WotWWorld(World):
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
                 try_connect(menu, world.get_region(quest + ".quest", player))
-
-        # Additional rules, remove when resource tracking is fully reworked
-        '''
-        add_rule(world.get_entrance("MarshSpawn.BurrowFightArena_to_MarshSpawn.BurrowArena", player),
-                 lambda s: s.has("Regenerate", player) and s.has_any(("Sword", "Hammer"), player) and
-                 s.has("Combat.Dangerous", player) and s.has("Combat.Shielded", player) and
-                 s.has("Combat.Bat", player) and s.has("Combat.Aerial", player) and
-                 s.has("Combat.Ranged", player) and s.has("Combat.Sand", player), "or")
-        '''
 
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
@@ -631,7 +559,7 @@ class WotWWorld(World):
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
             output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
 
-            classification = ItemClassification(item.classification) #sometimes apworld use ints that since 0.6.0 need to be converted explicitly
+            classification = ItemClassification(item.classification)  # sometimes apworld use ints that since 0.6.0 need to be converted explicitly
             target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
             if ItemClassification.trap in classification and ItemClassification.progression in classification:
                 description = f"This item might be important but you might want to avoid buying this for now ask {target_player_name} about it."
@@ -647,7 +575,7 @@ class WotWWorld(World):
 
             output += f"3|1|17|2|{states[0]}|{description}\n"  # Add the item description
 
-            icon_path = get_item_iconpath(self, item, options.shop_keywords)
+            icon_path = get_item_iconpath(self, item, bool(options.shop_keywords))
             if icon_path:
                 output += f"3|1|17|0|{states[0]}|{icon_path}\n"
 
@@ -658,13 +586,15 @@ class WotWWorld(World):
             output += h_hints
             for loc, state in shrines.items():
                 item = world.get_location(loc, player).item
-                text = f"{item.name} ({item.game})\n"
+                target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
+                text = f"{item.name} for {target_player_name}\n"
                 output += state + text
             if not options.no_trials:
                 output += r"// Trial hints" + "\n"
                 for loc, states in trials.items():
                     item = world.get_location(loc, player).item
-                    text = f"{item.name} ({item.game})\n"
+                    target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
+                    text = f"{item.name} for {target_player_name}\n"
                     output += states[0] + text
                     output += states[1] + text
             output += "\n\n"

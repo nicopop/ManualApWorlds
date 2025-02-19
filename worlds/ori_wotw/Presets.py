@@ -24,6 +24,7 @@ options_presets = {
         "no_ks":                 False,
         "open_mode":             False,
         "glades_done":           True,
+        "shop_keywords":         True,
         "sword":                 True,
         "vanilla_shop_upgrades": False,
     },
@@ -52,6 +53,7 @@ options_presets = {
         "no_ks":                 False,
         "open_mode":             False,
         "glades_done":           False,
+        "shop_keywords":         True,
         "sword":                 False,
         "vanilla_shop_upgrades": False,
     },
@@ -80,6 +82,7 @@ options_presets = {
         "no_ks":                 False,
         "open_mode":             False,
         "glades_done":           False,
+        "shop_keywords":         True,
         "sword":                 False,
         "vanilla_shop_upgrades": False,
     }
