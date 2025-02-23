@@ -71,8 +71,7 @@ class Goal(OptionSet):
     rich_text_doc = True
     valid_keys_casefold = True
     valid_keys = ["trees", "wisps", "quests"]
-    default = ["trees"]
-
+    default = frozenset(["trees"])
 
 
 class HardMode(Toggle):
@@ -142,7 +141,7 @@ class NoCombat(OptionSet):
     display_name = "No Combat"
     rich_text_doc = True
     valid_keys = ["Everything", "Shrines", "Arenas", "Demi Bosses", "Bosses"]
-    default = []
+    default = frozenset()
 
 
 class NoTrials(Toggle):

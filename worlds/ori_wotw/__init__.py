@@ -49,7 +49,6 @@ class WotWWeb(WebWorld):
     bug_report_page = "https://discord.com/channels/731205301247803413/1272952565843103765"
 
 
-
 class WotWWorld(World):
     """Ori and the Will of the Wisps is a 2D Metroidvania;
     The sequel to Ori and the blind forest, a platform game emphasizing exploration, collecting items and upgrades, and backtracking to previously inaccessible areas.
@@ -65,6 +64,7 @@ class WotWWorld(World):
 
     options_dataclass = WotWOptions
     options: WotWOptions
+    explicit_indirect_conditions = False
 
     required_client_version = (0, 5, 0)
 
@@ -327,10 +327,10 @@ class WotWWorld(World):
                 quest_list += loc_sets["QOL"]
             add_rule(victory_conn, lambda s: s.has_all((quests for quests in quest_list), player))
 
-        def try_connect(region_in: Region, region_out: Region, connection: str|None = None, rule = None):
+        def try_connect(region_in: Region, region_out: Region, connection: str|None = None, rule=None):
             """Create the region connection if it doesn't already exist."""
             if connection is None:
-                connection =  f"{region_in.name} -> {region_out.name}"
+                connection = f"{region_in.name} -> {region_out.name}"
             if not world.regions.entrance_cache[player].get(connection):
                 region_in.connect(region_out, connection, rule)
 
@@ -559,10 +559,11 @@ class WotWWorld(World):
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
             output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
 
-            classification = ItemClassification(item.classification)  # sometimes apworld use ints that since 0.6.0 need to be converted explicitly
+            # Sometimes apworld use ints, since 0.6.0 that needs to be converted explicitly
+            classification = ItemClassification(item.classification)
             target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
             if ItemClassification.trap in classification and ItemClassification.progression in classification:
-                description = f"This item might be important but you might want to avoid buying this for now ask {target_player_name} about it."
+                description = f"This item might be important but you might want to avoid buying this for now. Ask {target_player_name} about it."
             elif ItemClassification.trap in classification:
                 fakeclassification = self.random.choice(["important", "useful", "unimportant"])
                 description = f"This item might be {fakeclassification} for {target_player_name}?"
@@ -647,7 +648,7 @@ class WotWWorld(World):
 
         flags += "\n"
         file_name = f"/AP_{world.player_name[player]}_{world.seed_name[:4]}.wotwr"
-        with open(output_directory + file_name, "w") as f:
+        with open(output_directory + file_name, "w", encoding="utf-8") as f:
             f.write(connect + flags + output + head)
 
 

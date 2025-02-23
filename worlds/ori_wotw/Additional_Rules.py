@@ -1,9 +1,10 @@
 """Additional location rules that are not extracted from `areas.wotw`."""
 
 from worlds.generic.Rules import set_rule
+from .Options import WotWOptions
 
 
-def combat_rules(world, player, options):
+def combat_rules(world, player: int, options: WotWOptions):
     """Defines rules for combat and light."""
     menu = world.get_region("Menu", player)
     diff = options.difficulty
@@ -72,7 +73,7 @@ def combat_rules(world, player, options):
                      rule=lambda s: s.has_any(("Sword", "Hammer", "Bow", "Shuriken", "Grenade", "Spear"), player))
 
 
-def glitch_rules(world, player, options):
+def glitch_rules(world, player: int, options: WotWOptions):
     """Defines rules for some glitches."""
     menu = world.get_region("Menu", player)
     if options.glitches:
@@ -87,7 +88,7 @@ def glitch_rules(world, player, options):
         menu.connect(world.get_region("GlideHammerJump", player), rule=lambda s: s.has("Victory", player))
 
 
-def unreachable_rules(world, player, options):
+def unreachable_rules(world, player: int, options: WotWOptions):
     """Rules to handle unreachable events."""
     diff = options.difficulty
     if diff == 0:

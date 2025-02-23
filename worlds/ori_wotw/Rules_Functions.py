@@ -1,6 +1,8 @@
 from typing import Dict, List
 from math import ceil, floor
 from .Refills import refills
+from .Options import WotWOptions
+from BaseClasses import CollectionState
 
 weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy cost
     "Sword": [4, 0],
@@ -15,14 +17,14 @@ weapon_data: Dict[str, List] = {  # The list contains the damage, and its energy
     }
 
 
-def has_health(amount: int, state, player) -> bool:
+def has_health(amount: int, state: CollectionState, player: int) -> bool:
     """Returns if the player has enough max health to enter the area."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
     return amount < 30 + state.count("Health Fragment", player)*5 + 10*wisps
 
 
-def get_max(state, player) -> (int, float):
+def get_max(state: CollectionState, player: int) -> (int, float):
     """Returns the current max health and energy."""
     wisps = state.count_from_list(("EastHollow.ForestsVoice", "LowerReach.ForestsMemory", "UpperDepths.ForestsEyes",
                                   "WestPools.ForestsStrength", "WindtornRuins.Seir"), player)
@@ -33,12 +35,12 @@ def get_max(state, player) -> (int, float):
 def get_refill(max_resource: (int, float)) -> (int, int):
     """Returns the refill values."""
     maxH, maxE = max_resource
-    refillH = max(40, floor(maxH/5/0.6685 + 1), maxH)
+    refillH = min((4 + floor(maxH/50/0.6685)) * 10, maxH)
     refillE = floor(maxE/5+1)
     return refillH, refillE
 
 
-def can_buy_map(state, player) -> bool:
+def can_buy_map(state: CollectionState, player: int) -> bool:
     """Returns if the total amount of Spirit Light can buy all accessible maps."""
     cost = 200  # Higher cost than necessary to make it less constrained for the player.
     if state.can_reach_region("MarshSpawn.BrokenBridge", player):
@@ -63,7 +65,7 @@ def can_buy_map(state, player) -> bool:
     return state.count("200 Spirit Light", player) >= ceil(cost/200)
 
 
-def can_keystones(state, player) -> bool:
+def can_keystones(state: CollectionState, player: int) -> bool:
     """Returns if the total amount of Keystones can open all accessible doors."""
     count = 2  # Add more Keystones than necessary to make it less constrained for the player.
     if (state.can_reach_region("MarshSpawn.CaveEntrance", player)
@@ -103,8 +105,8 @@ def can_keystones(state, player) -> bool:
     return state.count("Keystone", player) >= count
 
 
-def cost_all(state, player, options, region: str, damage_and: List, en_and: List[List],
-             combat_and: List[List], or_req: List[List], path_difficulty: int) -> bool:
+def cost_all(state: CollectionState, player: int, options: WotWOptions, region: str, damage_and: List,
+             en_and: List[List], combat_and: List[List], or_req: List[List], path_difficulty: int) -> bool:
     """
     Returns a bool stating if the path can be taken, and updates ref_resource if it's a connection.
 
@@ -189,7 +191,7 @@ def cost_all(state, player, options, region: str, damage_and: List, en_and: List
     return True
 
 
-def combat_cost(state, player, options, hp_list: List[List]) -> float:
+def combat_cost(state: CollectionState, player: int, options: WotWOptions, hp_list: List[List]) -> float:
     """Returns the energy cost for the enemies/walls/boss with current state."""
     hard = options.hard_mode
     diff = options.difficulty
