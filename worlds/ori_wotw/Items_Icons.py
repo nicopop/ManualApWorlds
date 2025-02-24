@@ -129,10 +129,10 @@ archipelago_paths: dict[str,str] = {
 }
 
 def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
-    classification = ItemClassification(item.classification) #sometimes apworld use ints that since 0.6.0 need to be converted explicitly
+    classification = ItemClassification(item.classification)  # sometimes apworld use ints that since 0.6.0 need to be converted explicitly
 
     icon_path = None
-    if item.game == world.game: #Try to use base game and rando icons
+    if item.game == world.game:  # Try to use base game and rando icons
         if item.name.endswith("Spirit Light"):
             icon_path = others_paths["experience"]
 
@@ -170,7 +170,7 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
         elif "exp" in item.name.lower() or "xp" in item.name.lower() or "ability" in item.name.lower():
             icon_path = others_paths["experience"]
 
-    if icon_path is None: # Fallback to Classification system if keyword_based_icons is turned off or fail
+    if icon_path is None:  # Fallback to Classification system if keyword_based_icons is turned off or fail
         if ItemClassification.trap in classification:
             icon_path = world.random.choice(list(archipelago_paths.values())+ list(skills_paths.values()))
 
