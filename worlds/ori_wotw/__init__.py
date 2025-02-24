@@ -552,9 +552,15 @@ class WotWWorld(World):
         output = r"Spawn: " + coord[options.spawn] + "\n\n"
         output += h_core
 
+        def get_location_item(location_name, player):
+            item = world.get_location(location_name, player).item
+            if item is None:
+                item = Item("Nothing", ItemClassification.filler, None, player)
+            return item
+
         output += r"// Shops" + "\n"
         for loc, states in shops.items():
-            item = world.get_location(loc, player).item
+            item = get_location_item(loc, player)
             text = f"{item.name} ({item.game})"
             output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
             output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
@@ -586,14 +592,14 @@ class WotWWorld(World):
             output += r"// Shrine and Trial hints"
             output += h_hints
             for loc, state in shrines.items():
-                item = world.get_location(loc, player).item
+                item = get_location_item(loc, player)
                 target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
                 text = f"{item.name} for {target_player_name}\n"
                 output += state + text
             if not options.no_trials:
                 output += r"// Trial hints" + "\n"
                 for loc, states in trials.items():
-                    item = world.get_location(loc, player).item
+                    item = get_location_item(loc, player)
                     target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
                     text = f"{item.name} for {target_player_name}\n"
                     output += states[0] + text
