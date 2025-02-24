@@ -31,7 +31,7 @@ from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_a
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, set_rule
-from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
+from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, LocationProgressType
 
 
 class WotWWeb(WebWorld):
@@ -251,7 +251,7 @@ class WotWWorld(World):
         if options.difficulty == LogicDifficulty.option_moki:
             # Exclude a location that is inaccessible in the lowest difficulty.
             skipped_loc = world.get_location("WestPools.BurrowOre", player)
-            skipped_loc.progress_type = 3
+            skipped_loc.progress_type = LocationProgressType.EXCLUDED
 
     def create_event(self, event: str) -> "WotWItem":
         return WotWItem(event, ItemClassification.progression, None, self.player)
