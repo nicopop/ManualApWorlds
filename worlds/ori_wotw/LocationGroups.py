@@ -13,6 +13,8 @@ loc_sets: Dict[str, List[str]] = {
         "GladesTown.TwillenGemQuest",
         "GladesTown.FamilyReunionKey",
         "GladesTown.MokiAcornQuest",
+    ],
+    "HandToHand": [
         "EastHollow.HandToHandMap",
         "GladesTown.HandToHandPouch",
         "InnerWellspring.HandToHandHerbs",

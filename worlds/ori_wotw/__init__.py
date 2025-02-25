@@ -2,9 +2,7 @@
 
 # TODO Relics ? Black market ? Also make location groups for each area
 # TODO fix player name with _
-# TODO Add MotayHints
 # TODO fix the in-game location counter
-# TODO recheck typing everywhere
 
 
 from typing import List, Dict, Tuple
@@ -22,12 +20,12 @@ from .Events import event_table
 from .Regions import region_table
 from .Entrances import entrance_table
 from .Refills import refill_events
-from .Options import WotWOptions, option_groups, LogicDifficulty
+from .Options import WotWOptions, option_groups, LogicDifficulty, Quests
 from .Spawn_items import spawn_items, spawn_names
 from .Presets import options_presets
 from .Headers import (h_core, h_better_spawn, h_no_combat_shrines, h_no_combat_arenas, h_no_combat_demibosses,
-                      h_no_combat_bosses, h_no_hearts, h_no_quests, h_no_trials, h_qol, h_no_ks,
-                      h_open_mode, h_glades_done, h_hints, h_no_rain)
+                      h_no_combat_bosses, h_no_hearts, h_no_quests, h_no_hand, h_no_trials, h_qol, h_no_ks,
+                      h_open_mode, h_glades_done, h_hints, h_no_rain, h_knowledge)
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import add_rule, set_rule
@@ -73,12 +71,6 @@ class WotWWorld(World):
 
     def generate_early(self):
         """Options checking"""
-        if "quests" in self.options.goal:  # TODO allow these options with the quest goal
-            self.options.no_quests.value = False
-            self.options.glades_done.value = False
-
-        if self.options.no_quests:
-            self.options.glades_done.value = True
         if self.options.open_mode:
             self.options.no_rain.value = True
 
@@ -91,12 +83,15 @@ class WotWWorld(World):
         loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
         if not options.glades_done:
             loc_list += loc_sets["Rebuild"]
-        if not options.no_quests:
-            loc_list += loc_sets["Quests"]
         if not options.no_trials:
             loc_list += loc_sets["Trials"]
-        if not options.qol and not options.no_quests:
+        if not options.qol and not options.quests != Quests.option_none:
             loc_list += loc_sets["QOL"]
+        if options.quests == Quests.option_no_hand:
+            loc_list += loc_sets["Quests"]
+        elif options.quests == Quests.option_all:
+            loc_list += loc_sets["HandToHand"]
+            loc_list += loc_sets["Quests"]
 
         for region_name in region_table:
             region = Region(region_name, player, world)
@@ -228,6 +223,10 @@ class WotWWorld(World):
                 loc.place_locked_item(self.create_item(item))
                 removed_items.append(item)
 
+        if options.launch_on_seir:
+            world.get_location("WindtornRuins.Seir", player).place_locked_item(self.create_item("Launch"))
+            removed_items.append("Launch")
+
         counter = Counter(skipped_items)
         pool: List[WotWItem] = []
 
@@ -321,9 +320,14 @@ class WotWWorld(World):
                                                         "WindtornRuins.Seir"), player)
                      )
         if "quests" in options.goal:
-            # Rebuild and quests are always enabled when quests is in the goals
-            quest_list: List[str] = loc_sets["ExtraQuests"] + loc_sets["Rebuild"] + loc_sets["Quests"]
-            if not options.qol:
+            quest_list: List[str] = loc_sets["ExtraQuests"]
+            if options.quests == Quests.option_no_hand:
+                quest_list += loc_sets["Quests"]
+            elif options.quests == Quests.option_all:
+                quest_list += loc_sets["Quests"] + loc_sets["HandToHand"]
+            if not options.glades_done:
+                quest_list += loc_sets["Rebuild"]
+            if not options.qol and options.quests != Quests.option_none:
                 quest_list += loc_sets["QOL"]
             add_rule(victory_conn, lambda s: s.has_all((quests for quests in quest_list), player))
 
@@ -434,7 +438,7 @@ class WotWWorld(World):
                           "GladesTown.CaveEntrance"):
                 try_connect(menu, world.get_region(event, player))
 
-        if options.no_quests:  # Open locations locked behind NPCs
+        if options.quests != Quests.option_none:  # Open locations locked behind NPCs
             for quest in ("WoodsEntry.LastTreeBranch",
                           "WoodsEntry.DollQI",
                           "GladesTown.FamilyReunionKey"):
@@ -619,9 +623,14 @@ class WotWWorld(World):
                 output += h_no_combat_bosses
             flags += ", No Combat"
 
-        if options.no_quests:
+        if options.quests == Quests.option_no_hand:
+            output += h_no_hand
+            flags += ", No Quests"
+        elif options.quests == Quests.option_none:
+            output += h_no_hand
             output += h_no_quests
             flags += ", No Quests"
+
         if options.no_hearts:
             output += h_no_hearts
             flags += ", No Willow Hearts"
@@ -645,6 +654,8 @@ class WotWWorld(World):
         if options.no_rain:
             output += h_no_rain
             flags += ", No Rain"
+        if options.knowledge_hints:
+            output += h_knowledge
 
         flags += "\n"
         file_name = f"/AP_{world.player_name[player]}_{world.seed_name[:4]}.wotwr"
