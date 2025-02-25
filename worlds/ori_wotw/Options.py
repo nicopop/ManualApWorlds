@@ -89,6 +89,11 @@ class ShrineTrialHints(DefaultOnToggle):
     display_name = "Shrines and trials hints"
 
 
+class KnowledgeHints(DefaultOnToggle):
+    """Displays useful hints on randomizer knowledge while playing the seed"""
+    display_name = "Knowledge hints"
+
+
 class Teleporters(DefaultOnToggle):
     """Add most teleporters to the item pool."""
     display_name = "Teleporters"
@@ -154,9 +159,13 @@ class NoWillowHearts(Toggle):
     display_name = "No Willow hearts"
 
 
-class NoQuests(Toggle):
-    """Talking to NPCs gives no item, and locations locked behind them are accessible."""
-    display_name = "No Quests"
+class Quests(Choice):  # TODO hand to hand
+    """Remove locations that involve talking to NPCs, and locations locked behind them are accessible."""
+    display_name = "Remove Quests"
+    option_all = 0
+    option_no_hand = 1
+    option_none = 2
+    default = 0
 
 
 class NoKeystonesDoors(Toggle):
@@ -173,12 +182,14 @@ class GladesDone(Toggle):
     """Start with Glades rebuilt and regrown."""
     display_name = "Glades Done"
 
+
 class ShopKeywordsIcons(Toggle):
     """Have the non local items attempt to use a keyword system to choose icons
     for example, item with 'map' in their name will have a map icon
     if no keyword fit then the icon fall back to Classification
     """
     display_name = "Shop Keywords Icons"
+
 
 class SpawnSword(DefaultOnToggle):
     """Choose to have Sword at the beginning."""
@@ -190,6 +201,11 @@ class VanillaShopUpgrades(Toggle):
     display_name = "Vanilla shop upgrades"
 
 
+class LaunchOnSeir(Toggle):
+    """Place launch on Seir (i.e. the wisp in the ruins)."""
+    display_name = "Launch on Seir"
+
+
 option_groups = [
     OptionGroup("Seed Settings", [
         LogicDifficulty,
@@ -198,7 +214,8 @@ option_groups = [
         Goal,
         HardMode,
         QualityOfLife,
-        ShrineTrialHints
+        ShrineTrialHints,
+        KnowledgeHints
     ]),
     OptionGroup("Item Pool", [
         Teleporters,
@@ -214,7 +231,7 @@ option_groups = [
         NoCombat,
         NoTrials,
         NoWillowHearts,
-        NoQuests,
+        Quests,
         NoKeystonesDoors,
         OpenMode,
         GladesDone,
@@ -222,7 +239,8 @@ option_groups = [
     ]),
     OptionGroup("Item Placements", [
         SpawnSword,
-        VanillaShopUpgrades
+        VanillaShopUpgrades,
+        LaunchOnSeir
     ])
 ]
 
@@ -236,6 +254,7 @@ class WotWOptions(PerGameCommonOptions):
     hard_mode: HardMode
     qol: QualityOfLife
     hints: ShrineTrialHints
+    knowledge_hints: KnowledgeHints
     tp: Teleporters  # Item Pool
     extratp: ExtraTeleporters
     bonus: BonusItems
@@ -247,10 +266,11 @@ class WotWOptions(PerGameCommonOptions):
     no_combat: NoCombat
     no_trials: NoTrials
     no_hearts: NoWillowHearts
-    no_quests: NoQuests
+    quests: Quests
     no_ks: NoKeystonesDoors
     open_mode: OpenMode
     glades_done: GladesDone
     shop_keywords: ShopKeywordsIcons
     sword: SpawnSword  # Item Placements
     vanilla_shop_upgrades: VanillaShopUpgrades
+    launch_on_seir: LaunchOnSeir
