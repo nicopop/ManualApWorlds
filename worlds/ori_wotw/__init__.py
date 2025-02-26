@@ -62,7 +62,7 @@ class WotWWorld(World):
 
     options_dataclass = WotWOptions
     options: WotWOptions
-    explicit_indirect_conditions = False
+    explicit_indirect_conditions = False  # TODO remove
 
     required_client_version = (0, 5, 0)
 
@@ -80,18 +80,18 @@ class WotWWorld(World):
         options = self.options
 
         # Contain all the locations that are used
-        loc_list: List[str] = loc_sets["Base"] + loc_sets["ExtraQuests"]
+        loc_list: List[str] = loc_sets["Base"].copy() + loc_sets["ExtraQuests"].copy()
         if not options.glades_done:
-            loc_list += loc_sets["Rebuild"]
+            loc_list += loc_sets["Rebuild"].copy()
         if not options.no_trials:
-            loc_list += loc_sets["Trials"]
+            loc_list += loc_sets["Trials"].copy()
         if not options.qol and not options.quests != Quests.option_none:
-            loc_list += loc_sets["QOL"]
+            loc_list += loc_sets["QOL"].copy()
         if options.quests == Quests.option_no_hand:
-            loc_list += loc_sets["Quests"]
+            loc_list += loc_sets["Quests"].copy()
         elif options.quests == Quests.option_all:
-            loc_list += loc_sets["HandToHand"]
-            loc_list += loc_sets["Quests"]
+            loc_list += loc_sets["HandToHand"].copy()
+            loc_list += loc_sets["Quests"].copy()
 
         for region_name in region_table:
             region = Region(region_name, player, world)
@@ -320,15 +320,15 @@ class WotWWorld(World):
                                                         "WindtornRuins.Seir"), player)
                      )
         if "quests" in options.goal:
-            quest_list: List[str] = loc_sets["ExtraQuests"]
+            quest_list: List[str] = loc_sets["ExtraQuests"].copy()
             if options.quests == Quests.option_no_hand:
-                quest_list += loc_sets["Quests"]
+                quest_list += loc_sets["Quests"].copy()
             elif options.quests == Quests.option_all:
-                quest_list += loc_sets["Quests"] + loc_sets["HandToHand"]
+                quest_list += loc_sets["Quests"].copy() + loc_sets["HandToHand"].copy()
             if not options.glades_done:
-                quest_list += loc_sets["Rebuild"]
+                quest_list += loc_sets["Rebuild"].copy()
             if not options.qol and options.quests != Quests.option_none:
-                quest_list += loc_sets["QOL"]
+                quest_list += loc_sets["QOL"].copy()
             add_rule(victory_conn, lambda s: s.has_all((quests for quests in quest_list), player))
 
         def try_connect(region_in: Region, region_out: Region, connection: str|None = None, rule=None):
