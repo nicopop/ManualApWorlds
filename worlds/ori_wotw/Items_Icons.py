@@ -28,7 +28,7 @@ skills_paths: dict[str, str] = {
 collectibles_paths: dict[str, str] = {
     "Health Fragment": "file:assets/icons/game/healthfragment.png",
     "Energy Fragment": "file:assets/icons/game/energyfragment.png",
-    "Ore": "file:assets/icons/game/gorlekore.png",
+    "Gorlek Ore": "file:assets/icons/game/gorlekore.png",
     "Keystone": "file:assets/icons/game/keystone.png",
     "Shard Slot": "file:assets/icons/game/shardslot.png",
     "Ancestral Light 1": "spell:4007",
@@ -166,7 +166,7 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
         elif "TP" in item.name:
             icon_path = others_paths["teleporter"]
         elif "ore" in item.name.lower():
-            icon_path = collectibles_paths["Ore"]
+            icon_path = collectibles_paths["Gorlek Ore"]
         elif "exp" in item.name.lower() or "xp" in item.name.lower() or "ability" in item.name.lower():
             icon_path = others_paths["experience"]
 

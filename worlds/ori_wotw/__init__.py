@@ -198,7 +198,7 @@ class WotWWorld(World):
                 removed_items.append(item)
 
         if options.glades_done:
-            removed_items.append("Ore")
+            removed_items.append("Gorlek Ore")
 
         if options.no_ks:
             removed_items.append("Keystone")
