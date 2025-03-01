@@ -544,7 +544,7 @@ class WotWWorld(World):
         head = (r"// Format Version: 1.0.0" + "\n"
                 r"// Config: {" + f"\"seed\":\"{world.seed_name}\",\"worldSettings\":["
                 "{\"spawn\":\"Random\",\"difficulty\":" + f"\"{logic_difficulty[options.difficulty]}\""
-                f",\"tricks\":[{tricks}],\"hard\":{hard},\"goals\":[],\"headers\":[]"
+                f",\"tricks\":[{tricks}],\"hard\":{hard},\"randomizeDoors\":false,\"goals\":[],\"headers\":[]"
                 ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
                 "\"online\":false,\"createGame\":\"None\"}\n\n")
         connect = ("APAddress:archipelago.gg\n"
