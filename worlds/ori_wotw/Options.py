@@ -85,12 +85,12 @@ class QualityOfLife(DefaultOnToggle):
 
 
 class ShrineTrialHints(DefaultOnToggle):
-    """Displays the reward for shrines and trials when activating them."""
+    """Display the reward for shrines and trials when activating them."""
     display_name = "Shrines and trials hints"
 
 
 class KnowledgeHints(DefaultOnToggle):
-    """Displays useful hints on randomizer knowledge while playing the seed"""
+    """Display useful hints on randomizer knowledge while playing the seed."""
     display_name = "Knowledge hints"
 
 
@@ -120,7 +120,7 @@ class SkillUpgrades(Toggle):
 
 
 class BetterSpawn(Toggle):
-    """Opens some doors so random spawn works better."""
+    """Open some doors so random spawn works better."""
     display_name = "Better random spawn"
 
 
@@ -130,7 +130,7 @@ class BetterWellspring(Toggle):
 
 
 class NoRain(Toggle):
-    """ Remove the rain in Marsh, and remove Howl."""
+    """Remove the rain in Marsh, and remove Howl."""
     display_name = "No Rain"
 
 
@@ -150,16 +150,16 @@ class NoCombat(OptionSet):
 
 
 class NoTrials(Toggle):
-    """Trials only contain filler items."""
+    """Trials are already completed."""
     display_name = "No Trials"
 
 
 class NoWillowHearts(Toggle):
-    """The door to Shriek is open from the beginning."""
+    """Willow hearts are already destroyed."""
     display_name = "No Willow hearts"
 
 
-class Quests(Choice):  # TODO hand to hand
+class Quests(Choice):
     """Remove locations that involve talking to NPCs, and locations locked behind them are accessible."""
     display_name = "Remove Quests"
     option_all = 0
@@ -184,9 +184,9 @@ class GladesDone(Toggle):
 
 
 class ShopKeywordsIcons(Toggle):
-    """Have the non local items attempt to use a keyword system to choose icons
-    for example, item with 'map' in their name will have a map icon
-    if no keyword fit then the icon fall back to Classification
+    """Have the non local items attempt to use a keyword system to choose icons.
+    For example, item with 'map' in their name will have a map icon.
+    If no keyword fit, then the icon fall back to Classification.
     """
     display_name = "Shop Keywords Icons"
 
