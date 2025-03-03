@@ -49,7 +49,7 @@ shards_paths: dict[str, str] = {
     "Vitality": "shard:22",
     "Life Harvest": "shard:23",
     "Energy Harvest": "shard:25",
-    "Energy": "shard:26",
+    "Energy (Shard)": "shard:26",
     "Life Pact": "shard:27",
     "Last Stand": "shard:28",
     "Sense": "shard:30",
