@@ -124,9 +124,9 @@ others_paths: dict[str, str] = {
     "gold_orb": "spell:2018"
 }
 archipelago_paths: dict[str, str] = {
-    "progression": "file:color-icon.png",
-    "useful": "file:blue-icon.png",
-    "filler": "file:green-icon.png"
+    "progression": "file:assets/icons/archipelago/color-icon.png",
+    "useful": "file:assets/icons/archipelago/blue-icon.png",
+    "filler": "file:assets/icons/archipelago/green-icon.png"
 }
 
 

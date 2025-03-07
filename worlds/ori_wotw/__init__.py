@@ -445,32 +445,65 @@ class WotWWorld(World):
                 try_connect(menu, world.get_region(quest + ".quest", player))
 
     def fill_slot_data(self) -> Dict[str, any]:
+        world = self.multiworld
+        player = self.player
         options = self.options
         logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
         coord: List[List[float]] = [
-            [-799, -4310],
-            [-945, -4582],
-            [-328, -4536],
-            [-150, -4238],
-            [-307, -4153],
-            [-1308, -3675],
-            [611, -4162],
-            [1083, -4052],
-            [-259, -3962],
-            [513, -4361],
-            [-1316, -4153],
-            [-1656, -4171],
-            [1456, -3997],
-            [1992, -3902],
-            [2044, -3679],
-            [2130, -3984],
-            [422, -3864]
+            [-799, -4310, "MarshSpawn.Main"],
+            [-945, -4582, "MidnightBurrows.Teleporter"],
+            [-328, -4536, "HowlsDen.Teleporter"],
+            [-150, -4238, "EastHollow.Teleporter"],
+            [-307, -4153, "GladesTown.Teleporter"],
+            [-1308, -3675, "InnerWellspring.Teleporter"],
+            [611, -4162, "WoodsEntry.Teleporter"],
+            [1083, -4052, "WoodsMain.Teleporter"],
+            [-259, -3962, "LowerReach.Teleporter"],
+            [513, -4361, "UpperDepths.Teleporter"],
+            [-1316, -4153, "EastPools.Teleporter"],
+            [-1656, -4171, "WestPools.Teleporter"],
+            [1456, -3997, "LowerWastes.WestTP"],
+            [1992, -3902, "LowerWastes.EastTP"],
+            [2044, -3679, "UpperWastes.NorthTP"],
+            [2130, -3984, "WindtornRuins.RuinsTP"],
+            [422, -3864, "WillowsEnd.InnerTP"]
         ]
+        icons_paths: Dict[str, str] = {}
+        shops: List[str] = ["TwillenShop.Overcharge",
+                            "TwillenShop.TripleJump",
+                            "TwillenShop.Wingclip",
+                            "TwillenShop.Swap",
+                            "TwillenShop.LightHarvest",
+                            "TwillenShop.Vitality",
+                            "TwillenShop.Energy",
+                            "TwillenShop.Finesse",
+                            "OpherShop.WaterBreath",
+                            "OpherShop.Spike",
+                            "OpherShop.SpiritSmash",
+                            "OpherShop.Teleport",
+                            "OpherShop.SpiritStar",
+                            "OpherShop.Blaze",
+                            "OpherShop.Sentry",
+                            "OpherShop.ExplodingSpike",
+                            "OpherShop.ShockSmash",
+                            "OpherShop.StaticStar",
+                            "OpherShop.ChargeBlaze",
+                            "OpherShop.RapidSentry",
+                            "LupoShop.HCMapIcon",
+                            "LupoShop.ECMapIcon",
+                            "LupoShop.ShardMapIcon"
+                            ]
+        for loc in shops:
+            item = world.get_location(loc, player).item
+            icon_path = get_item_iconpath(self, item, bool(options.shop_keywords))
+            icons_paths.update({loc: icon_path})
+
         slot_data: Dict[str, any] = {
             "difficulty": logic_difficulty[options.difficulty.value],
             "glitches": bool(options.glitches.value),
             "spawn_x": coord[options.spawn.value][0],
             "spawn_y": coord[options.spawn.value][1],
+            "spawn_anchor": coord[options.spawn.value][2],
             "goal_trees": bool("trees" in options.goal),
             "goal_quests": bool("quests" in options.goal),
             "goal_wisps": bool("wisps" in options.goal),
@@ -492,7 +525,9 @@ class WotWWorld(World):
             "no_ks": bool(options.no_ks.value),
             "open_mode": bool(options.open_mode),
             "glades_done": bool(options.glades_done),
+            "shop_icons": icons_paths,
         }
+
         return slot_data
 
     def generate_output(self, output_directory: str) -> None:
