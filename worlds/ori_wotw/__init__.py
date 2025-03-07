@@ -444,6 +444,36 @@ class WotWWorld(World):
                           "GladesTown.FamilyReunionKey"):
                 try_connect(menu, world.get_region(quest + ".quest", player))
 
+    def fill_slot_data(self) -> Dict[str, any]:
+        options = self.options
+        slot_data: Dict[str, any] = {
+            "difficulty": int(options.difficulty.value),
+            "glitches": int(options.glitches.value),
+            "spawn": int(options.spawn.value),
+            "goal_trees": int("trees" in options.goal),
+            "goal_quests": int("quests" in options.goal),
+            "goal_wisps": int("wisps" in options.goal),
+            "hard": int(options.hard_mode.value),
+            "qol": int(options.qol.value),
+            "hints": int(options.hints.value),
+            "knowledge_hints": int(options.knowledge_hints.value),
+            "better_spawn": int(options.better_spawn.value),
+            "better_wellspring": int(options.better_wellspring.value),
+            "no_rain": int(options.no_rain.value),
+            "skip_boss": int("Everything" in options.no_combat or "Bosses" in options.no_combat),
+            "skip_demi_boss": int("Everything" in options.no_combat or "Demi Bosses" in options.no_combat),
+            "skip_shrine": int("Everything" in options.no_combat or "Shrines" in options.no_combat),
+            "skip_arena": int("Everything" in options.no_combat or "Arenas" in options.no_combat),
+            "no_trials": int(options.no_trials.value),
+            "no_hearts": int(options.no_hearts.value),
+            "no_hand_quest": int(options.quests == Quests.option_no_hand or options.quests == Quests.option_none),
+            "no_quests": int(options.quests == Quests.option_none),
+            "no_ks": int(options.no_ks.value),
+            "open_mode": int(options.open_mode),
+            "glades_done": int(options.glades_done),
+        }
+        return slot_data
+
     def generate_output(self, output_directory: str) -> None:
         world = self.multiworld
         player = self.player
