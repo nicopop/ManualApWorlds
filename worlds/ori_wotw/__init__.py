@@ -446,10 +446,31 @@ class WotWWorld(World):
 
     def fill_slot_data(self) -> Dict[str, any]:
         options = self.options
+        logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
+        coord: List[List[float]] = [
+            [-799, -4310],
+            [-945, -4582],
+            [-328, -4536],
+            [-150, -4238],
+            [-307, -4153],
+            [-1308, -3675],
+            [611, -4162],
+            [1083, -4052],
+            [-259, -3962],
+            [513, -4361],
+            [-1316, -4153],
+            [-1656, -4171],
+            [1456, -3997],
+            [1992, -3902],
+            [2044, -3679],
+            [2130, -3984],
+            [422, -3864]
+        ]
         slot_data: Dict[str, any] = {
-            "difficulty": bool(options.difficulty.value),
+            "difficulty": logic_difficulty[options.difficulty.value],
             "glitches": bool(options.glitches.value),
-            "spawn": bool(options.spawn.value),
+            "spawn_x": coord[options.spawn.value][0],
+            "spawn_y": coord[options.spawn.value][1],
             "goal_trees": bool("trees" in options.goal),
             "goal_quests": bool("quests" in options.goal),
             "goal_wisps": bool("wisps" in options.goal),
