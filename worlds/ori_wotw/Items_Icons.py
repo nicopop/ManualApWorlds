@@ -49,7 +49,7 @@ shards_paths: dict[str, str] = {
     "Vitality": "shard:22",
     "Life Harvest": "shard:23",
     "Energy Harvest": "shard:25",
-    "Energy": "shard:26",
+    "Energy (Shard)": "shard:26",
     "Life Pact": "shard:27",
     "Last Stand": "shard:28",
     "Sense": "shard:30",
@@ -124,9 +124,9 @@ others_paths: dict[str, str] = {
     "gold_orb": "spell:2018"
 }
 archipelago_paths: dict[str, str] = {
-    "progression": "file:color-icon.png",
-    "useful": "file:blue-icon.png",
-    "filler": "file:green-icon.png"
+    "progression": "file:assets/icons/archipelago/color-icon.png",
+    "useful": "file:assets/icons/archipelago/blue-icon.png",
+    "filler": "file:assets/icons/archipelago/green-icon.png"
 }
 
 

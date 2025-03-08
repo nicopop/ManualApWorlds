@@ -444,229 +444,96 @@ class WotWWorld(World):
                           "GladesTown.FamilyReunionKey"):
                 try_connect(menu, world.get_region(quest + ".quest", player))
 
-    def generate_output(self, output_directory: str) -> None:
+    def fill_slot_data(self) -> Dict[str, any]:
         world = self.multiworld
         player = self.player
         options = self.options
-
-        logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
-        coord: List[str] = [
-            r"-799, -4310  // MarshSpawn.Main",  # Spawn coordinates
-            r"-945, -4582  // MidnightBurrows.Teleporter",
-            r"-328, -4536  // HowlsDen.Teleporter",
-            r"-150, -4238  // EastHollow.Teleporter",
-            r"-307, -4153  // GladesTown.Teleporter",
-            r"-1308, -3675  // InnerWellspring.Teleporter",
-            r"611, -4162  // WoodsEntry.Teleporter",
-            r"1083, -4052  // WoodsMain.Teleporter",
-            r"-259, -3962  // LowerReach.Teleporter",
-            r"513, -4361  // UpperDepths.Teleporter",
-            r"-1316, -4153  // EastPools.Teleporter",
-            r"-1656, -4171  // WestPools.Teleporter",
-            r"1456, -3997  // LowerWastes.WestTP",
-            r"1992, -3902  // LowerWastes.EastTP",
-            r"2044, -3679  // UpperWastes.NorthTP",
-            r"2130, -3984  // WindtornRuins.RuinsTP",
-            r"422, -3864  // WillowsEnd.InnerTP"
-        ]
-        shops: Dict[str, Tuple] = {
-            "TwillenShop.Overcharge": ("2|1", "2|101"),  # Location name: (Uberstate, Price State)
-            "TwillenShop.TripleJump": ("2|2", "2|102"),
-            "TwillenShop.Wingclip": ("2|3", "2|103"),
-            "TwillenShop.Swap": ("2|5", "2|105"),
-            "TwillenShop.LightHarvest": ("2|19", "2|119"),
-            "TwillenShop.Vitality": ("2|22", "2|122"),
-            "TwillenShop.Energy": ("2|26", "2|126"),
-            "TwillenShop.Finesse": ("2|40", "2|140"),
-            "OpherShop.WaterBreath": ("1|23", "1|10023"),
-            "OpherShop.Spike": ("1|74", "1|10074"),
-            "OpherShop.SpiritSmash": ("1|98", "1|10098"),
-            "OpherShop.Teleport": ("1|105", "1|10105"),
-            "OpherShop.SpiritStar": ("1|106", "1|10106"),
-            "OpherShop.Blaze": ("1|115", "1|10115"),
-            "OpherShop.Sentry": ("1|116", "1|10116"),
-            "OpherShop.ExplodingSpike": ("1|1074", "1|11074"),
-            "OpherShop.ShockSmash": ("1|1098", "1|11098"),
-            "OpherShop.StaticStar": ("1|1106", "1|11106"),
-            "OpherShop.ChargeBlaze": ("1|1115", "1|11115"),
-            "OpherShop.RapidSentry": ("1|1116", "1|11116"),
-            "LupoShop.HCMapIcon": ("48248|19396", "48248|19397"),
-            "LupoShop.ECMapIcon": ("48248|57987", "48248|57988"),
-            "LupoShop.ShardMapIcon": ("48248|41666", "48248|41667")
-        }
-
-        trials: Dict[str, List[str]] = {
-            "MarshPastOpher.SpiritTrial":
-                [r"44964|45951=1|6|Complete the Marsh Spirit Trial to gain\n", r"3|100|4|29|100|Reward: "],
-            "WestHollow.SpiritTrial":
-                [r"44964|25545=1|6|Complete the Hollow Spirit Trial to gain\n", r"3|101|4|29|101|Reward: "],
-            "OuterWellspring.SpiritTrial":
-                [r"44964|11512=1|6|Complete the Wellspring Spirit Trial to gain\n", r"3|102|4|29|102|Reward: "],
-            "WoodsMain.SpiritTrial":
-                [r"44964|22703=1|6|Complete the Woods Spirit Trial to gain\n", r"3|103|4|29|103|Reward: "],
-            "LowerReach.SpiritTrial":
-                [r"44964|23661=1|6|Complete the Reach Spirit Trial to gain\n", r"3|104|4|29|104|Reward: "],
-            "LowerDepths.SpiritTrial":
-                [r"44964|28552=1|6|Complete the Mouldwood Spirit Trial to gain\n", r"3|105|4|29|105|Reward: "],
-            "EastPools.SpiritTrial":
-                [r"44964|54686=1|6|Complete the Luma Spirit Trial to gain\n", r"3|106|4|29|106|Reward: "],
-            "LowerWastes.SpiritTrial":
-                [r"44964|30767=1|6|Complete the Wastes Spirit Trial to gain\n", r"3|107|4|29|107|Reward: "]
-        }
-
-        shrines: Dict[str, str] = {
-            "MarshPastOpher.CombatShrine": r"9|14|6|Complete the Marsh Combat Shrine to gain\n",
-            "HowlsDen.CombatShrine": r"9|15|6|Complete the Howl's Den Combat Shrine to gain\n",
-            "WestGlades.CombatShrine": r"9|16|6|Complete the Glades Combat Shrine to gain\n",
-            "WoodsMain.CombatShrine": r"9|17|6|Complete the Woods Combat Shrine to gain\n",
-            "LowerDepths.CombatShrine": r"9|18|6|Complete the Mouldwood Combat Shrine to gain\n"
-        }
-
-        flags = f"Flags: AP, {logic_difficulty[options.difficulty]}"
-        if "trees" in options.goal:
-            flags += ", All Trees"
-        if "quests" in options.goal:
-            flags += ", All Quests"
-        if "wisps" in options.goal:
-            flags += ", All Wisps"
-        if options.glitches:
-            tricks = ("\"SwordSentryJump\",\"GlideHammerJump\",\"SentryRedirect\",\"HammerJump\",\"BlazeSwap\","
-                      "\"LaunchSwap\",\"SpearBreak\",\"ShurikenBreak\",\"GlideJump\",\"GrenadeRedirect\","
-                      "\"GrenadeJump\",\"FlashSwap\",\"RemoveKillPlane\",\"HammerBreak\",\"HammerSentryJump\","
-                      "\"SpearJump\",\"PauseHover\",\"SwordJump\",\"WaveDash\",\"SentrySwap\","
-                      "\"SentryBurn\",\"SentryBreak\"")
-        else:
-            tricks = ""
-        if options.hard_mode:
-            hard = "true"
-        else:
-            hard = "false"
-        head = (r"// Format Version: 1.0.0" + "\n"
-                r"// Config: {" + f"\"seed\":\"{world.seed_name}\",\"worldSettings\":["
-                "{\"spawn\":\"Random\",\"difficulty\":" + f"\"{logic_difficulty[options.difficulty]}\""
-                f",\"tricks\":[{tricks}],\"hard\":{hard},\"randomizeDoors\":false,\"goals\":[],\"headers\":[]"
-                ",\"headerConfig\":[],\"inlineHeaders\":[]}],\"disableLogicFilter\":false,"
-                "\"online\":false,\"createGame\":\"None\"}\n\n")
-        connect = ("APAddress:archipelago.gg\n"
-                   "APPort:38281\n"
-                   "APPassword:\n"
-                   f"APSlot:{world.player_name[player]}\n"
-                   f"APSeed:{world.seed_name}\n\n\n")
-
-        output = r"Spawn: " + coord[options.spawn] + "\n\n"
-        output += h_core
-
         def get_location_item(location_name, player):
             item = world.get_location(location_name, player).item
             if item is None:
                 item = Item("Nothing", ItemClassification.filler, None, player)
             return item
-
-        output += r"// Shops" + "\n"
-        for loc, states in shops.items():
+        logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
+        coord: List[List[float]] = [
+            [-799, -4310, "MarshSpawn.Main"],
+            [-945, -4582, "MidnightBurrows.Teleporter"],
+            [-328, -4536, "HowlsDen.Teleporter"],
+            [-150, -4238, "EastHollow.Teleporter"],
+            [-307, -4153, "GladesTown.Teleporter"],
+            [-1308, -3675, "InnerWellspring.Teleporter"],
+            [611, -4162, "WoodsEntry.Teleporter"],
+            [1083, -4052, "WoodsMain.Teleporter"],
+            [-259, -3962, "LowerReach.Teleporter"],
+            [513, -4361, "UpperDepths.Teleporter"],
+            [-1316, -4153, "EastPools.Teleporter"],
+            [-1656, -4171, "WestPools.Teleporter"],
+            [1456, -3997, "LowerWastes.WestTP"],
+            [1992, -3902, "LowerWastes.EastTP"],
+            [2044, -3679, "UpperWastes.NorthTP"],
+            [2130, -3984, "WindtornRuins.RuinsTP"],
+            [422, -3864, "WillowsEnd.InnerTP"]
+        ]
+        icons_paths: Dict[str, str] = {}
+        shops: List[str] = ["TwillenShop.Overcharge",
+                            "TwillenShop.TripleJump",
+                            "TwillenShop.Wingclip",
+                            "TwillenShop.Swap",
+                            "TwillenShop.LightHarvest",
+                            "TwillenShop.Vitality",
+                            "TwillenShop.Energy",
+                            "TwillenShop.Finesse",
+                            "OpherShop.WaterBreath",
+                            "OpherShop.Spike",
+                            "OpherShop.SpiritSmash",
+                            "OpherShop.Teleport",
+                            "OpherShop.SpiritStar",
+                            "OpherShop.Blaze",
+                            "OpherShop.Sentry",
+                            "OpherShop.ExplodingSpike",
+                            "OpherShop.ShockSmash",
+                            "OpherShop.StaticStar",
+                            "OpherShop.ChargeBlaze",
+                            "OpherShop.RapidSentry",
+                            "LupoShop.HCMapIcon",
+                            "LupoShop.ECMapIcon",
+                            "LupoShop.ShardMapIcon"
+                            ]
+        for loc in shops:
             item = get_location_item(loc, player)
-            text = f"{item.name} ({item.game})"
-            output += f"3|1|8|{states[1]}|int|200\n"  # Fix the price
-            output += f"3|1|17|1|{states[0]}|{text}\n"  # Add the item name
-
-            # Sometimes apworld use ints, since 0.6.0 that needs to be converted explicitly
-            classification = ItemClassification(item.classification)
-            target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
-            if ItemClassification.trap in classification and ItemClassification.progression in classification:
-                description = f"This item might be important but you might want to avoid buying this for now. Ask {target_player_name} about it."
-            elif ItemClassification.trap in classification:
-                fakeclassification = self.random.choice(["important", "useful", "unimportant"])
-                description = f"This item might be {fakeclassification} for {target_player_name}?"
-            elif ItemClassification.progression in classification:
-                description = f"This item might be important for {target_player_name}."
-            elif ItemClassification.useful in classification:
-                description = f"This item might be useful for {target_player_name}."
-            else:
-                description = f"This item might be unimportant for {target_player_name}."
-
-            output += f"3|1|17|2|{states[0]}|{description}\n"  # Add the item description
-
             icon_path = get_item_iconpath(self, item, bool(options.shop_keywords))
-            if icon_path:
-                output += f"3|1|17|0|{states[0]}|{icon_path}\n"
+            icons_paths.update({loc: icon_path})
 
-        output += "\n\n"
+        slot_data: Dict[str, any] = {
+            "difficulty": logic_difficulty[options.difficulty.value],
+            "glitches": bool(options.glitches.value),
+            "spawn_x": coord[options.spawn.value][0],
+            "spawn_y": coord[options.spawn.value][1],
+            "spawn_anchor": coord[options.spawn.value][2],
+            "goal_trees": bool("trees" in options.goal),
+            "goal_quests": bool("quests" in options.goal),
+            "goal_wisps": bool("wisps" in options.goal),
+            "hard": bool(options.hard_mode.value),
+            "qol": bool(options.qol.value),
+            "hints": bool(options.hints.value),
+            "knowledge_hints": bool(options.knowledge_hints.value),
+            "better_spawn": bool(options.better_spawn.value),
+            "better_wellspring": bool(options.better_wellspring.value),
+            "no_rain": bool(options.no_rain.value),
+            "skip_boss": bool("Everything" in options.no_combat or "Bosses" in options.no_combat),
+            "skip_demi_boss": bool("Everything" in options.no_combat or "Demi Bosses" in options.no_combat),
+            "skip_shrine": bool("Everything" in options.no_combat or "Shrines" in options.no_combat),
+            "skip_arena": bool("Everything" in options.no_combat or "Arenas" in options.no_combat),
+            "no_trials": bool(options.no_trials.value),
+            "no_hearts": bool(options.no_hearts.value),
+            "no_hand_quest": bool(options.quests == Quests.option_no_hand or options.quests == Quests.option_none),
+            "no_quests": bool(options.quests == Quests.option_none),
+            "no_ks": bool(options.no_ks.value),
+            "open_mode": bool(options.open_mode),
+            "glades_done": bool(options.glades_done),
+            "shop_icons": icons_paths,
+        }
 
-        if options.hints:
-            output += r"// Shrine and Trial hints"
-            output += h_hints
-            for loc, state in shrines.items():
-                item = get_location_item(loc, player)
-                target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
-                text = f"{item.name} for {target_player_name}\n"
-                output += state + text
-            if not options.no_trials:
-                output += r"// Trial hints" + "\n"
-                for loc, states in trials.items():
-                    item = get_location_item(loc, player)
-                    target_player_name = self.multiworld.get_player_name(item.player) if item.player != player else "you"
-                    text = f"{item.name} for {target_player_name}\n"
-                    output += states[0] + text
-                    output += states[1] + text
-            output += "\n\n"
-
-        if options.glitches:
-            flags += ", Glitches"
-        if options.tp:
-            flags += ", Teleporters"
-        if options.better_spawn:
-            output += h_better_spawn
-        if options.no_combat:
-            output += r"//No Combat" + "\n"
-            no_combat = "Everything" in options.no_combat
-            if no_combat or "Shrines" in options.no_combat:
-                output += h_no_combat_shrines
-            if no_combat or "Arenas" in options.no_combat:
-                output += h_no_combat_arenas
-            if no_combat or "Demi Bosses" in options.no_combat:
-                output += h_no_combat_demibosses
-            if no_combat or "Bosses" in options.no_combat:
-                output += h_no_combat_bosses
-            flags += ", No Combat"
-
-        if options.quests == Quests.option_no_hand:
-            output += h_no_hand
-            flags += ", No Quests"
-        elif options.quests == Quests.option_none:
-            output += h_no_hand
-            output += h_no_quests
-            flags += ", No Quests"
-
-        if options.no_hearts:
-            output += h_no_hearts
-            flags += ", No Willow Hearts"
-        if options.no_trials:
-            output += h_no_trials
-            flags += ", No Trials"
-        if options.glades_done:
-            output += h_glades_done
-            flags += ", Glades Done"
-        if options.better_wellspring:
-            output += r"// Better Wellspring" + "\n" + r"3|0|8|37858|31962|bool|true" + "\n\n"
-            flags += ", Better Wellspring"
-        if options.qol:
-            output += h_qol
-        if options.no_ks:
-            output += h_no_ks
-            flags += ", No Keystone Doors"
-        if options.open_mode:
-            output += h_open_mode
-            flags += ", Open Mode"
-        if options.no_rain:
-            output += h_no_rain
-            flags += ", No Rain"
-        if options.knowledge_hints:
-            output += h_knowledge
-
-        flags += "\n"
-        file_name = f"/AP_{world.player_name[player]}_{world.seed_name[:4]}.wotwr"
-        with open(output_directory + file_name, "w", encoding="utf-8") as f:
-            f.write(connect + flags + output + head)
+        return slot_data
 
 
 class WotWItem(Item):
