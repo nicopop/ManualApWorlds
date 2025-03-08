@@ -5,7 +5,7 @@
 # TODO fix the in-game location counter
 
 
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Any
 from collections import Counter
 
 from .Rules import (set_moki_rules, set_gorlek_rules, set_gorlek_glitched_rules, set_kii_rules,
@@ -444,17 +444,12 @@ class WotWWorld(World):
                           "GladesTown.FamilyReunionKey"):
                 try_connect(menu, world.get_region(quest + ".quest", player))
 
-    def fill_slot_data(self) -> Dict[str, any]:
+    def fill_slot_data(self) -> Dict[str, Any]:
         world = self.multiworld
         player = self.player
         options = self.options
-        def get_location_item(location_name, player):
-            item = world.get_location(location_name, player).item
-            if item is None:
-                item = Item("Nothing", ItemClassification.filler, None, player)
-            return item
         logic_difficulty: List[str] = ["Moki", "Gorlek", "Kii", "Unsafe"]
-        coord: List[List[float]] = [
+        coord: List[List[float|str]] = [
             [-799, -4310, "MarshSpawn.Main"],
             [-945, -4582, "MidnightBurrows.Teleporter"],
             [-328, -4536, "HowlsDen.Teleporter"],
@@ -498,12 +493,19 @@ class WotWWorld(World):
                             "LupoShop.ECMapIcon",
                             "LupoShop.ShardMapIcon"
                             ]
+
+        def get_location_item(location_name, player):
+            item = world.get_location(location_name, player).item
+            if item is None:
+                item = Item("Nothing", ItemClassification.filler, None, player)
+            return item
+
         for loc in shops:
             item = get_location_item(loc, player)
             icon_path = get_item_iconpath(self, item, bool(options.shop_keywords))
             icons_paths.update({loc: icon_path})
 
-        slot_data: Dict[str, any] = {
+        slot_data: Dict[str, Any] = {
             "difficulty": logic_difficulty[options.difficulty.value],
             "glitches": bool(options.glitches.value),
             "spawn_x": coord[options.spawn.value][0],

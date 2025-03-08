@@ -130,7 +130,7 @@ archipelago_paths: dict[str, str] = {
 }
 
 
-def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str|None:
+def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True) -> str:
     # sometimes apworld use ints that since 0.6.0 need to be converted explicitly
     classification = ItemClassification(item.classification)
 
@@ -160,7 +160,7 @@ def get_item_iconpath(world: World, item: Item, keyword_based_icons: bool = True
     if keyword_based_icons and icon_path is None:  # Some generic icons for any games
         if "key" in item.name.lower():
             icon_path = collectibles_paths["Keystone"]
-        elif "health" in item.name.lower() or "life" in item.name.lower() or "Heart" in item.name.lower():
+        elif "health" in item.name.lower() or "life" in item.name.lower() or "heart" in item.name.lower():
             icon_path = collectibles_paths["Health Fragment"]
         elif "energy" in item.name.lower():
             icon_path = collectibles_paths["Energy Fragment"]
